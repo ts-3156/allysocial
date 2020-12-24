@@ -13,9 +13,10 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: <%= ENV['DATABASE_SOCKET'] %>
 
 development:
   <<: *default
@@ -51,5 +52,3 @@ test:
 production:
   <<: *default
   database: allysocial_production
-  username: allysocial
-  password: <%= ENV['ALLYSOCIAL_DATABASE_PASSWORD'] %>
