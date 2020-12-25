@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css" integrity="sha512-QKC1UZ/ZHNgFzVKSAhV5v5j73eeL9EEN289eKAEFaAjgAiobVAnVv/AGuPbXsKl1dNoel3kNr6PYnSiTzVVBCw==" crossorigin="anonymous" />
 
   <!-- Plugin CSS -->
-  <link rel="stylesheet" href="device-mockups/device-mockups.css">
+  <link rel="stylesheet" href="<%= asset_path '/template/device-mockups/device-mockups.css' %>">
 
   <!-- Custom styles for this template -->
-  <link href="css/new-age.css" rel="stylesheet">
+  <link href="<%= asset_path '/template/css/new-age.css' %>" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ==" crossorigin="anonymous"></script>
 
   <!-- Custom scripts for this template -->
-  <script src="js/new-age.js"></script>
+  <script src="<%= asset_path '/template/js/new-age.js' %>"></script>
 
 </head>
 
@@ -63,8 +63,8 @@
       <div class="row h-100">
         <div class="col-lg-7 my-auto">
           <div class="header-content mx-auto">
-            <h1 class="mb-5">New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!</h1>
-            <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Start Now for Free!</a>
+            <h1 class="mb-5"><%= t('.header_section.text') %></h1>
+            <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger"><%= t('.header_section.button') %></a>
           </div>
         </div>
         <div class="col-lg-5 my-auto">
@@ -73,7 +73,7 @@
               <div class="device">
                 <div class="screen">
                   <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
+                  <img src="<%= asset_path '/template/img/demo-screen-1.jpg' %>" class="img-fluid" alt="">
                 </div>
                 <div class="button">
                   <!-- You can hook the "home button" to some JavaScript events or just remove it -->
@@ -93,8 +93,8 @@
           <h2 class="section-heading">Discover what all the buzz is about!</h2>
           <p>Our app is available on any mobile device! Download now to get started!</p>
           <div class="badges">
-            <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a>
-            <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a>
+            <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/google-play-badge.svg' %>" alt=""></a>
+            <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/app-store-badge.svg' %>" alt=""></a>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
               <div class="device">
                 <div class="screen">
                   <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
+                  <img src="<%= asset_path '/template/img/demo-screen-1.jpg' %>" class="img-fluid" alt="">
                 </div>
                 <div class="button">
                   <!-- You can hook the "home button" to some JavaScript events or just remove it -->
