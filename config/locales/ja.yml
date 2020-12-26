@@ -22,3 +22,7 @@ ja:
         fourth:
           title: 'フォロワーをキーワードで追う'
           text: 'キーワードアラートを設定して、フォロワーのリアルタイムな興味をモニターしましょう。'
+  users:
+    omniauth_callbacks:
+      success: 'Twitterアカウントでのログインに成功しました。'
+      failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'

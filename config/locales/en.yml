@@ -22,3 +22,7 @@ en:
         fourth:
           title: 'Track followers by keywords'
           text: "Set up keyword alerts to monitor your followers' real-time interests."
+  users:
+    omniauth_callbacks:
+      success: 'Successfully authenticated from Twitter account.'
+      failure: 'Could not authenticate you from Twitter because %{reason}.'
