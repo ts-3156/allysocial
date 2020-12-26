@@ -1,6 +1,24 @@
 en:
   home:
     index:
-      header_section:
-        text: 'New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!'
-        button: 'Start Now for Free!'
+      app_name: 'AllySocial'
+      hero_section:
+        text: 'Find professionals from your followers.'
+        button: 'Start Now for Free'
+      features_section:
+        title: 'Followers are already your allies!'
+        text_html:
+          With the slightest of opportunities, you can quickly become friends with them.<br>
+          Let's know your followers and turn then from acquaintances into mutually beneficial relationships.
+        first:
+          title: 'Search followers by job title'
+          text: 'Find new business partners among your followers.'
+        second:
+          title: 'Find followers that be near you'
+          text: 'The nearer you are to someone, the easier it is to deepen a friendship.'
+        third:
+          title: 'Notice changes of followers'
+          text: 'Notify you the profile changes of followers to get a greater connection.'
+        fourth:
+          title: 'Track followers by keywords'
+          text: "Set up keyword alerts to monitor your followers' real-time interests."

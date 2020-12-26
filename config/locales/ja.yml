@@ -1,6 +1,24 @@
 ja:
   home:
     index:
-      header_section:
-        text: 'New Age is an app landing page that will help you beautifully showcase your new mobile app, or anything else!'
-        button: 'Start Now for Free!'
+      app_name: 'AllySocial'
+      hero_section:
+        text: 'あなたのフォロワーから、プロフェッショナルを見付けよう。'
+        button: '無料で始める'
+      features_section:
+        title: 'フォロワーはもうあなたの味方です！'
+        text_html:
+          ちょっとしたきっかけで、すぐに仲良くなることができます。<br>
+          フォロワーのことを知って、彼らを味方から仲間に変えていきましょう。
+        first:
+          title: 'フォロワーを職種で検索する'
+          text: '新しいビジネスパートナーをフォロワーの中から見付けましょう。'
+        second:
+          title: '近くにいるフォロワーを見付ける'
+          text: '場所が近ければ近いほど、あなたと関係を深めやすくなります。'
+        third:
+          title: 'フォロワーの変化に気付く'
+          text: 'フォロワーの些細な変化に気付いて、仲良くなるチャンスを見逃さないようにしましょう。'
+        fourth:
+          title: 'フォロワーをキーワードで追う'
+          text: 'キーワードアラートを設定して、フォロワーのリアルタイムな興味をモニターしましょう。'
