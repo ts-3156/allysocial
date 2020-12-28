@@ -1,0 +1,7 @@
+:concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY") { 5 } %>
+:timeout: 10
+:tag:
+  - sidekiq
+:environment: <%= ENV.fetch("RAILS_ENV") { "development" } %>
+:queues:
+  - default

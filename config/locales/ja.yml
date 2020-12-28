@@ -22,6 +22,14 @@ ja:
         fourth:
           title: 'フォロワーをキーワードで追う'
           text: 'キーワードアラートを設定して、フォロワーのリアルタイムな興味をモニターしましょう。'
+  dashboards:
+    show:
+      search_by_job: '職種で検索'
+      search_by_location: '場所で検索'
+      notice_profile_changes: '変化を通知'
+      track_by_keywords: 'キーワードで検索'
+      following: 'フォロー'
+      followers: 'フォロワー'
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'

@@ -60,3 +60,4 @@ gem 'devise'
 gem 'omniauth-twitter'
 
 gem 'twitter'
+gem 'sidekiq'

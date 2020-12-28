@@ -6,27 +6,62 @@
   <div class="tabs-section">
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#search-by-job" role="tab" aria-selected="true">Search by Job</a>
+        <a class="nav-link active" data-toggle="tab" href="#search-by-job" role="tab" aria-selected="true"><%= t('.search_by_job') %></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#search-by-location" role="tab" aria-selected="false">Search by Location</a>
+        <a class="nav-link" data-toggle="tab" href="#search-by-location" role="tab" aria-selected="false"><%= t('.search_by_location') %></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#notice-changes" role="tab" aria-selected="false">Notice profile changes</a>
+        <a class="nav-link" data-toggle="tab" href="#notice-changes" role="tab" aria-selected="false"><%= t('.notice_profile_changes') %></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#track-by-keywords" role="tab" aria-selected="false">Track by Keywords</a>
+        <a class="nav-link" data-toggle="tab" href="#track-by-keywords" role="tab" aria-selected="false"><%= t('.track_by_keywords') %></a>
       </li>
     </ul>
     <div class="tab-content pt-5">
       <div class="tab-pane fade show active" id="search-by-job" role="tabpanel">
-        <div class="form-group">
-          <label for="job-input">Job</label>
-          <input type="text" class="form-control" id="job-input" aria-describedby="emailHelp" placeholder="Enter job">
-          <button id="send" class="btn btn-primary">Search</button>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <form id="job-form" class="form-inline mb-3">
+          <select id="job-select" class="form-control mr-2" id="language-select">
+            <% FollowersSnapshot::JOB_QUERIES.each do |value| %>
+              <option value="<%= value %>"><%= FollowersSnapshot::JOB_LABELS[I18n.locale][value.to_sym] %></option>
+            <% end %>
+          </select>
+
+          <button id="job-submit" type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+
+        <div id="search-by-job-response"></div>
+
+        <div id="search-by-job-template" style="display: none;">
+          <div class="border mb-3 p-3">
+            <div class="d-flex mb-3">
+              <div class="mr-3">
+                <a href="https://twitter.com/{{screen_name}}" target="_blank">
+                  <img class="rounded-circle border shadow-sm" data-src="{{profile_image_url}}" width="40" height="40">
+                </a>
+              </div>
+              <div>
+                <div><strong>{{name}}</strong></div>
+                <div>
+                  <a class="text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">{{screen_name}}</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">{{description}}</div>
+            <div class="d-inline-block mr-3">
+              <strong>{{friends_count}}</strong>
+              <span class="text-muted"><%= t('.following') %></span>
+            </div>
+            <div class="d-inline-block">
+              <strong>{{followers_count}}</strong>
+              <span class="text-muted"><%= t('.followers') %></span>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="tab-pane fade" id="search-by-location" role="tabpanel">
         <div class="form-group">
           <label for="location-input">Location</label>
@@ -55,16 +90,34 @@
     function searchByJob(query) {
       var url = '<%= api_followers_job_searches_path %>';
       $.get(url, {q: query}).done(function (res) {
-        var users = res.users;
-        console.log('users', users);
+        $('#search-by-job-response').empty();
+
+        if (!res.users || res.users.length === 0) {
+          $('#search-by-job-response').text('No results found').hide().fadeIn(500);
+        } else {
+          res.users.forEach(function (user) {
+            var template = $('#search-by-job-template').html();
+            var rendered = $(Mustache.render(template, user));
+            rendered.find('img').each(function () {
+              var img = $(this);
+              img.attr('src', img.attr('data-src'));
+            });
+            $('#search-by-job-response').append(rendered).hide().fadeIn(500);
+          })
+        }
       });
     }
 
     $(function () {
-      $('#send').on('click', function () {
-        var query = $('#job-input').val();
+      function searchByJobStarted() {
+        // var query = $('#job-input').val();
+        var query = $('#job-select').val();
         searchByJob(query);
-      });
+        return false;
+      }
+
+      $('#job-form').on('submit', searchByJobStarted);
+      $('#job-submit').on('click', searchByJobStarted);
     });
   </script>
 </div>

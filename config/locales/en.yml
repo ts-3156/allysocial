@@ -22,6 +22,14 @@ en:
         fourth:
           title: 'Track followers by keywords'
           text: "Set up keyword alerts to monitor your followers' real-time interests."
+  dashboards:
+    show:
+      search_by_job: 'Search by Job'
+      search_by_location: 'Search by Location'
+      notice_profile_changes: 'Notice profile changes'
+      track_by_keywords: 'Track by Keywords'
+      following: 'Following'
+      followers: 'Followers'
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
