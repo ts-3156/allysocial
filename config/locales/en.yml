@@ -26,3 +26,7 @@ en:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
       failure: 'Could not authenticate you from Twitter because %{reason}.'
+  shared:
+    profile_section:
+      following: 'Following'
+      followers: 'Followers'

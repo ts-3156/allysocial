@@ -1,0 +1,47 @@
+<div class="profile-section" style="min-height: 300px;">
+  <div class="loading">Loading ...</div>
+  <div class="profile-content border" style="display: none;">
+    <div style="max-height: 200px;">
+      <img class="w-100 h-100" src="{{profile_banner_url}}">
+    </div>
+    <div style="margin-top: -50px;">
+      <img class="rounded-circle border shadow-sm" src="{{profile_image_url}}" style="min-width: 100px; width: 30%; max-width: 150px;">
+    </div>
+    <div class="p-3">
+      <div class="mb-3">
+        <div><strong>{{name}}</strong></div>
+        <div><span class="text-muted">{{screen_name}}</span></div>
+      </div>
+      <div class="mb-3">{{description}}</div>
+      <div class="d-inline-block mr-3">
+        <strong>{{friends_count}}</strong>
+        <span class="text-muted"><%= t('.following') %></span>
+      </div>
+      <div class="d-inline-block">
+        <strong>{{followers_count}}</strong>
+        <span class="text-muted"><%= t('.followers') %></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateProfile() {
+    var url = '<%= api_profile_path(uid: user.uid) %>';
+    $.get(url).done(function (res) {
+      var user = res.user;
+      var container = $('.profile-section');
+
+      var template = container.html();
+      var rendered = Mustache.render(template, user);
+      container.html(rendered);
+
+      container.find('.loading').remove();
+      container.find('.profile-content').show();
+    });
+  }
+
+  $(function () {
+    updateProfile();
+  })
+</script>

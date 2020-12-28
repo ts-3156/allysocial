@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_26_072710) do
+ActiveRecord::Schema.define(version: 2020_12_27_135819) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -23,8 +23,35 @@ ActiveRecord::Schema.define(version: 2020_12_26_072710) do
     t.index ["user_id"], name: "index_credentials_on_user_id", unique: true
   end
 
+  create_table "followers_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_snapshot_id", null: false
+    t.json "properties"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_followers_snapshots_on_created_at"
+    t.index ["user_snapshot_id"], name: "index_followers_snapshots_on_user_snapshot_id", unique: true
+  end
+
+  create_table "friends_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_snapshot_id", null: false
+    t.json "properties"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_friends_snapshots_on_created_at"
+    t.index ["user_snapshot_id"], name: "index_friends_snapshots_on_user_snapshot_id", unique: true
+  end
+
+  create_table "user_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "uid", null: false
+    t.json "properties"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_user_snapshots_on_created_at"
+    t.index ["uid"], name: "index_user_snapshots_on_uid"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "uid", null: false
+    t.bigint "uid", null: false
     t.string "screen_name", null: false
     t.string "email", null: false
     t.datetime "created_at", precision: 6, null: false

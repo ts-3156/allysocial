@@ -26,3 +26,7 @@ ja:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'
       failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'
+  shared:
+    profile_section:
+      following: 'フォロー'
+      followers: 'フォロワー'

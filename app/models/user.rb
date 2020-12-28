@@ -10,6 +10,18 @@ class User < ApplicationRecord
   validates :uid, presence: true, uniqueness: true
   validates :email, presence: true
 
+  def api_client
+    ApiClient.new(
+      Twitter::REST::Client.new(
+        consumer_key: ENV['TWITTER_API_KEY'],
+        consumer_secret: ENV['TWITTER_API_SECRET_KEY'],
+        access_token: credential.access_token,
+        access_token_secret: credential.access_secret,
+        timeouts: { connect: 1, read: 2, write: 4 }
+      )
+    )
+  end
+
   class << self
     def from_omniauth(auth)
       user = find_or_initialize_by(uid: auth.uid)
