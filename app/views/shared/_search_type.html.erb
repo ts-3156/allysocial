@@ -1,0 +1,50 @@
+<% container_id = SecureRandom.urlsafe_base64(10) %>
+<div id="<%= container_id %>">
+  <div class="mb-2">
+    Search type
+    <i class="far fa-question-circle text-muted"></i>
+  </div>
+
+  <div class="mb-1">
+    <div id="<%= element_id %>" class="btn-group" role="group">
+      <button type="button" class="btn-job btn btn-primary" data-value="job"><%= t('.search_by_job') %></button>
+      <button type="button" class="btn-location btn btn-outline-secondary" data-value="location"><%= t('.search_by_location') %></button>
+    </div>
+  </div>
+
+  <div class="job-selected-text small text-muted"><strong>Job</strong> is selected.</div>
+  <div class="location-selected-text small text-muted" style="display: none;"><strong>Location</strong> is selected.</div>
+</div>
+
+<script>
+  $(function () {
+    var containerId = '<%= container_id %>';
+    var jobButton = $('#' + containerId).find('.btn-job');
+    var locationButton = $('#' + containerId).find('.btn-location');
+
+    function selectJob() {
+      jobButton.removeClass('btn-outline-secondary').addClass('btn-primary');
+      locationButton.removeClass('btn-primary').addClass('btn-outline-secondary');
+      $('.job-selected-text').hide().fadeIn(500);
+      $('.location-selected-text').hide();
+    }
+
+    function selectLocation() {
+      jobButton.removeClass('btn-primary').addClass('btn-outline-secondary');
+      locationButton.removeClass('btn-outline-secondary').addClass('btn-primary');
+      $('.job-selected-text').hide();
+      $('.location-selected-text').hide().fadeIn(500);
+    }
+
+    function switchActiveButton() {
+      if ($(this).hasClass('btn-job')) {
+        selectJob();
+      } else {
+        selectLocation();
+      }
+    }
+
+    jobButton.on('click', switchActiveButton)
+    locationButton.on('click', switchActiveButton)
+  });
+</script>

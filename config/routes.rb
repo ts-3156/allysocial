@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   namespace :api, { format: 'json' } do
     resources :profiles, only: %i(show), param: :uid
-    get 'followers_job_searches', to: 'followers_job_searches#show'
+    get 'searches', to: 'searches#show'
+    resources :job_options, only: %i(index)
+    resources :location_options, only: %i(index)
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }

@@ -24,10 +24,6 @@ ja:
           text: 'キーワードアラートを設定して、フォロワーのリアルタイムな興味をモニターしましょう。'
   dashboards:
     show:
-      search_by_job: '職種で検索'
-      search_by_location: '場所で検索'
-      notice_profile_changes: '変化を通知'
-      track_by_keywords: 'キーワードで検索'
       following: 'フォロー'
       followers: 'フォロワー'
   users:
@@ -35,6 +31,11 @@ ja:
       success: 'Twitterアカウントでのログインに成功しました。'
       failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'
   shared:
+    search_type:
+      search_by_job: '職種で検索'
+      search_by_location: '場所で検索'
+      notice_profile_changes: '変化を通知'
+      track_by_keywords: 'キーワードで検索'
     profile_section:
       following: 'フォロー'
       followers: 'フォロワー'

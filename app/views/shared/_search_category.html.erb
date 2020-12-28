@@ -1,0 +1,50 @@
+<% container_id = SecureRandom.urlsafe_base64(10) %>
+<div id="<%= container_id %>">
+  <div class="mb-2">
+    Search category
+    <i class="far fa-question-circle text-muted"></i>
+  </div>
+
+  <div class="mb-1">
+    <div id="<%= element_id %>" class="btn-group" role="group">
+      <button type="button" class="btn-friends btn btn-outline-secondary" data-value="friends">friends</button>
+      <button type="button" class="btn-followers btn btn-primary" data-value="followers">Followers</button>
+    </div>
+  </div>
+
+  <div class="friends-selected-text small text-muted" style="display: none;"><strong>Friends</strong> is selected.</div>
+  <div class="followers-selected-text small text-muted"><strong>Followers</strong> is selected.</div>
+</div>
+
+<script>
+  $(function () {
+    var containerId = '<%= container_id %>';
+    var friendsButton = $('#' + containerId).find('.btn-friends');
+    var followersButton = $('#' + containerId).find('.btn-followers');
+
+    function selectFollowers() {
+      friendsButton.removeClass('btn-primary').addClass('btn-outline-secondary');
+      followersButton.removeClass('btn-outline-secondary').addClass('btn-primary');
+      $('.friends-selected-text').hide();
+      $('.followers-selected-text').hide().fadeIn(500);
+    }
+
+    function selectFriends() {
+      friendsButton.removeClass('btn-outline-secondary').addClass('btn-primary');
+      followersButton.removeClass('btn-primary').addClass('btn-outline-secondary');
+      $('.friends-selected-text').hide().fadeIn(500);
+      $('.followers-selected-text').hide();
+    }
+
+    function switchActiveButton() {
+      if ($(this).hasClass('btn-followers')) {
+        selectFollowers();
+      } else {
+        selectFriends();
+      }
+    }
+
+    followersButton.on('click', switchActiveButton)
+    friendsButton.on('click', switchActiveButton)
+  });
+</script>

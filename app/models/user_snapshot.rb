@@ -2,11 +2,52 @@ class UserSnapshot < ApplicationRecord
   has_one :friends_snapshot
   has_one :followers_snapshot
 
+  def select_users_by(category, type, value)
+    if category == 'friends'
+      if type == 'job'
+        select_friends_by_job(value)
+      elsif type == 'location'
+        select_friends_by_location(value)
+      else
+        []
+      end
+    elsif category == 'followers'
+      if type == 'job'
+        select_followers_by_job(value)
+      elsif type == 'location'
+        select_followers_by_location(value)
+      else
+        []
+      end
+    else
+      []
+    end
+  end
+
+  def select_friends_by_job(value)
+    friends_snapshot.select_users_by_job(value)
+  end
+
+  def select_friends_by_location(value)
+    friends_snapshot.select_users_by_location(value)
+  end
+
+  def select_followers_by_job(value)
+    followers_snapshot.select_users_by_job(value)
+  end
+
+  def select_followers_by_location(value)
+    followers_snapshot.select_users_by_location(value)
+  end
+
   SAVE_KEYS = %i(
     uid
     name
     screen_name
     description
+    location
+    url
+    created_at
     friends_count
     followers_count
     profile_image_url

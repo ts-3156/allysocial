@@ -22,6 +22,10 @@ class User < ApplicationRecord
     )
   end
 
+  def user_snapshot
+    UserSnapshot.order(created_at: :desc).find_by(uid: uid)
+  end
+
   class << self
     def from_omniauth(auth)
       user = find_or_initialize_by(uid: auth.uid)

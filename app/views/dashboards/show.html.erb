@@ -3,121 +3,158 @@
     <%= render partial: 'shared/profile_section', locals: { user: @user } %>
   </div>
 
-  <div class="tabs-section">
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#search-by-job" role="tab" aria-selected="true"><%= t('.search_by_job') %></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#search-by-location" role="tab" aria-selected="false"><%= t('.search_by_location') %></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#notice-changes" role="tab" aria-selected="false"><%= t('.notice_profile_changes') %></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#track-by-keywords" role="tab" aria-selected="false"><%= t('.track_by_keywords') %></a>
-      </li>
-    </ul>
-    <div class="tab-content pt-5">
-      <div class="tab-pane fade show active" id="search-by-job" role="tabpanel">
-        <form id="job-form" class="form-inline mb-3">
-          <select id="job-select" class="form-control mr-2" id="language-select">
-            <% FollowersSnapshot::JOB_QUERIES.each do |value| %>
-              <option value="<%= value %>"><%= FollowersSnapshot::JOB_LABELS[I18n.locale][value.to_sym] %></option>
-            <% end %>
-          </select>
+  <div class="d-flex mb-5">
+    <div class="mr-5">
+      <%= render partial: 'shared/search_category', locals: { element_id: 'search-category-buttons' } %>
+    </div>
 
-          <button id="job-submit" type="submit" class="btn btn-primary">Search</button>
-        </form>
+    <div class="mr-5">
+      <%= render partial: 'shared/search_type', locals: { element_id: 'search-type-buttons' } %>
+    </div>
 
+    <div>
+      <div class="mb-2">
+        Search value
+        <i class="far fa-question-circle text-muted"></i>
+      </div>
+      <select id="search-value" class="form-control" style="width: initial;"></select>
+    </div>
+  </div>
 
-        <div id="search-by-job-response"></div>
+  <div class="mb-5">
+    <button id="job-submit" type="submit" class="btn btn-primary">Search</button>
+  </div>
 
-        <div id="search-by-job-template" style="display: none;">
-          <div class="border mb-3 p-3">
-            <div class="d-flex mb-3">
-              <div class="mr-3">
-                <a href="https://twitter.com/{{screen_name}}" target="_blank">
-                  <img class="rounded-circle border shadow-sm" data-src="{{profile_image_url}}" width="40" height="40">
-                </a>
-              </div>
-              <div>
-                <div><strong>{{name}}</strong></div>
-                <div>
-                  <a class="text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">{{screen_name}}</a>
-                </div>
-              </div>
-            </div>
+  <div class="mb-5">
+    <hr>
+  </div>
 
-            <div class="mb-3">{{description}}</div>
-            <div class="d-inline-block mr-3">
-              <strong>{{friends_count}}</strong>
-              <span class="text-muted"><%= t('.following') %></span>
-            </div>
-            <div class="d-inline-block">
-              <strong>{{followers_count}}</strong>
-              <span class="text-muted"><%= t('.followers') %></span>
-            </div>
+  <div id="search-by-job-response" style="min-height: 300px;"></div>
+
+  <div id="search-by-job-template" style="display: none;">
+    <div class="border mb-3 p-3">
+      <div class="d-flex mb-3">
+        <div class="mr-3">
+          <a href="https://twitter.com/{{screen_name}}" target="_blank">
+            <img class="rounded-circle border shadow-sm" data-src="{{profile_image_url}}" width="40" height="40">
+          </a>
+        </div>
+        <div>
+          <div><strong>{{name}}</strong></div>
+          <div>
+            <a class="text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">{{screen_name}}</a>
           </div>
         </div>
       </div>
 
-      <div class="tab-pane fade" id="search-by-location" role="tabpanel">
-        <div class="form-group">
-          <label for="location-input">Location</label>
-          <input type="text" class="form-control" id="location-input" aria-describedby="emailHelp" placeholder="Enter location">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+      <div class="mb-3">{{description}}</div>
+
+      <div class="mb-3">
+        <i class="fas fa-map-marker-alt text-muted"></i>
+        {{location}}
       </div>
-      <div class="tab-pane fade" id="notice-changes" role="tabpanel">
-        <div class="form-group">
-          <label for="notice-input">Aaa</label>
-          <input type="text" class="form-control" id="notice-input" aria-describedby="emailHelp" placeholder="Enter aaa">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+
+      <div class="d-inline-block mr-3">
+        <strong>{{friends_count}}</strong>
+        <span class="text-muted"><%= t('.following') %></span>
       </div>
-      <div class="tab-pane fade" id="track-by-keywords" role="tabpanel">
-        <div class="form-group">
-          <label for="keyword-input">Keyword</label>
-          <input type="text" class="form-control" id="keyword-input" aria-describedby="emailHelp" placeholder="Enter keyword">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
+      <div class="d-inline-block">
+        <strong>{{followers_count}}</strong>
+        <span class="text-muted"><%= t('.followers') %></span>
       </div>
     </div>
   </div>
 
   <script>
-    function searchByJob(query) {
-      var url = '<%= api_followers_job_searches_path %>';
-      $.get(url, {q: query}).done(function (res) {
-        $('#search-by-job-response').empty();
-
-        if (!res.users || res.users.length === 0) {
-          $('#search-by-job-response').text('No results found').hide().fadeIn(500);
-        } else {
-          res.users.forEach(function (user) {
-            var template = $('#search-by-job-template').html();
-            var rendered = $(Mustache.render(template, user));
-            rendered.find('img').each(function () {
-              var img = $(this);
-              img.attr('src', img.attr('data-src'));
-            });
-            $('#search-by-job-response').append(rendered).hide().fadeIn(500);
-          })
-        }
-      });
-    }
-
     $(function () {
-      function searchByJobStarted() {
-        // var query = $('#job-input').val();
-        var query = $('#job-select').val();
-        searchByJob(query);
-        return false;
+      function search() {
+        var category = $('#search-category-buttons').find('.btn-primary').data('value');
+        var type = $('#search-type-buttons').find('.btn-primary').data('value');
+
+        if ((category === 'friends' || category === 'followers') && (type === 'job' || type === 'location')) {
+          var url = '<%= raw api_searches_path %>';
+          var value = $('#search-value').val();
+          var params = {category: category, type: type, value: value}
+
+          $.get(url, params).done(function (res) {
+            $('#search-by-job-response').empty();
+
+            if (!res.users || res.users.length === 0) {
+              $('#search-by-job-response').text('No results found').hide().fadeIn(500);
+            } else {
+              res.users.forEach(function (user) {
+                var template = $('#search-by-job-template').html();
+                var rendered = $(Mustache.render(template, user));
+                rendered.find('img').each(function () {
+                  var img = $(this);
+                  img.attr('src', img.attr('data-src'));
+                });
+                $('#search-by-job-response').append(rendered).hide().fadeIn(500);
+              })
+            }
+          });
+        }
       }
 
-      $('#job-form').on('submit', searchByJobStarted);
-      $('#job-submit').on('click', searchByJobStarted);
+      function updateSearchValueOptions() {
+        var category = $('#search-category-buttons').find('.btn-primary').data('value');
+        var type = $('#search-type-buttons').find('.btn-primary').data('value');
+
+        if (category === 'friends') {
+          if (type === 'job') {
+            setJobOptions();
+          } else if (type === 'location') {
+            setLocationOptions();
+          }
+        } else if (category === 'followers') {
+          if (type === 'job') {
+            setJobOptions();
+          } else if (type === 'location') {
+            setLocationOptions();
+          }
+        }
+      }
+
+      $('#search-category-buttons').on('click', function () {
+        updateSearchValueOptions();
+      });
+
+      $('#search-type-buttons').on('click', function () {
+        updateSearchValueOptions();
+      });
+
+      $('#job-submit').on('click', function () {
+        search();
+        return false;
+      });
+
+      function setJobOptions() {
+        var url = '<%= raw api_job_options_path %>';
+        var category = $('#search-category-buttons').find('.btn-primary').data('value');
+
+        $.get(url, {category: category}).done(function (res) {
+          $('#search-value').empty();
+          res.options.forEach(function (option) {
+            var tag = $('<option/>', {value: option.value, text: option.label});
+            $('#search-value').append(tag);
+          });
+        });
+      }
+
+      function setLocationOptions() {
+        var url = '<%= raw api_location_options_path %>';
+        var category = $('#search-category-buttons').find('.btn-primary').data('value');
+
+        $.get(url, {category: category}).done(function (res) {
+          $('#search-value').empty();
+          res.options.forEach(function (option) {
+            var tag = $('<option/>', {value: option.value, text: option.label});
+            $('#search-value').append(tag);
+          });
+        });
+      }
+
+      setJobOptions();
     });
   </script>
 </div>

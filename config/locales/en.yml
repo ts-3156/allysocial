@@ -24,10 +24,6 @@ en:
           text: "Set up keyword alerts to monitor your followers' real-time interests."
   dashboards:
     show:
-      search_by_job: 'Search by Job'
-      search_by_location: 'Search by Location'
-      notice_profile_changes: 'Notice profile changes'
-      track_by_keywords: 'Track by Keywords'
       following: 'Following'
       followers: 'Followers'
   users:
@@ -35,6 +31,11 @@ en:
       success: 'Successfully authenticated from Twitter account.'
       failure: 'Could not authenticate you from Twitter because %{reason}.'
   shared:
+    search_type:
+      search_by_job: 'Job'
+      search_by_location: 'Location'
+      notice_profile_changes: 'Notice profile changes'
+      track_by_keywords: 'Track by Keywords'
     profile_section:
       following: 'Following'
       followers: 'Followers'

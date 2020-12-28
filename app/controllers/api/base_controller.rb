@@ -5,5 +5,19 @@ module Api
       logger.info e.backtrace.join("\n")
       render json: { message: 'error' }, status: :internal_server_error
     end
+
+    private
+
+    def set_user_snapshot
+      unless (@user_snapshot = current_user.user_snapshot)
+        CreateSnapshotWorker.perform_async(current_user.id)
+        render json: { message: 'Not found' }, status: :not_found
+      end
+    end
+
+    def strip_tags(value)
+      @view_context ||= view_context
+      @view_context.strip_tags(value)
+    end
   end
 end
