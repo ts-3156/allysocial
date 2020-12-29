@@ -56,7 +56,9 @@
   <hr>
 </div>
 
-<div id="search-response" style="min-height: 300px;"></div>
+<div style="min-height: 300px;">
+  <div id="search-response"></div>
+</div>
 
 
 <script>
@@ -150,24 +152,25 @@
       var params = {category: category, type: type, value: currentValue()}
 
       $.get(url, params).done(function (res) {
-        $('#search-response').empty();
-
         if (!res.users || res.users.length === 0) {
-          $('#search-response').text('No results found').hide().fadeIn(500);
+          $('#search-response').empty().text('No results found').hide().fadeIn(500);
         } else {
+          var container = $('<div/>');
+          var template = $('#search-response-user-template').html();
+
           res.users.forEach(function (user) {
             if (user.description) {
               user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
               user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
             }
-            var template = $('#search-response-user-template').html();
             var rendered = $(Mustache.render(template, user));
             rendered.find('img').each(function () {
               var img = $(this);
               img.attr('src', img.attr('data-src'));
             });
-            $('#search-response').append(rendered).hide().fadeIn(500);
+            container.append(rendered);
           })
+          $('#search-response').empty().append(container).hide().fadeIn(500);
         }
       });
     }

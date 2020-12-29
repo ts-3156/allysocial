@@ -22,6 +22,9 @@ ja:
         fourth:
           title: 'フォロワーをキーワードで追う'
           text: 'キーワードアラートを設定して、フォロワーのリアルタイムな興味をモニターしましょう。'
+      contact_section:
+        title_html:  '使ってくれて <i class="fas fa-heart"></i> ありがとう！'
+        text_html: 'このアプリはリリースされたばかりです。バグは積極的に直していきます。<br>もし分からないことがあれば、お気軽にご連絡ください。'
   dashboards:
     show:
     form:

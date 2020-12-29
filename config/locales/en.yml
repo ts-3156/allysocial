@@ -22,6 +22,9 @@ en:
         fourth:
           title: 'Track followers by keywords'
           text: "Set up keyword alerts to monitor your followers' real-time interests."
+      contact_section:
+        title_html:  'We <i class="fas fa-heart"></i> new customers!'
+        text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
   dashboards:
     show:
       statuses: 'Statuses'
