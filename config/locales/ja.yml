@@ -24,34 +24,37 @@ ja:
           text: 'キーワードアラートを設定して、フォロワーのリアルタイムな興味をモニターしましょう。'
   dashboards:
     show:
-      statuses: 'ツイート'
-      following: 'フォロー'
-      followers: 'フォロワー'
+    form:
+      search_category:
+        title: '検索カテゴリ'
+        friends:
+          label: 'フォロー'
+          help_html: '<strong>フォロー</strong> が選択されています。'
+        followers:
+          label: 'フォロワー'
+          help_html: '<strong>フォロワー</strong> が選択されています。'
+      search_type:
+        title: '検索タイプ'
+        search_by_job: '職種で検索'
+        search_by_location: '場所で検索'
+        notice_profile_changes: '変化を通知'
+        track_by_keywords: 'キーワードで検索'
+        job_help_html: '<strong>職種</strong> が選択されています。'
+        location_help_html: '<strong>場所</strong> が選択されています。'
+      search_value:
+        title: '検索する値'
+        submit: '検索する'
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'
       failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'
   shared:
-    search_category:
-      title: '検索カテゴリ'
-      friends:
-        label: 'フォロー'
-        help_html: '<strong>フォロー</strong> が選択されています。'
-      followers:
-        label: 'フォロワー'
-        help_html: '<strong>フォロワー</strong> が選択されています。'
-    search_type:
-      title: '検索タイプ'
-      search_by_job: '職種で検索'
-      search_by_location: '場所で検索'
-      notice_profile_changes: '変化を通知'
-      track_by_keywords: 'キーワードで検索'
-      job_help_html: '<strong>職種</strong> が選択されています。'
-      location_help_html: '<strong>場所</strong> が選択されています。'
-    search_value:
-      title: '検索する値'
-      submit: '検索する'
     profile_section:
+      statuses: 'ツイート'
+      following: 'フォロー'
+      followers: 'フォロワー'
+  templates:
+    search_response_user_template:
       statuses: 'ツイート'
       following: 'フォロー'
       followers: 'フォロワー'

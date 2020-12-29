@@ -1,0 +1,213 @@
+<div class="d-flex">
+  <%# Search category %>
+  <div class="mr-5 mb-5">
+    <div class="mb-2">
+      <%= t('.search_category.title') %>
+      <i class="far fa-question-circle text-muted"></i>
+    </div>
+
+    <div class="mb-1">
+      <div id="search-category-buttons" class="btn-group" role="group">
+        <button type="button" class="btn-friends btn btn-outline-secondary" data-value="friends"><%= t('.search_category.friends.label') %></button>
+        <button type="button" class="btn-followers btn btn-primary" data-value="followers"><%= t('.search_category.followers.label') %></button>
+      </div>
+    </div>
+
+    <div class="friends-selected-text small text-muted" style="display: none;"><%= t('.search_category.friends.help_html') %></div>
+    <div class="followers-selected-text small text-muted"><%= t('.search_category.followers.help_html') %></div>
+  </div>
+
+  <%# Search type %>
+  <div class="mb-5">
+    <div class="mb-2">
+      <%= t('.search_type.title') %>
+      <i class="far fa-question-circle text-muted"></i>
+    </div>
+
+    <div class="mb-1">
+      <div id="search-type-buttons" class="btn-group" role="group">
+        <button type="button" class="btn-job btn btn-primary" data-value="job"><%= t('.search_type.search_by_job') %></button>
+        <button type="button" class="btn-location btn btn-outline-secondary" data-value="location"><%= t('.search_type.search_by_location') %></button>
+      </div>
+    </div>
+
+    <div class="job-selected-text small text-muted"><%= t('.search_type.job_help_html') %></div>
+    <div class="location-selected-text small text-muted" style="display: none;"><%= t('.search_type.location_help_html') %></div>
+  </div>
+</div>
+
+<%# Search value %>
+<div class="mb-5">
+  <div class="mb-2">
+    <%= t('.search_value.title') %>
+    <i class="far fa-question-circle text-muted"></i>
+  </div>
+  <select id="search-value" class="form-control" style="width: initial;"></select>
+</div>
+
+<%# Submit %>
+<div class="mb-5">
+  <button id="job-submit" type="submit" class="btn btn-primary"><%= t('.search_value.submit') %></button>
+</div>
+
+<div class="mb-5">
+  <hr>
+</div>
+
+<div id="search-response" style="min-height: 300px;"></div>
+
+
+<script>
+  $(function () {
+    var friendsButton = $('.btn-friends');
+    var followersButton = $('.btn-followers');
+    var jobButton = $('.btn-job');
+    var locationButton = $('.btn-location');
+
+    function activateButton(button) {
+      button.removeClass('btn-outline-secondary').addClass('btn-primary');
+    }
+
+    function deactivateButton(button) {
+      button.removeClass('btn-primary').addClass('btn-outline-secondary');
+    }
+
+    function switchActiveCategoryButton() {
+      if ($(this).hasClass('btn-followers')) {
+        deactivateButton(friendsButton);
+        activateButton(followersButton);
+        $('.friends-selected-text').hide();
+        $('.followers-selected-text').hide().fadeIn(500);
+      } else {
+        deactivateButton(followersButton);
+        activateButton(friendsButton);
+        $('.friends-selected-text').hide().fadeIn(500);
+        $('.followers-selected-text').hide();
+      }
+    }
+
+    function switchActiveTypeButton() {
+      if ($(this).hasClass('btn-job')) {
+        deactivateButton(locationButton)
+        activateButton(jobButton)
+        $('.job-selected-text').hide().fadeIn(500);
+        $('.location-selected-text').hide();
+      } else {
+        deactivateButton(jobButton)
+        activateButton(locationButton)
+        $('.job-selected-text').hide();
+        $('.location-selected-text').hide().fadeIn(500);
+      }
+    }
+
+    friendsButton.on('click', switchActiveCategoryButton)
+    followersButton.on('click', switchActiveCategoryButton)
+    jobButton.on('click', switchActiveTypeButton)
+    locationButton.on('click', switchActiveTypeButton)
+
+    function currentCategory() {
+      return $('#search-category-buttons').find('.btn-primary').data('value');
+    }
+
+    function currentType() {
+      return $('#search-type-buttons').find('.btn-primary').data('value');
+    }
+
+    function currentValue() {
+      return $('#search-value').val();
+    }
+
+    function search() {
+      var category = currentCategory();
+      var type = currentType();
+
+      if ((category === 'friends' || category === 'followers') && (type === 'job' || type === 'location')) {
+        var url = '<%= raw api_searches_path %>';
+        var params = {category: category, type: type, value: currentValue()}
+
+        $.get(url, params).done(function (res) {
+          $('#search-response').empty();
+
+          if (!res.users || res.users.length === 0) {
+            $('#search-response').text('No results found').hide().fadeIn(500);
+          } else {
+            res.users.forEach(function (user) {
+              if (user.description) {
+                user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
+                user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
+              }
+              var template = $('#search-response-user-template').html();
+              var rendered = $(Mustache.render(template, user));
+              rendered.find('img').each(function () {
+                var img = $(this);
+                img.attr('src', img.attr('data-src'));
+              });
+              $('#search-response').append(rendered).hide().fadeIn(500);
+            })
+          }
+        });
+      }
+    }
+
+    function updateSearchValueOptions() {
+      var category = currentCategory();
+      var type = currentType();
+
+      if (category === 'friends') {
+        if (type === 'job') {
+          setJobOptions();
+        } else if (type === 'location') {
+          setLocationOptions();
+        }
+      } else if (category === 'followers') {
+        if (type === 'job') {
+          setJobOptions();
+        } else if (type === 'location') {
+          setLocationOptions();
+        }
+      }
+    }
+
+    $('#search-category-buttons').on('click', function () {
+      updateSearchValueOptions();
+    });
+
+    $('#search-type-buttons').on('click', function () {
+      updateSearchValueOptions();
+    });
+
+    $('#job-submit').on('click', function () {
+      search();
+      return false;
+    });
+
+    function setOptions(options) {
+      $('#search-value').empty();
+      options.forEach(function (option) {
+        var tag = $('<option/>', {value: option.value, text: option.label});
+        $('#search-value').append(tag);
+      });
+    }
+
+    function setJobOptions() {
+      var url = '<%= raw api_job_options_path %>';
+      var category = currentCategory();
+
+      $.get(url, {category: category}).done(function (res) {
+        setOptions(res.options);
+      });
+    }
+
+    function setLocationOptions() {
+      var url = '<%= raw api_location_options_path %>';
+      var category = currentCategory();
+
+      $.get(url, {category: category}).done(function (res) {
+        setOptions(res.options);
+      });
+    }
+
+    setJobOptions();
+
+  });
+</script>
