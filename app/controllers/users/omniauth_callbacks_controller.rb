@@ -8,7 +8,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def twitter
-    user = User.from_omniauth(request.env['omniauth.auth'])
+    user = User.from_omniauth(request.env['omniauth.auth']) do |context, user|
+      if context == :create
+        CreateSnapshotWorker.perform_async(user.id)
+      end
+    end
     sign_in user, event: :authentication
     flash[:notice] = t('.success')
     redirect_to dashboard_path(via: 'auth_success')

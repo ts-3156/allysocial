@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_043425) do
+ActiveRecord::Schema.define(version: 2020_12_29_085643) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -59,6 +59,22 @@ ActiveRecord::Schema.define(version: 2020_12_29_043425) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_friends_snapshots_on_created_at"
     t.index ["user_snapshot_id"], name: "index_friends_snapshots_on_user_snapshot_id", unique: true
+  end
+
+  create_table "twitter_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "uid", null: false
+    t.string "screen_name", null: false
+    t.string "name", null: false
+    t.integer "statuses_count", null: false
+    t.integer "friends_count", null: false
+    t.integer "followers_count", null: false
+    t.text "description"
+    t.string "location"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_twitter_users_on_created_at"
+    t.index ["uid"], name: "index_twitter_users_on_uid", unique: true
   end
 
   create_table "user_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

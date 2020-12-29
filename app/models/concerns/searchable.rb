@@ -6,20 +6,33 @@ module Searchable
   class_methods do
   end
 
-  def users
-    @users ||= (properties['users'] || []).map { |user| User.new(user) }
+  def users(options)
+    uids = properties['uids']
+
+    if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{,30}\z/)
+      index = uids.index(options[:last_uid].to_i)
+      uids = uids.slice(index..-1) if index
+    end
+
+    if options[:limit] && options[:limit].to_i <= 100
+      uids = uids.take(options[:limit].to_i)
+    else
+      uids = uids.take(100)
+    end
+
+    TwitterUser.where(uid: uids).order(Arel.sql("field(uid, #{uids.join(',')})")).map { |user| User.new(user.attributes) }
   end
 
-  def select_users_by_job(value)
-    users.select { |user| user.match_job?(value) }
+  def select_users_by_job(value, options)
+    users(options).select { |user| user.match_job?(value) }
   end
 
-  def select_users_by_location(value)
-    users.select { |user| user.match_location?(value) }
+  def select_users_by_location(value, options)
+    users(options).select { |user| user.match_location?(value) }
   end
 
-  def select_users_by_keyword(value)
-    users.select { |user| user.match_description?(value) }
+  def select_users_by_keyword(value, options)
+    users(options).select { |user| user.match_description?(value) }
   end
 
   JOB_QUERIES = %w(

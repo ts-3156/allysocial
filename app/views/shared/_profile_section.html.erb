@@ -66,15 +66,23 @@
     return rendered;
   }
 
-  function updateProfile() {
+  function updateProfile(retryCount) {
+    if (retryCount >= 3) {
+      return;
+    }
+
     var url = '<%= api_profile_path(uid: user.uid) %>';
     $.get(url).done(function (res) {
       var user = res.user;
       $('.profile-section').html(renderTemplate(user)).addClass('border').hide().fadeIn(500);
+    }).fail(function () {
+      setTimeout(function () {
+        updateProfile(retryCount++);
+      }, 3000);
     });
   }
 
   $(function () {
-    updateProfile();
+    updateProfile(0);
   })
 </script>

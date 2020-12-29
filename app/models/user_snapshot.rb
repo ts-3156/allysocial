@@ -4,24 +4,24 @@ class UserSnapshot < ApplicationRecord
   has_one :followers_snapshot
   has_one :followers_insight
 
-  def select_users_by(category, type, value)
+  def select_users_by(category, type, value, options)
     if category == 'friends'
       if type == 'job'
-        select_friends_by_job(value)
+        select_friends_by_job(value, options)
       elsif type == 'location'
-        select_friends_by_location(value)
+        select_friends_by_location(value, options)
       elsif type == 'keyword'
-        select_friends_by_keyword(value)
+        select_friends_by_keyword(value, options)
       else
         []
       end
     elsif category == 'followers'
       if type == 'job'
-        select_followers_by_job(value)
+        select_followers_by_job(value, options)
       elsif type == 'location'
-        select_followers_by_location(value)
+        select_followers_by_location(value, options)
       elsif type == 'keyword'
-        select_followers_by_keyword(value)
+        select_followers_by_keyword(value, options)
       else
         []
       end
@@ -30,43 +30,43 @@ class UserSnapshot < ApplicationRecord
     end
   end
 
-  def select_friends_by_job(value)
-    friends_snapshot.select_users_by_job(value)
+  def select_friends_by_job(value, options)
+    friends_snapshot.select_users_by_job(value, options)
   end
 
-  def select_friends_by_location(value)
-    friends_snapshot.select_users_by_location(value)
+  def select_friends_by_location(value, options)
+    friends_snapshot.select_users_by_location(value, options)
   end
 
-  def select_friends_by_keyword(value)
-    friends_snapshot.select_users_by_keyword(value)
+  def select_friends_by_keyword(value, options)
+    friends_snapshot.select_users_by_keyword(value, options)
   end
 
-  def select_followers_by_job(value)
-    followers_snapshot.select_users_by_job(value)
+  def select_followers_by_job(value, options)
+    followers_snapshot.select_users_by_job(value, options)
   end
 
-  def select_followers_by_location(value)
-    followers_snapshot.select_users_by_location(value)
+  def select_followers_by_location(value, options)
+    followers_snapshot.select_users_by_location(value, options)
   end
 
-  def select_followers_by_keyword(value)
-    followers_snapshot.select_users_by_keyword(value)
+  def select_followers_by_keyword(value, options)
+    followers_snapshot.select_users_by_keyword(value, options)
   end
 
   SAVE_KEYS = %i(
     uid
-    name
     screen_name
-    description
-    location
-    url
-    created_at
+    name
     statuses_count
     friends_count
     followers_count
+    description
+    location
+    url
     profile_image_url
     profile_banner_url
+    created_at
   )
 
   def to_hash

@@ -3,15 +3,21 @@ class ApiClient
     @client = client
   end
 
-  def user(value)
+  def user(id)
     RequestWithRetryHandler.new(__method__).perform do
-      @client.user(value).attrs
+      @client.user(id).attrs
     end
   end
 
-  def users(value)
-    RequestWithRetryHandler.new(__method__).perform do
-      @client.users(value).map(&:attrs)
+  def users(ids)
+    if ids.size > 100
+      ids.each_slice(100).map do |ids_array|
+        users(ids_array)
+      end.flatten
+    else
+      RequestWithRetryHandler.new(__method__).perform do
+        @client.users(ids).map(&:attrs)
+      end
     end
   end
 
@@ -24,7 +30,7 @@ class ApiClient
   end
 
   def collect_with_cursor
-    options = { count: 1000, cursor: -1 }
+    options = { count: 5000, cursor: -1 }
     collection = []
 
     # TODO Limit loop count

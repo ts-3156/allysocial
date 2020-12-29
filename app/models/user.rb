@@ -36,6 +36,8 @@ class User < ApplicationRecord
           user.save!
           user.create_credential!(authorized: true, access_token: auth.credentials.token, access_secret: auth.credentials.secret)
         end
+
+        yield(:create, user)
       else
         user.save! if user.changed?
 
@@ -45,6 +47,8 @@ class User < ApplicationRecord
           user.credential.authorized = true
           user.credential.save!
         end
+
+        yield(:update, user)
       end
 
       user
