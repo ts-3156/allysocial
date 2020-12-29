@@ -8,6 +8,8 @@ class UserSnapshot < ApplicationRecord
         select_friends_by_job(value)
       elsif type == 'location'
         select_friends_by_location(value)
+      elsif type == 'keyword'
+        select_friends_by_keyword(value)
       else
         []
       end
@@ -16,6 +18,8 @@ class UserSnapshot < ApplicationRecord
         select_followers_by_job(value)
       elsif type == 'location'
         select_followers_by_location(value)
+      elsif type == 'keyword'
+        select_followers_by_keyword(value)
       else
         []
       end
@@ -32,12 +36,20 @@ class UserSnapshot < ApplicationRecord
     friends_snapshot.select_users_by_location(value)
   end
 
+  def select_friends_by_keyword(value)
+    friends_snapshot.select_users_by_keyword(value)
+  end
+
   def select_followers_by_job(value)
     followers_snapshot.select_users_by_job(value)
   end
 
   def select_followers_by_location(value)
     followers_snapshot.select_users_by_location(value)
+  end
+
+  def select_followers_by_keyword(value)
+    followers_snapshot.select_users_by_keyword(value)
   end
 
   SAVE_KEYS = %i(

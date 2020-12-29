@@ -26,13 +26,15 @@
 
     <div class="mb-1">
       <div id="search-type-buttons" class="btn-group" role="group">
-        <button type="button" class="btn-job btn btn-primary" data-value="job"><%= t('.search_type.search_by_job') %></button>
-        <button type="button" class="btn-location btn btn-outline-secondary" data-value="location"><%= t('.search_type.search_by_location') %></button>
+        <button type="button" class="btn-job btn btn-primary" data-value="job"><%= t('.search_type.job') %></button>
+        <button type="button" class="btn-location btn btn-outline-secondary" data-value="location"><%= t('.search_type.location') %></button>
+        <button type="button" class="btn-keyword btn btn-outline-secondary" data-value="keyword"><%= t('.search_type.keyword') %></button>
       </div>
     </div>
 
     <div class="job-selected-text small text-muted"><%= t('.search_type.job_help_html') %></div>
     <div class="location-selected-text small text-muted" style="display: none;"><%= t('.search_type.location_help_html') %></div>
+    <div class="keyword-selected-text small text-muted" style="display: none;"><%= t('.search_type.keyword_help_html') %></div>
   </div>
 </div>
 
@@ -63,6 +65,7 @@
     var followersButton = $('.btn-followers');
     var jobButton = $('.btn-job');
     var locationButton = $('.btn-location');
+    var keywordButton = $('.btn-keyword');
 
     function activateButton(button) {
       button.removeClass('btn-outline-secondary').addClass('btn-primary');
@@ -73,37 +76,49 @@
     }
 
     function switchActiveCategoryButton() {
-      if ($(this).hasClass('btn-followers')) {
-        deactivateButton(friendsButton);
-        activateButton(followersButton);
-        $('.friends-selected-text').hide();
-        $('.followers-selected-text').hide().fadeIn(500);
-      } else {
+      if ($(this).hasClass('btn-friends')) {
         deactivateButton(followersButton);
         activateButton(friendsButton);
         $('.friends-selected-text').hide().fadeIn(500);
         $('.followers-selected-text').hide();
+      } else if ($(this).hasClass('btn-followers')) {
+        deactivateButton(friendsButton);
+        activateButton(followersButton);
+        $('.friends-selected-text').hide();
+        $('.followers-selected-text').hide().fadeIn(500);
       }
     }
 
     function switchActiveTypeButton() {
       if ($(this).hasClass('btn-job')) {
-        deactivateButton(locationButton)
         activateButton(jobButton)
+        deactivateButton(locationButton)
+        deactivateButton(keywordButton)
         $('.job-selected-text').hide().fadeIn(500);
         $('.location-selected-text').hide();
-      } else {
+        $('.keyword-selected-text').hide();
+      } else if ($(this).hasClass('btn-location')) {
         deactivateButton(jobButton)
         activateButton(locationButton)
+        deactivateButton(keywordButton)
         $('.job-selected-text').hide();
         $('.location-selected-text').hide().fadeIn(500);
+        $('.keyword-selected-text').hide();
+      } else if ($(this).hasClass('btn-keyword')) {
+        deactivateButton(jobButton)
+        deactivateButton(locationButton)
+        activateButton(keywordButton)
+        $('.job-selected-text').hide();
+        $('.location-selected-text').hide();
+        $('.keyword-selected-text').hide().fadeIn(500);
       }
     }
 
-    friendsButton.on('click', switchActiveCategoryButton)
-    followersButton.on('click', switchActiveCategoryButton)
-    jobButton.on('click', switchActiveTypeButton)
-    locationButton.on('click', switchActiveTypeButton)
+    friendsButton.on('click', switchActiveCategoryButton);
+    followersButton.on('click', switchActiveCategoryButton);
+    jobButton.on('click', switchActiveTypeButton);
+    locationButton.on('click', switchActiveTypeButton);
+    keywordButton.on('click', switchActiveTypeButton);
 
     function currentCategory() {
       return $('#search-category-buttons').find('.btn-primary').data('value');
@@ -121,32 +136,40 @@
       var category = currentCategory();
       var type = currentType();
 
-      if ((category === 'friends' || category === 'followers') && (type === 'job' || type === 'location')) {
-        var url = '<%= raw api_searches_path %>';
-        var params = {category: category, type: type, value: currentValue()}
-
-        $.get(url, params).done(function (res) {
-          $('#search-response').empty();
-
-          if (!res.users || res.users.length === 0) {
-            $('#search-response').text('No results found').hide().fadeIn(500);
-          } else {
-            res.users.forEach(function (user) {
-              if (user.description) {
-                user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
-                user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
-              }
-              var template = $('#search-response-user-template').html();
-              var rendered = $(Mustache.render(template, user));
-              rendered.find('img').each(function () {
-                var img = $(this);
-                img.attr('src', img.attr('data-src'));
-              });
-              $('#search-response').append(rendered).hide().fadeIn(500);
-            })
-          }
-        });
+      if (category !== 'friends' && category !== 'followers') {
+        console.warn('Invalid category');
+        return
       }
+
+      if (type !== 'job' && type !== 'location' && type !== 'keyword') {
+        console.warn('Invalid type');
+        return
+      }
+
+      var url = '<%= raw api_searches_path %>';
+      var params = {category: category, type: type, value: currentValue()}
+
+      $.get(url, params).done(function (res) {
+        $('#search-response').empty();
+
+        if (!res.users || res.users.length === 0) {
+          $('#search-response').text('No results found').hide().fadeIn(500);
+        } else {
+          res.users.forEach(function (user) {
+            if (user.description) {
+              user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
+              user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
+            }
+            var template = $('#search-response-user-template').html();
+            var rendered = $(Mustache.render(template, user));
+            rendered.find('img').each(function () {
+              var img = $(this);
+              img.attr('src', img.attr('data-src'));
+            });
+            $('#search-response').append(rendered).hide().fadeIn(500);
+          })
+        }
+      });
     }
 
     function updateSearchValueOptions() {
@@ -158,12 +181,16 @@
           setJobOptions();
         } else if (type === 'location') {
           setLocationOptions();
+        } else if (type === 'keyword') {
+          setKeywordOptions();
         }
       } else if (category === 'followers') {
         if (type === 'job') {
           setJobOptions();
         } else if (type === 'location') {
           setLocationOptions();
+        } else if (type === 'keyword') {
+          setKeywordOptions();
         }
       }
     }
@@ -200,6 +227,15 @@
 
     function setLocationOptions() {
       var url = '<%= raw api_location_options_path %>';
+      var category = currentCategory();
+
+      $.get(url, {category: category}).done(function (res) {
+        setOptions(res.options);
+      });
+    }
+
+    function setKeywordOptions() {
+      var url = '<%= raw api_keyword_options_path %>';
       var category = currentCategory();
 
       $.get(url, {category: category}).done(function (res) {

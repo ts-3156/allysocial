@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'searches', to: 'searches#show'
     resources :job_options, only: %i(index)
     resources :location_options, only: %i(index)
+    resources :keyword_options, only: %i(index)
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }

@@ -18,6 +18,10 @@ module Searchable
     users.select { |user| user.match_location?(value) }
   end
 
+  def select_users_by_keyword(value)
+    users.select { |user| user.match_description?(value) }
+  end
+
   JOB_QUERIES = %w(
     lawyer
     public_accountant
@@ -76,6 +80,14 @@ module Searchable
       else
         location&.include?(query)
       end
+    end
+
+    def description
+      @attrs['description']
+    end
+
+    def match_description?(query)
+      description&.include?(query)
     end
 
     def match_job?(query)

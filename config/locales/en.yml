@@ -38,12 +38,14 @@ en:
           help_html: '<strong>Followers</strong> is selected.'
       search_type:
         title: 'Search type'
-        search_by_job: 'Job'
-        search_by_location: 'Location'
+        job: 'Job'
+        location: 'Location'
+        keyword: 'Keyword'
         notice_profile_changes: 'Notice profile changes'
         track_by_keywords: 'Track by Keywords'
         job_help_html: '<strong>Job</strong> is selected.'
         location_help_html: '<strong>Location</strong> is selected.'
+        keyword_help_html: '<strong>Keyword</strong> is selected.'
       search_value:
         title: 'Search value'
         submit: 'Search'

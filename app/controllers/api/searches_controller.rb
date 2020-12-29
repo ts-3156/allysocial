@@ -16,15 +16,21 @@ module Api
     private
 
     def require_category
-      raise ':category not specified' unless params[:category] && params[:category].match?(/\A(friends|followers)\z/)
+      unless params[:category] && params[:category].match?(/\A(friends|followers)\z/)
+        render json: { message: ':category not specified' }, status: :bad_request
+      end
     end
 
     def require_type
-      raise ':type not specified' unless params[:type] && params[:type].match?(/\A(job|location)\z/)
+      unless params[:type] && params[:type].match?(/\A(job|location|keyword)\z/)
+        render json: { message: ':type not specified' }, status: :bad_request
+      end
     end
 
     def require_value
-      raise ':value not specified' unless params[:value] && params[:value].match?(/\A.{,50}\z/)
+      unless params[:value] && params[:value].match?(/\A.{,50}\z/)
+        render json: { message: ':value not specified' }, status: :bad_request
+      end
     end
   end
 end

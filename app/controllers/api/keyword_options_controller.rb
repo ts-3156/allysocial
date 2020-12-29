@@ -1,10 +1,9 @@
 module Api
-  class LocationOptionsController < BaseController
+  class KeywordOptionsController < BaseController
     before_action :authenticate_user!
     before_action :set_user_snapshot
 
     def index
-      # TODO Limit users
       if params[:category] == 'friends'
         users = @user_snapshot.friends_snapshot&.users || []
       elsif params[:category] == 'followers'
@@ -14,8 +13,10 @@ module Api
       end
 
       if users.any?
-        options = sanitize_locations(users.map(&:location)).map do |location|
-          { value: location, label: location.truncate(15, omission: '') }
+        text = sanitize_descriptions(users.map(&:description)).join(' ')
+        words_count = NattoClient.new.count_words(text)
+        options = words_count.keys.take(100).map do |word|
+          { value: word, label: word.truncate(15, omission: '') }
         end
 
         render json: { options: options }
@@ -26,12 +27,10 @@ module Api
 
     private
 
-    def sanitize_locations(values)
-      values.uniq.map do |value|
-        value = value.gsub(/[　\s\ufe0e]+/, ' ') if value.present?
-        value = '' if value&.match?(/\A\s+\z/)
-        value.blank? ? 'empty' : strip_tags(value)
-      end.uniq.sort
+    def sanitize_descriptions(values)
+      values.map do |value|
+        strip_tags(value)
+      end
     end
   end
 end

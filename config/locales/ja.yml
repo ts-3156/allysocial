@@ -35,12 +35,14 @@ ja:
           help_html: '<strong>フォロワー</strong> が選択されています。'
       search_type:
         title: '検索タイプ'
-        search_by_job: '職種で検索'
-        search_by_location: '場所で検索'
+        job: '職種'
+        location: '場所'
+        keyword: 'キーワード'
         notice_profile_changes: '変化を通知'
         track_by_keywords: 'キーワードで検索'
         job_help_html: '<strong>職種</strong> が選択されています。'
         location_help_html: '<strong>場所</strong> が選択されています。'
+        keyword_help_html: '<strong>キーワード</strong> が選択されています。'
       search_value:
         title: '検索する値'
         submit: '検索する'
