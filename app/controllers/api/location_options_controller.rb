@@ -6,32 +6,22 @@ module Api
     def index
       # TODO Limit users
       if params[:category] == 'friends'
-        users = @user_snapshot.friends_snapshot&.users || []
+        words = @user_snapshot.friends_insight.location_keywords['words'] || []
       elsif params[:category] == 'followers'
-        users = @user_snapshot.followers_snapshot&.users || []
+        words = @user_snapshot.followers_insight.location_keywords['words'] || []
       else
-        users = []
+        words = []
       end
 
-      if users.any?
-        options = sanitize_locations(users.map(&:location)).map do |location|
-          { value: location, label: location.truncate(15, omission: '') }
+      if words.any?
+        options = words.map do |word|
+          { value: word, label: word.truncate(15, omission: '') }
         end
 
         render json: { options: options }
       else
         render json: { options: [] }
       end
-    end
-
-    private
-
-    def sanitize_locations(values)
-      values.uniq.map do |value|
-        value = value.gsub(/[　\s\ufe0e]+/, ' ') if value.present?
-        value = '' if value&.match?(/\A\s+\z/)
-        value.blank? ? 'empty' : strip_tags(value)
-      end.uniq.sort
     end
   end
 end

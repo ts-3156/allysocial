@@ -5,31 +5,21 @@ module Api
 
     def index
       if params[:category] == 'friends'
-        users = @user_snapshot.friends_snapshot&.users || []
+        words = @user_snapshot.friends_insight.description_keywords['words'] || []
       elsif params[:category] == 'followers'
-        users = @user_snapshot.followers_snapshot&.users || []
+        words = @user_snapshot.followers_insight.description_keywords['words'] || []
       else
-        users = []
+        words = []
       end
 
-      if users.any?
-        text = sanitize_descriptions(users.map(&:description)).join(' ')
-        words_count = NattoClient.new.count_words(text)
-        options = words_count.keys.take(100).map do |word|
+      if words.any?
+        options = words.map do |word|
           { value: word, label: word.truncate(15, omission: '') }
         end
 
         render json: { options: options }
       else
         render json: { options: [] }
-      end
-    end
-
-    private
-
-    def sanitize_descriptions(values)
-      values.map do |value|
-        strip_tags(value)
       end
     end
   end

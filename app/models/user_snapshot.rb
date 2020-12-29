@@ -1,6 +1,8 @@
 class UserSnapshot < ApplicationRecord
   has_one :friends_snapshot
+  has_one :friends_insight
   has_one :followers_snapshot
+  has_one :followers_insight
 
   def select_users_by(category, type, value)
     if category == 'friends'
