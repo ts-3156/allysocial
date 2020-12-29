@@ -69,6 +69,10 @@ class UserSnapshot < ApplicationRecord
     profile_banner_url
   )
 
+  def to_hash
+    properties['user']
+  end
+
   def api_user_changed?(api_user)
     property_user = properties['user']
 

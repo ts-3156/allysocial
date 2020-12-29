@@ -10,13 +10,19 @@ module Api
 
     def user_to_hash(user)
       user.symbolize_keys!
-      user[:location] = 'none' if user[:location].blank? || user[:location].match?(/\A\s+\z/)
+      if user[:location].blank? || user[:location].match?(/\A\s+\z/)
+        user[:location] = 'none'
+      else
+        user[:location] = user[:location].truncate(30)
+      end
+
       if user[:url].blank? || user[:url].match?(/\A\s+\z/)
         user[:url] = '#'
         user[:url_s] = 'none'
       else
         user[:url_s] = user[:url].remove(/(\Ahttps?:\/\/)|(\/\z)/).truncate(30) if user[:url].match?(/(\Ahttps?:\/\/)|(\/\z)/)
       end
+
       user[:statuses_count_s] = user[:statuses_count].to_s(:delimited)
       user[:friends_count_s] = user[:friends_count].to_s(:delimited)
       user[:followers_count_s] = user[:followers_count].to_s(:delimited)
