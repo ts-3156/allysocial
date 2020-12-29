@@ -48,6 +48,7 @@ class UserSnapshot < ApplicationRecord
     location
     url
     created_at
+    statuses_count
     friends_count
     followers_count
     profile_image_url
@@ -69,6 +70,23 @@ class UserSnapshot < ApplicationRecord
       sliced_user = api_user.slice(*SAVE_KEYS)
       sliced_user[:uid] = api_user[:id]
       sliced_user[:profile_image_url] = sliced_user[:profile_image_url]&.remove('_normal')
+
+      if api_user[:description]
+        begin
+          api_user[:entities][:description][:urls].each do |entity|
+            sliced_user[:description].gsub!(entity[:url], entity[:expanded_url])
+          end
+        rescue => e
+        end
+      end
+
+      if api_user[:url]
+        begin
+          sliced_user[:url] = api_user[:entities][:url][:urls][0][:expanded_url]
+        rescue => e
+        end
+      end
+
       sliced_user
     end
   end

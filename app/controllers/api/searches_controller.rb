@@ -9,7 +9,8 @@ module Api
     def show
       # TODO Limit, Offset
       users = @user_snapshot.select_users_by(params[:category], params[:type], params[:value])
-      render json: { users: users.map(&:to_hash) }
+      response_users = users.map(&:to_hash).map { |user| user_to_hash(user) }
+      render json: { users: response_users }
     end
 
     private

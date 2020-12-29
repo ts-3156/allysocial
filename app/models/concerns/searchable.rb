@@ -131,7 +131,7 @@ module Searchable
     end
 
     def to_hash
-      @attrs
+      @attrs.dup
     end
   end
 

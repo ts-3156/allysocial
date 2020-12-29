@@ -1,7 +1,7 @@
 <% container_id = SecureRandom.urlsafe_base64(10) %>
 <div id="<%= container_id %>">
   <div class="mb-2">
-    Search type
+    <%= t('.title') %>
     <i class="far fa-question-circle text-muted"></i>
   </div>
 
@@ -12,8 +12,8 @@
     </div>
   </div>
 
-  <div class="job-selected-text small text-muted"><strong>Job</strong> is selected.</div>
-  <div class="location-selected-text small text-muted" style="display: none;"><strong>Location</strong> is selected.</div>
+  <div class="job-selected-text small text-muted"><%= t('.job_help_html') %></div>
+  <div class="location-selected-text small text-muted" style="display: none;"><%= t('.location_help_html') %></div>
 </div>
 
 <script>
@@ -22,25 +22,25 @@
     var jobButton = $('#' + containerId).find('.btn-job');
     var locationButton = $('#' + containerId).find('.btn-location');
 
-    function selectJob() {
-      jobButton.removeClass('btn-outline-secondary').addClass('btn-primary');
-      locationButton.removeClass('btn-primary').addClass('btn-outline-secondary');
-      $('.job-selected-text').hide().fadeIn(500);
-      $('.location-selected-text').hide();
+    function activateButton(button) {
+      button.removeClass('btn-outline-secondary').addClass('btn-primary');
     }
 
-    function selectLocation() {
-      jobButton.removeClass('btn-primary').addClass('btn-outline-secondary');
-      locationButton.removeClass('btn-outline-secondary').addClass('btn-primary');
-      $('.job-selected-text').hide();
-      $('.location-selected-text').hide().fadeIn(500);
+    function deactivateButton(button) {
+      button.removeClass('btn-primary').addClass('btn-outline-secondary');
     }
 
     function switchActiveButton() {
       if ($(this).hasClass('btn-job')) {
-        selectJob();
+        deactivateButton(locationButton)
+        activateButton(jobButton)
+        $('.job-selected-text').hide().fadeIn(500);
+        $('.location-selected-text').hide();
       } else {
-        selectLocation();
+        deactivateButton(jobButton)
+        activateButton(locationButton)
+        $('.job-selected-text').hide();
+        $('.location-selected-text').hide().fadeIn(500);
       }
     }
 
