@@ -4,7 +4,7 @@ class CreateFriendsResponses < ActiveRecord::Migration[6.1]
       t.bigint :friends_snapshot_id, null: false
       t.bigint :previous_cursor
       t.bigint :next_cursor
-      t.json :uids
+      t.json :properties
 
       t.timestamps null: false
 

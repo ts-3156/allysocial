@@ -56,7 +56,7 @@
   <hr>
 </div>
 
-<div style="min-height: 300px;">
+<div class="pb-5" style="min-height: 300px;">
   <div id="search-response"></div>
 </div>
 
@@ -68,6 +68,7 @@
     var jobButton = $('.btn-job');
     var locationButton = $('.btn-location');
     var keywordButton = $('.btn-keyword');
+    var valueSelector = $('#search-value');
     var lastUid;
 
     function resetSearchState() {
@@ -83,7 +84,7 @@
       button.removeClass('btn-primary').addClass('btn-outline-secondary');
     }
 
-    function switchActiveCategoryButton() {
+    function switchCategoryButton() {
       resetSearchState();
 
       if ($(this).hasClass('btn-friends')) {
@@ -99,7 +100,7 @@
       }
     }
 
-    function switchActiveTypeButton() {
+    function switchTypeButton() {
       resetSearchState();
 
       if ($(this).hasClass('btn-job')) {
@@ -126,11 +127,16 @@
       }
     }
 
-    friendsButton.on('click', switchActiveCategoryButton);
-    followersButton.on('click', switchActiveCategoryButton);
-    jobButton.on('click', switchActiveTypeButton);
-    locationButton.on('click', switchActiveTypeButton);
-    keywordButton.on('click', switchActiveTypeButton);
+    function switchValueSelector() {
+      resetSearchState();
+    }
+
+    friendsButton.on('click', switchCategoryButton);
+    followersButton.on('click', switchCategoryButton);
+    jobButton.on('click', switchTypeButton);
+    locationButton.on('click', switchTypeButton);
+    keywordButton.on('click', switchTypeButton);
+    valueSelector.on('change', switchValueSelector);
 
     function currentCategory() {
       return $('#search-category-buttons').find('.btn-primary').data('value');
@@ -146,10 +152,14 @@
 
     function appendSearchResponse(users) {
       if (!users || users.length === 0) {
-        resetSearchState();
-        $('#search-response').empty().text('No results found').hide().fadeIn(500);
+        if (lastUid) {
+          // Do nothing
+        } else {
+          resetSearchState();
+          $('#search-response').empty().text('No results found').hide().fadeIn(500);
+        }
       } else {
-        var container = $('<div/>');
+        var container = $('<div/>', {style: 'display: none;'});
         var template = $('#search-response-user-template').html();
 
         users.forEach(function (user) {
@@ -164,15 +174,23 @@
           });
           container.append(rendered);
         })
-        $('#search-response').append(container).hide().fadeIn(500);
+        $('#search-response').append(container)
+        container.fadeIn(500);
+        $('#search-response').append($('<div/>', {text: 'Loading'}).lazyload().one('appear', function () {
+          var elem = $(this);
+          search(function () {
+            elem.remove();
+          });
+        }));
 
         lastUid = users[users.length - 1].uid;
       }
     }
 
-    function search() {
+    function search(callback) {
       var category = currentCategory();
       var type = currentType();
+      var limit = 10;
 
       if (category !== 'friends' && category !== 'followers') {
         console.warn('Invalid category');
@@ -185,12 +203,15 @@
       }
 
       var url = '<%= raw api_searches_path %>';
-      var params = {category: category, type: type, value: currentValue(), limit: 10, last_uid: lastUid}
+      var params = {category: category, type: type, value: currentValue(), limit: limit, last_uid: lastUid}
       console.log('request', params);
 
       $.get(url, params).done(function (res) {
         console.log('response', res);
         appendSearchResponse(res.users);
+        if (callback) {
+          callback();
+        }
       });
     }
 

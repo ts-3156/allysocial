@@ -22,6 +22,7 @@ class CreateSnapshotWorker
       nil
     else
       api_user = client.user(uid)
+      # TODO Save latest status
       UserSnapshot.create!(uid: uid, properties: { user: ApiUser.new(api_user).to_user_snapshot_attrs })
     end
   end
@@ -34,7 +35,7 @@ class CreateSnapshotWorker
 
       ids = client.friend_ids(user_snapshot.uid) do |response|
         attrs = response.attrs
-        friends_snapshot.friends_responses.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], uids: attrs[:ids])
+        friends_snapshot.friends_responses.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], properties: { uids: attrs[:ids] })
       end
 
       # friends_snapshot.update!(properties: { uids: ids })
@@ -56,7 +57,7 @@ class CreateSnapshotWorker
 
       ids = client.follower_ids(user_snapshot.uid) do |response|
         attrs = response.attrs
-        followers_snapshot.followers_responses.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], uids: attrs[:ids])
+        followers_snapshot.followers_responses.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], properties: { uids: attrs[:ids] })
       end
 
       # user_snapshot.create_followers_snapshot!(properties: { uids: ids })

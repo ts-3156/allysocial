@@ -34,7 +34,7 @@ class UserDecorator
 
   def to_hash
     {
-      uid: @attrs[:uid],
+      uid: @attrs[:uid].to_s,
       screen_name: @attrs[:screen_name],
       name: @attrs[:name],
       statuses_count: @attrs[:statuses_count],

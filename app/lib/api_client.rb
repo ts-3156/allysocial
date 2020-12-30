@@ -42,7 +42,7 @@ class ApiClient
   end
 
   def collect_with_cursor
-    options = { count: 500 }
+    options = { count: 1000 } # TODO
     collection = []
 
     # TODO Limit loop count

@@ -7,7 +7,6 @@ module Api
     before_action :set_user_snapshot
 
     def show
-      # TODO Limit, Offset
       twitter_users = @user_snapshot.select_users_by(params[:category], params[:type], params[:value], limit: params[:limit], last_uid: params[:last_uid])
       response_users = twitter_users.map { |user| UserDecorator.new(user.attributes, view_context) }
       render json: { users: response_users }

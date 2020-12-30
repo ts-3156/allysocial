@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_090246) do
     t.bigint "followers_snapshot_id", null: false
     t.bigint "previous_cursor"
     t.bigint "next_cursor"
-    t.json "uids"
+    t.json "properties"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_followers_responses_on_created_at"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_090246) do
     t.bigint "friends_snapshot_id", null: false
     t.bigint "previous_cursor"
     t.bigint "next_cursor"
-    t.json "uids"
+    t.json "properties"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_friends_responses_on_created_at"
