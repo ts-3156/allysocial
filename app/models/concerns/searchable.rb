@@ -6,33 +6,92 @@ module Searchable
   class_methods do
   end
 
-  def users(options)
-    uids = properties['uids']
-
-    if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{,30}\z/)
-      index = uids.index(options[:last_uid].to_i)
-      uids = uids.slice(index..-1) if index
-    end
-
-    if options[:limit] && options[:limit].to_i <= 100
-      uids = uids.take(options[:limit].to_i)
-    else
-      uids = uids.take(100)
-    end
-
-    TwitterUser.where(uid: uids).order(Arel.sql("field(uid, #{uids.join(',')})")).map { |user| User.new(user.attributes) }
-  end
+  # def users(options)
+  #   uids = properties['uids']
+  #
+  #   if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{,30}\z/)
+  #     index = uids.index(options[:last_uid].to_i)
+  #     uids = uids.slice(index..-1) if index
+  #   end
+  #
+  #   if options[:limit] && options[:limit].to_i <= 100
+  #     uids = uids.take(options[:limit].to_i)
+  #   else
+  #     uids = uids.take(100)
+  #   end
+  #
+  #   TwitterUser.where(uid: uids).order(Arel.sql("field(uid, #{uids.join(',')})")).map { |user| User.new(user.attributes) }
+  # end
 
   def select_users_by_job(value, options)
-    users(options).select { |user| user.match_job?(value) }
+    # users(options).select { |user| user.match_job?(value) }
+    if JOB_QUERIES.include?(value)
+      select_with_like_query(options) do
+        TwitterUser.send(value)
+      end
+    else
+      []
+    end
   end
 
   def select_users_by_location(value, options)
-    users(options).select { |user| user.match_location?(value) }
+    # users(options).select { |user| user.match_location?(value) }
+    select_with_like_query(options) do
+      TwitterUser.search_location(value)
+    end
   end
 
   def select_users_by_keyword(value, options)
-    users(options).select { |user| user.match_description?(value) }
+    # users(options).select { |user| user.match_description?(value) }
+    select_with_like_query(options) do
+      TwitterUser.search_description(value)
+    end
+  end
+
+  def select_with_like_query(options, &block)
+    uids = properties['uids']
+
+    uids = offset_uids(uids, options)
+    extracted_limit = extract_limit(options)
+    selected_users = []
+
+    uids.each_slice(100).each do |uids_array|
+      limit = extracted_limit - selected_users.size
+      if limit <= 0
+        break
+      end
+
+      users = yield.where(uid: uids_array).order_by_field(uids_array).limit(limit)
+      selected_users.concat(users.to_a)
+
+      if selected_users.size >= extracted_limit
+        break
+      end
+    end
+
+    if selected_users.size > extracted_limit
+      selected_users = selected_users.take(extracted_limit)
+    end
+
+    selected_users
+  end
+
+  def offset_uids(uids, options)
+    if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{,30}\z/)
+      index = uids.index(options[:last_uid].to_i)
+      uids = uids.slice((index + 1)..-1) if index
+      uids.nil? ? [] : uids
+    else
+      uids
+    end
+  end
+
+  def extract_limit(options)
+    if options[:limit] && options[:limit].to_i <= 100
+      options[:limit].to_i
+    else
+      100
+    end
   end
 
   JOB_QUERIES = %w(

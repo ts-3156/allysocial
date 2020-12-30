@@ -22,11 +22,19 @@ class ApiClient
   end
 
   def friend_ids(uid)
-    collect_with_cursor { |options| @client.friend_ids(uid, options) }
+    collect_with_cursor do |options|
+      RequestWithRetryHandler.new(__method__).perform do
+        @client.friend_ids(uid, options)
+      end
+    end
   end
 
   def follower_ids(uid)
-    collect_with_cursor { |options| @client.follower_ids(uid, options) }
+    collect_with_cursor do |options|
+      RequestWithRetryHandler.new(__method__).perform do
+        @client.follower_ids(uid, options)
+      end
+    end
   end
 
   def collect_with_cursor

@@ -71,6 +71,9 @@ ActiveRecord::Schema.define(version: 2020_12_29_085643) do
     t.text "description"
     t.string "location"
     t.string "url"
+    t.string "profile_image_url"
+    t.string "profile_banner_url"
+    t.datetime "account_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_twitter_users_on_created_at"

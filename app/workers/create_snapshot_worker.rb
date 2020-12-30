@@ -22,7 +22,7 @@ class CreateSnapshotWorker
     api_user = client.user(uid)
 
     if !user_snapshot || user_snapshot.api_user_changed?(api_user)
-      user_snapshot = UserSnapshot.create!(uid: uid, properties: { user: UserSnapshot.slice_api_user(api_user) })
+      user_snapshot = UserSnapshot.create!(uid: uid, properties: { user: ApiUser.new(api_user).to_user_snapshot_attrs })
     end
 
     user_snapshot
@@ -35,7 +35,7 @@ class CreateSnapshotWorker
       ids = client.friend_ids(user_snapshot.uid)
       user_snapshot.create_friends_snapshot!(properties: { uids: ids })
 
-      users = client.users(ids.take(5000)).map { |user| UserSnapshot.slice_api_user(user) } # TODO Set suitable limit
+      users = client.users(ids.take(5000)).map { |user| ApiUser.new(user) } # TODO Set suitable limit
       description_keywords = extract_description_keywords(users)
       location_keywords = extract_location_keywords(users)
       user_snapshot.create_friends_insight!(description_keywords: { words: description_keywords }, location_keywords: { words: location_keywords })
@@ -51,7 +51,7 @@ class CreateSnapshotWorker
       ids = client.follower_ids(user_snapshot.uid)
       user_snapshot.create_followers_snapshot!(properties: { uids: ids })
 
-      users = client.users(ids.take(5000)).map { |user| UserSnapshot.slice_api_user(user) } # TODO Set suitable limit
+      users = client.users(ids.take(5000)).map { |user| ApiUser.new(user) } # TODO Set suitable limit
       description_keywords = extract_description_keywords(users)
       location_keywords = extract_location_keywords(users)
       user_snapshot.create_followers_insight!(description_keywords: { words: description_keywords }, location_keywords: { words: location_keywords })
@@ -61,22 +61,23 @@ class CreateSnapshotWorker
   end
 
   def create_twitter_users(api_users)
-    api_users.uniq! { |user| user[:uid] }
-    insert_keys = TwitterUser.column_names.map(&:to_sym)
+    api_users.uniq!(&:uid)
     insert_time = Time.zone.now
-    insert_users = api_users.map { |user| user.slice(*insert_keys) }.each { |user| user[:created_at] = insert_time; user[:updated_at] = insert_time }
+    insert_users = api_users.map(&:to_twitter_user_attrs).each do |user|
+      user[:created_at] = user[:updated_at] = insert_time
+    end
     insert_users.each_slice(1000) do |users_array|
       TwitterUser.insert_all(users_array)
     end
   end
 
   def extract_description_keywords(users)
-    text = users.take(1000).map { |user| user[:description] }.join(' ') # TODO Set suitable limit
+    text = users.take(1000).map(&:description).join(' ') # TODO Set suitable limit
     NattoClient.new.count_words(text).keys.take(500)
   end
 
   def extract_location_keywords(users)
-    text = users.take(5000).map { |user| user[:location] }.join(' ') # TODO Set suitable limit
+    text = users.take(5000).map(&:location).join(' ') # TODO Set suitable limit
     NattoClient.new.count_words(text).keys.take(500)
   end
 end

@@ -8,8 +8,8 @@ module Api
 
     def show
       # TODO Limit, Offset
-      users = @user_snapshot.select_users_by(params[:category], params[:type], params[:value], limit: params[:limit], last_uid: params[:last_uid])
-      response_users = users.map(&:to_hash).map { |user| user_to_hash(user) }
+      twitter_users = @user_snapshot.select_users_by(params[:category], params[:type], params[:value], limit: params[:limit], last_uid: params[:last_uid])
+      response_users = twitter_users.map { |user| UserDecorator.new(user.attributes, view_context) }
       render json: { users: response_users }
     end
 

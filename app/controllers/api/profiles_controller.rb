@@ -4,17 +4,12 @@ module Api
     before_action :require_uid
 
     def show
-      if current_user.uid == params[:uid].to_i
-        hash = current_user.user_snapshot.to_hash
+      if (hash = current_user.user_snapshot&.properties['user'])
+        user = UserDecorator.new(hash, view_context)
+        render json: { user: user }
       else
-        client = current_user.api_client
-        api_user = client.user(params[:uid].to_i) # TODO Call API in background
-        hash = UserSnapshot.slice_api_user(api_user)
+        render json: { message: 'Not found' }, status: :not_found
       end
-
-      response_user = user_to_hash(hash)
-
-      render json: { user: response_user }
     end
 
     private

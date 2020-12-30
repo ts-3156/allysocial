@@ -69,10 +69,6 @@ class UserSnapshot < ApplicationRecord
     created_at
   )
 
-  def to_hash
-    properties['user']
-  end
-
   def api_user_changed?(api_user)
     property_user = properties['user']
 

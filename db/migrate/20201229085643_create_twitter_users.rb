@@ -10,6 +10,9 @@ class CreateTwitterUsers < ActiveRecord::Migration[6.1]
       t.text :description
       t.string :location
       t.string :url
+      t.string :profile_image_url
+      t.string :profile_banner_url
+      t.datetime :account_created_at
 
       t.timestamps null: false
 

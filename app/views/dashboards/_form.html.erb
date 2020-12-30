@@ -68,6 +68,12 @@
     var jobButton = $('.btn-job');
     var locationButton = $('.btn-location');
     var keywordButton = $('.btn-keyword');
+    var lastUid;
+
+    function resetSearchState() {
+      $('#search-response').empty();
+      lastUid = null;
+    }
 
     function activateButton(button) {
       button.removeClass('btn-outline-secondary').addClass('btn-primary');
@@ -78,6 +84,8 @@
     }
 
     function switchActiveCategoryButton() {
+      resetSearchState();
+
       if ($(this).hasClass('btn-friends')) {
         deactivateButton(followersButton);
         activateButton(friendsButton);
@@ -92,6 +100,8 @@
     }
 
     function switchActiveTypeButton() {
+      resetSearchState();
+
       if ($(this).hasClass('btn-job')) {
         activateButton(jobButton)
         deactivateButton(locationButton)
@@ -134,6 +144,32 @@
       return $('#search-value').val();
     }
 
+    function appendSearchResponse(users) {
+      if (!users || users.length === 0) {
+        resetSearchState();
+        $('#search-response').empty().text('No results found').hide().fadeIn(500);
+      } else {
+        var container = $('<div/>');
+        var template = $('#search-response-user-template').html();
+
+        users.forEach(function (user) {
+          if (user.description) {
+            user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
+            user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
+          }
+          var rendered = $(Mustache.render(template, user));
+          rendered.find('img').each(function () {
+            var img = $(this);
+            img.attr('src', img.attr('data-src'));
+          });
+          container.append(rendered);
+        })
+        $('#search-response').empty().append(container).hide().fadeIn(500);
+
+        lastUid = users[users.length - 1].uid;
+      }
+    }
+
     function search() {
       var category = currentCategory();
       var type = currentType();
@@ -149,29 +185,10 @@
       }
 
       var url = '<%= raw api_searches_path %>';
-      var params = {category: category, type: type, value: currentValue()}
+      var params = {category: category, type: type, value: currentValue(), limit: 2, last_uid: lastUid}
 
       $.get(url, params).done(function (res) {
-        if (!res.users || res.users.length === 0) {
-          $('#search-response').empty().text('No results found').hide().fadeIn(500);
-        } else {
-          var container = $('<div/>');
-          var template = $('#search-response-user-template').html();
-
-          res.users.forEach(function (user) {
-            if (user.description) {
-              user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
-              user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
-            }
-            var rendered = $(Mustache.render(template, user));
-            rendered.find('img').each(function () {
-              var img = $(this);
-              img.attr('src', img.attr('data-src'));
-            });
-            container.append(rendered);
-          })
-          $('#search-response').empty().append(container).hide().fadeIn(500);
-        }
+        appendSearchResponse(res.users);
       });
     }
 

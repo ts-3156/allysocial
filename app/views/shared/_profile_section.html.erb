@@ -75,10 +75,12 @@
     $.get(url).done(function (res) {
       var user = res.user;
       $('.profile-section').html(renderTemplate(user)).addClass('border').hide().fadeIn(500);
-    }).fail(function () {
-      setTimeout(function () {
-        updateProfile(retryCount++);
-      }, 3000);
+    }).fail(function (xhr) {
+      if (xhr.status === 404) {
+        setTimeout(function () {
+          updateProfile(++retryCount);
+        }, 3000);
+      }
     });
   }
 
