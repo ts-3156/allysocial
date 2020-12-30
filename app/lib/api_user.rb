@@ -67,7 +67,7 @@ class ApiUser
   end
 
   def profile_banner_url
-    @attrs[:profile_banner_image_url_https]
+    @attrs[:profile_banner_url] || @attrs[:profile_background_image_url_https]
   end
 
   def account_created_at

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_085643) do
+ActiveRecord::Schema.define(version: 2020_12_30_090246) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 2020_12_29_085643) do
     t.index ["user_snapshot_id"], name: "index_followers_insights_on_user_snapshot_id", unique: true
   end
 
+  create_table "followers_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "followers_snapshot_id", null: false
+    t.bigint "previous_cursor"
+    t.bigint "next_cursor"
+    t.json "uids"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_followers_responses_on_created_at"
+    t.index ["followers_snapshot_id"], name: "index_followers_responses_on_followers_snapshot_id"
+  end
+
   create_table "followers_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
     t.json "properties"
@@ -50,6 +61,17 @@ ActiveRecord::Schema.define(version: 2020_12_29_085643) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_friends_insights_on_created_at"
     t.index ["user_snapshot_id"], name: "index_friends_insights_on_user_snapshot_id", unique: true
+  end
+
+  create_table "friends_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "friends_snapshot_id", null: false
+    t.bigint "previous_cursor"
+    t.bigint "next_cursor"
+    t.json "uids"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_friends_responses_on_created_at"
+    t.index ["friends_snapshot_id"], name: "index_friends_responses_on_friends_snapshot_id"
   end
 
   create_table "friends_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

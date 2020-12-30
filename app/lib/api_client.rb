@@ -21,24 +21,28 @@ class ApiClient
     end
   end
 
-  def friend_ids(uid)
+  def friend_ids(uid, &block)
     collect_with_cursor do |options|
       RequestWithRetryHandler.new(__method__).perform do
-        @client.friend_ids(uid, options)
+        response = @client.friend_ids(uid, options)
+        block.call(response) if block
+        response
       end
     end
   end
 
-  def follower_ids(uid)
+  def follower_ids(uid, &block)
     collect_with_cursor do |options|
       RequestWithRetryHandler.new(__method__).perform do
-        @client.follower_ids(uid, options)
+        response = @client.follower_ids(uid, options)
+        block.call(response) if block
+        response
       end
     end
   end
 
   def collect_with_cursor
-    options = { count: 5000, cursor: -1 }
+    options = { count: 500 }
     collection = []
 
     # TODO Limit loop count

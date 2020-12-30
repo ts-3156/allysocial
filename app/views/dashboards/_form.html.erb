@@ -164,7 +164,7 @@
           });
           container.append(rendered);
         })
-        $('#search-response').empty().append(container).hide().fadeIn(500);
+        $('#search-response').append(container).hide().fadeIn(500);
 
         lastUid = users[users.length - 1].uid;
       }
@@ -185,9 +185,11 @@
       }
 
       var url = '<%= raw api_searches_path %>';
-      var params = {category: category, type: type, value: currentValue(), limit: 2, last_uid: lastUid}
+      var params = {category: category, type: type, value: currentValue(), limit: 10, last_uid: lastUid}
+      console.log('request', params);
 
       $.get(url, params).done(function (res) {
+        console.log('response', res);
         appendSearchResponse(res.users);
       });
     }
