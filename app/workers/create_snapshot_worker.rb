@@ -38,12 +38,10 @@ class CreateSnapshotWorker
         friends_snapshot.friends_responses.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], properties: { uids: attrs[:ids] })
       end
 
-      # friends_snapshot.update!(properties: { uids: ids })
-
       users = client.users(ids.take(5000)).map { |user| ApiUser.new(user) } # TODO Set suitable limit
-      description_keywords = extract_description_keywords(users)
-      location_keywords = extract_location_keywords(users)
-      user_snapshot.create_friends_insight!(description_keywords: { words: description_keywords }, location_keywords: { words: location_keywords })
+      friends_insight = user_snapshot.create_friends_insight!
+      friends_insight.update_description_from_users(users)
+      friends_insight.update_location_from_users(users)
 
       users
     end
@@ -60,12 +58,10 @@ class CreateSnapshotWorker
         followers_snapshot.followers_responses.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], properties: { uids: attrs[:ids] })
       end
 
-      # user_snapshot.create_followers_snapshot!(properties: { uids: ids })
-
       users = client.users(ids.take(5000)).map { |user| ApiUser.new(user) } # TODO Set suitable limit
-      description_keywords = extract_description_keywords(users)
-      location_keywords = extract_location_keywords(users)
-      user_snapshot.create_followers_insight!(description_keywords: { words: description_keywords }, location_keywords: { words: location_keywords })
+      followers_insight = user_snapshot.create_followers_insight!
+      followers_insight.update_description_from_users(users)
+      followers_insight.update_location_from_users(users)
 
       users
     end
@@ -80,15 +76,5 @@ class CreateSnapshotWorker
     insert_users.each_slice(1000) do |users_array|
       TwitterUser.insert_all(users_array)
     end
-  end
-
-  def extract_description_keywords(users)
-    text = users.take(1000).map(&:description).join(' ') # TODO Set suitable limit
-    NattoClient.new.count_words(text).keys.take(500)
-  end
-
-  def extract_location_keywords(users)
-    text = users.take(5000).map(&:location).join(' ') # TODO Set suitable limit
-    NattoClient.new.count_words(text).keys.take(500)
   end
 end

@@ -1,6 +1,6 @@
 <script src="<%= asset_path '/template/js/new-age.js' %>"></script>
 
-<div id="new-age-container">
+<div class="new-age-container">
 
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -8,7 +8,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <% if user_signed_in? %>
-            <a class="nav-link" href="<%= dashboard_path %>">Dashboard</a>
+            <a class="nav-link" href="<%= dashboard_path %>"><%= t('.dashboard') %></a>
           <% else %>
             <a class="nav-link" href="<%= raw user_twitter_omniauth_authorize_path %>">Sign in</a>
           <% end %>
@@ -161,10 +161,17 @@
           <a href="#">FAQ</a>
         </li>
         <li class="list-inline-item">
-          <% if user_signed_in? %>
-            <%= link_to 'Sign out', destroy_user_session_path, data: {confirm: 'Do you want to sign out?', method: :delete} %>
+          <% if I18n.locale == :ja %>
+            <%= link_to t('.english', locale: :en), root_path(locale: 'en', via: 'footer') %>
           <% else %>
-            <%= link_to 'Sign in', user_twitter_omniauth_authorize_path %>
+            <%= link_to t('.japanese', locale: :ja), root_path(locale: 'ja', via: 'footer') %>
+          <% end %>
+        </li>
+        <li class="list-inline-item">
+          <% if user_signed_in? %>
+            <%= link_to t('.sign_out'), destroy_user_session_path, data: { confirm: 'Do you want to sign out?', method: :delete } %>
+          <% else %>
+            <%= link_to t('.sign_in'), user_twitter_omniauth_authorize_path %>
           <% end %>
         </li>
       </ul>

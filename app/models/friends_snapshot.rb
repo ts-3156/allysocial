@@ -1,5 +1,5 @@
 class FriendsSnapshot < ApplicationRecord
-  include Searchable
+  include SnapshotImplementation
 
   belongs_to :user_snapshot
   has_many :friends_responses

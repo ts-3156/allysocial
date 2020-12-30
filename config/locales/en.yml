@@ -2,6 +2,11 @@ en:
   home:
     index:
       app_name: 'AllySocial'
+      dashboard: 'Dashboard'
+      english: 'English'
+      japanese: 'Japanese'
+      sign_in: 'Sign in'
+      sign_out: 'Sign out'
       hero_section:
         text: 'Find professionals from your followers.'
         button: 'Start Now for Free'
