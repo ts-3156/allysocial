@@ -74,6 +74,31 @@ class ApiUser
     @attrs[:created_at]
   end
 
+  def status_id
+    @attrs.dig(:status, :id)
+  end
+
+  def status_text
+    unless @status_text
+      @status_text = @attrs.dig(:status, :text)
+      if @status_text
+        begin
+          @attrs[:status][:entities][:urls].each do |entity|
+            @status_text.gsub!(entity[:url], entity[:expanded_url])
+          end
+        rescue => e
+        end
+      end
+      @status_text
+    end
+
+    @status_text
+  end
+
+  def status_created_at
+    @attrs.dig(:status, :created_at)
+  end
+
   def to_user_snapshot_attrs
     to_twitter_user_attrs
   end
@@ -92,6 +117,9 @@ class ApiUser
       profile_image_url: profile_image_url,
       profile_banner_url: profile_banner_url,
       account_created_at: account_created_at,
+      status_id: status_id,
+      status_text: status_text,
+      status_created_at: status_created_at,
     }
   end
 end

@@ -74,7 +74,7 @@ class CreateSnapshotWorker
       user[:created_at] = user[:updated_at] = insert_time
     end
     insert_users.each_slice(1000) do |users_array|
-      TwitterUser.insert_all(users_array)
+      TwitterUser.upsert_all(users_array)
     end
   end
 end

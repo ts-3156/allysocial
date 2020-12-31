@@ -8,7 +8,10 @@ module Api
 
     def show
       twitter_users = @user_snapshot.select_users_by(params[:category], params[:type], params[:value], limit: params[:limit], last_uid: params[:last_uid])
-      response_users = twitter_users.map { |user| UserDecorator.new(user.attributes, view_context) }
+      response_users = twitter_users.map { |user| UserDecorator.new(user.attributes, { is_follower: params[:category] == 'followers' }, view_context) }
+
+      CreateTwitterUsersWorker.perform_async(current_user.id, twitter_users.map(&:uid))
+
       render json: { users: response_users }
     end
 

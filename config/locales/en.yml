@@ -66,3 +66,16 @@ en:
       statuses: 'Statuses'
       following: 'Following'
       followers: 'Followers'
+  templates:
+    search_response_user_template:
+      statuses: 'Statuses'
+      following: 'Following'
+      followers: 'Followers'
+      is_follower: 'Follows you'
+      active_1hour: 'tweets within 1 hour'
+      active_12hours: 'tweets within 12 hours'
+      active_3days: 'tweets within 3 days'
+      active_1week: 'tweets within a week'
+      inactive_1week: 'No tweets for a week'
+      inactive_1month: 'No tweets for a month'
+      inactive_3months: 'No tweets for 3 months'

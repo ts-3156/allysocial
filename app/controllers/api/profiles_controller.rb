@@ -5,7 +5,7 @@ module Api
 
     def show
       if (hash = current_user.user_snapshot&.properties&.fetch('user', nil))
-        user = UserDecorator.new(hash, view_context)
+        user = UserDecorator.new(hash, {}, view_context)
         render json: { user: user }
       else
         render json: { message: 'Not found' }, status: :not_found

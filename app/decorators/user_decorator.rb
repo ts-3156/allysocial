@@ -1,6 +1,7 @@
 class UserDecorator
-  def initialize(attrs, view_context)
+  def initialize(attrs, options, view_context)
     @attrs = attrs.symbolize_keys
+    @options = options
     @view_context = view_context
   end
 
@@ -32,6 +33,75 @@ class UserDecorator
     end
   end
 
+  def active_period?(duration)
+    @attrs[:status_created_at] >= duration.ago
+  rescue => e
+    false
+  end
+
+  def inactive_period?(duration)
+    @attrs[:status_created_at] < duration.ago
+  rescue => e
+    false
+  end
+
+  def active_1hour_label
+    if active_period?(1.hour)
+      active_label(I18n.t('templates.search_response_user_template.active_1hour'))
+    end
+  end
+
+  def active_12hours_label
+    if active_period?(12.hours)
+      active_label(I18n.t('templates.search_response_user_template.active_12hours'))
+    end
+  end
+
+  def active_3days_label
+    if active_period?(3.days)
+      active_label(I18n.t('templates.search_response_user_template.active_3days'))
+    end
+  end
+
+  def active_1week_label
+    if active_period?(1.week)
+      active_label(I18n.t('templates.search_response_user_template.active_1week'))
+    end
+  end
+
+  def active_label(text)
+    %Q(<span class="badge badge-primary">#{text}</span>)
+  end
+
+  def inactive_3months_label
+    if inactive_period?(3.months)
+      inactive_label(I18n.t('templates.search_response_user_template.inactive_3months'))
+    end
+  end
+
+  def inactive_1month_label
+    if inactive_period?(1.month)
+      inactive_label(I18n.t('templates.search_response_user_template.inactive_1month'))
+    end
+  end
+
+  def inactive_1week_label
+    if inactive_period?(1.week)
+      inactive_label(I18n.t('templates.search_response_user_template.inactive_1week'))
+    end
+  end
+
+  def inactive_label(text)
+    %Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{text}</span>)
+  end
+
+  def labels
+    [
+      (%Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{I18n.t('templates.search_response_user_template.is_follower')}</span>) if @options[:is_follower]),
+      active_1hour_label || active_12hours_label || active_3days_label || active_1week_label || inactive_3months_label || inactive_1month_label || inactive_1week_label,
+    ].compact.join('&nbsp;')
+  end
+
   def to_hash
     {
       uid: @attrs[:uid].to_s,
@@ -50,6 +120,7 @@ class UserDecorator
       profile_image_url: @attrs[:profile_image_url],
       profile_banner_url: @attrs[:profile_banner_url],
       account_created_at: @attrs[:account_created_at],
+      labels: labels,
     }
   end
 end
