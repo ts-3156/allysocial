@@ -4,6 +4,7 @@ class CreateFollowersInsights < ActiveRecord::Migration[6.1]
       t.bigint :user_snapshot_id, null: false
       t.json :description_keywords
       t.json :location_keywords
+      t.json :url_keywords
 
       t.timestamps null: false
 

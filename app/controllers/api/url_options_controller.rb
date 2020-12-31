@@ -1,13 +1,13 @@
 module Api
-  class LocationOptionsController < BaseController
+  class UrlOptionsController < BaseController
     before_action :authenticate_user!
     before_action :set_user_snapshot
 
     def index
       if params[:category] == 'friends'
-        words = @user_snapshot.friends_insight.location_keywords['words'] || []
+        words = @user_snapshot.friends_insight.url_keywords['words'] || []
       elsif params[:category] == 'followers'
-        words = @user_snapshot.followers_insight.location_keywords['words'] || []
+        words = @user_snapshot.followers_insight.url_keywords['words'] || []
       else
         words = []
       end

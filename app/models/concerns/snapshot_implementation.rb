@@ -22,6 +22,12 @@ module SnapshotImplementation
     end
   end
 
+  def select_users_by_url(value, options)
+    select_with_like_query(options) do
+      TwitterUser.search_url(value)
+    end
+  end
+
   def select_users_by_keyword(value, options)
     select_with_like_query(options) do
       TwitterUser.search_description(value)

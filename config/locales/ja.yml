@@ -45,11 +45,13 @@ ja:
         title: '検索タイプ'
         job: '職種'
         location: '場所'
+        url: 'URL'
         keyword: 'キーワード'
         notice_profile_changes: '変化を通知'
         track_by_keywords: 'キーワードで検索'
         job_help_html: '<strong>職種</strong> が選択されています。'
         location_help_html: '<strong>場所</strong> が選択されています。'
+        url_help_html: '<strong>URL</strong> が選択されています。'
         keyword_help_html: '<strong>キーワード</strong> が選択されています。'
       search_value:
         title: '検索する値'

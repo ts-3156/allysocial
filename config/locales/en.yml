@@ -48,11 +48,13 @@ en:
         title: 'Search type'
         job: 'Job'
         location: 'Location'
+        url: 'URL'
         keyword: 'Keyword'
         notice_profile_changes: 'Notice profile changes'
         track_by_keywords: 'Track by Keywords'
         job_help_html: '<strong>Job</strong> is selected.'
         location_help_html: '<strong>Location</strong> is selected.'
+        url_help_html: '<strong>URL</strong> is selected.'
         keyword_help_html: '<strong>Keyword</strong> is selected.'
       search_value:
         title: 'Search value'

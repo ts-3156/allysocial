@@ -24,7 +24,7 @@ module Api
     end
 
     def require_type
-      unless params[:type] && params[:type].match?(/\A(job|location|keyword)\z/)
+      unless params[:type] && params[:type].match?(/\A(job|location|url|keyword)\z/)
         render json: { message: ':type not specified' }, status: :bad_request
       end
     end

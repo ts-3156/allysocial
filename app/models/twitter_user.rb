@@ -4,6 +4,10 @@ class TwitterUser < ApplicationRecord
       where('location like ?', "%#{sanitize_sql_like(str)}%")
     end
 
+    def search_url(str)
+      where('url like ?', "%#{sanitize_sql_like(str)}%")
+    end
+
     def search_description(str)
       where('description like ?', "%#{sanitize_sql_like(str)}%")
     end

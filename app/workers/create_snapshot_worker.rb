@@ -42,6 +42,7 @@ class CreateSnapshotWorker
       friends_insight = user_snapshot.create_friends_insight!
       friends_insight.update_description_from_users(users)
       friends_insight.update_location_from_users(users)
+      friends_insight.update_url_from_users(users)
 
       users
     end
@@ -62,6 +63,7 @@ class CreateSnapshotWorker
       followers_insight = user_snapshot.create_followers_insight!
       followers_insight.update_description_from_users(users)
       followers_insight.update_location_from_users(users)
+      followers_insight.update_url_from_users(users)
 
       users
     end

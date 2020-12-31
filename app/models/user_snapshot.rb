@@ -10,6 +10,8 @@ class UserSnapshot < ApplicationRecord
         select_friends_by_job(value, options)
       elsif type == 'location'
         select_friends_by_location(value, options)
+      elsif type == 'url'
+        select_friends_by_url(value, options)
       elsif type == 'keyword'
         select_friends_by_keyword(value, options)
       else
@@ -20,6 +22,8 @@ class UserSnapshot < ApplicationRecord
         select_followers_by_job(value, options)
       elsif type == 'location'
         select_followers_by_location(value, options)
+      elsif type == 'url'
+        select_followers_by_url(value, options)
       elsif type == 'keyword'
         select_followers_by_keyword(value, options)
       else
@@ -38,6 +42,10 @@ class UserSnapshot < ApplicationRecord
     friends_snapshot.select_users_by_location(value, options)
   end
 
+  def select_friends_by_url(value, options)
+    friends_snapshot.select_users_by_url(value, options)
+  end
+
   def select_friends_by_keyword(value, options)
     friends_snapshot.select_users_by_keyword(value, options)
   end
@@ -48,6 +56,10 @@ class UserSnapshot < ApplicationRecord
 
   def select_followers_by_location(value, options)
     followers_snapshot.select_users_by_location(value, options)
+  end
+
+  def select_followers_by_url(value, options)
+    followers_snapshot.select_users_by_url(value, options)
   end
 
   def select_followers_by_keyword(value, options)

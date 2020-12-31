@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_090246) do
     t.bigint "user_snapshot_id", null: false
     t.json "description_keywords"
     t.json "location_keywords"
+    t.json "url_keywords"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_followers_insights_on_created_at"
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_090246) do
     t.bigint "user_snapshot_id", null: false
     t.json "description_keywords"
     t.json "location_keywords"
+    t.json "url_keywords"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_friends_insights_on_created_at"

@@ -28,12 +28,14 @@
       <div id="search-type-buttons" class="btn-group" role="group">
         <button type="button" class="btn-job btn btn-primary" data-value="job"><%= t('.search_type.job') %></button>
         <button type="button" class="btn-location btn btn-outline-secondary" data-value="location"><%= t('.search_type.location') %></button>
+        <button type="button" class="btn-url btn btn-outline-secondary" data-value="url"><%= t('.search_type.url') %></button>
         <button type="button" class="btn-keyword btn btn-outline-secondary" data-value="keyword"><%= t('.search_type.keyword') %></button>
       </div>
     </div>
 
     <div class="job-selected-text small text-muted"><%= t('.search_type.job_help_html') %></div>
     <div class="location-selected-text small text-muted" style="display: none;"><%= t('.search_type.location_help_html') %></div>
+    <div class="url-selected-text small text-muted" style="display: none;"><%= t('.search_type.url_help_html') %></div>
     <div class="keyword-selected-text small text-muted" style="display: none;"><%= t('.search_type.keyword_help_html') %></div>
   </div>
 </div>
@@ -67,6 +69,7 @@
     var followersButton = $('.btn-followers');
     var jobButton = $('.btn-job');
     var locationButton = $('.btn-location');
+    var urlButton = $('.btn-url');
     var keywordButton = $('.btn-keyword');
     var valueSelector = $('#search-value');
     var lastUid;
@@ -106,23 +109,38 @@
       if ($(this).hasClass('btn-job')) {
         activateButton(jobButton)
         deactivateButton(locationButton)
+        deactivateButton(urlButton)
         deactivateButton(keywordButton)
         $('.job-selected-text').hide().fadeIn(500);
         $('.location-selected-text').hide();
+        $('.url-selected-text').hide();
         $('.keyword-selected-text').hide();
       } else if ($(this).hasClass('btn-location')) {
         deactivateButton(jobButton)
         activateButton(locationButton)
+        deactivateButton(urlButton)
         deactivateButton(keywordButton)
         $('.job-selected-text').hide();
         $('.location-selected-text').hide().fadeIn(500);
+        $('.url-selected-text').hide();
+        $('.keyword-selected-text').hide();
+      } else if ($(this).hasClass('btn-url')) {
+        deactivateButton(jobButton)
+        deactivateButton(locationButton)
+        activateButton(urlButton)
+        deactivateButton(keywordButton)
+        $('.job-selected-text').hide();
+        $('.location-selected-text').hide();
+        $('.url-selected-text').hide().fadeIn(500);
         $('.keyword-selected-text').hide();
       } else if ($(this).hasClass('btn-keyword')) {
         deactivateButton(jobButton)
         deactivateButton(locationButton)
+        deactivateButton(urlButton)
         activateButton(keywordButton)
         $('.job-selected-text').hide();
         $('.location-selected-text').hide();
+        $('.url-selected-text').hide();
         $('.keyword-selected-text').hide().fadeIn(500);
       }
     }
@@ -135,6 +153,7 @@
     followersButton.on('click', switchCategoryButton);
     jobButton.on('click', switchTypeButton);
     locationButton.on('click', switchTypeButton);
+    urlButton.on('click', switchTypeButton);
     keywordButton.on('click', switchTypeButton);
     valueSelector.on('change', switchValueSelector);
 
@@ -197,7 +216,7 @@
         return
       }
 
-      if (type !== 'job' && type !== 'location' && type !== 'keyword') {
+      if (type !== 'job' && type !== 'location' && type !== 'url' && type !== 'keyword') {
         console.warn('Invalid type');
         return
       }
@@ -224,6 +243,8 @@
           setJobOptions();
         } else if (type === 'location') {
           setLocationOptions();
+        } else if (type === 'url') {
+          setUrlOptions();
         } else if (type === 'keyword') {
           setKeywordOptions();
         }
@@ -232,6 +253,8 @@
           setJobOptions();
         } else if (type === 'location') {
           setLocationOptions();
+        } else if (type === 'url') {
+          setUrlOptions();
         } else if (type === 'keyword') {
           setKeywordOptions();
         }
@@ -270,6 +293,15 @@
 
     function setLocationOptions() {
       var url = '<%= raw api_location_options_path %>';
+      var category = currentCategory();
+
+      $.get(url, {category: category}).done(function (res) {
+        setOptions(res.options);
+      });
+    }
+
+    function setUrlOptions() {
+      var url = '<%= raw api_url_options_path %>';
       var category = currentCategory();
 
       $.get(url, {category: category}).done(function (res) {
