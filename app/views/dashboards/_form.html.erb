@@ -3,7 +3,7 @@
   <div class="mr-5 mb-5">
     <div class="mb-2">
       <%= t('.search_category.title') %>
-      <i class="far fa-question-circle text-muted"></i>
+      <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_category.tooltip') %>"></i>
     </div>
 
     <div class="mb-1">
@@ -21,7 +21,7 @@
   <div class="mb-5">
     <div class="mb-2">
       <%= t('.search_type.title') %>
-      <i class="far fa-question-circle text-muted"></i>
+      <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_category.tooltip') %>"></i>
     </div>
 
     <div class="mb-1">
@@ -44,9 +44,17 @@
 <div class="mb-5">
   <div class="mb-2">
     <%= t('.search_value.title') %>
-    <i class="far fa-question-circle text-muted"></i>
+    <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_value.tooltip') %>"></i>
   </div>
   <select id="search-value" class="form-control" style="width: initial;"></select>
+</div>
+
+<div class="mb-5">
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="show-details-check">
+    <label class="form-check-label" for="show-details-check"><%= t('.show_details.title') %></label>
+    <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.show_details.tooltip') %>"></i>
+  </div>
 </div>
 
 <%# Submit %>
@@ -59,6 +67,13 @@
 </div>
 
 <div class="pb-5" style="min-height: 300px;">
+  <div class="search-response-title mb-5" style="display: none;">
+    Search for
+    <span class="badge badge-primary"><span class="type"></span>:<span class="value"></span></span>
+    among your
+    <span class="badge badge-primary"><span class="category"></span></span>
+  </div>
+
   <div id="search-response"></div>
 </div>
 
@@ -75,6 +90,7 @@
     var lastUid;
 
     function resetSearchState() {
+      $('.search-response-title').hide();
       $('#search-response').empty();
       lastUid = null;
     }
@@ -169,6 +185,14 @@
       return $('#search-value').val();
     }
 
+    $('#show-details-check').on('change', function () {
+      if ($(this).prop('checked')) {
+        $('#search-response').find('.search-response-user-details').show();
+      } else {
+        $('#search-response').find('.search-response-user-details').hide();
+      }
+    });
+
     function appendSearchResponse(users) {
       if (!users || users.length === 0) {
         if (lastUid) {
@@ -193,6 +217,9 @@
           });
           container.append(rendered);
         })
+        if (!$('#show-details-check').prop('checked')) {
+          container.find('.search-response-user-details').hide();
+        }
         $('#search-response').append(container)
         container.fadeIn(500);
         $('#search-response').append($('<div/>', {text: 'Loading'}).lazyload().one('appear', function () {
@@ -209,7 +236,13 @@
     function search(callback) {
       var category = currentCategory();
       var type = currentType();
+      var value = currentValue();
       var limit = 10;
+
+      $('.search-response-title').show()
+        .find('.category').text(category).end()
+        .find('.type').text(type).end()
+        .find('.value').text(value);
 
       if (category !== 'friends' && category !== 'followers') {
         console.warn('Invalid category');
@@ -222,7 +255,7 @@
       }
 
       var url = '<%= raw api_searches_path %>';
-      var params = {category: category, type: type, value: currentValue(), limit: limit, last_uid: lastUid}
+      var params = {category: category, type: type, value: value, limit: limit, last_uid: lastUid}
       console.log('request', params);
 
       $.get(url, params).done(function (res) {
@@ -320,5 +353,6 @@
 
     setJobOptions();
 
+    $('[data-toggle="tooltip"]').tooltip();
   });
 </script>

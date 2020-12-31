@@ -35,6 +35,7 @@ ja:
     form:
       search_category:
         title: '検索カテゴリ'
+        tooltip: 'フォローとフォロワーのどちらを検索するか指定することができます。'
         friends:
           label: 'フォロー'
           help_html: '<strong>フォロー</strong> が選択されています。'
@@ -43,6 +44,7 @@ ja:
           help_html: '<strong>フォロワー</strong> が選択されています。'
       search_type:
         title: '検索タイプ'
+        tooltip: 'ユーザーのプロフィールの要素のうち、職種、場所、URL、キーワードのどれを使って検索するのかを指定します。'
         job: '職種'
         location: '場所'
         url: 'URL'
@@ -55,13 +57,18 @@ ja:
         keyword_help_html: '<strong>キーワード</strong> が選択されています。'
       search_value:
         title: '検索する値'
+        tooltip: '検索する具体的な値を指定することができます。'
         submit: '検索する'
+      show_details:
+        title: 'プロフィール詳細を表示する'
+        tooltip: 'チェックすると、検索結果にプロフィールの詳細を追加します。'
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'
       failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'
   shared:
     profile_section:
+      details: 'プロフィール詳細を開く'
       statuses: 'ツイート'
       following: 'フォロー'
       followers: 'フォロワー'

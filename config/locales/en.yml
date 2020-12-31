@@ -38,6 +38,7 @@ en:
     form:
       search_category:
         title: 'Search category'
+        tooltip: 'You can specify whether you want to search for friends or followers.'
         friends:
           label: 'Friends'
           help_html: '<strong>Friends</strong> is selected.'
@@ -46,6 +47,7 @@ en:
           help_html: '<strong>Followers</strong> is selected.'
       search_type:
         title: 'Search type'
+        tooltip: 'You can specify whether you want to search for job, location, url or keyword.'
         job: 'Job'
         location: 'Location'
         url: 'URL'
@@ -58,13 +60,18 @@ en:
         keyword_help_html: '<strong>Keyword</strong> is selected.'
       search_value:
         title: 'Search value'
+        tooltip: 'You can specify concrete value for searching.'
         submit: 'Search'
+      show_details:
+        title: 'Show profile details'
+        tooltip: 'If checked, add profile details to the search results.'
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
       failure: 'Could not authenticate you from Twitter because %{reason}.'
   shared:
     profile_section:
+      details: 'Show profile details'
       statuses: 'Statuses'
       following: 'Following'
       followers: 'Followers'
