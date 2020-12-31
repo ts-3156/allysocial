@@ -1,7 +1,7 @@
 class UserSnapshot < ApplicationRecord
   has_one :friends_snapshot
-  has_one :friends_insight
   has_one :followers_snapshot
+  has_one :friends_insight
   has_one :followers_insight
 
   def select_users_by(category, type, value, options)
@@ -64,5 +64,9 @@ class UserSnapshot < ApplicationRecord
 
   def select_followers_by_keyword(value, options)
     followers_snapshot.select_users_by_keyword(value, options)
+  end
+
+  def data_completed?
+    friends_snapshot && followers_snapshot && friends_insight && followers_insight
   end
 end

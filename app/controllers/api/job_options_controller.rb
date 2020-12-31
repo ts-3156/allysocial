@@ -5,7 +5,7 @@ module Api
     def index
       labels = JobSelector::LABELS[I18n.locale]
       options = JobSelector::VALUES.map do |value|
-        { value: strip_tags(value), label: labels[value.to_sym] }
+        { value: labels[value.to_sym], label: labels[value.to_sym] }
       end
 
       render json: { options: options }
