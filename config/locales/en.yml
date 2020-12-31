@@ -75,6 +75,12 @@ en:
       statuses: 'Statuses'
       following: 'Following'
       followers: 'Followers'
+    support_modal:
+      title: 'Signed in as @%{user}'
+      body_html: |
+        %{app} is designed to help you find new connections among your followers.<br>
+        <br>
+        If you have any questions, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
   templates:
     search_response_user_template:
       statuses: 'Statuses'

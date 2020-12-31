@@ -46,7 +46,9 @@
     <%= t('.search_value.title') %>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_value.tooltip') %>"></i>
   </div>
-  <select id="search-value" class="form-control" style="width: initial;"></select>
+  <input type="text" id="search-value" class="form-control" list="search-value-options" style="width: initial;">
+  <datalist id="search-value-options">
+  </datalist>
 </div>
 
 <div class="mb-5">
@@ -105,6 +107,7 @@
 
     function switchCategoryButton() {
       resetSearchState();
+      valueSelector.val('');
 
       if ($(this).hasClass('btn-friends')) {
         deactivateButton(followersButton);
@@ -121,6 +124,7 @@
 
     function switchTypeButton() {
       resetSearchState();
+      valueSelector.val('');
 
       if ($(this).hasClass('btn-job')) {
         activateButton(jobButton)
@@ -308,10 +312,10 @@
     });
 
     function setOptions(options) {
-      $('#search-value').empty();
+      $('#search-value-options').empty();
       options.forEach(function (option) {
         var tag = $('<option/>', {value: option.value, text: option.label});
-        $('#search-value').append(tag);
+        $('#search-value-options').append(tag);
       });
     }
 

@@ -72,6 +72,12 @@ ja:
       statuses: 'ツイート'
       following: 'フォロー'
       followers: 'フォロワー'
+    support_modal:
+      title: '@%{user} としてログイン中'
+      body_html: |
+        %{app} はフォロワーの中から新しいつながりを見付けるためにデザインされています。<br>
+        <br>
+        もし分からないことがあれば、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> にいつでも質問してください。
   templates:
     search_response_user_template:
       statuses: 'ツイート'
