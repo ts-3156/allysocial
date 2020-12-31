@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: followers_snapshots
+#
+#  id               :bigint           not null, primary key
+#  user_snapshot_id :bigint           not null
+#  properties       :json
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
 class FollowersSnapshot < ApplicationRecord
   include SnapshotImplementation
 

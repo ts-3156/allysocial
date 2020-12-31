@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id          :bigint           not null, primary key
+#  uid         :bigint           not null
+#  screen_name :string(255)      not null
+#  email       :string(255)      not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
