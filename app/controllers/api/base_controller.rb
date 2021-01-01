@@ -10,7 +10,7 @@ module Api
 
     def set_user_snapshot
       if !(@user_snapshot = current_user.user_snapshot) || !@user_snapshot.data_completed?
-        CreateSnapshotWorker.perform_async(current_user.id)
+        CreateUserSnapshotWorker.perform_async(current_user.id)
         render json: { message: 'Not found' }, status: :not_found
       end
     end

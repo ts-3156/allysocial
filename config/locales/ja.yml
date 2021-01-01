@@ -49,6 +49,9 @@ ja:
       contact:
         title_html:  '使ってくれて <i class="fas fa-heart"></i> ありがとう！'
         text_html: 'このアプリはリリースされたばかりです。バグは積極的に直していきます。<br>もし分からないことがあれば、お気軽にご連絡ください。'
+  waiting:
+    index:
+      text: '@%{user} のデータを分析中です。もう少々お待ちください。'
   dashboards:
     show:
     form:

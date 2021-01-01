@@ -5,6 +5,7 @@ class CreateFriendsInsights < ActiveRecord::Migration[6.1]
       t.json :description_keywords
       t.json :location_keywords
       t.json :url_keywords
+      t.datetime :completed_at
 
       t.timestamps null: false
 

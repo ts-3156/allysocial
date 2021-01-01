@@ -10,20 +10,19 @@ class CreateTwitterUsersWorker
       return
     end
 
-    user = User.find(user_id)
-    client = user.api_client
     uids.uniq!
 
     reject_candidate_uids = TwitterUser.where(uid: uids).where('updated_at > ?', 1.hour.ago).pluck(:uid)
-    uids -= reject_candidate_uids
+    uids -= reject_candidate_uids if reject_candidate_uids.any?
 
     if uids.empty?
       logger.info 'There are No uids to be updated'
       return
     end
 
+    client = User.find(user_id).api_client
     api_users = client.users(uids).map { |user| ApiUser.new(user) }
-    create_twitter_users(api_users)
+    upsert_records(api_users)
   rescue => e
     logger.warn "Unhandled exception: #{e.inspect}"
     logger.info e.backtrace.join("\n")
@@ -31,13 +30,11 @@ class CreateTwitterUsersWorker
 
   private
 
-  def create_twitter_users(api_users)
+  def upsert_records(api_users)
     insert_time = Time.zone.now
     insert_users = api_users.map(&:to_twitter_user_attrs).each do |user|
       user[:created_at] = user[:updated_at] = insert_time
     end
-    insert_users.each_slice(1000) do |users_array|
-      TwitterUser.upsert_all(users_array)
-    end
+    TwitterUser.upsert_all(insert_users)
   end
 end

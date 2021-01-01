@@ -42,6 +42,23 @@ module SnapshotImplementation
     end
   end
 
+  def data_completed?
+    completed_at.present?
+  end
+
+  def all_uids
+    api_responses.map { |res| res.properties['uids'] }.flatten
+  end
+
+  def all_users
+    api_responses.map do |res|
+      uids = res.properties['uids']
+      TwitterUser.where(uid: uids).order_by_field(uids)
+    end.flatten
+  end
+
+  private
+
   def select_with_like_query(options, &block)
     return_users = []
 

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resource :dashboard, only: :show
+  get 'waiting', to: 'waiting#index'
 
   namespace :api, { format: 'json' } do
     resources :profiles, only: %i(show), param: :uid

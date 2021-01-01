@@ -79,6 +79,6 @@ class UserSnapshot < ApplicationRecord
   end
 
   def data_completed?
-    friends_snapshot && followers_snapshot && friends_insight && followers_insight
+    friends_snapshot&.data_completed? && followers_snapshot&.data_completed? && friends_insight&.data_completed? && followers_insight&.data_completed?
   end
 end

@@ -21,6 +21,10 @@ module InsightImplementation
     update!(url_keywords: { words: words })
   end
 
+  def data_completed?
+    completed_at.present?
+  end
+
   private
 
   def extract_description_keywords(users)
