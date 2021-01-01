@@ -48,7 +48,7 @@ module SnapshotImplementation
     api_responses.each do |response|
       uids = response.properties['uids']
 
-      if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{,30}\z/)
+      if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{1,30}\z/)
         next if !(index = uids.index(options[:last_uid].to_i)) || index == uids.size - 1
         uids = uids.slice((index + 1)..-1)
       end

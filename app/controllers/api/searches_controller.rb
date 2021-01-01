@@ -30,7 +30,7 @@ module Api
     end
 
     def require_value
-      unless params[:value] && params[:value].match?(/\A.{,50}\z/)
+      unless params[:value] && params[:value].match?(/\A.{1,50}\z/)
         render json: { message: ':value not specified' }, status: :bad_request
       end
     end

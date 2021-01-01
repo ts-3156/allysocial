@@ -1,7 +1,7 @@
 ja:
+  app_name: 'AllySocial'
   home:
     index:
-      app_name: 'AllySocial'
       dashboard: 'ダッシュボード'
       english: '英語'
       japanese: '日本語'

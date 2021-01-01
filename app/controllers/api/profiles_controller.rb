@@ -15,7 +15,7 @@ module Api
     private
 
     def require_uid
-      raise ':uid not specified' unless params[:uid] && params[:uid].match?(/\A[1-9][0-9]{,30}\z/)
+      raise ':uid not specified' unless params[:uid] && params[:uid].match?(/\A[1-9][0-9]{1,30}\z/)
     end
   end
 end

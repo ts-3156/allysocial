@@ -4,7 +4,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="<%= root_path(via: 'app_name') %>"><%= t('.app_name') %></a>
+      <a class="navbar-brand" href="<%= root_path(via: 'app_name') %>"><%= t('app_name') %></a>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <% if user_signed_in? %>
@@ -55,7 +55,7 @@
             <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
           <div>
-            <h3 class="mb-4"><%= t('.download.features.what_app_can_do', app: t('.app_name')) %></h3>
+            <h3 class="mb-4"><%= t('.download.features.what_app_can_do', app: t('app_name')) %></h3>
             <div class="mb-2"><%= t('.download.features.job') %></div>
             <div class="mb-2"><%= t('.download.features.location') %></div>
             <div class="mb-2"><%= t('.download.features.url') %></div>
@@ -73,8 +73,8 @@
   <section class="features" id="features">
     <div class="container">
       <div class="section-heading text-center">
-        <h2 class="mb-5"><%= t('.features.title', app: t('.app_name')) %></h2>
-        <p class="text-muted mb-5"><%= t('.features.text_html', app: t('.app_name')) %></p>
+        <h2 class="mb-5"><%= t('.features.title', app: t('app_name')) %></h2>
+        <p class="text-muted mb-5"><%= t('.features.text_html', app: t('app_name')) %></p>
         <div>
           <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'features') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
         </div>
@@ -161,7 +161,7 @@
 
   <footer>
     <div class="container">
-      <p>&copy; <%= t('.app_name') %> 2020. All Rights Reserved.</p>
+      <p>&copy; <%= t('app_name') %> 2020. All Rights Reserved.</p>
       <ul class="list-inline">
         <li class="list-inline-item">
           <a href="#">Privacy</a>

@@ -15,6 +15,8 @@ class UserSnapshot < ApplicationRecord
   has_one :followers_insight
 
   def select_users_by(category, type, value, options)
+    return [] if value.blank?
+
     if category == 'friends'
       if type == 'job'
         select_friends_by_job(value, options)

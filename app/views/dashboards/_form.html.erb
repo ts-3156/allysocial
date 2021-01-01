@@ -69,9 +69,9 @@
 </div>
 
 <div class="pb-5" style="min-height: 300px;">
-  <div class="search-response-title mb-5" style="display: none;">
+  <p class="search-response-title lead mb-5" style="display: none;">
     <%= t('.search_response.html') %>
-  </div>
+  </p>
 
   <div id="search-response"></div>
 </div>
@@ -87,11 +87,13 @@
     var keywordButton = $('.btn-keyword');
     var valueSelector = $('#search-value');
     var lastUid;
+    var currentIndexNumber;
 
     function resetSearchState() {
       $('.search-response-title').hide();
       $('#search-response').empty();
       lastUid = null;
+      currentIndexNumber = 1;
     }
 
     function activateButton(button) {
@@ -211,6 +213,7 @@
             user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
             user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
           }
+          user.index_number = currentIndexNumber++;
           var rendered = $(Mustache.render(template, user));
           rendered.find('img').each(function () {
             var img = $(this);
@@ -240,20 +243,31 @@
       var value = currentValue();
       var limit = 10;
 
-      $('.search-response-title').show()
-        .find('.category').text(category).end()
-        .find('.type').text(type).end()
-        .find('.value').text(value);
-
       if (category !== 'friends' && category !== 'followers') {
         console.warn('Invalid category');
+        resetSearchState();
+        $('#search-response').empty().text('Please specify correct [category]').hide().fadeIn(500);
         return
       }
 
       if (type !== 'job' && type !== 'location' && type !== 'url' && type !== 'keyword') {
         console.warn('Invalid type');
+        resetSearchState();
+        $('#search-response').empty().text('Please specify correct [type]').hide().fadeIn(500);
         return
       }
+
+      if (!value || value.length === 0) {
+        console.warn('Invalid value');
+        resetSearchState();
+        $('#search-response').empty().text('Please specify correct [value]').hide().fadeIn(500);
+        return
+      }
+
+      $('.search-response-title').show()
+        .find('.category').text(category).end()
+        .find('.type').text(type).end()
+        .find('.value').text(value);
 
       var url = '<%= raw api_searches_path %>';
       var params = {category: category, type: type, value: value, limit: limit, last_uid: lastUid}
