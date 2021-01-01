@@ -46,7 +46,7 @@
     <%= t('.search_label.title') %>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
   </div>
-  <input type="text" id="search-label" class="form-control" list="search-label-options" style="width: initial;">
+  <input type="text" id="search-label" class="form-control" list="search-label-options" placeholder="Choose label" style="width: initial;">
   <datalist id="search-label-options">
   </datalist>
 </div>
@@ -336,6 +336,10 @@
         var tag = $('<option/>', {value: option.value, text: option.label});
         $('#search-label-options').append(tag);
       });
+      $('#search-label').addClass('is-valid');
+      setTimeout(function () {
+        $('#search-label').removeClass('is-valid');
+      }, 1000)
     }
 
     function setJobOptions() {

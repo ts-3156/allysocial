@@ -76,7 +76,7 @@ ja:
         keyword_help_html: '<strong>キーワード</strong> が選択されています。'
       search_label:
         title: '検索する値'
-        tooltip: '検索する具体的な値を指定することができます。'
+        tooltip: '検索する具体的なラベルを指定することができます。'
         submit: '検索する'
       show_details:
         title: 'プロフィール詳細を表示する'

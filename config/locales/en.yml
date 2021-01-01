@@ -78,8 +78,8 @@ en:
         url_help_html: '<strong>URL</strong> is selected.'
         keyword_help_html: '<strong>Keyword</strong> is selected.'
       search_label:
-        title: 'Search value'
-        tooltip: 'You can specify concrete value for searching.'
+        title: 'Search label'
+        tooltip: 'You can specify concrete label for searching.'
         submit: 'Search'
       show_details:
         title: 'Show profile details'
