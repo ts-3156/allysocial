@@ -40,14 +40,14 @@
   </div>
 </div>
 
-<%# Search value %>
+<%# Search label %>
 <div class="mb-5">
   <div class="mb-2">
-    <%= t('.search_value.title') %>
-    <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_value.tooltip') %>"></i>
+    <%= t('.search_label.title') %>
+    <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
   </div>
-  <input type="text" id="search-value" class="form-control" list="search-value-options" style="width: initial;">
-  <datalist id="search-value-options">
+  <input type="text" id="search-label" class="form-control" list="search-label-options" style="width: initial;">
+  <datalist id="search-label-options">
   </datalist>
 </div>
 
@@ -61,7 +61,7 @@
 
 <%# Submit %>
 <div class="mb-5">
-  <button id="job-submit" type="submit" class="btn btn-primary"><%= t('.search_value.submit') %></button>
+  <button id="job-submit" type="submit" class="btn btn-primary"><%= t('.search_label.submit') %></button>
 </div>
 
 <div class="mb-5">
@@ -70,7 +70,7 @@
 
 <div class="pb-5" style="min-height: 300px;">
   <p class="search-response-title lead mb-5" style="display: none;">
-    <%= t('.search_response.html') %>
+    <%= t('.search_response.html', user: current_user.screen_name) %>
   </p>
 
   <div id="search-response"></div>
@@ -85,7 +85,7 @@
     var locationButton = $('.btn-location');
     var urlButton = $('.btn-url');
     var keywordButton = $('.btn-keyword');
-    var valueSelector = $('#search-value');
+    var labelSelector = $('#search-label');
     var lastUid;
     var currentIndexNumber;
 
@@ -106,7 +106,7 @@
 
     function switchCategoryButton() {
       resetSearchState();
-      valueSelector.val('');
+      labelSelector.val('');
 
       if ($(this).hasClass('btn-friends')) {
         deactivateButton(followersButton);
@@ -123,7 +123,7 @@
 
     function switchTypeButton() {
       resetSearchState();
-      valueSelector.val('');
+      labelSelector.val('');
 
       if ($(this).hasClass('btn-job')) {
         activateButton(jobButton)
@@ -164,7 +164,7 @@
       }
     }
 
-    function switchValueSelector() {
+    function switchLabelSelector() {
       resetSearchState();
     }
 
@@ -174,18 +174,26 @@
     locationButton.on('click', switchTypeButton);
     urlButton.on('click', switchTypeButton);
     keywordButton.on('click', switchTypeButton);
-    valueSelector.on('change', switchValueSelector);
+    labelSelector.on('change', switchLabelSelector);
 
     function currentCategory() {
       return $('#search-category-buttons').find('.btn-primary').data('value');
+    }
+
+    function currentCategoryLabel() {
+      return $('#search-category-buttons').find('.btn-primary').text();
     }
 
     function currentType() {
       return $('#search-type-buttons').find('.btn-primary').data('value');
     }
 
-    function currentValue() {
-      return valueSelector.val();
+    function currentTypeLabel() {
+      return $('#search-type-buttons').find('.btn-primary').text();
+    }
+
+    function currentLabel() {
+      return labelSelector.val();
     }
 
     $('#show-details-check').on('change', function () {
@@ -240,7 +248,7 @@
     function search(callback) {
       var category = currentCategory();
       var type = currentType();
-      var value = currentValue();
+      var label = currentLabel();
       var limit = 10;
 
       if (category !== 'friends' && category !== 'followers') {
@@ -257,20 +265,20 @@
         return
       }
 
-      if (!value || value.length === 0) {
-        console.warn('Invalid value');
+      if (!label || label.length === 0) {
+        console.warn('Invalid label');
         resetSearchState();
-        $('#search-response').empty().text('Please specify correct [value]').hide().fadeIn(500);
+        $('#search-response').empty().text('Please specify correct [label]').hide().fadeIn(500);
         return
       }
 
       $('.search-response-title').show()
-        .find('.category').text(category).end()
-        .find('.type').text(type).end()
-        .find('.value').text(value);
+        .find('.category').text(currentCategoryLabel()).end()
+        .find('.type').text(currentTypeLabel()).end()
+        .find('.label').text(label);
 
       var url = '<%= raw api_searches_path %>';
-      var params = {category: category, type: type, value: value, limit: limit, last_uid: lastUid}
+      var params = {category: category, type: type, label: label, limit: limit, last_uid: lastUid}
       console.log('request', params);
 
       $.get(url, params).done(function (res) {
@@ -282,7 +290,7 @@
       });
     }
 
-    function updateSearchValueOptions() {
+    function updateSearchLabelOptions() {
       var category = currentCategory();
       var type = currentType();
 
@@ -310,11 +318,11 @@
     }
 
     $('#search-category-buttons').on('click', function () {
-      updateSearchValueOptions();
+      updateSearchLabelOptions();
     });
 
     $('#search-type-buttons').on('click', function () {
-      updateSearchValueOptions();
+      updateSearchLabelOptions();
     });
 
     $('#job-submit').on('click', function () {
@@ -323,10 +331,10 @@
     });
 
     function setOptions(options) {
-      $('#search-value-options').empty();
+      $('#search-label-options').empty();
       options.forEach(function (option) {
         var tag = $('<option/>', {value: option.value, text: option.label});
-        $('#search-value-options').append(tag);
+        $('#search-label-options').append(tag);
       });
     }
 

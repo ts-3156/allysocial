@@ -74,7 +74,7 @@ ja:
         location_help_html: '<strong>場所</strong> が選択されています。'
         url_help_html: '<strong>URL</strong> が選択されています。'
         keyword_help_html: '<strong>キーワード</strong> が選択されています。'
-      search_value:
+      search_label:
         title: '検索する値'
         tooltip: '検索する具体的な値を指定することができます。'
         submit: '検索する'
@@ -83,14 +83,11 @@ ja:
         tooltip: 'チェックすると、検索結果にプロフィールの詳細を追加します。'
       search_response:
         html: |
-          <span class="badge badge-primary">
-            <span class="category"></span>
-          </span>
+          @%{user} の
+          <span class="badge badge-primary category"></span>
           の中から
-          <span class="badge badge-primary">
-            <span class="type"></span>:<span class="value"></span>
-          </span>
-          を検索
+          <span class="badge badge-primary type"></span> が <span class="badge badge-primary label"></span>
+          のユーザーを検索する
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'

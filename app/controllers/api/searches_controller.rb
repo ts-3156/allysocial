@@ -3,11 +3,11 @@ module Api
     before_action :authenticate_user!
     before_action :require_category
     before_action :require_type
-    before_action :require_value
+    before_action :require_label
     before_action :set_user_snapshot
 
     def show
-      twitter_users = @user_snapshot.select_users_by(params[:category], params[:type], params[:value], limit: params[:limit], last_uid: params[:last_uid])
+      twitter_users = @user_snapshot.select_users_by(params[:category], params[:type], params[:label], limit: params[:limit], last_uid: params[:last_uid])
       response_users = twitter_users.map { |user| UserDecorator.new(user.attributes, { is_follower: params[:category] == 'followers' }, view_context) }
 
       CreateTwitterUsersWorker.perform_async(current_user.id, twitter_users.map(&:uid))
@@ -29,9 +29,9 @@ module Api
       end
     end
 
-    def require_value
-      unless params[:value] && params[:value].match?(/\A.{1,50}\z/)
-        render json: { message: ':value not specified' }, status: :bad_request
+    def require_label
+      unless params[:label] && params[:label].match?(/\A.{1,50}\z/)
+        render json: { message: ':label not specified' }, status: :bad_request
       end
     end
   end

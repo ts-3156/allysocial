@@ -14,30 +14,30 @@ class UserSnapshot < ApplicationRecord
   has_one :friends_insight
   has_one :followers_insight
 
-  def select_users_by(category, type, value, options)
-    return [] if value.blank?
+  def select_users_by(category, type, label, options)
+    return [] if label.blank?
 
     if category == 'friends'
       if type == 'job'
-        select_friends_by_job(value, options)
+        select_friends_by_job(label, options)
       elsif type == 'location'
-        select_friends_by_location(value, options)
+        select_friends_by_location(label, options)
       elsif type == 'url'
-        select_friends_by_url(value, options)
+        select_friends_by_url(label, options)
       elsif type == 'keyword'
-        select_friends_by_keyword(value, options)
+        select_friends_by_keyword(label, options)
       else
         []
       end
     elsif category == 'followers'
       if type == 'job'
-        select_followers_by_job(value, options)
+        select_followers_by_job(label, options)
       elsif type == 'location'
-        select_followers_by_location(value, options)
+        select_followers_by_location(label, options)
       elsif type == 'url'
-        select_followers_by_url(value, options)
+        select_followers_by_url(label, options)
       elsif type == 'keyword'
-        select_followers_by_keyword(value, options)
+        select_followers_by_keyword(label, options)
       else
         []
       end
@@ -46,36 +46,36 @@ class UserSnapshot < ApplicationRecord
     end
   end
 
-  def select_friends_by_job(value, options)
-    friends_snapshot.select_users_by_job(value, options)
+  def select_friends_by_job(label, options)
+    friends_snapshot.select_users_by_job(label, options)
   end
 
-  def select_friends_by_location(value, options)
-    friends_snapshot.select_users_by_location(value, options)
+  def select_friends_by_location(label, options)
+    friends_snapshot.select_users_by_location(label, options)
   end
 
-  def select_friends_by_url(value, options)
-    friends_snapshot.select_users_by_url(value, options)
+  def select_friends_by_url(label, options)
+    friends_snapshot.select_users_by_url(label, options)
   end
 
-  def select_friends_by_keyword(value, options)
-    friends_snapshot.select_users_by_keyword(value, options)
+  def select_friends_by_keyword(label, options)
+    friends_snapshot.select_users_by_keyword(label, options)
   end
 
-  def select_followers_by_job(value, options)
-    followers_snapshot.select_users_by_job(value, options)
+  def select_followers_by_job(label, options)
+    followers_snapshot.select_users_by_job(label, options)
   end
 
-  def select_followers_by_location(value, options)
-    followers_snapshot.select_users_by_location(value, options)
+  def select_followers_by_location(label, options)
+    followers_snapshot.select_users_by_location(label, options)
   end
 
-  def select_followers_by_url(value, options)
-    followers_snapshot.select_users_by_url(value, options)
+  def select_followers_by_url(label, options)
+    followers_snapshot.select_users_by_url(label, options)
   end
 
-  def select_followers_by_keyword(value, options)
-    followers_snapshot.select_users_by_keyword(value, options)
+  def select_followers_by_keyword(label, options)
+    followers_snapshot.select_users_by_keyword(label, options)
   end
 
   def data_completed?

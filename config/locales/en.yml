@@ -77,7 +77,7 @@ en:
         location_help_html: '<strong>Location</strong> is selected.'
         url_help_html: '<strong>URL</strong> is selected.'
         keyword_help_html: '<strong>Keyword</strong> is selected.'
-      search_value:
+      search_label:
         title: 'Search value'
         tooltip: 'You can specify concrete value for searching.'
         submit: 'Search'
@@ -86,14 +86,10 @@ en:
         tooltip: 'If checked, add profile details to the search results.'
       search_response:
         html: |
-          Search for
-          <span class="badge badge-primary">
-            <span class="type"></span>:<span class="value"></span>
-          </span>
-          among your
-          <span class="badge badge-primary">
-            <span class="category"></span>
-          </span>
+          Search for users whose
+          <span class="badge badge-primary type"></span> is <span class="badge badge-primary label"></span>
+          among @%{user}'s
+          <span class="badge badge-primary category"></span>
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
