@@ -222,6 +222,12 @@ body {
     height: 60px;
   }
 
+  section.download .row a.btn {
+    border: none;
+    background: url("/template/img/bg-pattern.png"), #7b4397;
+    background: url("/template/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+  }
+
   @media (min-width: 768px) {
     section.download .badges .badge-link {
       display: inline-block;
@@ -283,10 +289,15 @@ body {
     -webkit-text-fill-color: transparent;
   }
 
+  section.features .section-heading a.btn {
+    background: url("/template/img/bg-pattern.png"), #7b4397;
+    background: url("/template/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+  }
+
   section.cta {
     position: relative;
     padding: 250px 0;
-    background-image: url("../img/bg-cta.jpg");
+    background-image: url("/template/img/bg-cta.jpg");
     background-position: center;
     background-size: cover;
   }

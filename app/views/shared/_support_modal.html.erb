@@ -11,7 +11,8 @@
         <%= t('.body_html', app: t('home.index.app_name')) %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t('.negative') %></button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href = '<%= root_path(via: 'support_modal') %>;'"><%= t('.positive') %></button>
       </div>
     </div>
   </div>

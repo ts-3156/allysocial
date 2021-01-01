@@ -7,14 +7,30 @@ en:
       japanese: 'Japanese'
       sign_in: 'Sign in'
       sign_out: 'Sign out'
-      hero_section:
-        text: 'Find professionals from your followers.'
+      masthead:
+        text: 'Find new partners among your followers.'
         button: 'Start Now for Free'
-      features_section:
-        title: 'Followers are already your allies!'
+      download:
+        title: 'Your new partner is among your followers.'
+        text_html: |
+          Followers are following you because they want to know more about you. If you are interested in your followers, you can quickly become friends with them.<br>
+          <br>
+          Are you looking for a new business partner? Or are you looking for a hobby friend? Both are already among your followers!
+          Search through your followers and start building new relationships with new friends.
+        features:
+          what_app_can_do: 'What %{app} can do:'
+          job: 'feature 1: Search followers by "job"'
+          location: 'feature 2: Search followers by "location"'
+          url: 'feature 3: Search followers by "URL"'
+          keyword: 'feature 4: Search followers by "keyword"'
+      features:
+        title: '%{app} is the only tool to search followers'
         text_html:
-          With the slightest of opportunities, you can quickly become friends with them.<br>
-          Let's know your followers and turn then from acquaintances into mutually beneficial relationships.
+          There is no other tool that can "search followers" like %{app}.
+          The reason is that searching thousands to millions of followers in real time requires a high skill level and huge computing resources. <br>
+          <br>
+          %{app} was created by the same development team that created egotter &copy; the world's most advanced Twitter analysis tool for over a decade,
+          so %{app} provides world-class search speed and safety.
         first:
           title: 'Search followers by job title'
           text: 'Find new business partners among your followers.'
@@ -27,7 +43,10 @@ en:
         fourth:
           title: 'Track followers by keywords'
           text: "Set up keyword alerts to monitor your followers' real-time interests."
-      contact_section:
+      cta:
+        title: 'Followers are waiting to hear from you.'
+        text: Let's Get Started!
+      contact:
         title_html:  'We <i class="fas fa-heart"></i> new customers!'
         text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
   dashboards:
@@ -65,6 +84,16 @@ en:
       show_details:
         title: 'Show profile details'
         tooltip: 'If checked, add profile details to the search results.'
+      search_response:
+        html: |
+          Search for
+          <span class="badge badge-primary">
+            <span class="type"></span>:<span class="value"></span>
+          </span>
+          among your
+          <span class="badge badge-primary">
+            <span class="category"></span>
+          </span>
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
@@ -81,6 +110,8 @@ en:
         %{app} is designed to help you find new connections among your followers.<br>
         <br>
         If you have any questions, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
+      positive: 'Go to top page'
+      negative: 'Close'
   templates:
     search_response_user_template:
       statuses: 'Statuses'

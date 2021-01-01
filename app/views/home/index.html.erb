@@ -10,7 +10,7 @@
           <% if user_signed_in? %>
             <a class="nav-link" href="<%= dashboard_path %>"><%= t('.dashboard') %></a>
           <% else %>
-            <a class="nav-link" href="<%= raw user_twitter_omniauth_authorize_path %>">Sign in</a>
+            <a class="nav-link" href="<%= raw user_twitter_omniauth_authorize_path(via: 'navbar') %>"><%= t('.sign_in') %></a>
           <% end %>
         </li>
       </ul>
@@ -22,8 +22,8 @@
       <div class="row h-100">
         <div class="col-lg-7 my-auto">
           <div class="header-content mx-auto">
-            <h1 class="mb-5"><%= t('.hero_section.text') %></h1>
-            <a href="<%= raw user_twitter_omniauth_authorize_path %>" class="btn btn-outline btn-xl js-scroll-trigger"><%= t('.hero_section.button') %></a>
+            <h1 class="mb-5"><%= t('.masthead.text') %></h1>
+            <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'masthead') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
         </div>
         <div class="col-lg-5 my-auto">
@@ -45,13 +45,23 @@
     </div>
   </header>
 
-  <section style="display: none;" class="download bg-primary text-center" id="download">
+  <section class="download bg-primary text-center" id="download">
     <div class="container">
       <div class="row">
         <div class="col-md-8 mx-auto">
-          <h2 class="section-heading">Discover what all the buzz is about!</h2>
-          <p>Our app is available on any mobile device! Download now to get started!</p>
-          <div class="badges">
+          <h2 class="section-heading mb-5"><%= t('.download.title') %></h2>
+          <p class="mb-5"><%= t('.download.text_html') %></p>
+          <div class="mb-5">
+            <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
+          </div>
+          <div>
+            <h3 class="mb-4"><%= t('.download.features.what_app_can_do', app: t('.app_name')) %></h3>
+            <div class="mb-2"><%= t('.download.features.job') %></div>
+            <div class="mb-2"><%= t('.download.features.location') %></div>
+            <div class="mb-2"><%= t('.download.features.url') %></div>
+            <div class="mb-2"><%= t('.download.features.keyword') %></div>
+          </div>
+          <div class="badges" style="display: none;">
             <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/google-play-badge.svg' %>" alt=""></a>
             <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/app-store-badge.svg' %>" alt=""></a>
           </div>
@@ -63,9 +73,11 @@
   <section class="features" id="features">
     <div class="container">
       <div class="section-heading text-center">
-        <h2><%= t('.features_section.title') %></h2>
-        <p class="text-muted"><%= t('.features_section.text_html') %></p>
-        <hr>
+        <h2 class="mb-5"><%= t('.features.title', app: t('.app_name')) %></h2>
+        <p class="text-muted mb-5"><%= t('.features.text_html', app: t('.app_name')) %></p>
+        <div>
+          <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'features') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
+        </div>
       </div>
       <div class="row">
         <div class="col-lg-4 my-auto">
@@ -89,15 +101,15 @@
               <div class="col-lg-6">
                 <div class="feature-item">
                   <i class="icon-screen-smartphone text-primary"></i>
-                  <h3><%= t('.features_section.first.title') %></h3>
-                  <p class="text-muted"><%= t('.features_section.first.text') %></p>
+                  <h3><%= t('.features.first.title') %></h3>
+                  <p class="text-muted"><%= t('.features.first.text') %></p>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="feature-item">
                   <i class="icon-camera text-primary"></i>
-                  <h3><%= t('.features_section.second.title') %></h3>
-                  <p class="text-muted"><%= t('.features_section.second.text') %></p>
+                  <h3><%= t('.features.second.title') %></h3>
+                  <p class="text-muted"><%= t('.features.second.text') %></p>
                 </div>
               </div>
             </div>
@@ -105,15 +117,15 @@
               <div class="col-lg-6">
                 <div class="feature-item">
                   <i class="icon-present text-primary"></i>
-                  <h3><%= t('.features_section.third.title') %></h3>
-                  <p class="text-muted"><%= t('.features_section.third.text') %></p>
+                  <h3><%= t('.features.third.title') %></h3>
+                  <p class="text-muted"><%= t('.features.third.text') %></p>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="feature-item">
                   <i class="icon-lock-open text-primary"></i>
-                  <h3><%= t('.features_section.fourth.title') %></h3>
-                  <p class="text-muted"><%= t('.features_section.fourth.text') %></p>
+                  <h3><%= t('.features.fourth.title') %></h3>
+                  <p class="text-muted"><%= t('.features.fourth.text') %></p>
                 </div>
               </div>
             </div>
@@ -123,11 +135,11 @@
     </div>
   </section>
 
-  <section style="display: none;" class="cta">
+  <section class="cta">
     <div class="cta-content">
       <div class="container">
-        <h2>Stop waiting.<br>Start building.</h2>
-        <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
+        <h2><%= t('.cta.title') %></h2>
+        <a href="#contact" class="btn btn-outline btn-xl"><%= t('.cta.text') %></a>
       </div>
     </div>
     <div class="overlay"></div>
@@ -135,8 +147,8 @@
 
   <section class="contact bg-primary" id="contact">
     <div class="container">
-      <h2><%= t('.contact_section.title_html') %></h2>
-      <div class="mb-3"><%= t('.contact_section.text_html') %></div>
+      <h2><%= t('.contact.title_html') %></h2>
+      <div class="mb-5"><%= t('.contact.text_html') %></div>
       <ul class="list-inline list-social">
         <li class="list-inline-item social-twitter">
           <a href="https://twitter.com/egotter_cs" target="_blank">
@@ -171,7 +183,7 @@
           <% if user_signed_in? %>
             <%= link_to t('.sign_out'), destroy_user_session_path, data: { confirm: 'Do you want to sign out?', method: :delete } %>
           <% else %>
-            <%= link_to t('.sign_in'), user_twitter_omniauth_authorize_path %>
+            <%= link_to t('.sign_in'), user_twitter_omniauth_authorize_path(via: 'footer') %>
           <% end %>
         </li>
       </ul>

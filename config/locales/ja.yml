@@ -7,14 +7,30 @@ ja:
       japanese: '日本語'
       sign_in: 'ログイン'
       sign_out: 'ログアウト'
-      hero_section:
-        text: 'あなたのフォロワーから、プロフェッショナルを見付けよう。'
+      masthead:
+        text: 'あなたのフォロワーから、新しいパートナーを見付けよう。'
         button: '無料で始める'
-      features_section:
-        title: 'フォロワーはもうあなたの味方です！'
+      download:
+        title: '新しいパートナーは、フォロワーの中にいます。'
+        text_html: |
+          フォロワーは、もっとあなたのことを知りたくてあなたをフォローしています。あなたがフォロワーに興味を持てば、すぐに仲良くなることができます。<br>
+          <br>
+          あなたが探しているのは、新しいビジネスパートナーですか？ それとも趣味友達ですか？ どちらも、あなたのフォロワーの中に既にいます！
+          フォロワーを検索して、新しい仲間と新しい関係を築きましょう。
+        features:
+          what_app_can_do: '%{app} で出来ること'
+          job: '機能1：フォロワーを「職種」で検索する'
+          location: '機能2：フォロワーを「場所」で検索する'
+          url: '機能3：フォロワーを「URL」で検索する'
+          keyword: '機能4：フォロワーを「キーワード」で検索する'
+      features:
+        title: '%{app} はフォロワーを検索するためのたった1つのツールです'
         text_html:
-          ちょっとしたきっかけで、すぐに仲良くなることができます。<br>
-          フォロワーのことを知って、彼らを味方から仲間に変えていきましょう。
+          「フォロワーを検索する」ことを実現したツールは %{app} の他にはありません。
+          理由は、数千人から数百万人のフォロワーをリアルタイムに検索するには、高度なスキルと莫大なコンピューティングリソースが必要だからです。<br>
+          <br>
+          %{app} は、10年以上ツイッター分析ツールとして世界最先端であり続けている egotter &copy; と同じ開発チームが作り上げました。
+          そのため、%{app} は最高の検索スピードと安全性を兼ね備えています。
         first:
           title: 'フォロワーを職種で検索する'
           text: '新しいビジネスパートナーをフォロワーの中から見付けましょう。'
@@ -27,7 +43,10 @@ ja:
         fourth:
           title: 'フォロワーをキーワードで追う'
           text: 'キーワードアラートを設定して、フォロワーのリアルタイムな興味をモニターしましょう。'
-      contact_section:
+      cta:
+        title: 'フォロワーはあなたからの連絡を待っています。'
+        text: '試しに使ってみる'
+      contact:
         title_html:  '使ってくれて <i class="fas fa-heart"></i> ありがとう！'
         text_html: 'このアプリはリリースされたばかりです。バグは積極的に直していきます。<br>もし分からないことがあれば、お気軽にご連絡ください。'
   dashboards:
@@ -62,6 +81,16 @@ ja:
       show_details:
         title: 'プロフィール詳細を表示する'
         tooltip: 'チェックすると、検索結果にプロフィールの詳細を追加します。'
+      search_response:
+        html: |
+          <span class="badge badge-primary">
+            <span class="category"></span>
+          </span>
+          の中から
+          <span class="badge badge-primary">
+            <span class="type"></span>:<span class="value"></span>
+          </span>
+          を検索
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'
@@ -78,6 +107,8 @@ ja:
         %{app} はフォロワーの中から新しいつながりを見付けるためにデザインされています。<br>
         <br>
         もし分からないことがあれば、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> にいつでも質問してください。
+      positive: 'トップページを開く'
+      negative: '閉じる'
   templates:
     search_response_user_template:
       statuses: 'ツイート'

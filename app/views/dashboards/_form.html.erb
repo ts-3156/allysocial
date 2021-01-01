@@ -70,10 +70,7 @@
 
 <div class="pb-5" style="min-height: 300px;">
   <div class="search-response-title mb-5" style="display: none;">
-    Search for
-    <span class="badge badge-primary"><span class="type"></span>:<span class="value"></span></span>
-    among your
-    <span class="badge badge-primary"><span class="category"></span></span>
+    <%= t('.search_response.html') %>
   </div>
 
   <div id="search-response"></div>
@@ -186,7 +183,7 @@
     }
 
     function currentValue() {
-      return $('#search-value').val();
+      return valueSelector.val();
     }
 
     $('#show-details-check').on('change', function () {
