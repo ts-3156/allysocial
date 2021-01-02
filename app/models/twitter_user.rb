@@ -51,6 +51,18 @@ class TwitterUser < ApplicationRecord
       where('url like ?', "%#{sanitize_sql_like(str)}%")
     end
 
+    def instagram
+      where('url regexp "[Ii]nstagram"')
+    end
+
+    def tiktok
+      where('url regexp "[Tt]ik[Tt]ok"')
+    end
+
+    def youtube
+      where('url regexp "[Yy]ou[Tt]ube"')
+    end
+
     def search_description(str)
       where('description like ?', "%#{sanitize_sql_like(str)}%")
     end
@@ -60,7 +72,7 @@ class TwitterUser < ApplicationRecord
     end
 
     def freelancer
-      requests_for_work = '([Ff])reelance|フリーランス|(仕事.*依頼)|(依頼.+DM)'
+      requests_for_work = '([Ff])reelance|フリーランス|(仕事.*(依頼|募集|相談))|(依頼.+DM)|ご?連絡は'
       where(%Q(description regexp "#{requests_for_work}" or location regexp "#{requests_for_work}"))
     end
 

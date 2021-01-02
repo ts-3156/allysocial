@@ -37,8 +37,14 @@ module SnapshotImplementation
   end
 
   def select_users_by_url(value, options)
+    method_name = UrlSelector.matched_value(value)
+
     select_with_like_query(options) do
-      TwitterUser.search_url(value)
+      if method_name
+        TwitterUser.send(method_name)
+      else
+        TwitterUser.search_url(value)
+      end
     end
   end
 
@@ -50,17 +56,6 @@ module SnapshotImplementation
 
   def data_completed?
     completed_at.present?
-  end
-
-  def all_uids
-    api_responses.map { |res| res.properties['uids'] }.flatten
-  end
-
-  def all_users
-    api_responses.map do |res|
-      uids = res.properties['uids']
-      TwitterUser.where(uid: uids).order_by_field(uids)
-    end.flatten
   end
 
   private

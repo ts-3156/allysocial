@@ -98,6 +98,11 @@ ja:
           のユーザーを検索する
       js:
         specify_correct_label: '検索するラベルを選択してください。'
+        no_results_found_html:
+          検索結果が見つかりませんでした。<br>
+          <br>
+          %{app} はリリースされたばかりで、積極的にバグ修正を行っています。
+          バグの報告や機能追加の要望は、お気軽に <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'

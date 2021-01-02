@@ -81,4 +81,26 @@ class UserSnapshot < ApplicationRecord
   def data_completed?
     friends_snapshot&.data_completed? && followers_snapshot&.data_completed? && friends_insight&.data_completed? && followers_insight&.data_completed?
   end
+
+  def friend_uids
+    friends_snapshot.api_responses.map { |res| res.properties['uids'] }.flatten
+  end
+
+  def friends
+    friends_snapshot.api_responses.map do |res|
+      uids = res.properties['uids']
+      TwitterUser.where(uid: uids).order_by_field(uids)
+    end.flatten
+  end
+
+  def follower_uids
+    followers_snapshot.api_responses.map { |res| res.properties['uids'] }.flatten
+  end
+
+  def followers
+    followers_snapshot.api_responses.map do |res|
+      uids = res.properties['uids']
+      TwitterUser.where(uid: uids).order_by_field(uids)
+    end.flatten
+  end
 end
