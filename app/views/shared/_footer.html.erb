@@ -1,0 +1,32 @@
+<div class="new-age-container">
+  <footer>
+    <div class="container">
+      <p>&copy; <%= t('app_name') %> 2021. All Rights Reserved.</p>
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a href="#">Privacy</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#">Terms</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#">FAQ</a>
+        </li>
+        <li class="list-inline-item">
+          <% if I18n.locale == :ja %>
+            <%= link_to t('home.index.english', locale: :en), root_path(locale: 'en', via: 'footer') %>
+          <% else %>
+            <%= link_to t('home.index.japanese', locale: :ja), root_path(locale: 'ja', via: 'footer') %>
+          <% end %>
+        </li>
+        <li class="list-inline-item">
+          <% if user_signed_in? %>
+            <%= link_to t('home.index.sign_out'), destroy_user_session_path, data: { confirm: 'Do you want to sign out?', method: :delete } %>
+          <% else %>
+            <%= link_to t('home.index.sign_in'), user_twitter_omniauth_authorize_path %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </footer>
+</div>

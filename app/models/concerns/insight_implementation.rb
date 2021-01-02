@@ -6,6 +6,53 @@ module InsightImplementation
   class_methods do
   end
 
+  def update_from_uids(user_id, uids)
+    limit = 5000 # TODO Set suitable limit
+    uids = uids.take(limit)
+
+    twitter_users, not_persisted_uids = fetch_persisted_users(uids)
+
+    if not_persisted_uids.any?
+      twitter_users.concat(fetch_missing_users(user_id, not_persisted_uids))
+    end
+
+    users = twitter_users.sort_by { |user| uids.index(user.uid) || limit }
+
+    update_description_from_users(users)
+    update_location_from_users(users)
+    update_url_from_users(users)
+
+    update(completed_at: Time.zone.now)
+  end
+
+  def fetch_persisted_users(uids)
+    return_users = []
+    not_persisted_uids = []
+
+    uids.each_slice(100) do |uids_array|
+      users = TwitterUser.where(uid: uids_array)
+      not_persisted_uids.concat(uids_array - users.map(&:uid))
+      return_users.concat(users)
+    end
+
+    [return_users, not_persisted_uids]
+  end
+
+  def fetch_missing_users(user_id, uids)
+    client = User.find(user_id).api_client
+    return_users = []
+
+    uids.each_slice(100) do |uids_array|
+      users = client.users(uids_array).map { |user| ApiUser.new(user) }
+      return_users.concat(users)
+    rescue => e
+      logger.warn "Fetching users failed #{e.inspect}"
+      logger.warn e.backtrace.join("\n")
+    end
+
+    return_users
+  end
+
   def update_description_from_users(users)
     words = extract_description_keywords(users)
     update!(description_keywords: { words: words })

@@ -52,6 +52,10 @@ ja:
   waiting:
     index:
       text: '@%{user} のデータを分析中です。もう少々お待ちください。'
+      description_html: |
+        フォロワー数が10,000人未満の場合、通常は1分以内に分析が完了します。
+      support_html: |
+        もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   dashboards:
     show:
     form:

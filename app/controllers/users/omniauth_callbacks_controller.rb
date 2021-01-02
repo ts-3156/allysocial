@@ -10,7 +10,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def twitter
     user = User.from_omniauth(request.env['omniauth.auth']) do |context, user|
       if context == :create
-        CreateUserSnapshotWorker.perform_async(user.id)
+        CreateUserSnapshotWorker.perform_async(user.id, user.uid)
       end
     end
     sign_in user, event: :authentication
