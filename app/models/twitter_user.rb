@@ -35,6 +35,14 @@ class TwitterUser < ApplicationRecord
       where('description like ?', "%#{sanitize_sql_like(str)}%")
     end
 
+    def engineer
+      where('description regexp "([Ee])ngineer|エンジニア|開発者|Python|Ruby|Golang|Java"')
+    end
+
+    def freelancer
+      where('description regexp "([Ff])reelance|フリーランス|(仕事.+依頼)"')
+    end
+
     def lawyer
       where('description regexp "弁護士|lawyer|attorney"')
     end
@@ -53,10 +61,6 @@ class TwitterUser < ApplicationRecord
 
     def investor
       where('description regexp "投資|Founder|ベンチャーキャピタル|VC|アーリーステージ|インキュベータ|インキュベーション"')
-    end
-
-    def engineer
-      where('description regexp "([Ee])ngineer|エンジニア|開発者|Python|Ruby|Golang|Java"')
     end
 
     def designer

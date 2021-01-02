@@ -1,6 +1,7 @@
 class JobSelector
   VALUES = %w(
     engineer
+    freelancer
     lawyer
     public_accountant
     tax_accountant
@@ -16,6 +17,7 @@ class JobSelector
   LABELS = {
     en: {
       engineer: 'Engineer',
+      freelancer: 'Freelancer',
       lawyer: 'Lawyer',
       public_accountant: 'Public accountant',
       tax_accountant: 'Tax accountant',
@@ -29,6 +31,7 @@ class JobSelector
     },
     ja: {
       engineer: 'エンジニア',
+      freelancer: 'フリーランス',
       lawyer: '弁護士',
       public_accountant: '会計士',
       tax_accountant: '税理士',

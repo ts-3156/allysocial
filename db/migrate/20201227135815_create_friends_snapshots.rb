@@ -2,7 +2,6 @@ class CreateFriendsSnapshots < ActiveRecord::Migration[6.1]
   def change
     create_table :friends_snapshots do |t|
       t.bigint :user_snapshot_id, null: false
-      t.json :properties
       t.datetime :completed_at
 
       t.timestamps null: false
