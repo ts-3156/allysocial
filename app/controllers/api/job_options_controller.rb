@@ -3,12 +3,7 @@ module Api
     before_action :authenticate_user!
 
     def index
-      labels = JobSelector::LABELS[I18n.locale]
-      options = JobSelector::VALUES.map do |value|
-        { value: labels[value.to_sym], label: labels[value.to_sym] }
-      end
-
-      render json: { options: options }
+      render json: { options: JobSelector.select_options(@user_snapshot, params[:category]) }
     end
   end
 end

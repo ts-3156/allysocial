@@ -46,7 +46,7 @@
     <%= t('.search_label.title') %>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
   </div>
-  <input type="text" id="search-label" class="form-control" list="search-label-options" placeholder="Choose label" style="width: initial;">
+  <input type="text" id="search-label" class="form-control" list="search-label-options" placeholder="<%= t('.search_label.placeholder') %>" style="min-width: 200px; max-width: 300px;">
   <datalist id="search-label-options">
   </datalist>
 </div>
@@ -88,10 +88,15 @@
     var labelSelector = $('#search-label');
     var lastUid;
     var currentIndexNumber;
+    var i18n = {
+      specify_correct_label: '<%= t('.js.specify_correct_label') %>'
+    };
 
-    function resetSearchState() {
+    function resetSearchState(reason) {
+      console.log('Reset search state:', reason);
       $('.search-response-title').hide();
       $('#search-response').empty();
+      $('#search-label').removeClass('is-invalid').removeClass('is-valid');
       lastUid = null;
       currentIndexNumber = 1;
     }
@@ -105,7 +110,7 @@
     }
 
     function switchCategoryButton() {
-      resetSearchState();
+      resetSearchState('switch category');
       labelSelector.val('');
 
       if ($(this).hasClass('btn-friends')) {
@@ -122,7 +127,7 @@
     }
 
     function switchTypeButton() {
-      resetSearchState();
+      resetSearchState('switch type');
       labelSelector.val('');
 
       if ($(this).hasClass('btn-job')) {
@@ -165,7 +170,7 @@
     }
 
     function switchLabelSelector() {
-      resetSearchState();
+      resetSearchState('switch label');
     }
 
     friendsButton.on('click', switchCategoryButton);
@@ -209,7 +214,7 @@
         if (lastUid) {
           // Do nothing
         } else {
-          resetSearchState();
+          resetSearchState('no results found');
           $('#search-response').empty().text('No results found').hide().fadeIn(500);
         }
       } else {
@@ -253,22 +258,23 @@
 
       if (category !== 'friends' && category !== 'followers') {
         console.warn('Invalid category');
-        resetSearchState();
+        resetSearchState('Invalid category');
         $('#search-response').empty().text('Please specify correct [category]').hide().fadeIn(500);
         return
       }
 
       if (type !== 'job' && type !== 'location' && type !== 'url' && type !== 'keyword') {
         console.warn('Invalid type');
-        resetSearchState();
+        resetSearchState('Invalid type');
         $('#search-response').empty().text('Please specify correct [type]').hide().fadeIn(500);
         return
       }
 
       if (!label || label.length === 0) {
         console.warn('Invalid label');
-        resetSearchState();
-        $('#search-response').empty().text('Please specify correct [label]').hide().fadeIn(500);
+        resetSearchState('Invalid label');
+        $('#search-response').empty().text(i18n['specify_correct_label']).hide().fadeIn(500);
+        $('#search-label').addClass('is-invalid');
         return
       }
 

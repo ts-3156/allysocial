@@ -56,11 +56,17 @@ class TwitterUser < ApplicationRecord
     end
 
     def engineer
-      where('description regexp "([Ee])ngineer|エンジニア|開発者|Python|Ruby|Golang|Java"')
+      where('description regexp "([Ee])ngineer|エンジニア|開発者|Python|Ruby|Golang|Java|Scala"')
     end
 
     def freelancer
-      where('description regexp "([Ff])reelance|フリーランス|(仕事.+依頼)"')
+      requests_for_work = '([Ff])reelance|フリーランス|(仕事.*依頼)|(依頼.+DM)'
+      where(%Q(description regexp "#{requests_for_work}" or location regexp "#{requests_for_work}"))
+    end
+
+    def influencer
+      media = '[Yy]ou[Tt]ube|[Ii]nstagram|[Tt]ik[Tt]ok'
+      where(%Q(followers_count > 10000 and friends_count < followers_count and (description regexp "#{media}" or url regexp "#{media}")))
     end
 
     def lawyer
@@ -91,16 +97,31 @@ class TwitterUser < ApplicationRecord
       where('description regexp "絵描き|日本画|油画|彫塑"')
     end
 
-    def model_or_idol
-      where('description regexp "グラビア|モデル|アイドル"')
+    def bikini_model
+      where('description regexp "グラビア|グラドル"')
+    end
+
+    def fashion_model
+      where('description regexp "モデル"')
+    end
+
+    def pop_idol
+      where('description regexp "アイドル"')
+    end
+
+    def general_student
+      where('description regexp "学生"')
     end
 
     def high_school_student
-      where('description regexp "高[1-3]|(fsl)jk"')
+      where('description regexp "高校生|高[1-3]|(fsl)jk"')
     end
 
+    US_UNIV = '[Hh]arvard|[Ss]tanford|UCB|ucb|UCLA|ucla|MIT|mit|CMU|cmu'
+    JP_UNIV = '大学生|(東京|一橋|お茶の水女子|東京外国語|東京都立|東京芸術|東京学芸|東京工業|東京医科歯科|東京農工|東京海洋|電気通信|早稲田|慶[応應]義塾|国際基督教|上智|立教|中央|明治|青山学院|法政|学習院|成蹊|日本女子|武蔵|[国國][学學]院|東京理科|明治学院|津田塾|東洋|駒[沢澤]|東京女子|昭和女子|大妻女子|東京家政|清泉女子)大学?'
+
     def college_student
-      where('description regexp "(東京|一橋|お茶の水女子|東京外国語|東京都立|東京芸術|東京学芸|東京工業|東京医科歯科|東京農工|東京海洋|電気通信|早稲田|慶[応應]義塾|国際基督教|上智|立教|中央|明治|青山学院|法政|学習院|成蹊|日本女子|武蔵|[国國][学學]院|東京理科|明治学院|津田塾|東洋|駒[沢澤]|東京女子|昭和女子|大妻女子|東京家政|清泉女子)大学?"')
+      where(%Q(description regexp "#{US_UNIV}|#{JP_UNIV}"))
     end
 
     def order_by_field(uids)

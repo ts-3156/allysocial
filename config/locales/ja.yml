@@ -82,8 +82,9 @@ ja:
         url_help_html: '<strong>URL</strong> が選択されています。'
         keyword_help_html: '<strong>キーワード</strong> が選択されています。'
       search_label:
-        title: '検索する値'
+        title: '検索するラベル'
         tooltip: '検索する具体的なラベルを指定することができます。'
+        placeholder: 'ラベルを選択してください'
         submit: '検索する'
       show_details:
         title: 'プロフィール詳細を表示する'
@@ -95,6 +96,8 @@ ja:
           の中から
           <span class="badge badge-primary type"></span> が <span class="badge badge-primary label"></span>
           のユーザーを検索する
+      js:
+        specify_correct_label: '検索するラベルを選択してください。'
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'

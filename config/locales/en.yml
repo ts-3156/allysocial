@@ -87,6 +87,7 @@ en:
       search_label:
         title: 'Search label'
         tooltip: 'You can specify concrete label for searching.'
+        placeholder: 'Choose label'
         submit: 'Search'
       show_details:
         title: 'Show profile details'
@@ -97,6 +98,8 @@ en:
           <span class="badge badge-primary type"></span> is <span class="badge badge-primary label"></span>
           among @%{user}'s
           <span class="badge badge-primary category"></span>
+      js:
+        specify_correct_label: 'Please specify search label.'
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
