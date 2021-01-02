@@ -27,6 +27,26 @@ class TwitterUser < ApplicationRecord
       where('location like ?', "%#{sanitize_sql_like(str)}%")
     end
 
+    def japan
+      where('location regexp "[Jj]apan|[Nn]ihon|[Nn]ippon|日本|にほん"')
+    end
+
+    def kanto
+      where('location regexp "[Kk]anto|関東|かんとう|[Tt]okyo|東京|とうきょう|[Ii]baraki|茨城|いばらき|[Tt]o(chi|ti)gi|栃木|とちぎ|[Gg]unma|群馬|ぐんま|[Ss]aitama|埼玉|さいたま|([Cc]hi|[Tt]i)ba|千葉|ちば|[Kk]anagawa|神奈川|かながわ"')
+    end
+
+    def tokyo
+      tokyo_23ku.or(tokyo_yamanote)
+    end
+
+    def tokyo_23ku
+      where('location regexp "[Tt]okyo|東京|とうきょう|千代田区?|ちよだく?|中央区|ちゅうおうく|港区|みなとく|新宿区?|しんじゅくく?|文京区?|ぶんきょうく?|台東区?|たいとうく?|墨田区?|すみだく?|江東区?|こうとうく?|品川区?|しながわく?|目黒区?|めぐろく?|大田区?|おおたく?|世田谷区?|せたがやく?|渋谷区?|しぶやく?|中野区?|なかのく?|杉並区?|すぎなみく?|豊島区?|とよしまく?|北区|きたく|荒川区?|あらかわく?|板橋区?|いたばしく?|練馬区?|ねりまく?|足立区?|あだちく?|葛飾区?|かつしかく?|江戸川区?|えどがわく?"')
+    end
+
+    def tokyo_yamanote
+      where('location regexp "池袋|上野|秋葉原|神田|有楽町|品川|大崎|五反田|目黒|恵比寿|渋谷|原宿|代々木|新宿|新大久保|高田馬場"')
+    end
+
     def search_url(str)
       where('url like ?', "%#{sanitize_sql_like(str)}%")
     end

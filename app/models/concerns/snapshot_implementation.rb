@@ -25,8 +25,14 @@ module SnapshotImplementation
   end
 
   def select_users_by_location(value, options)
+    method_name = LocationSelector.matched_value(value)
+
     select_with_like_query(options) do
-      TwitterUser.search_location(value)
+      if method_name
+        TwitterUser.send(method_name)
+      else
+        TwitterUser.search_location(value)
+      end
     end
   end
 
