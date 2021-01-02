@@ -49,8 +49,14 @@ module SnapshotImplementation
   end
 
   def select_users_by_keyword(value, options)
+    method_name = KeywordSelector.matched_value(value)
+
     select_with_like_query(options) do
-      TwitterUser.search_description(value)
+      if method_name
+        TwitterUser.send(method_name)
+      else
+        TwitterUser.search_keyword(value)
+      end
     end
   end
 

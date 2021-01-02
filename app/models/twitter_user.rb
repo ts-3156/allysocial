@@ -63,8 +63,12 @@ class TwitterUser < ApplicationRecord
       where('url regexp "[Yy]ou[Tt]ube"')
     end
 
-    def search_description(str)
+    def search_keyword(str)
       where('description like ?', "%#{sanitize_sql_like(str)}%")
+    end
+
+    def accepting_requests_for_work
+      freelancer
     end
 
     def engineer
