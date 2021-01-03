@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
-  resource :dashboard, only: :show
+  get 'dashboard', to: 'dashboard#index'
   get 'waiting', to: 'waiting#index'
 
   namespace :api, { format: 'json' } do

@@ -64,11 +64,7 @@ en:
         If you have less than 10,000 followers, %{app} will usually complete the analysis of your data within a minute.
       support_html: |
         If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
-  dashboards:
-    show:
-      statuses: 'Statuses'
-      following: 'Following'
-      followers: 'Followers'
+  dashboard:
     form:
       search_category:
         title: 'Search category'

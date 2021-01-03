@@ -1,7 +1,7 @@
-class DashboardsController < ApplicationController
+class DashboardController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def index
     if current_user.user_snapshot&.data_completed?
       @user = current_user
     else
