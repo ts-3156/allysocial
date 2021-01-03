@@ -123,6 +123,13 @@ en:
       statuses: 'Statuses'
       following: 'Following'
       followers: 'Followers'
+    faq_modal:
+      title: 'FAQ'
+      body_html: |
+        %{app} is designed to help you find new connections among your followers.<br>
+        <br>
+        If you have any questions, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
+      button: 'Close'
     support_modal:
       title: 'Signed in as @%{user}'
       body_html: |
@@ -130,6 +137,14 @@ en:
         <br>
         If you have any questions, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
       positive: 'Go to top page'
+      negative: 'Close'
+    sign_out_modal:
+      title: 'Signed in as @%{user}'
+      body_html: |
+        %{app} is designed to help you find new connections among your followers.<br>
+        <br>
+        If you have any questions, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
+      positive: 'Sign out'
       negative: 'Close'
     privacy_modal:
       title: 'Privacy policy'

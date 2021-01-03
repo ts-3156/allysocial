@@ -121,6 +121,13 @@ ja:
       statuses: 'ツイート'
       following: 'フォロー'
       followers: 'フォロワー'
+    faq_modal:
+      title: 'FAQ'
+      body_html: |
+        %{app} はフォロワーの中から新しいつながりを見付けるためにデザインされています。<br>
+        <br>
+        もし分からないことがあれば、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> にいつでも質問してください。
+      button: '閉じる'
     support_modal:
       title: '@%{user} としてログイン中'
       body_html: |
@@ -128,6 +135,14 @@ ja:
         <br>
         もし分からないことがあれば、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> にいつでも質問してください。
       positive: 'トップページを開く'
+      negative: '閉じる'
+    sign_out_modal:
+      title: '@%{user} としてログイン中'
+      body_html: |
+        %{app} はフォロワーの中から新しいつながりを見付けるためにデザインされています。<br>
+        <br>
+        もし分からないことがあれば、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> にいつでも質問してください。
+      positive: 'ログアウト'
       negative: '閉じる'
     privacy_modal:
       title: 'プライバシーポリシー'
