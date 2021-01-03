@@ -7,20 +7,12 @@ module SnapshotImplementation
   end
 
   def select_users_by_job(raw_value, options)
-    if (value = job_label_to_value(raw_value))
+    if (value = JobSelector.label_to_value(raw_value))
       select_with_like_query(options) do
         TwitterUser.send(value)
       end
     else
       []
-    end
-  end
-
-  def job_label_to_value(raw_label)
-    JobSelector::LABELS.each do |_, values|
-      values.each do |key, label|
-        return key if raw_label == label
-      end
     end
   end
 

@@ -1,6 +1,7 @@
 class JobSelector
   LABELS = {
     en: {
+      youtuber: 'YouTuber',
       engineer: 'Engineer',
       freelancer: 'Freelancer',
       influencer: 'Influencer',
@@ -18,17 +19,20 @@ class JobSelector
       photographer: 'Photographer',
       manga_artist: 'Manga artist',
       writer: 'Writer',
+      culinary_researcher: 'Culinary researcher',
       bikini_model: 'Bikini model',
       fashion_model: 'Fashion model',
       pop_idol: 'Pop idol',
       concafe_waitress: 'Concafe waitress',
       girls_bar_waitress: "girl's bar waitress",
+      migrant_worker: 'Migrant worker',
       art_student: 'Art student',
       college_student: 'College student',
       general_student: 'General student',
       high_school_student: 'High school student',
     },
     ja: {
+      youtuber: 'YouTuber',
       engineer: 'エンジニア',
       freelancer: 'フリーランス',
       influencer: 'インフルエンサー',
@@ -46,11 +50,13 @@ class JobSelector
       photographer: '写真家',
       manga_artist: '漫画家',
       writer: '作家',
+      culinary_researcher: '料理研究家',
       bikini_model: 'グラビアモデル',
       fashion_model: 'ファッションモデル',
       pop_idol: 'ポップアイドル',
       concafe_waitress: 'コンカフェ',
       girls_bar_waitress: 'ガールズバー',
+      migrant_worker: '出稼ぎ',
       art_student: '美大生',
       college_student: '大学生',
       general_student: '一般学生',
@@ -65,6 +71,14 @@ class JobSelector
       end
 
       options
+    end
+
+    def label_to_value(raw_label)
+      LABELS.each do |_, values|
+        values.each do |key, label|
+          return key if raw_label == label
+        end
+      end
     end
   end
 end

@@ -71,6 +71,10 @@ class TwitterUser < ApplicationRecord
       freelancer
     end
 
+    def youtuber
+      where('url regexp "[Yy]ou[Tt]uber|ユーチューバ"')
+    end
+
     def engineer
       where('description regexp "([Ee])ngineer|エンジニア|開発者|Python|Ruby|Golang|Java|Scala"')
     end
@@ -141,6 +145,10 @@ class TwitterUser < ApplicationRecord
       where('description regexp "連載中"')
     end
 
+    def culinary_researcher
+      where('description regexp "料理研究家|料理人|レシピ"')
+    end
+
     def bikini_model
       where('description regexp "グラビア|グラドル"')
     end
@@ -159,6 +167,10 @@ class TwitterUser < ApplicationRecord
 
     def girls_bar_waitress
       where('description regexp "ガールズバー"')
+    end
+
+    def migrant_worker
+      where('description regexp "出稼ぎ"')
     end
 
     def general_student
