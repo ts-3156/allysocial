@@ -13,10 +13,18 @@ en:
       download:
         title: 'Your new partner is among your followers.'
         text_html: |
-          Followers are following you because they want to know more about you. If you are interested in your followers, you can quickly become friends with them.<br>
-          <br>
           Are you looking for a new business partner? Or are you looking for a hobby friend? Both are already among your followers!
           Search through your followers and start building new relationships with new friends.
+        features:
+          what_app_can_do: 'What %{app} can do:'
+          job: 'feature 1: Search followers by "job"'
+          location: 'feature 2: Search followers by "location"'
+          url: 'feature 3: Search followers by "URL"'
+          keyword: 'feature 4: Search followers by "keyword"'
+      download2:
+        title: 'You can get along with your followers quickly.'
+        text_html: |
+          Followers are following you because they want to know more about you. If you are interested in your followers, you can quickly become friends with them.
         features:
           what_app_can_do: 'What %{app} can do:'
           job: 'feature 1: Search followers by "job"'
@@ -123,6 +131,19 @@ en:
         If you have any questions, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
       positive: 'Go to top page'
       negative: 'Close'
+    privacy_modal:
+      title: 'Privacy policy'
+      body:
+        This application doesn't handle personal or sensitive user data (including personally identifiable information, financial and payment information,
+        health information, authentication information, form data, web browsing activity, personal communications).
+      button: 'Close'
+    terms_modal:
+      title: 'Terms of service'
+      body_html:
+        By using this site, you agree to the Terms of Service and Privacy Policy.<br>
+        Use of this site is at your sole risk. All services are provided "as is," without any warranty of any kind.<br>
+        All sales are final in the purchase of this item, no refunds are available.
+      button: 'Close'
   templates:
     search_response_user_template:
       statuses: 'Statuses'

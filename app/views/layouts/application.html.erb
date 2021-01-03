@@ -29,5 +29,11 @@
 
 <body>
 <%= yield %>
+
+<% if user_signed_in? %>
+  <%= render partial: 'shared/support_modal' %>
+<% end %>
+<%= render partial: 'shared/privacy_modal' %>
+<%= render partial: 'shared/terms_modal' %>
 </body>
 </html>

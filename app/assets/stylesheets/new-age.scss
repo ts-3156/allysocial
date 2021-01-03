@@ -241,6 +241,32 @@ body {
     }
   }
 
+  section.download2 {
+    position: relative;
+    padding: 150px 0;
+  }
+
+  section.download2 h2 {
+    font-size: 50px;
+    margin-top: 0;
+  }
+
+  section.download2 {
+    position: relative;
+    width: 100%;
+    padding-top: 150px;
+    padding-bottom: 100px;
+    color: white;
+    background: url("/template/img/bg-pattern.png"), #7b4397;
+    background: url("/template/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+  }
+
+  @media (min-width: 768px) {
+    section.download2 h2 {
+      font-size: 70px;
+    }
+  }
+
   section.features .section-heading {
     margin-bottom: 100px;
   }
