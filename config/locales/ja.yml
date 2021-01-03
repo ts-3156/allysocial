@@ -144,6 +144,13 @@ ja:
         もし分からないことがあれば、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> にいつでも質問してください。
       positive: 'ログアウト'
       negative: '閉じる'
+    report_modal:
+      title: 'バグを報告する'
+      body_html:
+        バグを見付けてくれてありがとう！<br>
+        <br>
+        DMで <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> に教えてください。できるだけ早く修正します。
+      button: '閉じる'
     privacy_modal:
       title: 'プライバシーポリシー'
       body:
@@ -169,3 +176,6 @@ ja:
       inactive_1week: '1週間ツイートなし'
       inactive_1month: '1ヶ月間ツイートなし'
       inactive_3months: '3ヶ月間ツイートなし'
+      egotter: 'えごったーで見る'
+      error_report: '間違いを報告'
+      bug_report: 'バグを報告'

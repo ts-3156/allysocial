@@ -146,6 +146,13 @@ en:
         If you have any questions, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
       positive: 'Sign out'
       negative: 'Close'
+    report_modal:
+      title: 'Report a bug'
+      body_html:
+        Thanks for finding a bug!<br>
+        <br>
+        Please let <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> know through DM. I will fix it as soon as possible.
+      button: 'Close'
     privacy_modal:
       title: 'Privacy policy'
       body:
@@ -172,3 +179,6 @@ en:
       inactive_1week: 'No tweets for a week'
       inactive_1month: 'No tweets for a month'
       inactive_3months: 'No tweets for 3 months'
+      egotter: 'See on egotter'
+      error_report: 'Error report'
+      bug_report: 'Bug report'
