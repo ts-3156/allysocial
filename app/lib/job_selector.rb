@@ -14,6 +14,9 @@ class JobSelector
     illustrator
     painter
     sculptor
+    photographer
+    manga_artist
+    writer
     bikini_model
     fashion_model
     pop_idol
@@ -39,6 +42,9 @@ class JobSelector
       illustrator: 'Illustrator',
       painter: 'Painter',
       sculptor: 'Sculptor',
+      photographer: 'Photographer',
+      manga_artist: 'Manga artist',
+      writer: 'Writer',
       bikini_model: 'Bikini model',
       fashion_model: 'Fashion model',
       pop_idol: 'Pop idol',
@@ -62,6 +68,9 @@ class JobSelector
       illustrator: 'イラストレーター',
       painter: '画家',
       sculptor: '彫刻家',
+      photographer: '写真家',
+      manga_artist: '漫画家',
+      writer: '作家',
       bikini_model: 'グラビアモデル',
       fashion_model: 'ファッションモデル',
       pop_idol: 'ポップアイドル',

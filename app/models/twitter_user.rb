@@ -129,6 +129,18 @@ class TwitterUser < ApplicationRecord
       where('description regexp "sculptor|sculptor|彫塑|彫刻"')
     end
 
+    def photographer
+      where('description regexp "写真家|[Pp]hotographer"')
+    end
+
+    def manga_artist
+      where('description regexp "漫画家|連載中"')
+    end
+
+    def writer
+      where('description regexp "連載中"')
+    end
+
     def bikini_model
       where('description regexp "グラビア|グラドル"')
     end
