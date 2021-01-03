@@ -15,9 +15,10 @@ class JobSelector
     bikini_model
     fashion_model
     pop_idol
+    art_student
+    college_student
     general_student
     high_school_student
-    college_student
   )
 
   LABELS = {
@@ -37,9 +38,10 @@ class JobSelector
       bikini_model: 'Bikini model',
       fashion_model: 'Fashion model',
       pop_idol: 'Pop idol',
+      art_student: 'Art student',
+      college_student: 'College student',
       general_student: 'General student',
       high_school_student: 'High school student',
-      college_student: 'College student',
     },
     ja: {
       engineer: 'エンジニア',
@@ -57,9 +59,10 @@ class JobSelector
       bikini_model: 'グラビアモデル',
       fashion_model: 'ファッションモデル',
       pop_idol: 'ポップアイドル',
+      art_student: '美大生',
+      college_student: '大学生',
       general_student: '一般学生',
       high_school_student: '高校生',
-      college_student: '大学生',
     }
   }
 

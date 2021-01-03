@@ -141,6 +141,12 @@ class TwitterUser < ApplicationRecord
       where('description regexp "高校生|高[1-3]|(fsl)jk"')
     end
 
+    JP_ART_UNIV = '(東京(藝|芸)術|多摩美術|武蔵野美術|金沢美術工芸|京都市立芸術|愛知県立芸術|東京造形|女子美術|学芸)大学?|(芸術|美術).*大学|芸術専門学群|(藝|芸)大|美大|多摩美|たまび|むさび'
+
+    def art_student
+      where(%Q(description regexp "#{JP_ART_UNIV}"))
+    end
+
     US_UNIV = '[Hh]arvard|[Ss]tanford|UCB|ucb|UCLA|ucla|MIT|mit|CMU|cmu'
     JP_UNIV = '大学生|(東京|一橋|お茶の水女子|東京外国語|東京都立|東京芸術|東京学芸|東京工業|東京医科歯科|東京農工|東京海洋|電気通信|早稲田|慶[応應]義塾|国際基督教|上智|立教|中央|明治|青山学院|法政|学習院|成蹊|日本女子|武蔵|[国國][学學]院|東京理科|明治学院|津田塾|東洋|駒[沢澤]|東京女子|昭和女子|大妻女子|東京家政|清泉女子)大学?'
 
