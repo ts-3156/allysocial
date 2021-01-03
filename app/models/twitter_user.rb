@@ -106,11 +106,19 @@ class TwitterUser < ApplicationRecord
     end
 
     def designer
-      where('description regexp "([Dd])esigner|デザイナ|イラストレータ"')
+      where('description regexp "([Dd])esigner|デザイナ"')
     end
 
-    def artist
-      where('description regexp "絵描き|日本画|油画|彫塑"')
+    def illustrator
+      where('description regexp "([Ii])llustrator|イラストレータ"')
+    end
+
+    def painter
+      where('description regexp "painter|絵描き|画家|油(絵|画)|日本画|oil\s+paint"')
+    end
+
+    def sculptor
+      where('description regexp "sculptor|sculptor|彫塑|彫刻"')
     end
 
     def bikini_model

@@ -9,7 +9,9 @@ class JobSelector
     entrepreneur
     investor
     designer
-    artist
+    illustrator
+    painter
+    sculptor
     bikini_model
     fashion_model
     pop_idol
@@ -29,7 +31,9 @@ class JobSelector
       entrepreneur: 'Entrepreneur',
       investor: 'Investor',
       designer: 'Designer',
-      artist: 'Artist',
+      illustrator: 'Illustrator',
+      painter: 'Painter',
+      sculptor: 'Sculptor',
       bikini_model: 'Bikini model',
       fashion_model: 'Fashion model',
       pop_idol: 'Pop idol',
@@ -47,7 +51,9 @@ class JobSelector
       entrepreneur: '起業家',
       investor: '投資家',
       designer: 'デザイナー',
-      artist: 'アーティスト',
+      illustrator: 'イラストレーター',
+      painter: '画家',
+      sculptor: '彫刻家',
       bikini_model: 'グラビアモデル',
       fashion_model: 'ファッションモデル',
       pop_idol: 'ポップアイドル',

@@ -7,11 +7,11 @@
         </a>
       </div>
       <div>
-        <div><strong>{{name}}</strong></div>
         <div>
+          <strong>{{name}}</strong>
           <a class="text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">@{{screen_name}}</a>
-          <div class="small">{{{labels}}}</div>
         </div>
+        <div><div class="small">{{{labels}}}</div></div>
       </div>
     </div>
 
@@ -19,11 +19,11 @@
 
     <div class="search-response-user-details">
       <div class="mb-3">
-        <div class="d-inline-block mr-3">
+        <div class="small d-inline-block mr-3">
           <i class="fas fa-map-marker-alt text-muted"></i>
           <span class="text-muted">{{location}}</span>
         </div>
-        <div class="d-inline-block">
+        <div class="small d-inline-block">
           <i class="fas fa-link text-muted"></i>
           <a class="text-muted" href="{{url}}" target="_blank">
             {{url_s}}
@@ -35,19 +35,19 @@
         <div class="d-inline-block mr-3 mb-3">
           <a href="https://twitter.com/{{screen_name}}" target="_blank">
             <strong class="text-body">{{statuses_count_s}}</strong>
-            <span class="text-muted"><%= t('.statuses') %></span>
+            <span class="small text-muted"><%= t('.statuses') %></span>
           </a>
         </div>
         <div class="d-inline-block mr-3">
           <a href="https://twitter.com/{{screen_name}}/following" target="_blank">
             <strong class="text-body">{{friends_count_s}}</strong>
-            <span class="text-muted"><%= t('.following') %></span>
+            <span class="small text-muted"><%= t('.following') %></span>
           </a>
         </div>
         <div class="d-inline-block">
           <a href="https://twitter.com/{{screen_name}}/followers" target="_blank">
             <strong class="text-body">{{followers_count_s}}</strong>
-            <span class="text-muted"><%= t('.followers') %></span>
+            <span class="small text-muted"><%= t('.followers') %></span>
           </a>
         </div>
       </div>
