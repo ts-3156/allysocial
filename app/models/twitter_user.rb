@@ -173,6 +173,14 @@ class TwitterUser < ApplicationRecord
       where('description regexp "出稼ぎ"')
     end
 
+    def nightlife_business
+      where('description regexp "夜職|ソープ[^カ]|そーぷらんど|メンエス嬢|風俗嬢|風俗店| #風俗 |泡姫|ホテヘル|箱ヘル|デリヘル|パパ活|ママ活|性感エステ|性感ヘルス|性感マッサージ"')
+    end
+
+    def part_timer
+      where('description regexp "(アル)?バイト"')
+    end
+
     def general_student
       where('description regexp "学生"')
     end
