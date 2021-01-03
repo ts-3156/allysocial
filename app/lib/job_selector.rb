@@ -1,31 +1,4 @@
 class JobSelector
-  VALUES = %w(
-    engineer
-    freelancer
-    influencer
-    lawyer
-    public_accountant
-    tax_accountant
-    entrepreneur
-    investor
-    politician
-    political_activist
-    designer
-    illustrator
-    painter
-    sculptor
-    photographer
-    manga_artist
-    writer
-    bikini_model
-    fashion_model
-    pop_idol
-    art_student
-    college_student
-    general_student
-    high_school_student
-  )
-
   LABELS = {
     en: {
       engineer: 'Engineer',
@@ -48,6 +21,8 @@ class JobSelector
       bikini_model: 'Bikini model',
       fashion_model: 'Fashion model',
       pop_idol: 'Pop idol',
+      concafe_waitress: 'Concafe waitress',
+      girls_bar_waitress: "girl's bar waitress",
       art_student: 'Art student',
       college_student: 'College student',
       general_student: 'General student',
@@ -74,6 +49,8 @@ class JobSelector
       bikini_model: 'グラビアモデル',
       fashion_model: 'ファッションモデル',
       pop_idol: 'ポップアイドル',
+      concafe_waitress: 'コンカフェ',
+      girls_bar_waitress: 'ガールズバー',
       art_student: '美大生',
       college_student: '大学生',
       general_student: '一般学生',
@@ -83,9 +60,8 @@ class JobSelector
 
   class << self
     def select_options(user_snapshot, category)
-      labels = LABELS[I18n.locale]
-      options = VALUES.map do |value|
-        { value: labels[value.to_sym], label: labels[value.to_sym] }
+      options = LABELS[I18n.locale].map do |_, value|
+        { value: value, label: value }
       end
 
       options

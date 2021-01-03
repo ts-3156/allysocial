@@ -153,6 +153,14 @@ class TwitterUser < ApplicationRecord
       where('description regexp "アイドル"')
     end
 
+    def concafe_waitress
+      where('description regexp "コンカフェ"')
+    end
+
+    def girls_bar_waitress
+      where('description regexp "ガールズバー"')
+    end
+
     def general_student
       where('description regexp "学生"')
     end
