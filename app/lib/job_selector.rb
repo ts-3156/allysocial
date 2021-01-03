@@ -8,6 +8,8 @@ class JobSelector
     tax_accountant
     entrepreneur
     investor
+    politician
+    political_activist
     designer
     illustrator
     painter
@@ -31,6 +33,8 @@ class JobSelector
       tax_accountant: 'Tax accountant',
       entrepreneur: 'Entrepreneur',
       investor: 'Investor',
+      politician: 'Politician',
+      political_activist: 'Political activist',
       designer: 'Designer',
       illustrator: 'Illustrator',
       painter: 'Painter',
@@ -52,6 +56,8 @@ class JobSelector
       tax_accountant: '税理士',
       entrepreneur: '起業家',
       investor: '投資家',
+      politician: '政治家',
+      political_activist: '政治活動家',
       designer: 'デザイナー',
       illustrator: 'イラストレーター',
       painter: '画家',

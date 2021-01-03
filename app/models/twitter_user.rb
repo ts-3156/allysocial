@@ -105,6 +105,14 @@ class TwitterUser < ApplicationRecord
       where('description regexp "投資|Founder|ベンチャーキャピタル|VC|アーリーステージ|インキュベータ|インキュベーション"')
     end
 
+    def politician
+      where('description regexp "議員|大臣" and friends_count < followers_count')
+    end
+
+    def political_activist
+      where('description regexp "政治|憲法" and description not regexp "議員|大臣"')
+    end
+
     def designer
       where('description regexp "([Dd])esigner|デザイナ"')
     end
