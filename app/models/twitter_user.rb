@@ -149,6 +149,10 @@ class TwitterUser < ApplicationRecord
       where('description regexp "料理研究家|料理人|レシピ"')
     end
 
+    def comedian
+      where('description regexp "NSC.+\d+期"')
+    end
+
     def bikini_model
       where('description regexp "グラビア|グラドル"')
     end
