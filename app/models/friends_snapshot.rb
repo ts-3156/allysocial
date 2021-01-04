@@ -4,7 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  user_snapshot_id :bigint           not null
-#  properties       :json
+#  completed_at     :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
@@ -12,10 +12,10 @@ class FriendsSnapshot < ApplicationRecord
   include SnapshotImplementation
 
   belongs_to :user_snapshot
-  has_many :friends_responses
+  has_many :friends_chunks
 
-  def api_responses
-    friends_responses
+  def users_chunks
+    friends_chunks
   end
 
   def update_from_user_id(user_id)
@@ -24,7 +24,7 @@ class FriendsSnapshot < ApplicationRecord
 
     client.friend_ids(user_snapshot.uid) do |response|
       attrs = response.attrs
-      api_responses.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], properties: { uids: attrs[:ids] })
+      users_chunks.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], properties: { uids: attrs[:ids] })
 
       attrs[:ids].each_slice(100) do |uids_array|
         CreateTwitterUsersWorker.perform_async(user_id, uids_array)

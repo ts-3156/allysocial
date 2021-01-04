@@ -1,6 +1,6 @@
-class CreateFriendsResponses < ActiveRecord::Migration[6.1]
+class CreateFriendsChunks < ActiveRecord::Migration[6.1]
   def change
-    create_table :friends_responses do |t|
+    create_table :friends_chunks do |t|
       t.bigint :friends_snapshot_id, null: false
       t.bigint :previous_cursor
       t.bigint :next_cursor

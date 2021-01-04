@@ -61,7 +61,7 @@ module SnapshotImplementation
   def select_with_like_query(options, &block)
     return_users = []
 
-    api_responses.each do |response|
+    users_chunks.each do |response|
       uids = response.properties['uids']
 
       if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{1,30}\z/)

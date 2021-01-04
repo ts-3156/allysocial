@@ -7,6 +7,7 @@
 #  description_keywords :json
 #  location_keywords    :json
 #  url_keywords         :json
+#  completed_at         :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #

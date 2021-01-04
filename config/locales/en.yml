@@ -71,7 +71,7 @@ en:
         title: 'Search category'
         tooltip: 'You can specify whether you want to search for friends or followers.'
         friends:
-          label: 'Friends'
+          label: 'Following'
           help_html: '<strong>Friends</strong> is selected.'
         followers:
           label: 'Followers'
