@@ -28,6 +28,10 @@ class CreateFollowersSnapshotWorker
       unless user_snapshot.one_sided_followers_snapshot
         CreateOneSidedFollowersSnapshotWorker.perform_async(user_id, user_snapshot.id)
       end
+
+      unless user_snapshot.mutual_friends_snapshot
+        CreateMutualFriendsSnapshotWorker.perform_async(user_id, user_snapshot.id)
+      end
     end
   end
 end

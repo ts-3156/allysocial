@@ -13,7 +13,7 @@ class UserSnapshot < ApplicationRecord
   has_one :followers_snapshot
   has_one :one_sided_friends_snapshot
   has_one :one_sided_followers_snapshot
-  # has_many :mutual_friends_chunks
+  has_one :mutual_friends_snapshot
 
   has_one :friends_insight
   has_one :followers_insight
@@ -103,6 +103,10 @@ class UserSnapshot < ApplicationRecord
     one_sided_followers_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
   end
 
+  def mutual_friend_uids
+    mutual_friends_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  end
+
   def friends
     friends_snapshot.users_chunks.map do |chunk|
       uids = chunk.properties['uids']
@@ -131,4 +135,10 @@ class UserSnapshot < ApplicationRecord
     end.flatten
   end
 
+  def mutual_friends
+    mutual_friends_snapshot.users_chunks.map do |chunk|
+      uids = chunk.properties['uids']
+      TwitterUser.where(uid: uids).order_by_field(uids)
+    end.flatten
+  end
 end
