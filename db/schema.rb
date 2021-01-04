@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 2020_12_30_090246) do
 
   create_table "followers_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
-    t.json "properties"
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -81,7 +80,6 @@ ActiveRecord::Schema.define(version: 2020_12_30_090246) do
 
   create_table "friends_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
-    t.json "properties"
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

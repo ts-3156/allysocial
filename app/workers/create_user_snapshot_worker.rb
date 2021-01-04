@@ -15,7 +15,7 @@ class CreateUserSnapshotWorker
   private
 
   def create_snapshot(user_id, uid)
-    if UserSnapshot.where('created_at > ?', 5.minutes.ago).where(uid: uid).exists?
+    if UserSnapshot.where('created_at > ?', 12.hours.ago).where(uid: uid).exists?
       logger.info 'UserSnapshot is not created'
       nil
     else

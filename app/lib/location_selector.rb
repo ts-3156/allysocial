@@ -26,9 +26,9 @@ class LocationSelector
       end
 
       if category == 'friends'
-        words = user_snapshot.friends_insight.location_keywords['words'] || []
+        words = user_snapshot.friends_insight.location_words || []
       elsif category == 'followers'
-        words = user_snapshot.followers_insight.location_keywords['words'] || []
+        words = user_snapshot.followers_insight.location_words || []
       else
         words = []
       end

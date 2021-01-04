@@ -26,9 +26,9 @@ class UrlSelector
       end
 
       if category == 'friends'
-        words = user_snapshot.friends_insight.url_keywords['words'] || []
+        words = user_snapshot.friends_insight.url_words || []
       elsif category == 'followers'
-        words = user_snapshot.followers_insight.url_keywords['words'] || []
+        words = user_snapshot.followers_insight.url_words || []
       else
         words = []
       end

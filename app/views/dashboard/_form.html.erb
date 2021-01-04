@@ -46,7 +46,7 @@
     <%= t('.search_label.title') %>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
   </div>
-  <input type="text" id="search-label" class="form-control" list="search-label-options" placeholder="<%= t('.search_label.placeholder') %>" style="min-width: 200px; max-width: 300px;">
+  <input type="text" id="search-label" class="form-control" list="search-label-options" data-placeholder="<%= t('.search_label.placeholder') %>" style="min-width: 200px; max-width: 300px;">
   <datalist id="search-label-options">
   </datalist>
 </div>
@@ -97,7 +97,7 @@
       console.log('Reset search state:', reason);
       $('.search-response-title').hide();
       $('#search-response').empty();
-      $('#search-label').removeClass('is-invalid').removeClass('is-valid');
+      labelSelector.removeClass('is-invalid').removeClass('is-valid');
       lastUid = null;
       currentIndexNumber = 1;
     }
@@ -172,6 +172,12 @@
 
     function switchLabelSelector() {
       resetSearchState('switch label');
+    }
+
+    function setPlaceholder() {
+      var selected = $('#search-type-buttons .btn-primary').text();
+      var value = labelSelector.data('placeholder').replace('{value}', selected);
+      labelSelector.attr('placeholder', value);
     }
 
     friendsButton.on('click', switchCategoryButton);
@@ -275,7 +281,7 @@
         console.warn('Invalid label');
         resetSearchState('Invalid label');
         $('#search-response').empty().text(i18n['specify_correct_label']).hide().fadeIn(500);
-        $('#search-label').addClass('is-invalid');
+        labelSelector.addClass('is-invalid');
         return
       }
 
@@ -343,9 +349,11 @@
         var tag = $('<option/>', {value: option.value, text: option.label});
         $('#search-label-options').append(tag);
       });
-      $('#search-label').addClass('is-valid');
+
+      setPlaceholder();
+      labelSelector.addClass('is-valid');
       setTimeout(function () {
-        $('#search-label').removeClass('is-valid');
+        labelSelector.removeClass('is-valid');
       }, 1000)
     }
 

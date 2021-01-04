@@ -4,7 +4,7 @@ module Api
     before_action :require_uid
 
     def show
-      if (hash = current_user.user_snapshot&.properties&.fetch('user', nil))
+      if (user_snapshot = current_user.user_snapshot) && (hash = user_snapshot.properties&.fetch('user', nil))
         user = UserDecorator.new(hash, {}, view_context)
         render json: { user: user }
       else

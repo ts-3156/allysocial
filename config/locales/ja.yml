@@ -60,6 +60,7 @@ ja:
   waiting:
     index:
       text: '@%{user} のデータを分析中です。もう少々お待ちください。'
+      reload: 'ページを更新する'
       description_html: |
         フォロワー数が10,000人未満の場合、通常は1分以内に分析が完了します。
       support_html: |
@@ -91,7 +92,7 @@ ja:
       search_label:
         title: '検索するラベル'
         tooltip: '検索する具体的なラベルを指定することができます。'
-        placeholder: 'ラベルを選択してください'
+        placeholder: '{value}を選択してください'
         submit: '検索する'
       show_details:
         title: 'プロフィール詳細を表示する'

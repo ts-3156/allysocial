@@ -17,7 +17,10 @@ module InsightImplementation
     end
 
     users = twitter_users.sort_by { |user| uids.index(user.uid) || limit }
+    update_from_users(users)
+  end
 
+  def update_from_users(users)
     update_description_from_users(users)
     update_location_from_users(users)
     update_url_from_users(users)
@@ -46,7 +49,7 @@ module InsightImplementation
       users = client.users(uids_array).map { |user| ApiUser.new(user) }
       return_users.concat(users)
     rescue => e
-      logger.warn "Fetching users failed #{e.inspect}"
+      logger.warn "Failed to fetch missing users exception=#{e.inspect}"
       logger.warn e.backtrace.join("\n")
     end
 
@@ -54,18 +57,30 @@ module InsightImplementation
   end
 
   def update_description_from_users(users)
-    words = extract_description_keywords(users)
-    update!(description_keywords: { words: words })
+    words_count = extract_description_keywords(users)
+    update!(description_keywords: { words_count: words_count })
   end
 
   def update_location_from_users(users)
-    words = extract_location_keywords(users)
-    update!(location_keywords: { words: words })
+    words_count = extract_location_keywords(users)
+    update!(location_keywords: { words_count: words_count })
   end
 
   def update_url_from_users(users)
-    words = extract_url_keywords(users)
-    update!(url_keywords: { words: words })
+    words_count = extract_url_keywords(users)
+    update!(url_keywords: { words_count: words_count })
+  end
+
+  def description_words
+    description_keywords['words_count'].take(500).map(&:first)
+  end
+
+  def location_words
+    location_keywords['words_count'].take(500).map(&:first)
+  end
+
+  def url_words
+    url_keywords['words_count'].take(500).map(&:first)
   end
 
   def data_completed?
@@ -76,12 +91,12 @@ module InsightImplementation
 
   def extract_description_keywords(users)
     text = users.take(1000).map(&:description).join(' ') # TODO Set suitable limit
-    NattoClient.new.count_words(text).keys.take(500)
+    NattoClient.new.count_words(text).take(500)
   end
 
   def extract_location_keywords(users)
     text = users.take(5000).map(&:location).compact.map { |location| location.split(/[、。, .←→・\/]/) }.flatten.join(' ') # TODO Set suitable limit
-    NattoClient.new.count_words(text).keys.take(500)
+    NattoClient.new.count_words(text).take(500)
   end
 
   def extract_url_keywords(users)
@@ -94,6 +109,6 @@ module InsightImplementation
     rescue => e
       ''
     end.flatten.join(' ') # TODO Set suitable limit
-    NattoClient.new.count_words(text, min_word_length: 4).keys.take(500)
+    NattoClient.new.count_words(text, min_word_length: 4).take(500)
   end
 end

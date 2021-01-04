@@ -20,9 +20,9 @@ class KeywordSelector
       end
 
       if category == 'friends'
-        words = user_snapshot.friends_insight.description_keywords['words'] || []
+        words = user_snapshot.friends_insight.description_words || []
       elsif category == 'followers'
-        words = user_snapshot.followers_insight.description_keywords['words'] || []
+        words = user_snapshot.followers_insight.description_words || []
       else
         words = []
       end

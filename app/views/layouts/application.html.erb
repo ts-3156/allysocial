@@ -28,6 +28,13 @@
 </head>
 
 <body>
+<% if flash[:alert] %>
+  <div><%= flash[:alert] %></div>
+<% end %>
+<% if flash[:notice] %>
+  <div><%= flash[:notice] %></div>
+<% end %>
+
 <%= yield %>
 
 <% if user_signed_in? %>
