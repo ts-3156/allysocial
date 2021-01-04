@@ -11,7 +11,7 @@
 class UserSnapshot < ApplicationRecord
   has_one :friends_snapshot
   has_one :followers_snapshot
-  # has_many :one_sided_friends_chunks
+  has_one :one_sided_friends_snapshot
   # has_many :one_sided_followers_chunks
   # has_many :mutual_friends_chunks
 
@@ -83,28 +83,41 @@ class UserSnapshot < ApplicationRecord
   end
 
   def data_completed?
+    # TODO
     friends_snapshot&.data_completed? && followers_snapshot&.data_completed? && friends_insight&.data_completed? && followers_insight&.data_completed?
   end
 
   def friend_uids
-    friends_snapshot.friends_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+    friends_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  end
+
+  def follower_uids
+    followers_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  end
+
+  def one_sided_friend_uids
+    one_sided_friends_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
   end
 
   def friends
-    friends_snapshot.friends_chunks.map do |chunk|
+    friends_snapshot.users_chunks.map do |chunk|
       uids = chunk.properties['uids']
       TwitterUser.where(uid: uids).order_by_field(uids)
     end.flatten
   end
 
-  def follower_uids
-    followers_snapshot.followers_chunks.map { |chunk| chunk.properties['uids'] }.flatten
-  end
-
   def followers
-    followers_snapshot.followers_chunks.map do |res|
+    followers_snapshot.users_chunks.map do |res|
       uids = res.properties['uids']
       TwitterUser.where(uid: uids).order_by_field(uids)
     end.flatten
   end
+
+  def one_sided_friends
+    one_sided_friends_snapshot.users_chunks.map do |chunk|
+      uids = chunk.properties['uids']
+      TwitterUser.where(uid: uids).order_by_field(uids)
+    end.flatten
+  end
+
 end

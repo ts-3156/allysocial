@@ -1,4 +1,4 @@
-class CreateFriendsSnapshotWorker
+class CreateOneSidedFriendsSnapshotWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'default', retry: 0, backtrace: false
 
@@ -13,15 +13,11 @@ class CreateFriendsSnapshotWorker
   private
 
   def create_snapshot(user_id, user_snapshot)
-    if user_snapshot.friends_snapshot
-      logger.info 'FriendsSnapshot is already created'
+    if user_snapshot.one_sided_friends_snapshot
+      logger.info 'OneSidedFriendsSnapshot is already created'
     else
-      snapshot = user_snapshot.create_friends_snapshot!
-      snapshot.update_from_user_id(user_id)
-    end
-
-    if user_snapshot.friends_snapshot && user_snapshot.followers_snapshot && !user_snapshot.one_sided_friends_snapshot
-      CreateOneSidedFriendsSnapshotWorker.perform_async(user_id, user_snapshot.id)
+      snapshot = user_snapshot.create_one_sided_friends_snapshot!
+      snapshot.update_from_user_snapshot(user_id, user_snapshot)
     end
   end
 end

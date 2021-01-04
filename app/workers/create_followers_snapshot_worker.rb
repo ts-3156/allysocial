@@ -19,5 +19,9 @@ class CreateFollowersSnapshotWorker
       snapshot = user_snapshot.create_followers_snapshot!
       snapshot.update_from_user_id(user_id)
     end
+
+    if user_snapshot.friends_snapshot && user_snapshot.followers_snapshot && !user_snapshot.one_sided_friends_snapshot
+      CreateOneSidedFriendsSnapshotWorker.perform_async(user_id, user_snapshot.id)
+    end
   end
 end

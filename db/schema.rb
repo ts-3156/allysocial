@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_163542) do
+ActiveRecord::Schema.define(version: 2021_01_04_182334) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -85,6 +85,24 @@ ActiveRecord::Schema.define(version: 2021_01_04_163542) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_friends_snapshots_on_created_at"
     t.index ["user_snapshot_id"], name: "index_friends_snapshots_on_user_snapshot_id", unique: true
+  end
+
+  create_table "one_sided_friends_chunks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "one_sided_friends_snapshot_id", null: false
+    t.json "properties"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_one_sided_friends_chunks_on_created_at"
+    t.index ["one_sided_friends_snapshot_id"], name: "index_one_sided_friends_chunks_on_one_sided_friends_snapshot_id"
+  end
+
+  create_table "one_sided_friends_snapshots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_snapshot_id", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_one_sided_friends_snapshots_on_created_at"
+    t.index ["user_snapshot_id"], name: "index_one_sided_friends_snapshots_on_user_snapshot_id", unique: true
   end
 
   create_table "twitter_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
