@@ -47,18 +47,31 @@
   </div>
 
   <div class="mb-1">
-    <div id="search-type-buttons" class="btn-group" role="group">
-      <button type="button" class="btn-job btn btn-primary" data-value="job"><%= t('.search_type.job') %></button>
-      <button type="button" class="btn-location btn btn-outline-secondary" data-value="location"><%= t('.search_type.location') %></button>
-      <button type="button" class="btn-url btn btn-outline-secondary" data-value="url"><%= t('.search_type.url') %></button>
-      <button type="button" class="btn-keyword btn btn-outline-secondary" data-value="keyword"><%= t('.search_type.keyword') %></button>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-job" value="job" checked>
+      <label class="form-check-label" for="type-job">
+        <%= t('.search_type.job') %>
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-location" value="location">
+      <label class="form-check-label" for="type-location">
+        <%= t('.search_type.location') %>
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-url" value="url">
+      <label class="form-check-label" for="type-url">
+        <%= t('.search_type.url') %>
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-keyword" value="keyword">
+      <label class="form-check-label" for="type-keyword">
+        <%= t('.search_type.keyword') %>
+      </label>
     </div>
   </div>
-
-  <div class="job-selected-text small text-muted"><%= t('.search_type.job_help_html') %></div>
-  <div class="location-selected-text small text-muted" style="display: none;"><%= t('.search_type.location_help_html') %></div>
-  <div class="url-selected-text small text-muted" style="display: none;"><%= t('.search_type.url_help_html') %></div>
-  <div class="keyword-selected-text small text-muted" style="display: none;"><%= t('.search_type.keyword_help_html') %></div>
 </div>
 
 <%# Search label %>
@@ -100,10 +113,6 @@
 
 <script>
   $(function () {
-    var jobButton = $('.btn-job');
-    var locationButton = $('.btn-location');
-    var urlButton = $('.btn-url');
-    var keywordButton = $('.btn-keyword');
     var labelSelector = $('#search-label');
     var lastUid;
     var currentIndexNumber;
@@ -121,14 +130,6 @@
       currentIndexNumber = 1;
     }
 
-    function activateButton(button) {
-      button.removeClass('btn-outline-secondary').addClass('btn-primary');
-    }
-
-    function deactivateButton(button) {
-      button.removeClass('btn-primary').addClass('btn-outline-secondary');
-    }
-
     function switchCategoryButton() {
       resetSearchState('switch category');
       labelSelector.val('');
@@ -137,44 +138,6 @@
     function switchTypeButton() {
       resetSearchState('switch type');
       labelSelector.val('');
-
-      if ($(this).hasClass('btn-job')) {
-        activateButton(jobButton)
-        deactivateButton(locationButton)
-        deactivateButton(urlButton)
-        deactivateButton(keywordButton)
-        $('.job-selected-text').hide().fadeIn(500);
-        $('.location-selected-text').hide();
-        $('.url-selected-text').hide();
-        $('.keyword-selected-text').hide();
-      } else if ($(this).hasClass('btn-location')) {
-        deactivateButton(jobButton)
-        activateButton(locationButton)
-        deactivateButton(urlButton)
-        deactivateButton(keywordButton)
-        $('.job-selected-text').hide();
-        $('.location-selected-text').hide().fadeIn(500);
-        $('.url-selected-text').hide();
-        $('.keyword-selected-text').hide();
-      } else if ($(this).hasClass('btn-url')) {
-        deactivateButton(jobButton)
-        deactivateButton(locationButton)
-        activateButton(urlButton)
-        deactivateButton(keywordButton)
-        $('.job-selected-text').hide();
-        $('.location-selected-text').hide();
-        $('.url-selected-text').hide().fadeIn(500);
-        $('.keyword-selected-text').hide();
-      } else if ($(this).hasClass('btn-keyword')) {
-        deactivateButton(jobButton)
-        deactivateButton(locationButton)
-        deactivateButton(urlButton)
-        activateButton(keywordButton)
-        $('.job-selected-text').hide();
-        $('.location-selected-text').hide();
-        $('.url-selected-text').hide();
-        $('.keyword-selected-text').hide().fadeIn(500);
-      }
     }
 
     function switchLabelSelector() {
@@ -187,11 +150,8 @@
       labelSelector.attr('placeholder', value);
     }
 
-    $("input[name='category']").on('change', switchCategoryButton)
-    jobButton.on('click', switchTypeButton);
-    locationButton.on('click', switchTypeButton);
-    urlButton.on('click', switchTypeButton);
-    keywordButton.on('click', switchTypeButton);
+    $("input[name='category']").on('change', switchCategoryButton);
+    $("input[name='type']").on('change', switchTypeButton);
     labelSelector.on('change', switchLabelSelector);
 
     function currentCategory() {
@@ -204,11 +164,12 @@
     }
 
     function currentType() {
-      return $('#search-type-buttons').find('.btn-primary').data('value');
+      return $("input[name='type']:checked").val();
     }
 
     function currentTypeLabel() {
-      return $('#search-type-buttons').find('.btn-primary').text();
+      var checked = $("input[name='type']:checked");
+      return $("label[for='" + checked.attr('id') + "']").text();
     }
 
     function currentLabel() {
