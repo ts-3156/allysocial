@@ -87,7 +87,7 @@
 
 <%# Submit %>
 <div class="mb-5">
-  <button id="job-submit" type="submit" class="btn btn-primary"><%= t('.search_label.submit') %></button>
+  <button id="search-submit" type="submit" class="btn btn-primary"><%= t('.search_label.submit') %></button>
 </div>
 
 <div class="mb-5">
@@ -295,9 +295,15 @@
     $("input[name='category']").on('click', updateSearchLabelOptions);
     $("input[name='type']").on('click', updateSearchLabelOptions);
 
-    $('#job-submit').on('click', function () {
+    $('#search-submit').on('click', function () {
       search();
       return false;
+    });
+
+    $('#search-label').on('keypress', function (e) {
+      if (e.keyCode === 13) { // Enter key
+        search();
+      }
     });
 
     function setOptions(options) {
