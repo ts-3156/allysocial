@@ -1,31 +1,48 @@
 <%# Search category %>
 <div class="mr-5 mb-5">
-  <div class="mb-2">
-    <%= t('.search_category.title') %>
+  <div class="mb-3">
+    <span class="h5"><%= t('.search_category.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_category.tooltip') %>"></i>
   </div>
 
   <div class="mb-1">
-    <div id="search-category-buttons" class="btn-group" role="group">
-      <button type="button" class="btn-friends btn btn-outline-secondary" data-value="friends"><%= t('.search_category.friends.label') %></button>
-      <button type="button" class="btn-followers btn btn-primary" data-value="followers"><%= t('.search_category.followers.label') %></button>
-      <button type="button" class="btn-one-sided-friends btn btn-outline-secondary" data-value="one_sided_friends"><%= t('.search_category.one_sided_friends.label') %></button>
-      <button type="button" class="btn-one-sided-followers btn btn-outline-secondary" data-value="one_sided_followers"><%= t('.search_category.one_sided_followers.label') %></button>
-      <button type="button" class="btn-mutual-friends btn btn-outline-secondary" data-value="mutual_friends"><%= t('.search_category.mutual_friends.label') %></button>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-friends" value="friends" checked>
+      <label class="form-check-label" for="category-friends">
+        <%= t('.search_category.friends.label') %>
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-followers" value="followers">
+      <label class="form-check-label" for="category-followers">
+        <%= t('.search_category.followers.label') %>
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-one_sided_friends" value="one_sided_friends">
+      <label class="form-check-label" for="category-one_sided_friends">
+        <%= t('.search_category.one_sided_friends.label') %>
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-one_sided_followers" value="one_sided_followers">
+      <label class="form-check-label" for="category-one_sided_followers">
+        <%= t('.search_category.one_sided_followers.label') %>
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="category" id="category-mutual_friends" value="mutual_friends">
+      <label class="form-check-label" for="category-mutual_friends">
+        <%= t('.search_category.mutual_friends.label') %>
+      </label>
     </div>
   </div>
-
-  <div class="friends-selected-text small text-muted" style="display: none;"><%= t('.search_category.friends.help_html') %></div>
-  <div class="followers-selected-text small text-muted"><%= t('.search_category.followers.help_html') %></div>
-  <div class="one-sided-friends-selected-text small text-muted" style="display: none;"><%= t('.search_category.one_sided_friends.help_html') %></div>
-  <div class="one-sided-followers-selected-text small text-muted" style="display: none;"><%= t('.search_category.one_sided_followers.help_html') %></div>
-  <div class="mutual-friends-selected-text small text-muted" style="display: none;"><%= t('.search_category.mutual_friends.help_html') %></div>
 </div>
 
 <%# Search type %>
 <div class="mb-5">
-  <div class="mb-2">
-    <%= t('.search_type.title') %>
+  <div class="mb-3">
+    <span class="h5"><%= t('.search_type.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_type.tooltip') %>"></i>
   </div>
 
@@ -46,8 +63,8 @@
 
 <%# Search label %>
 <div class="mb-5">
-  <div class="mb-2">
-    <%= t('.search_label.title') %>
+  <div class="mb-3">
+    <span class="h5"><%= t('.search_label.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
   </div>
   <input type="text" id="search-label" class="form-control" list="search-label-options" data-placeholder="<%= t('.search_label.placeholder') %>" style="min-width: 200px; max-width: 300px;">
@@ -83,11 +100,6 @@
 
 <script>
   $(function () {
-    var friendsButton = $('.btn-friends');
-    var followersButton = $('.btn-followers');
-    var oneSidedFriendsButton = $('.btn-one-sided-friends');
-    var oneSidedFollowersButton = $('.btn-one-sided-followers');
-    var mutualFriendsButton = $('.btn-mutual-friends');
     var jobButton = $('.btn-job');
     var locationButton = $('.btn-location');
     var urlButton = $('.btn-url');
@@ -120,63 +132,6 @@
     function switchCategoryButton() {
       resetSearchState('switch category');
       labelSelector.val('');
-
-      if ($(this).hasClass('btn-friends')) {
-        activateButton(friendsButton);
-        deactivateButton(followersButton);
-        deactivateButton(oneSidedFriendsButton);
-        deactivateButton(oneSidedFollowersButton);
-        deactivateButton(mutualFriendsButton);
-        $('.friends-selected-text').hide().fadeIn(500);
-        $('.followers-selected-text').hide();
-        $('.one-sided-friends-selected-text').hide();
-        $('.one-sided-followers-selected-text').hide();
-        $('.mutual-friends-selected-text').hide();
-      } else if ($(this).hasClass('btn-followers')) {
-        deactivateButton(friendsButton);
-        activateButton(followersButton);
-        deactivateButton(oneSidedFriendsButton);
-        deactivateButton(oneSidedFollowersButton);
-        deactivateButton(mutualFriendsButton);
-        $('.friends-selected-text').hide();
-        $('.followers-selected-text').hide().fadeIn(500);
-        $('.one-sided-friends-selected-text').hide();
-        $('.one-sided-followers-selected-text').hide();
-        $('.mutual-friends-selected-text').hide();
-      } else if ($(this).hasClass('btn-one-sided-friends')) {
-        deactivateButton(friendsButton);
-        deactivateButton(followersButton);
-        activateButton(oneSidedFriendsButton);
-        deactivateButton(oneSidedFollowersButton);
-        deactivateButton(mutualFriendsButton);
-        $('.friends-selected-text').hide();
-        $('.followers-selected-text').hide();
-        $('.one-sided-friends-selected-text').hide().fadeIn(500);
-        $('.one-sided-followers-selected-text').hide();
-        $('.mutual-friends-selected-text').hide();
-      } else if ($(this).hasClass('btn-one-sided-followers')) {
-        deactivateButton(friendsButton);
-        deactivateButton(followersButton);
-        deactivateButton(oneSidedFriendsButton);
-        activateButton(oneSidedFollowersButton);
-        deactivateButton(mutualFriendsButton);
-        $('.friends-selected-text').hide();
-        $('.followers-selected-text').hide();
-        $('.one-sided-friends-selected-text').hide();
-        $('.one-sided-followers-selected-text').hide().fadeIn(500);
-        $('.mutual-friends-selected-text').hide();
-      } else if ($(this).hasClass('btn-mutual-friends')) {
-        deactivateButton(friendsButton);
-        deactivateButton(followersButton);
-        deactivateButton(oneSidedFriendsButton);
-        deactivateButton(oneSidedFollowersButton);
-        activateButton(mutualFriendsButton);
-        $('.friends-selected-text').hide();
-        $('.followers-selected-text').hide();
-        $('.one-sided-friends-selected-text').hide();
-        $('.one-sided-followers-selected-text').hide();
-        $('.mutual-friends-selected-text').hide().fadeIn(500);
-      }
     }
 
     function switchTypeButton() {
@@ -232,11 +187,7 @@
       labelSelector.attr('placeholder', value);
     }
 
-    friendsButton.on('click', switchCategoryButton);
-    followersButton.on('click', switchCategoryButton);
-    oneSidedFriendsButton.on('click', switchCategoryButton);
-    oneSidedFollowersButton.on('click', switchCategoryButton);
-    mutualFriendsButton.on('click', switchCategoryButton);
+    $("input[name='category']").on('change', switchCategoryButton)
     jobButton.on('click', switchTypeButton);
     locationButton.on('click', switchTypeButton);
     urlButton.on('click', switchTypeButton);
@@ -244,11 +195,12 @@
     labelSelector.on('change', switchLabelSelector);
 
     function currentCategory() {
-      return $('#search-category-buttons').find('.btn-primary').data('value');
+      return $("input[name='category']:checked").val();
     }
 
     function currentCategoryLabel() {
-      return $('#search-category-buttons').find('.btn-primary').text();
+      var checked = $("input[name='category']:checked");
+      return $("label[for='" + checked.attr('id') + "']").text();
     }
 
     function currentType() {
