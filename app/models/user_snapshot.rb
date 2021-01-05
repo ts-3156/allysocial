@@ -22,64 +22,73 @@ class UserSnapshot < ApplicationRecord
     return [] if label.blank?
 
     if category == 'friends'
+      snapshot = friends_snapshot
       if type == 'job'
-        select_friends_by_job(label, options)
+        snapshot.select_users_by_job(label, options)
       elsif type == 'location'
-        select_friends_by_location(label, options)
+        snapshot.select_users_by_location(label, options)
       elsif type == 'url'
-        select_friends_by_url(label, options)
+        snapshot.select_users_by_url(label, options)
       elsif type == 'keyword'
-        select_friends_by_keyword(label, options)
+        snapshot.select_users_by_keyword(label, options)
       else
         []
       end
     elsif category == 'followers'
+      snapshot = followers_snapshot
       if type == 'job'
-        select_followers_by_job(label, options)
+        snapshot.select_users_by_job(label, options)
       elsif type == 'location'
-        select_followers_by_location(label, options)
+        snapshot.select_users_by_location(label, options)
       elsif type == 'url'
-        select_followers_by_url(label, options)
+        snapshot.select_users_by_url(label, options)
       elsif type == 'keyword'
-        select_followers_by_keyword(label, options)
+        snapshot.select_users_by_keyword(label, options)
+      else
+        []
+      end
+    elsif category == 'one_sided_friends'
+      snapshot = one_sided_friends_snapshot
+      if type == 'job'
+        snapshot.select_users_by_job(label, options)
+      elsif type == 'location'
+        snapshot.select_users_by_location(label, options)
+      elsif type == 'url'
+        snapshot.select_users_by_url(label, options)
+      elsif type == 'keyword'
+        snapshot.select_users_by_keyword(label, options)
+      else
+        []
+      end
+    elsif category == 'one_sided_followers'
+      snapshot = one_sided_followers_snapshot
+      if type == 'job'
+        snapshot.select_users_by_job(label, options)
+      elsif type == 'location'
+        snapshot.select_users_by_location(label, options)
+      elsif type == 'url'
+        snapshot.select_users_by_url(label, options)
+      elsif type == 'keyword'
+        snapshot.select_users_by_keyword(label, options)
+      else
+        []
+      end
+    elsif category == 'mutual_friends'
+      snapshot = mutual_friends_snapshot
+      if type == 'job'
+        snapshot.select_users_by_job(label, options)
+      elsif type == 'location'
+        snapshot.select_users_by_location(label, options)
+      elsif type == 'url'
+        snapshot.select_users_by_url(label, options)
+      elsif type == 'keyword'
+        snapshot.select_users_by_keyword(label, options)
       else
         []
       end
     else
       []
     end
-  end
-
-  def select_friends_by_job(label, options)
-    friends_snapshot.select_users_by_job(label, options)
-  end
-
-  def select_friends_by_location(label, options)
-    friends_snapshot.select_users_by_location(label, options)
-  end
-
-  def select_friends_by_url(label, options)
-    friends_snapshot.select_users_by_url(label, options)
-  end
-
-  def select_friends_by_keyword(label, options)
-    friends_snapshot.select_users_by_keyword(label, options)
-  end
-
-  def select_followers_by_job(label, options)
-    followers_snapshot.select_users_by_job(label, options)
-  end
-
-  def select_followers_by_location(label, options)
-    followers_snapshot.select_users_by_location(label, options)
-  end
-
-  def select_followers_by_url(label, options)
-    followers_snapshot.select_users_by_url(label, options)
-  end
-
-  def select_followers_by_keyword(label, options)
-    followers_snapshot.select_users_by_keyword(label, options)
   end
 
   def data_completed?

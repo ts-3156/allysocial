@@ -76,6 +76,15 @@ ja:
         followers:
           label: 'フォロワー'
           help_html: '<strong>フォロワー</strong> が選択されています。'
+        one_sided_friends:
+          label: '片思いフォロー'
+          help_html: '<strong>片思いフォロー</strong> が選択されています。'
+        one_sided_followers:
+          label: '片思いフォロワー'
+          help_html: '<strong>片思いフォロワー</strong> が選択されています。'
+        mutual_friends:
+          label: '相互フォロー'
+          help_html: '<strong>相互フォロー</strong> が選択されています。'
       search_type:
         title: '検索タイプ'
         tooltip: 'ユーザーのプロフィールの要素のうち、職種、場所、URL、キーワードのどれを使って検索するのかを指定します。'
@@ -168,7 +177,11 @@ ja:
       statuses: 'ツイート'
       following: 'フォロー'
       followers: 'フォロワー'
-      is_follower: 'フォローされています'
+      categories:
+        follower: 'フォロワー'
+        one_sided_friend: '片思いフォロー'
+        one_sided_follower: '片思いフォロワー'
+        mutual_friend: '相互フォロー'
       active_1hour: '1時間以内にツイート'
       active_12hours: '12時間以内にツイート'
       active_3days: '3日以内にツイート'

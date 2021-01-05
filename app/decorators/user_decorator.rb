@@ -33,6 +33,34 @@ class UserDecorator
     end
   end
 
+  def followers_label()
+    if @options[:category] == 'followers'
+      category_label(I18n.t('templates.search_response_user_template.categories.follower'))
+    end
+  end
+
+  def one_sided_friends_label
+    if @options[:category] == 'one_sided_friends'
+      category_label(I18n.t('templates.search_response_user_template.categories.one_sided_friend'))
+    end
+  end
+
+  def one_sided_followers_label
+    if @options[:category] == 'one_sided_followers'
+      category_label(I18n.t('templates.search_response_user_template.categories.one_sided_follower'))
+    end
+  end
+
+  def mutual_friends_label
+    if @options[:category] == 'mutual_friends'
+      category_label(I18n.t('templates.search_response_user_template.categories.mutual_friend'))
+    end
+  end
+
+  def category_label(text)
+    %Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{text}</span>)
+  end
+
   def active_period?(duration)
     @attrs[:status_created_at] >= duration.ago
   rescue => e
@@ -97,7 +125,7 @@ class UserDecorator
 
   def labels
     [
-      (%Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{I18n.t('templates.search_response_user_template.is_follower')}</span>) if @options[:is_follower]),
+      mutual_friends_label || one_sided_followers_label || one_sided_friends_label || followers_label,
       active_1hour_label || active_12hours_label || active_3days_label || active_1week_label || inactive_3months_label || inactive_1month_label || inactive_1week_label,
     ].compact.join('&nbsp;')
   end

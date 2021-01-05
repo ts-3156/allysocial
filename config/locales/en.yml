@@ -76,6 +76,15 @@ en:
         followers:
           label: 'Followers'
           help_html: '<strong>Followers</strong> is selected.'
+        one_sided_friends:
+          label: 'One-sided following'
+          help_html: '<strong>One-sided following</strong> is selected.'
+        one_sided_followers:
+          label: 'One-sided followers'
+          help_html: '<strong>One-sided followers</strong> is selected.'
+        mutual_friends:
+          label: 'Mutual following'
+          help_html: '<strong>Mutual following</strong> is selected.'
       search_type:
         title: 'Search type'
         tooltip: 'You can specify whether you want to search for job, location, url or keyword.'
@@ -168,7 +177,11 @@ en:
       statuses: 'Statuses'
       following: 'Following'
       followers: 'Followers'
-      is_follower: 'Follows you'
+      categories:
+        follower: 'Follower'
+        one_sided_friend: 'One-sided following'
+        one_sided_follower: 'One-sided follower'
+        mutual_friend: 'Mutual following'
       active_1hour: 'tweets within 1 hour'
       active_12hours: 'tweets within 12 hours'
       active_3days: 'tweets within 3 days'

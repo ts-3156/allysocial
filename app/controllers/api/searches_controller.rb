@@ -8,7 +8,7 @@ module Api
 
     def show
       twitter_users = @user_snapshot.select_users_by(params[:category], params[:type], params[:label], limit: params[:limit], last_uid: params[:last_uid])
-      response_users = twitter_users.map { |user| UserDecorator.new(user.attributes, { is_follower: params[:category] == 'followers' }, view_context) }
+      response_users = twitter_users.map { |user| UserDecorator.new(user.attributes, { category: params[:category] }, view_context) }
 
       CreateTwitterUsersWorker.perform_async(current_user.id, twitter_users.map(&:uid))
 
@@ -18,7 +18,7 @@ module Api
     private
 
     def require_category
-      unless params[:category] && params[:category].match?(/\A(friends|followers)\z/)
+      unless params[:category] && params[:category].match?(/\A(friends|followers|one_sided_friends|one_sided_followers|mutual_friends)\z/)
         render json: { message: ':category not specified' }, status: :bad_request
       end
     end
