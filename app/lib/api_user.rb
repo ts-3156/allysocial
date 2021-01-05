@@ -55,6 +55,7 @@ class ApiUser
         begin
           @url = @attrs[:entities][:url][:urls][0][:expanded_url]
         rescue => e
+          Rails.logger.warn "Cannot replace expanded_url screen_name=#{screen_name} exception=#{e.inspect}"
         end
       end
     end
@@ -83,13 +84,21 @@ class ApiUser
       @status_text = @attrs.dig(:status, :text)
       if @status_text
         begin
-          @attrs[:status][:entities][:urls].each do |entity|
+          @attrs.dig(:status, :entities, :urls)&.each do |entity|
             @status_text.gsub!(entity[:url], entity[:expanded_url])
           end
         rescue => e
+          Rails.logger.warn "Cannot replace expanded_url of status screen_name=#{screen_name} exception=#{e.inspect}"
+        end
+
+        begin
+          @attrs.dig(:status, :entities, :media)&.each do |entity|
+            @status_text.gsub!(entity[:url], entity[:media_url_https])
+          end
+        rescue => e
+          Rails.logger.warn "Cannot replace media_url of status screen_name=#{screen_name} exception=#{e.inspect}"
         end
       end
-      @status_text
     end
 
     @status_text
@@ -101,6 +110,13 @@ class ApiUser
 
   def status_favorite_count
     @attrs.dig(:status, :retweeted_status, :favorite_count) || @attrs.dig(:status, :favorite_count)
+  end
+
+  def status_photo_urls
+    @attrs.dig(:status, :extended_entities, :media)&.select { |s| s[:type] == 'photo' }&.map { |s| s[:media_url_https] }
+  rescue => e
+    Rails.logger.warn "Cannot extract status_photo_urls screen_name=#{screen_name} exception=#{e.inspect}"
+    nil
   end
 
   def status_created_at
@@ -133,6 +149,7 @@ class ApiUser
       status_text: status_text,
       status_retweet_count: status_retweet_count,
       status_favorite_count: status_favorite_count,
+      status_photo_urls: status_photo_urls,
       status_created_at: status_created_at,
     }
   end

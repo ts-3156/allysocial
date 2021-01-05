@@ -65,7 +65,7 @@
     }
     var template = $('#profile-section-user-template').html();
     var rendered = $(Mustache.render(template, user));
-    rendered.find('img').each(function () {
+    rendered.find('img[data-src]').each(function () {
       var img = $(this);
       img.attr('src', img.attr('data-src'));
     });

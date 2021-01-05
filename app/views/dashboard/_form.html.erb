@@ -197,7 +197,7 @@
           }
           user.index_number = currentIndexNumber++;
           var rendered = $(Mustache.render(template, user));
-          rendered.find('img').each(function () {
+          rendered.find('img[data-src]').each(function () {
             var img = $(this);
             img.attr('src', img.attr('data-src'));
           });
