@@ -120,6 +120,8 @@ ja:
       statuses: 'ツイート'
       following: 'フォロー'
       followers: 'フォロワー'
+      lists: 'リスト'
+      likes: 'いいね'
     faq_modal:
       title: 'FAQ'
       body_html: |

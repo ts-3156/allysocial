@@ -33,26 +33,63 @@
           </a>
         </div>
       </div>
-      <div class="mb-3">
-        <div class="d-inline-block mr-3">
+
+      <div>
+        <div class="d-inline-block mr-3 mb-2">
           <a href="https://twitter.com/{{screen_name}}" target="_blank">
             <strong class="text-body">{{statuses_count_s}}</strong>
-            <span class="text-muted"><%= t('.statuses') %></span>
+            <span class="small text-muted"><%= t('.statuses') %></span>
           </a>
         </div>
-        <div class="d-inline-block mr-3">
+        <div class="d-inline-block mr-3 mb-2">
           <a href="https://twitter.com/{{screen_name}}/following" target="_blank">
             <strong class="text-body">{{friends_count_s}}</strong>
-            <span class="text-muted"><%= t('.following') %></span>
+            <span class="small text-muted"><%= t('.following') %></span>
           </a>
         </div>
-        <div class="d-inline-block">
+        <div class="d-inline-block mr-3 mb-2">
           <a href="https://twitter.com/{{screen_name}}/followers" target="_blank">
             <strong class="text-body">{{followers_count_s}}</strong>
-            <span class="text-muted"><%= t('.followers') %></span>
+            <span class="small text-muted"><%= t('.followers') %></span>
+          </a>
+        </div>
+        <div class="d-inline-block mr-3 mb-2">
+          <a href="https://twitter.com/{{screen_name}}/lists/memberships" target="_blank">
+            <strong class="text-body">{{listed_count_s}}</strong>
+            <span class="small text-muted"><%= t('.lists') %></span>
+          </a>
+        </div>
+        <div class="d-inline-block mb-2">
+          <a href="https://twitter.com/{{screen_name}}/likes" target="_blank">
+            <strong class="text-body">{{favourites_count_s}}</strong>
+            <span class="small text-muted"><%= t('.likes') %></span>
           </a>
         </div>
       </div>
+
+      {{#status_display}}
+      <hr>
+      <div class="mb-3">
+        <p class="small mb-1">
+          {{status_text}}
+        </p>
+        {{#status_photos_display}}
+        <div style="max-width: 100%;">
+          {{#status_photo_urls}}
+          <a href="{{.}}" target="_blank">
+            <img class="img-fluid mr-2 mb-1" data-src="{{.}}" style="max-width: 20%;">
+          </a>
+          {{/status_photo_urls}}
+        </div>
+        {{/status_photos_display}}
+        <div class="small">
+          <span class="text-muted">&#8212;</span>
+          <a class="text-muted" href="https://twitter.com/{{screen_name}}/status/{{status_id}}" target="_blank">{{status_created_at}}</a>
+          <span class="text-muted ml-3"><i class="fas fa-retweet"></i> {{status_retweet_count_s}}</span>
+          <span class="text-muted ml-3"><i class="far fa-heart"></i> {{status_favorite_count_s}}</span>
+        </div>
+      </div>
+      {{/status_display}}
     </div>
   </div>
 </div>

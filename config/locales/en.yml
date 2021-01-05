@@ -119,6 +119,8 @@ en:
       statuses: 'Statuses'
       following: 'Following'
       followers: 'Followers'
+      lists: 'Lists'
+      likes: 'Likes'
     faq_modal:
       title: 'FAQ'
       body_html: |

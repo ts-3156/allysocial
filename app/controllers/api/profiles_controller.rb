@@ -5,6 +5,9 @@ module Api
 
     def show
       if (user_snapshot = current_user.user_snapshot) && (hash = user_snapshot.properties&.fetch('user', nil))
+        if hash['status_created_at']
+          hash['status_created_at'] = (Time.zone.parse(hash['status_created_at']) rescue nil)
+        end
         user = UserDecorator.new(hash, {}, view_context)
         render json: { user: user }
       else

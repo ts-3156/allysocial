@@ -147,6 +147,10 @@ class UserDecorator
     ].compact.join('&nbsp;')
   end
 
+  def status_created_at
+    ((@attrs[:status_created_at].to_s(:db) + ' UTC') rescue nil)
+  end
+
   def to_hash
     {
       uid: @attrs[:uid].to_s,
@@ -180,7 +184,7 @@ class UserDecorator
       status_favorite_count_s: (@attrs[:status_favorite_count].to_s(:delimited) rescue nil),
       status_photos_display: @attrs[:status_photo_urls].present?,
       status_photo_urls: @attrs[:status_photo_urls],
-      status_created_at: (@attrs[:status_created_at].to_s(:db) rescue nil),
+      status_created_at: status_created_at,
       protected_label: protected_label,
       verified_label: verified_label,
       labels: labels,
