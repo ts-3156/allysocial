@@ -148,6 +148,10 @@ class UserDecorator
       profile_image_url: @attrs[:profile_image_url],
       profile_banner_url: @attrs[:profile_banner_url],
       account_created_at: @attrs[:account_created_at],
+      status_block: @attrs[:status_id] ? 'block' : 'none',
+      status_id: @attrs[:status_id]&.to_s,
+      status_text: @attrs[:status_text],
+      status_created_at: @attrs[:status_created_at]&.to_s(:db),
       labels: labels,
     }
   end

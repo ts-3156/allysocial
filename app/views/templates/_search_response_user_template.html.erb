@@ -53,6 +53,17 @@
           </a>
         </div>
       </div>
+
+      <div style="display: {{status_display}};">
+        <hr>
+        <div class="mb-3">
+          <p class="small mb-0">
+            {{status_text}}
+            <span class="text-muted">&#8212;</span>
+            <a class="text-muted" href="https://twitter.com/{{screen_name}}/status/{{status_id}}" target="_blank">{{status_created_at}}</a>
+          </p>
+        </div>
+      </div>
     </div>
 
     <div class="dropdown" style="position: absolute; right: 10px; top: 8px;">
