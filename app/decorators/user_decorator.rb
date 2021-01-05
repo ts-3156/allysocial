@@ -33,6 +33,23 @@ class UserDecorator
     end
   end
 
+  def protected_label
+    if @attrs[:is_protected]
+      %Q(<i class="fas fa-lock"></i>)
+    end
+  end
+
+  def verified_label
+    if @attrs[:is_verified]
+      <<-'HTML'
+      <span class="fa-stack" style="font-size: 0.5em;">
+        <i class="fas fa-certificate fa-stack-2x text-primary"></i>
+        <i class="fas fa-check fa-stack-1x fa-inverse"></i>
+      </span>
+      HTML
+    end
+  end
+
   def followers_label()
     if @options[:category] == 'followers'
       category_label(I18n.t('templates.search_response_user_template.categories.follower'))
@@ -145,6 +162,8 @@ class UserDecorator
       listed_count_s: (@attrs[:listed_count].to_s(:delimited) rescue nil),
       favourites_count: @attrs[:favourites_count],
       favourites_count_s: (@attrs[:favourites_count].to_s(:delimited) rescue nil),
+      is_protected: @attrs[:is_protected],
+      is_verified: @attrs[:is_verified],
       description: @view_context.strip_tags(@attrs[:description]),
       location: location,
       url: url,
@@ -162,6 +181,8 @@ class UserDecorator
       status_photos_display: @attrs[:status_photo_urls].present?,
       status_photo_urls: @attrs[:status_photo_urls],
       status_created_at: (@attrs[:status_created_at].to_s(:db) rescue nil),
+      protected_label: protected_label,
+      verified_label: verified_label,
       labels: labels,
     }
   end

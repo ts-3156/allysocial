@@ -150,6 +150,8 @@ ActiveRecord::Schema.define(version: 2021_01_04_184913) do
     t.integer "followers_count", null: false
     t.integer "listed_count"
     t.integer "favourites_count"
+    t.boolean "is_protected"
+    t.boolean "is_verified"
     t.text "description"
     t.string "location"
     t.string "url"

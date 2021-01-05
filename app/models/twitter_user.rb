@@ -11,6 +11,8 @@
 #  followers_count       :integer          not null
 #  listed_count          :integer
 #  favourites_count      :integer
+#  is_protected          :boolean
+#  is_verified           :boolean
 #  description           :text(65535)
 #  location              :string(255)
 #  url                   :string(255)

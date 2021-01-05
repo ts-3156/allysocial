@@ -35,6 +35,14 @@ class ApiUser
     @attrs[:favourites_count]
   end
 
+  def is_protected
+    @attrs[:protected]
+  end
+
+  def is_verified
+    @attrs[:verified]
+  end
+
   def description
     unless @description
       @description = @attrs[:description]
@@ -149,6 +157,8 @@ class ApiUser
       followers_count: followers_count,
       listed_count: listed_count,
       favourites_count: favourites_count,
+      is_protected: is_protected,
+      is_verified: is_verified,
       description: description,
       location: location,
       url: url,

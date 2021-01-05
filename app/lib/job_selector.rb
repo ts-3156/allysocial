@@ -85,6 +85,7 @@ class JobSelector
           return key if raw_label == label
         end
       end
+      nil
     end
   end
 end
