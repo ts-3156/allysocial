@@ -169,6 +169,8 @@ en:
       followers: 'Followers'
       lists: 'Lists'
       likes: 'Likes'
+      one_sided_friends_rate: 'One-sided friends rate'
+      one_sided_followers_rate: 'One-sided followers rate'
       categories:
         follower: 'Follower'
         one_sided_friend: 'One-sided following'

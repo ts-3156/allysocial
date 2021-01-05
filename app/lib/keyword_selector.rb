@@ -1,4 +1,5 @@
 class KeywordSelector
+  # TODO Add is_protected and is_verified
   VALUES = %w(
     accepting_requests_for_work
   )

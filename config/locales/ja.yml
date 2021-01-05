@@ -169,6 +169,8 @@ ja:
       followers: 'フォロワー'
       lists: 'リスト'
       likes: 'いいね'
+      one_sided_friends_rate: '片思いフォロー率'
+      one_sided_followers_rate: '片思われフォロワー率'
       categories:
         follower: 'フォロワー'
         one_sided_friend: '片思いフォロー'

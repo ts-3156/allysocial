@@ -67,7 +67,15 @@ class ApiClient
   end
 
   def status(id)
-    @client.status(id).attrs
+    RequestWithRetryHandler.new(__method__).perform do
+      @client.status(id).attrs
+    end
+  end
+
+  def user_timeline(uid)
+    RequestWithRetryHandler.new(__method__).perform do
+      @client.user_timeline(uid, count: 200).map(&:attrs)
+    end
   end
 
   class RequestWithRetryHandler

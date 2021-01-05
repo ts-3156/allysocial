@@ -36,31 +36,31 @@
       </div>
 
       <div>
-        <div class="d-inline-block mr-3 mb-3">
+        <div class="d-inline-block mr-3 mb-2">
           <a href="https://twitter.com/{{screen_name}}" target="_blank">
             <strong class="text-body">{{statuses_count_s}}</strong>
             <span class="small text-muted"><%= t('.statuses') %></span>
           </a>
         </div>
-        <div class="d-inline-block mr-3">
+        <div class="d-inline-block mr-3 mb-2">
           <a href="https://twitter.com/{{screen_name}}/following" target="_blank">
             <strong class="text-body">{{friends_count_s}}</strong>
             <span class="small text-muted"><%= t('.following') %></span>
           </a>
         </div>
-        <div class="d-inline-block mr-3">
+        <div class="d-inline-block mr-3 mb-2">
           <a href="https://twitter.com/{{screen_name}}/followers" target="_blank">
             <strong class="text-body">{{followers_count_s}}</strong>
             <span class="small text-muted"><%= t('.followers') %></span>
           </a>
         </div>
-        <div class="d-inline-block mr-3">
+        <div class="d-inline-block mr-3 mb-2">
           <a href="https://twitter.com/{{screen_name}}/lists/memberships" target="_blank">
             <strong class="text-body">{{listed_count_s}}</strong>
             <span class="small text-muted"><%= t('.lists') %></span>
           </a>
         </div>
-        <div class="d-inline-block">
+        <div class="d-inline-block mb-2">
           <a href="https://twitter.com/{{screen_name}}/likes" target="_blank">
             <strong class="text-body">{{favourites_count_s}}</strong>
             <span class="small text-muted"><%= t('.likes') %></span>
@@ -75,10 +75,10 @@
           {{status_text}}
         </p>
         {{#status_photos_display}}
-        <div class="mb-1">
+        <div style="max-width: 100%;">
           {{#status_photo_urls}}
           <a href="{{.}}" target="_blank">
-            <img class="mr-2" data-src="{{.}}" width="200">
+            <img class="img-fluid mr-2 mb-1" data-src="{{.}}" style="max-width: 20%;">
           </a>
           {{/status_photo_urls}}
         </div>
