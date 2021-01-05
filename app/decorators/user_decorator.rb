@@ -151,7 +151,9 @@ class UserDecorator
       status_block: @attrs[:status_id] ? 'block' : 'none',
       status_id: @attrs[:status_id]&.to_s,
       status_text: @attrs[:status_text],
-      status_created_at: @attrs[:status_created_at]&.to_s(:db),
+      status_retweet_count: @attrs[:status_retweet_count],
+      status_favorite_count: @attrs[:status_favorite_count],
+      status_created_at: (@attrs[:status_created_at]&.to_s(:db) rescue nil),
       labels: labels,
     }
   end

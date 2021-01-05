@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: mutual_friends_snapshots
+#
+#  id               :bigint           not null, primary key
+#  user_snapshot_id :bigint           not null
+#  completed_at     :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
 class MutualFriendsSnapshot < ApplicationRecord
   include SnapshotImplementation
 

@@ -66,6 +66,10 @@ class ApiClient
     end
   end
 
+  def status(id)
+    @client.status(id).attrs
+  end
+
   class RequestWithRetryHandler
     def initialize(method)
       @method = method

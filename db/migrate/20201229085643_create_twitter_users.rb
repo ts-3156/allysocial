@@ -15,6 +15,8 @@ class CreateTwitterUsers < ActiveRecord::Migration[6.1]
       t.datetime :account_created_at
       t.bigint :status_id
       t.text :status_text
+      t.integer :status_retweet_count
+      t.integer :status_favorite_count
       t.datetime :status_created_at
 
       t.timestamps null: false

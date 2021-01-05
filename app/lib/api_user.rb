@@ -95,8 +95,20 @@ class ApiUser
     @status_text
   end
 
+  def status_retweet_count
+    @attrs.dig(:status, :retweeted_status, :retweet_count) || @attrs.dig(:status, :retweet_count)
+  end
+
+  def status_favorite_count
+    @attrs.dig(:status, :retweeted_status, :favorite_count) || @attrs.dig(:status, :favorite_count)
+  end
+
   def status_created_at
     @attrs.dig(:status, :created_at)
+  end
+
+  def to_hash
+    to_twitter_user_attrs
   end
 
   def to_user_snapshot_attrs
@@ -119,6 +131,8 @@ class ApiUser
       account_created_at: account_created_at,
       status_id: status_id,
       status_text: status_text,
+      status_retweet_count: status_retweet_count,
+      status_favorite_count: status_favorite_count,
       status_created_at: status_created_at,
     }
   end

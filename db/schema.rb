@@ -156,6 +156,8 @@ ActiveRecord::Schema.define(version: 2021_01_04_184913) do
     t.datetime "account_created_at"
     t.bigint "status_id"
     t.text "status_text"
+    t.integer "status_retweet_count"
+    t.integer "status_favorite_count"
     t.datetime "status_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
