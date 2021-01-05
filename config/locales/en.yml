@@ -180,5 +180,7 @@ en:
       inactive_1month: 'No tweets for a month'
       inactive_3months: 'No tweets for 3 months'
       egotter: 'See on egotter'
+      twitter: 'See on Twitter'
+      direct_message: 'Send DM'
       error_report: 'Error report'
       bug_report: 'Bug report'

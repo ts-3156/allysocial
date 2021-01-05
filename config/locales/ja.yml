@@ -180,5 +180,7 @@ ja:
       inactive_1month: '1ヶ月間ツイートなし'
       inactive_3months: '3ヶ月間ツイートなし'
       egotter: 'えごったーで見る'
+      twitter: 'ツイッターで見る'
+      direct_message: 'DMを送る'
       error_report: '間違いを報告'
       bug_report: 'バグを報告'
