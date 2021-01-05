@@ -66,7 +66,13 @@
     <span class="h5"><%= t('.search_label.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
   </div>
-  <input type="text" id="search-label" class="form-control" list="search-label-options" data-placeholder="<%= t('.search_label.placeholder') %>" style="min-width: 200px; max-width: 300px;">
+  <input type="text" id="search-label" class="form-control" list="search-label-options"
+         data-placeholder="<%= t('.search_label.placeholder') %>"
+         data-placeholder-job="<%= t('.search_label.placeholder_job') %>"
+         data-placeholder-location="<%= t('.search_label.placeholder_location') %>"
+         data-placeholder-url="<%= t('.search_label.placeholder_url') %>"
+         data-placeholder-keyword="<%= t('.search_label.placeholder_keyword') %>"
+         style="min-width: 200px; max-width: 300px;">
   <datalist id="search-label-options">
   </datalist>
 </div>
@@ -131,7 +137,12 @@
     }
 
     function setPlaceholder() {
-      var value = labelSelector.data('placeholder').replace('{value}', currentTypeLabel());
+      var value;
+      if (currentType() === 'job' || currentType() === 'location' || currentType() === 'url' || currentType() === 'keyword') {
+        value = labelSelector.data('placeholder-' + currentType());
+      } else {
+        value = labelSelector.data('placeholder');
+      }
       labelSelector.attr('placeholder', value);
     }
 

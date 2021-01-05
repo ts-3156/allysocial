@@ -87,7 +87,11 @@ en:
       search_label:
         title: 'Search label'
         tooltip: 'You can specify concrete label for searching.'
-        placeholder: 'Choose {value}'
+        placeholder: 'Choose label'
+        placeholder_job: 'e.g. YouTuber'
+        placeholder_location: 'e.g. Tokyo'
+        placeholder_url: 'e.g. TikTok'
+        placeholder_keyword: 'e.g. Accepting requests for work'
         submit: 'Search'
       show_details:
         title: 'Show profile details'

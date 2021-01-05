@@ -87,7 +87,11 @@ ja:
       search_label:
         title: '検索するラベル'
         tooltip: '検索する具体的なラベルを指定することができます。'
-        placeholder: '{value}を選択してください'
+        placeholder: 'ラベルを選択してください'
+        placeholder_job: '例：YouTuber'
+        placeholder_location: '例：東京'
+        placeholder_url: '例：TikTok'
+        placeholder_keyword: '例：お仕事募集中'
         submit: '検索する'
       show_details:
         title: 'プロフィール詳細を表示する'
