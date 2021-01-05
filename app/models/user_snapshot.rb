@@ -18,76 +18,39 @@ class UserSnapshot < ApplicationRecord
   has_one :friends_insight
   has_one :followers_insight
 
-  def select_users_by(category, type, label, options)
-    return [] if label.blank?
+  def search_by(category, type, label, options)
+    raise "Invalid label value=#{label}" if label.blank?
 
-    if category == 'friends'
+    case category
+    when 'friends'
       snapshot = friends_snapshot
-      if type == 'job'
-        snapshot.select_users_by_job(label, options)
-      elsif type == 'location'
-        snapshot.select_users_by_location(label, options)
-      elsif type == 'url'
-        snapshot.select_users_by_url(label, options)
-      elsif type == 'keyword'
-        snapshot.select_users_by_keyword(label, options)
-      else
-        []
-      end
-    elsif category == 'followers'
+    when 'followers'
       snapshot = followers_snapshot
-      if type == 'job'
-        snapshot.select_users_by_job(label, options)
-      elsif type == 'location'
-        snapshot.select_users_by_location(label, options)
-      elsif type == 'url'
-        snapshot.select_users_by_url(label, options)
-      elsif type == 'keyword'
-        snapshot.select_users_by_keyword(label, options)
-      else
-        []
-      end
-    elsif category == 'one_sided_friends'
+    when 'one_sided_friends'
       snapshot = one_sided_friends_snapshot
-      if type == 'job'
-        snapshot.select_users_by_job(label, options)
-      elsif type == 'location'
-        snapshot.select_users_by_location(label, options)
-      elsif type == 'url'
-        snapshot.select_users_by_url(label, options)
-      elsif type == 'keyword'
-        snapshot.select_users_by_keyword(label, options)
-      else
-        []
-      end
-    elsif category == 'one_sided_followers'
+    when 'one_sided_followers'
       snapshot = one_sided_followers_snapshot
-      if type == 'job'
-        snapshot.select_users_by_job(label, options)
-      elsif type == 'location'
-        snapshot.select_users_by_location(label, options)
-      elsif type == 'url'
-        snapshot.select_users_by_url(label, options)
-      elsif type == 'keyword'
-        snapshot.select_users_by_keyword(label, options)
-      else
-        []
-      end
-    elsif category == 'mutual_friends'
+    when 'mutual_friends'
       snapshot = mutual_friends_snapshot
-      if type == 'job'
-        snapshot.select_users_by_job(label, options)
-      elsif type == 'location'
-        snapshot.select_users_by_location(label, options)
-      elsif type == 'url'
-        snapshot.select_users_by_url(label, options)
-      elsif type == 'keyword'
-        snapshot.select_users_by_keyword(label, options)
-      else
-        []
-      end
     else
-      []
+      raise "Invalid category value=#{category}"
+    end
+
+    search_by_snapshot(snapshot, type, label, options)
+  end
+
+  def search_by_snapshot(snapshot, type, label, options)
+    case type
+    when 'job'
+      snapshot.search_by_job(label, options)
+    when 'location'
+      snapshot.search_by_location(label, options)
+    when 'url'
+      snapshot.search_by_url(label, options)
+    when 'keyword'
+      snapshot.search_by_keyword(label, options)
+    else
+      raise "Invalid type value=#{type}"
     end
   end
 

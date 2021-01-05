@@ -6,7 +6,7 @@ module SnapshotImplementation
   class_methods do
   end
 
-  def select_users_by_job(raw_value, options)
+  def search_by_job(raw_value, options)
     if (value = JobSelector.label_to_value(raw_value))
       select_with_like_query(options) do
         TwitterUser.send(value)
@@ -16,7 +16,7 @@ module SnapshotImplementation
     end
   end
 
-  def select_users_by_location(value, options)
+  def search_by_location(value, options)
     method_name = LocationSelector.matched_value(value)
 
     select_with_like_query(options) do
@@ -28,7 +28,7 @@ module SnapshotImplementation
     end
   end
 
-  def select_users_by_url(value, options)
+  def search_by_url(value, options)
     method_name = UrlSelector.matched_value(value)
 
     select_with_like_query(options) do
@@ -40,7 +40,7 @@ module SnapshotImplementation
     end
   end
 
-  def select_users_by_keyword(value, options)
+  def search_by_keyword(value, options)
     method_name = KeywordSelector.matched_value(value)
 
     select_with_like_query(options) do
