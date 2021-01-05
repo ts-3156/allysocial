@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 2021_01_04_184913) do
 
   create_table "followers_insights", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
-    t.json "description_keywords"
-    t.json "location_keywords"
-    t.json "url_keywords"
+    t.json "description"
+    t.json "location"
+    t.json "url"
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -68,9 +68,9 @@ ActiveRecord::Schema.define(version: 2021_01_04_184913) do
 
   create_table "friends_insights", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
-    t.json "description_keywords"
-    t.json "location_keywords"
-    t.json "url_keywords"
+    t.json "description"
+    t.json "location"
+    t.json "url"
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

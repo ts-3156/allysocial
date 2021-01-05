@@ -58,29 +58,29 @@ module InsightImplementation
 
   def update_description_from_users(users)
     words_count = extract_description_keywords(users)
-    update!(description_keywords: { words_count: words_count })
+    update!(description: { words_count: words_count })
   end
 
   def update_location_from_users(users)
     words_count = extract_location_keywords(users)
-    update!(location_keywords: { words_count: words_count })
+    update!(location: { words_count: words_count })
   end
 
   def update_url_from_users(users)
     words_count = extract_url_keywords(users)
-    update!(url_keywords: { words_count: words_count })
+    update!(url: { words_count: words_count })
   end
 
   def description_words
-    description_keywords['words_count'].take(500).map(&:first)
+    description['words_count'].take(500).map(&:first)
   end
 
   def location_words
-    location_keywords['words_count'].take(500).map(&:first)
+    location['words_count'].take(500).map(&:first)
   end
 
   def url_words
-    url_keywords['words_count'].take(500).map(&:first)
+    url['words_count'].take(500).map(&:first)
   end
 
   def data_completed?
