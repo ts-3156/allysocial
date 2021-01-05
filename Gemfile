@@ -62,4 +62,7 @@ gem 'omniauth-twitter'
 
 gem 'twitter'
 gem 'sidekiq'
+gem 'redis'
+gem 'hiredis'
+gem 'redis-namespace'
 gem 'natto'
