@@ -27,6 +27,14 @@ class ApiUser
     @attrs[:followers_count]
   end
 
+  def listed_count
+    @attrs[:listed_count]
+  end
+
+  def favourites_count
+    @attrs[:favourites_count]
+  end
+
   def description
     unless @description
       @description = @attrs[:description]
@@ -139,6 +147,8 @@ class ApiUser
       statuses_count: statuses_count,
       friends_count: friends_count,
       followers_count: followers_count,
+      listed_count: listed_count,
+      favourites_count: favourites_count,
       description: description,
       location: location,
       url: url,

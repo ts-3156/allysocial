@@ -167,6 +167,8 @@ en:
       statuses: 'Statuses'
       following: 'Following'
       followers: 'Followers'
+      lists: 'Lists'
+      likes: 'Likes'
       categories:
         follower: 'Follower'
         one_sided_friend: 'One-sided following'

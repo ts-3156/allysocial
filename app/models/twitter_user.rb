@@ -9,6 +9,8 @@
 #  statuses_count        :integer          not null
 #  friends_count         :integer          not null
 #  followers_count       :integer          not null
+#  listed_count          :integer
+#  favourites_count      :integer
 #  description           :text(65535)
 #  location              :string(255)
 #  url                   :string(255)
@@ -19,6 +21,7 @@
 #  status_text           :text(65535)
 #  status_retweet_count  :integer
 #  status_favorite_count :integer
+#  status_photo_urls     :json
 #  status_created_at     :datetime
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
