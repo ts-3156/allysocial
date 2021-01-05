@@ -29,9 +29,9 @@ class JobSelector
       migrant_worker: 'Migrant worker',
       nightlife_business: 'Nightlife business',
       part_timer: 'Part timer',
+      general_student: 'General student',
       art_student: 'Art student',
       college_student: 'College student',
-      general_student: 'General student',
       high_school_student: 'High school student',
     },
     ja: {
@@ -63,9 +63,9 @@ class JobSelector
       migrant_worker: '出稼ぎ',
       nightlife_business: '夜職',
       part_timer: 'アルバイト',
+      general_student: '一般学生',
       art_student: '美大生',
       college_student: '大学生',
-      general_student: '一般学生',
       high_school_student: '高校生',
     }
   }

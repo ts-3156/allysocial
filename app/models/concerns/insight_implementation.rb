@@ -89,14 +89,28 @@ module InsightImplementation
 
   private
 
+  MEANINGLESS_REGEXP = /\A(com|the|in|of|and|to|jp|is|on|at|my|this|with|\d{2}%?|\d{4}年?)\z/
+
   def extract_description_keywords(users)
     text = users.take(1000).map(&:description).join(' ') # TODO Set suitable limit
-    NattoClient.new.count_words(text).take(500)
+    words = NattoClient.new.count_words(text).take(500)
+    words.reject! do |word, _|
+      word.downcase.match?(MEANINGLESS_REGEXP)
+    end
+    words
   end
+
+  KANTO_REGEXP = /\A(japan|jp|nihon|nippon|日本|にほん|kanto|関東|かんとう|tokyo|東京都?|とうきょう)\z/
 
   def extract_location_keywords(users)
     text = users.take(5000).map(&:location).compact.map { |location| location.split(/[、。, .←→・\/]/) }.flatten.join(' ') # TODO Set suitable limit
-    NattoClient.new.count_words(text).take(500)
+    words = NattoClient.new.count_words(text).take(500)
+    words.reject! do |word, _|
+      word.downcase.match?(MEANINGLESS_REGEXP) ||
+        word.downcase.match?(KANTO_REGEXP) ||
+        word.downcase.match?(/\A(\(\(|-?\d+)\z/)
+    end
+    words
   end
 
   def extract_url_keywords(users)
