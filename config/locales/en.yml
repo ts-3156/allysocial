@@ -70,21 +70,11 @@ en:
       search_category:
         title: 'Search category'
         tooltip: 'You can specify whether you want to search for friends or followers.'
-        friends:
-          label: 'Following'
-          help_html: '<strong>Friends</strong> is selected.'
-        followers:
-          label: 'Followers'
-          help_html: '<strong>Followers</strong> is selected.'
-        one_sided_friends:
-          label: 'One-sided following'
-          help_html: '<strong>One-sided following</strong> is selected.'
-        one_sided_followers:
-          label: 'One-sided followers'
-          help_html: '<strong>One-sided followers</strong> is selected.'
-        mutual_friends:
-          label: 'Mutual following'
-          help_html: '<strong>Mutual following</strong> is selected.'
+        friends: 'Following'
+        followers: 'Followers'
+        one_sided_friends: 'One-sided following'
+        one_sided_followers: 'One-sided followers'
+        mutual_friends: 'Mutual following'
       search_type:
         title: 'Search type'
         tooltip: 'You can specify whether you want to search for job, location, url or keyword.'
@@ -94,10 +84,6 @@ en:
         keyword: 'Keyword'
         notice_profile_changes: 'Notice profile changes'
         track_by_keywords: 'Track by Keywords'
-        job_help_html: '<strong>Job</strong> is selected.'
-        location_help_html: '<strong>Location</strong> is selected.'
-        url_help_html: '<strong>URL</strong> is selected.'
-        keyword_help_html: '<strong>Keyword</strong> is selected.'
       search_label:
         title: 'Search label'
         tooltip: 'You can specify concrete label for searching.'
