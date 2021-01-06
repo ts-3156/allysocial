@@ -27,6 +27,23 @@ module Api
       end
     end
 
+    def set_users_snapshot
+      case params[:category]
+      when 'friends'
+        @users_snapshot = @user_snapshot.friends_snapshot
+      when 'followers'
+        @users_snapshot = @user_snapshot.followers_snapshot
+      when 'one_sided_friends'
+        @users_snapshot = @user_snapshot.one_sided_friends_snapshot
+      when 'one_sided_followers'
+        @users_snapshot = @user_snapshot.one_sided_followers_snapshot
+      when 'mutual_friends'
+        @users_snapshot = @user_snapshot.mutual_friends_snapshot
+      else
+        render json: { message: ':category not specified' }, status: :bad_request
+      end
+    end
+
     def set_insight
       case params[:category]
       when 'friends'

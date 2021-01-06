@@ -21,92 +21,61 @@ class UserSnapshot < ApplicationRecord
   has_one :one_sided_followers_insight
   has_one :mutual_friends_insight
 
-  def search_by(category, type, label, options)
-    raise "Invalid label value=#{label}" if label.blank?
-
-    case category
-    when 'friends'
-      snapshot = friends_snapshot
-    when 'followers'
-      snapshot = followers_snapshot
-    when 'one_sided_friends'
-      snapshot = one_sided_friends_snapshot
-    when 'one_sided_followers'
-      snapshot = one_sided_followers_snapshot
-    when 'mutual_friends'
-      snapshot = mutual_friends_snapshot
-    else
-      raise "Invalid category value=#{category}"
-    end
-
-    search_by_snapshot(snapshot, type, label, options)
-  end
-
-  def search_by_snapshot(snapshot, type, label, options)
+  def search_by_users_snapshot(users_snapshot, type, label, options)
     case type
     when 'job'
-      snapshot.search_by_job(label, options)
+      users_snapshot.search_by_job(label, options)
     when 'location'
-      snapshot.search_by_location(label, options)
+      users_snapshot.search_by_location(label, options)
     when 'url'
-      snapshot.search_by_url(label, options)
+      users_snapshot.search_by_url(label, options)
     when 'keyword'
-      snapshot.search_by_keyword(label, options)
+      users_snapshot.search_by_keyword(label, options)
     else
       raise "Invalid type value=#{type}"
     end
   end
 
   def data_completed?
-    # TODO
-    friends_snapshot&.data_completed? && followers_snapshot&.data_completed? && friends_insight&.data_completed? && followers_insight&.data_completed?
+    [
+      friends_snapshot,
+      followers_snapshot,
+      one_sided_friends_snapshot,
+      one_sided_followers_snapshot,
+      mutual_friends_snapshot,
+      friends_insight,
+      followers_insight,
+      one_sided_friends_insight,
+      one_sided_followers_insight,
+      mutual_friends_insight,
+    ].all? { |relation| relation&.data_completed? }
   end
 
   UIDS_LIMIT = 5000
 
   def friend_uids(limit: UIDS_LIMIT)
-    uids = []
-    friends_snapshot.users_chunks.each do |chunk|
-      uids.concat(chunk.properties['uids'])
-      break if uids.size >= limit
-    end
-    uids = uids.take(limit) if uids.size >= limit
-    uids
+    fetch_uids(friends_snapshot, limit)
   end
 
   def follower_uids(limit: UIDS_LIMIT)
-    uids = []
-    followers_snapshot.users_chunks.each do |chunk|
-      uids.concat(chunk.properties['uids'])
-      break if uids.size >= limit
-    end
-    uids = uids.take(limit) if uids.size >= limit
-    uids
+    fetch_uids(followers_snapshot, limit)
   end
 
   def one_sided_friend_uids(limit: UIDS_LIMIT)
-    uids = []
-    one_sided_friends_snapshot.users_chunks.each do |chunk|
-      uids.concat(chunk.properties['uids'])
-      break if uids.size >= limit
-    end
-    uids = uids.take(limit) if uids.size >= limit
-    uids
+    fetch_uids(one_sided_friends_snapshot, limit)
   end
 
   def one_sided_follower_uids(limit: UIDS_LIMIT)
-    uids = []
-    one_sided_followers_snapshot.users_chunks.each do |chunk|
-      uids.concat(chunk.properties['uids'])
-      break if uids.size >= limit
-    end
-    uids = uids.take(limit) if uids.size >= limit
-    uids
+    fetch_uids(one_sided_followers_snapshot, limit)
   end
 
   def mutual_friend_uids(limit: UIDS_LIMIT)
+    fetch_uids(mutual_friends_snapshot, limit)
+  end
+
+  def fetch_uids(relation, limit)
     uids = []
-    mutual_friends_snapshot.users_chunks.each do |chunk|
+    relation.users_chunks.each do |chunk|
       uids.concat(chunk.properties['uids'])
       break if uids.size >= limit
     end
@@ -114,38 +83,36 @@ class UserSnapshot < ApplicationRecord
     uids
   end
 
-  def friends
-    friends_snapshot.users_chunks.map do |chunk|
-      uids = chunk.properties['uids']
-      TwitterUser.where(uid: uids).order_by_field(uids)
-    end.flatten
+  USERS_LIMIT = 5000
+
+  def friends(limit: USERS_LIMIT)
+    fetch_users(friends_snapshot, limit)
   end
 
-  def followers
-    followers_snapshot.users_chunks.map do |res|
-      uids = res.properties['uids']
-      TwitterUser.where(uid: uids).order_by_field(uids)
-    end.flatten
+  def followers(limit: USERS_LIMIT)
+    fetch_users(followers_snapshot, limit)
   end
 
-  def one_sided_friends
-    one_sided_friends_snapshot.users_chunks.map do |chunk|
-      uids = chunk.properties['uids']
-      TwitterUser.where(uid: uids).order_by_field(uids)
-    end.flatten
+  def one_sided_friends(limit: USERS_LIMIT)
+    fetch_users(one_sided_friends_snapshot, limit)
   end
 
-  def one_sided_followers
-    one_sided_followers_snapshot.users_chunks.map do |chunk|
-      uids = chunk.properties['uids']
-      TwitterUser.where(uid: uids).order_by_field(uids)
-    end.flatten
+  def one_sided_followers(limit: USERS_LIMIT)
+    fetch_users(one_sided_followers_snapshot, limit)
   end
 
-  def mutual_friends
-    mutual_friends_snapshot.users_chunks.map do |chunk|
+  def mutual_friends(limit: USERS_LIMIT)
+    fetch_users(mutual_friends_snapshot, limit)
+  end
+
+  def fetch_users(relation, limit)
+    users = []
+    relation.users_chunks.each do |chunk|
       uids = chunk.properties['uids']
-      TwitterUser.where(uid: uids).order_by_field(uids)
-    end.flatten
+      users.concat(TwitterUser.where(uid: uids).order_by_field(uids))
+      break if users.size >= limit
+    end
+    users = users.take(limit) if users.size >= limit
+    users
   end
 end
