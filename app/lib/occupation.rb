@@ -534,6 +534,16 @@ class Occupation
     model.where(%Q(friends_count < followers_count and description regexp "#{OFFICIAL_ACCOUNT_KEYWORDS}"))
   end
 
+  GAMER_KEYWORDS = '[Aa]pex|Splatoon|スプラトゥーン|パズドラ|モンスト|フォートナイト|フォトナ|荒野行動|ヒプマイ|ドラクエ|ポケモン|スマブラ|マイクラ'
+
+  def gamer?
+    description.match?(Regexp.new(GAMER_KEYWORDS))
+  end
+
+  def self.gamer(model)
+    model.where(%Q(description regexp "#{GAMER_KEYWORDS}"))
+  end
+
   BOT_KEYWORDS = '[^o][Bb]ot|[^ロ]ボット'
 
   def bot?
