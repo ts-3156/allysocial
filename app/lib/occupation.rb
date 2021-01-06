@@ -377,7 +377,7 @@ class Occupation
     model.where(%Q(description regexp "#{PART_TIMER_KEYWORDS}"))
   end
 
-  GENERAL_STUDENT_KEYWORDS = '学生'
+  GENERAL_STUDENT_KEYWORDS = '[Ss]tudent|学生|年生|休学'
 
   def general_student?
     description.match?(Regexp.new(PART_TIMER_KEYWORDS))
