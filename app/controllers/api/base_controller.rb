@@ -34,11 +34,11 @@ module Api
       when 'followers'
         @insight = @user_snapshot.followers_insight
       when 'one_sided_friends'
-        @insight = @user_snapshot.friends_insight
+        @insight = @user_snapshot.one_sided_friends_insight
       when 'one_sided_followers'
-        @insight = @user_snapshot.followers_insight
+        @insight = @user_snapshot.one_sided_followers_insight
       when 'mutual_friends'
-        @insight = @user_snapshot.friends_insight
+        @insight = @user_snapshot.mutual_friends_insight
       else
         render json: { message: ':category not specified' }, status: :bad_request
       end

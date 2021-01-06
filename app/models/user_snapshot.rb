@@ -17,6 +17,9 @@ class UserSnapshot < ApplicationRecord
 
   has_one :friends_insight
   has_one :followers_insight
+  has_one :one_sided_friends_insight
+  has_one :one_sided_followers_insight
+  has_one :mutual_friends_insight
 
   def search_by(category, type, label, options)
     raise "Invalid label value=#{label}" if label.blank?
@@ -59,24 +62,56 @@ class UserSnapshot < ApplicationRecord
     friends_snapshot&.data_completed? && followers_snapshot&.data_completed? && friends_insight&.data_completed? && followers_insight&.data_completed?
   end
 
-  def friend_uids
-    friends_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  UIDS_LIMIT = 5000
+
+  def friend_uids(limit: UIDS_LIMIT)
+    uids = []
+    friends_snapshot.users_chunks.each do |chunk|
+      uids.concat(chunk.properties['uids'])
+      break if uids.size >= limit
+    end
+    uids = uids.take(limit) if uids.size >= limit
+    uids
   end
 
-  def follower_uids
-    followers_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  def follower_uids(limit: UIDS_LIMIT)
+    uids = []
+    followers_snapshot.users_chunks.each do |chunk|
+      uids.concat(chunk.properties['uids'])
+      break if uids.size >= limit
+    end
+    uids = uids.take(limit) if uids.size >= limit
+    uids
   end
 
-  def one_sided_friend_uids
-    one_sided_friends_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  def one_sided_friend_uids(limit: UIDS_LIMIT)
+    uids = []
+    one_sided_friends_snapshot.users_chunks.each do |chunk|
+      uids.concat(chunk.properties['uids'])
+      break if uids.size >= limit
+    end
+    uids = uids.take(limit) if uids.size >= limit
+    uids
   end
 
-  def one_sided_follower_uids
-    one_sided_followers_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  def one_sided_follower_uids(limit: UIDS_LIMIT)
+    uids = []
+    one_sided_followers_snapshot.users_chunks.each do |chunk|
+      uids.concat(chunk.properties['uids'])
+      break if uids.size >= limit
+    end
+    uids = uids.take(limit) if uids.size >= limit
+    uids
   end
 
-  def mutual_friend_uids
-    mutual_friends_snapshot.users_chunks.map { |chunk| chunk.properties['uids'] }.flatten
+  def mutual_friend_uids(limit: UIDS_LIMIT)
+    uids = []
+    mutual_friends_snapshot.users_chunks.each do |chunk|
+      uids.concat(chunk.properties['uids'])
+      break if uids.size >= limit
+    end
+    uids = uids.take(limit) if uids.size >= limit
+    uids
   end
 
   def friends

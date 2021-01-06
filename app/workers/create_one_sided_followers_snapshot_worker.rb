@@ -1,15 +1,4 @@
-class CreateOneSidedFollowersSnapshotWorker
-  include Sidekiq::Worker
-  sidekiq_options queue: 'default', retry: 0, backtrace: false
-
-  def perform(user_id, user_snapshot_id, options = {})
-    user_snapshot = UserSnapshot.find(user_snapshot_id)
-    create_snapshot(user_id, user_snapshot)
-  rescue => e
-    logger.warn "Unhandled exception: #{e.inspect}"
-    logger.info e.backtrace.join("\n")
-  end
-
+class CreateOneSidedFollowersSnapshotWorker < CreateSnapshotWorker
   private
 
   def create_snapshot(user_id, user_snapshot)
@@ -18,6 +7,7 @@ class CreateOneSidedFollowersSnapshotWorker
     else
       snapshot = user_snapshot.create_one_sided_followers_snapshot!
       snapshot.update_from_user_snapshot(user_id, user_snapshot)
+      CreateOneSidedFollowersInsightWorker.perform_async(user_id, user_snapshot.id)
     end
   end
 end
