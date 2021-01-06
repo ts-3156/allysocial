@@ -167,6 +167,26 @@ class Occupation
     model.where(%Q(description regexp "#{POLITICAL_ACTIVIST_KEYWORDS}" and description not regexp "#{POLITICIAN_KEYWORDS}"))
   end
 
+  PROFESSOR_KEYWORDS = '[Pp]rofessor|教授'
+
+  def professor?
+    description.match?(Regexp.new(PROFESSOR_KEYWORDS))
+  end
+
+  def self.professor(model)
+    model.where(%Q(description regexp "#{PROFESSOR_KEYWORDS}"))
+  end
+
+  TEACHER_KEYWORDS = '[Tt]eacher|教員|教師|先生|講師'
+
+  def teacher?
+    description.match?(Regexp.new(TEACHER_KEYWORDS))
+  end
+
+  def self.teacher(model)
+    model.where(%Q(description regexp "#{TEACHER_KEYWORDS}"))
+  end
+
   DESIGNER_KEYWORDS = '([Dd])esigner|デザイナ'
 
   def designer?
@@ -355,6 +375,16 @@ class Occupation
 
   def self.pop_idol(model)
     model.where(%Q(description regexp "#{POP_IDOL_KEYWORDS}"))
+  end
+
+  PRODUCER_KEYWORDS = '[Pp]roducer|プロデューサ|プロデュース'
+
+  def producer?
+    description.match?(Regexp.new(PRODUCER_KEYWORDS))
+  end
+
+  def self.producer(model)
+    model.where(%Q(description regexp "#{PRODUCER_KEYWORDS}"))
   end
 
   CONCAFE_WAITRESS_KEYWORDS = 'コンカフェ'
