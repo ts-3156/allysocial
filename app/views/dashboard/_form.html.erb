@@ -265,35 +265,8 @@
       });
     }
 
-    function updateSearchLabelOptions() {
-      var category = currentCategory();
-      var type = currentType();
-
-      if (category === 'friends') {
-        if (type === 'job') {
-          setJobOptions();
-        } else if (type === 'location') {
-          setLocationOptions();
-        } else if (type === 'url') {
-          setUrlOptions();
-        } else if (type === 'keyword') {
-          setKeywordOptions();
-        }
-      } else if (category === 'followers') {
-        if (type === 'job') {
-          setJobOptions();
-        } else if (type === 'location') {
-          setLocationOptions();
-        } else if (type === 'url') {
-          setUrlOptions();
-        } else if (type === 'keyword') {
-          setKeywordOptions();
-        }
-      }
-    }
-
-    $("input[name='category']").on('click', updateSearchLabelOptions);
-    $("input[name='type']").on('click', updateSearchLabelOptions);
+    $("input[name='category']").on('click', fetchLabelOptions);
+    $("input[name='type']").on('click', fetchLabelOptions);
 
     $('#search-submit').on('click', function () {
       search();
@@ -320,43 +293,17 @@
       }, 1000)
     }
 
-    function setJobOptions() {
-      var url = '<%= raw api_job_options_path %>';
+    function fetchLabelOptions() {
+      var url = '<%= raw api_label_options_path %>';
       var category = currentCategory();
+      var type = currentType();
 
-      $.get(url, {category: category}).done(function (res) {
+      $.get(url, {category: category, type: type}).done(function (res) {
         setOptions(res.options);
       });
     }
 
-    function setLocationOptions() {
-      var url = '<%= raw api_location_options_path %>';
-      var category = currentCategory();
-
-      $.get(url, {category: category}).done(function (res) {
-        setOptions(res.options);
-      });
-    }
-
-    function setUrlOptions() {
-      var url = '<%= raw api_url_options_path %>';
-      var category = currentCategory();
-
-      $.get(url, {category: category}).done(function (res) {
-        setOptions(res.options);
-      });
-    }
-
-    function setKeywordOptions() {
-      var url = '<%= raw api_keyword_options_path %>';
-      var category = currentCategory();
-
-      $.get(url, {category: category}).done(function (res) {
-        setOptions(res.options);
-      });
-    }
-
-    setJobOptions();
+    fetchLabelOptions();
 
     $('[data-toggle="tooltip"]').tooltip();
   });

@@ -19,24 +19,19 @@ class UrlSelector
   }
 
   class << self
-    def select_options(user_snapshot, category)
+    def select_options(user_snapshot, insight)
       labels = LABELS[I18n.locale]
       options = VALUES.map do |value|
         { value: labels[value.to_sym], label: labels[value.to_sym] }
       end
 
-      if category == 'friends'
-        words = user_snapshot.friends_insight.url_words || []
-      elsif category == 'followers'
-        words = user_snapshot.followers_insight.url_words || []
-      else
-        words = []
-      end
+      words = insight.url_words || []
 
       if words.any?
         options << { value: '--------', label: '--------' }
-        words.each do |word|
-          options << { value: word, label: word.truncate(15, omission: '') }
+        words.each do |word, count|
+          word = "#{word.truncate(15, omission: '')} (#{count})"
+          options << { value: word, label: word }
         end
       end
 

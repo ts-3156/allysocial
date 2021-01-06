@@ -72,15 +72,15 @@ module InsightImplementation
   end
 
   def description_words
-    description['words_count'].take(500).map(&:first)
+    description['words_count'].take(500)
   end
 
   def location_words
-    location['words_count'].take(500).map(&:first)
+    location['words_count'].take(500)
   end
 
   def url_words
-    url['words_count'].take(500).map(&:first)
+    url['words_count'].take(500)
   end
 
   def data_completed?

@@ -17,18 +17,6 @@ module Api
 
     private
 
-    def require_category
-      unless params[:category] && params[:category].match?(/\A(friends|followers|one_sided_friends|one_sided_followers|mutual_friends)\z/)
-        render json: { message: ':category not specified' }, status: :bad_request
-      end
-    end
-
-    def require_type
-      unless params[:type] && params[:type].match?(/\A(job|location|url|keyword)\z/)
-        render json: { message: ':type not specified' }, status: :bad_request
-      end
-    end
-
     def require_label
       unless params[:label] && params[:label].match?(/\A.{1,50}\z/)
         render json: { message: ':label not specified' }, status: :bad_request
