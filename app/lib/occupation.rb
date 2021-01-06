@@ -59,7 +59,7 @@ class Occupation
     model.where(%Q(description regexp "#{YOUTUBER_KEYWORDS}" or url regexp "#{YOUTUBER_KEYWORDS}"))
   end
 
-  ENGINEER_KEYWORDS = '([Ee])ngineer|[Pp]rogramming|[Pp]rogrammer|エンジニア|プログラマ|プログラミング|開発者|Python|Ruby|Golang|Java|Scala|Android|iOS'
+  ENGINEER_KEYWORDS = '([Ee])ngineer|[Pp]rogramming|[Pp]rogrammer|エンジニア|プログラマ|プログラミング|開発者|個人開発|Python|Ruby|Golang|Java|Scala|Android|iOS'
 
   def engineer?
     description.match?(Regexp.new(ENGINEER_KEYWORDS))
