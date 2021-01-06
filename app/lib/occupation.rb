@@ -307,6 +307,16 @@ class Occupation
     model.where(%Q(description regexp "#{WRITER_KEYWORDS}"))
   end
 
+  EDITOR_KEYWORDS = '[Ee]ditor|編集者'
+
+  def editor?
+    description.match?(Regexp.new(EDITOR_KEYWORDS))
+  end
+
+  def self.editor(model)
+    model.where(%Q(description regexp "#{EDITOR_KEYWORDS}"))
+  end
+
   REPORTER_KEYWORDS = '[Rr]eporter|レポータ'
 
   def reporter?
