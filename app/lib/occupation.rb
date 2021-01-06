@@ -418,6 +418,16 @@ class Occupation
     model.where(%Q(description regexp "#{US_UNIV}|#{JP_UNIV}"))
   end
 
+  OFFICIAL_ACCOUNT_KEYWORDS = '公式([Tt]witter|ツイッター)?アカウント'
+
+  def official_account?
+    friends_count < followers_count && description.match?(Regexp.new(OFFICIAL_ACCOUNT_KEYWORDS))
+  end
+
+  def self.official_account(model)
+    model.where(%Q(friends_count < followers_count and description regexp "#{OFFICIAL_ACCOUNT_KEYWORDS}"))
+  end
+
   JOBLESS_KEYWORDS = '[Jj]obless|[Uu]nemployed|[Nn]o\s+job|無職'
 
   def jobless?
