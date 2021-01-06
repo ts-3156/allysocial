@@ -102,7 +102,7 @@ module InsightImplementation
   def extract_job_keywords(users)
     users = users.take(5000) # TODO Set suitable limit
     words = []
-    users.map { |u| Occupation.new(description: u.description) }.each do |occupation|
+    users.map(&:occupation).each do |occupation|
       words << occupation.detect_title
     end
     words.each_with_object(Hash.new(0)) do |word, memo|

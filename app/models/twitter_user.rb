@@ -29,6 +29,17 @@
 #  updated_at            :datetime         not null
 #
 class TwitterUser < ApplicationRecord
+  def occupation
+    Occupation.new(
+      name: name,
+      description: description,
+      url: url,
+      location: location,
+      friends_count: friends_count,
+      followers_count: followers_count,
+    )
+  end
+
   class << self
     def search_location(str)
       where('location like ?', "%#{sanitize_sql_like(str)}%")

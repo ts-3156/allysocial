@@ -3,6 +3,10 @@ class Occupation
     @attrs = attrs
   end
 
+  def name
+    @attrs[:name] || ''
+  end
+
   def description
     @attrs[:description] || ''
   end
@@ -107,14 +111,16 @@ class Occupation
     model.where(%Q(description regexp "#{PUBLIC_ACCOUNTANT_KEYWORDS}"))
   end
 
-  TAX_ACCOUNTANT_KEYWORDS = '税理士|(tax\s+accountant)'
+  TAX_ACCOUNTANT_KEYWORDS = '税理士|[Tt]ax\s+accountant'
+  TAX_ACCOUNTANT_KEYWORDS_DB = '税理士|[Tt]ax[[:space:]]+accountant'
 
   def tax_accountant?
-    description.match?(Regexp.new(TAX_ACCOUNTANT_KEYWORDS))
+    regexp = Regexp.new(TAX_ACCOUNTANT_KEYWORDS)
+    name.match?(regexp) || description.match?(regexp)
   end
 
   def self.tax_accountant(model)
-    model.where(%Q(description regexp "#{TAX_ACCOUNTANT_KEYWORDS}"))
+    model.where(%Q(name regexp "#{TAX_ACCOUNTANT_KEYWORDS_DB}" or description regexp "#{TAX_ACCOUNTANT_KEYWORDS_DB}"))
   end
 
   ENTREPRENEUR_KEYWORDS = '起業'
