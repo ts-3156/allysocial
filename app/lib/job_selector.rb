@@ -16,6 +16,7 @@ class JobSelector < BaseSelector
           tax_accountant: 'Tax accountant',
           entrepreneur: 'Entrepreneur',
           investor: 'Investor',
+          exchange_trader: 'Exchange trader',
           politician: 'Politician',
           political_activist: 'Political activist',
           designer: 'Designer',
@@ -25,6 +26,7 @@ class JobSelector < BaseSelector
           photographer: 'Photographer',
           manga_artist: 'Manga artist',
           writer: 'Writer',
+          blogger: 'Blogger',
           culinary_researcher: 'Culinary researcher',
           comedian: 'Comedian',
           bikini_model: 'Bikini model',
@@ -39,6 +41,7 @@ class JobSelector < BaseSelector
           art_student: 'Art student',
           college_student: 'College student',
           high_school_student: 'High school student',
+          jobless: 'Jobless',
           not_applicable: 'Others',
         },
         ja: {
@@ -51,6 +54,7 @@ class JobSelector < BaseSelector
           tax_accountant: '税理士',
           entrepreneur: '起業家',
           investor: '投資家',
+          exchange_trader: 'トレーダー',
           politician: '政治家',
           political_activist: '政治活動家',
           designer: 'デザイナー',
@@ -60,6 +64,7 @@ class JobSelector < BaseSelector
           photographer: '写真家',
           manga_artist: '漫画家',
           writer: '作家',
+          blogger: 'ブロガー',
           culinary_researcher: '料理研究家',
           comedian: 'お笑い芸人',
           bikini_model: 'グラビアモデル',
@@ -74,6 +79,7 @@ class JobSelector < BaseSelector
           art_student: '美大生',
           college_student: '大学生',
           high_school_student: '高校生',
+          jobless: '無職',
           not_applicable: 'その他',
         }
       }

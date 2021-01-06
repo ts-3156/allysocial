@@ -129,6 +129,16 @@ class Occupation
     model.where(%Q(description regexp "#{INVESTOR_KEYWORDS}"))
   end
 
+  EXCHANGE_TRADER_KEYWORDS = 'trader|トレーダ'
+
+  def exchange_trader?
+    description.match?(Regexp.new(EXCHANGE_TRADER_KEYWORDS))
+  end
+
+  def self.exchange_trader(model)
+    model.where(%Q(description regexp "#{EXCHANGE_TRADER_KEYWORDS}"))
+  end
+
   POLITICIAN_KEYWORDS = '議員|大臣'
 
   def politician?
@@ -209,7 +219,7 @@ class Occupation
     model.where(%Q(description regexp "#{MANGA_ARTIST_KEYWORDS}"))
   end
 
-  WRITER_KEYWORDS = '連載中'
+  WRITER_KEYWORDS = 'writer|連載中'
 
   def writer?
     description.match?(Regexp.new(WRITER_KEYWORDS))
@@ -217,6 +227,16 @@ class Occupation
 
   def self.writer(model)
     model.where(%Q(description regexp "#{WRITER_KEYWORDS}"))
+  end
+
+  BLOGGER_KEYWORDS = 'blogger|ブロガ'
+
+  def blogger?
+    description.match?(Regexp.new(BLOGGER_KEYWORDS))
+  end
+
+  def self.blogger(model)
+    model.where(%Q(description regexp "#{BLOGGER_KEYWORDS}"))
   end
 
   CULINARY_RESEARCHER_KEYWORDS = '料理研究家|料理人|レシピ'
@@ -358,5 +378,15 @@ class Occupation
 
   def self.college_student(model)
     model.where(%Q(description regexp "#{US_UNIV}|#{JP_UNIV}"))
+  end
+
+  JOBLESS_KEYWORDS = 'jobless|unemployed|no\s+job|無職'
+
+  def jobless?
+    description.match?(Regexp.new(JOBLESS_KEYWORDS))
+  end
+
+  def self.jobless(model)
+    model.where(%Q(description regexp "#{JOBLESS_KEYWORDS}"))
   end
 end

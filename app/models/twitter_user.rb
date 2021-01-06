@@ -114,6 +114,10 @@ class TwitterUser < ApplicationRecord
       Occupation.investor(self)
     end
 
+    def exchange_trader
+      Occupation.exchange_trader(self)
+    end
+
     def politician
       Occupation.politician(self)
     end
@@ -148,6 +152,10 @@ class TwitterUser < ApplicationRecord
 
     def writer
       Occupation.writer(self)
+    end
+
+    def blogger
+      Occupation.blogger(self)
     end
 
     def culinary_researcher
@@ -204,6 +212,10 @@ class TwitterUser < ApplicationRecord
 
     def college_student
       Occupation.college_student(self)
+    end
+
+    def jobless
+      Occupation.jobless(self)
     end
 
     def not_applicable
