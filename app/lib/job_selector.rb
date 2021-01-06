@@ -39,7 +39,7 @@ class JobSelector < BaseSelector
           art_student: 'Art student',
           college_student: 'College student',
           high_school_student: 'High school student',
-          na: 'Others',
+          not_applicable: 'Others',
         },
         ja: {
           youtuber: 'YouTuber',
@@ -74,7 +74,7 @@ class JobSelector < BaseSelector
           art_student: '美大生',
           college_student: '大学生',
           high_school_student: '高校生',
-          na: 'その他',
+          not_applicable: 'その他',
         }
       }
     end

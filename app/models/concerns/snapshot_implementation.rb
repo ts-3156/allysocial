@@ -12,6 +12,7 @@ module SnapshotImplementation
         TwitterUser.send(value)
       end
     else
+      logger.info "Invalid job label value=#{raw_value}"
       []
     end
   end

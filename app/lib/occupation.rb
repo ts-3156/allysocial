@@ -23,13 +23,17 @@ class Occupation
     @attrs[:followers_count] || 0
   end
 
-  def job_title
-    self.class.instance_methods(false).select { |name| name.to_s.match?(/\?$/) }.map do |method_name|
+  def detect_title
+    self.class.job_detector_methods.map do |method_name|
       if send(method_name)
         return method_name.to_s.delete_suffix('?')
       end
     end
-    'na'
+    'not_applicable'
+  end
+
+  def self.job_detector_methods
+    @job_detector_methods ||= instance_methods(false).select { |name| name.to_s.match?(/\?$/) }
   end
 
   YOUTUBER_KEYWORDS = '[Yy]ou[Tt]uber|ユーチューバ'

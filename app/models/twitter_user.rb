@@ -123,79 +123,79 @@ class TwitterUser < ApplicationRecord
     end
 
     def designer
-       Occupation.designer(self)
+      Occupation.designer(self)
     end
 
     def illustrator
-       Occupation.illustrator(self)
+      Occupation.illustrator(self)
     end
 
     def painter
-       Occupation.painter(self)
+      Occupation.painter(self)
     end
 
     def sculptor
-       Occupation.sculptor(self)
+      Occupation.sculptor(self)
     end
 
     def photographer
-       Occupation.photographer(self)
+      Occupation.photographer(self)
     end
 
     def manga_artist
-       Occupation.manga_artist(self)
+      Occupation.manga_artist(self)
     end
 
     def writer
-       Occupation.writer(self)
+      Occupation.writer(self)
     end
 
     def culinary_researcher
-       Occupation.culinary_researcher(self)
+      Occupation.culinary_researcher(self)
     end
 
     def comedian
-       Occupation.comedian(self)
+      Occupation.comedian(self)
     end
 
     def bikini_model
-       Occupation.bikini_model(self)
+      Occupation.bikini_model(self)
     end
 
     def fashion_model
-       Occupation.fashion_model(self)
+      Occupation.fashion_model(self)
     end
 
     def pop_idol
-       Occupation.pop_idol(self)
+      Occupation.pop_idol(self)
     end
 
     def concafe_waitress
-       Occupation.concafe_waitress(self)
+      Occupation.concafe_waitress(self)
     end
 
     def girls_bar_waitress
-       Occupation.girls_bar_waitress(self)
+      Occupation.girls_bar_waitress(self)
     end
 
     def migrant_worker
-       Occupation.migrant_worker(self)
+      Occupation.migrant_worker(self)
     end
 
     def nightlife_business
-       Occupation.nightlife_business(self)
+      Occupation.nightlife_business(self)
     end
 
     def part_timer
-       Occupation.part_timer(self)
+      Occupation.part_timer(self)
     end
 
     def general_student
-       Occupation.general_student(self)
+      Occupation.general_student(self)
     end
 
     def high_school_student
-       Occupation.high_school_student(self)
+      Occupation.high_school_student(self)
     end
 
     def art_student
@@ -204,6 +204,18 @@ class TwitterUser < ApplicationRecord
 
     def college_student
       Occupation.college_student(self)
+    end
+
+    def not_applicable
+      base = self
+      query = nil
+      Occupation.job_detector_methods.each do |method_name|
+        method_name = method_name.to_s.delete_suffix('?')
+        query = query ? query.or(base.send(method_name)) : base.send(method_name)
+      end
+      where.not(query.arel.where_sql.delete_prefix('WHERE '))
+    rescue => e
+      none
     end
 
     def order_by_field(uids)
