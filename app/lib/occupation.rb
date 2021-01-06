@@ -177,7 +177,7 @@ class Occupation
     model.where(%Q(description regexp "#{DESIGNER_KEYWORDS}"))
   end
 
-  ILLUSTRATOR_KEYWORDS = '([Ii])llustrator|イラストレータ'
+  ILLUSTRATOR_KEYWORDS = '([Ii])llustrator|[Pp]ixiv|イラストレータ|イラスト作家|描いています|描きます|絵を描く'
 
   def illustrator?
     description.match?(Regexp.new(ILLUSTRATOR_KEYWORDS))
