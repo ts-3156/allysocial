@@ -25,15 +25,23 @@ class Occupation
 
   def detect_title
     self.class.job_detector_methods.map do |method_name|
-      if send(method_name)
-        return method_name.to_s.delete_suffix('?')
+      if send("#{method_name}?")
+        return method_name
       end
     end
     'not_applicable'
   end
 
+  def self.method_added(method_name)
+    # Want to fix the order
+    @job_detector_methods ||= []
+    if method_name.to_s.match?(/\?$/)
+      @job_detector_methods << method_name.to_s.delete_suffix('?')
+    end
+  end
+
   def self.job_detector_methods
-    @job_detector_methods ||= instance_methods(false).select { |name| name.to_s.match?(/\?$/) }
+    @job_detector_methods
   end
 
   YOUTUBER_KEYWORDS = '[Yy]ou[Tt]uber|ユーチューバ'
@@ -129,7 +137,7 @@ class Occupation
     model.where(%Q(description regexp "#{INVESTOR_KEYWORDS}"))
   end
 
-  EXCHANGE_TRADER_KEYWORDS = 'trader|トレーダ'
+  EXCHANGE_TRADER_KEYWORDS = '[Tt]rader|トレーダ'
 
   def exchange_trader?
     description.match?(Regexp.new(EXCHANGE_TRADER_KEYWORDS))
@@ -229,7 +237,17 @@ class Occupation
     model.where(%Q(description regexp "#{WRITER_KEYWORDS}"))
   end
 
-  BLOGGER_KEYWORDS = 'blogger|ブロガ'
+  REPORTER_KEYWORDS = '[Rr]eporter|レポータ'
+
+  def reporter?
+    description.match?(Regexp.new(REPORTER_KEYWORDS))
+  end
+
+  def self.reporter(model)
+    model.where(%Q(description regexp "#{REPORTER_KEYWORDS}"))
+  end
+
+  BLOGGER_KEYWORDS = '[Bb]logger|ブロガ'
 
   def blogger?
     description.match?(Regexp.new(BLOGGER_KEYWORDS))
@@ -380,7 +398,7 @@ class Occupation
     model.where(%Q(description regexp "#{US_UNIV}|#{JP_UNIV}"))
   end
 
-  JOBLESS_KEYWORDS = 'jobless|unemployed|no\s+job|無職'
+  JOBLESS_KEYWORDS = '[Jj]obless|[Uu]nemployed|[Nn]o\s+job|無職'
 
   def jobless?
     description.match?(Regexp.new(JOBLESS_KEYWORDS))

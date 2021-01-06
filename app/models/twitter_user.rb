@@ -154,6 +154,10 @@ class TwitterUser < ApplicationRecord
       Occupation.writer(self)
     end
 
+    def reporter
+      Occupation.reporter(self)
+    end
+
     def blogger
       Occupation.blogger(self)
     end
@@ -222,7 +226,6 @@ class TwitterUser < ApplicationRecord
       base = self
       query = nil
       Occupation.job_detector_methods.each do |method_name|
-        method_name = method_name.to_s.delete_suffix('?')
         query = query ? query.or(base.send(method_name)) : base.send(method_name)
       end
       where.not(query.arel.where_sql.delete_prefix('WHERE '))
