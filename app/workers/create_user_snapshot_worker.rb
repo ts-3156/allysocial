@@ -3,7 +3,7 @@ class CreateUserSnapshotWorker
   sidekiq_options queue: 'default', retry: 0, backtrace: false
 
   def perform(user_id, uid, options = {})
-    if (user_snapshot = create_snapshot(user_id, uid))
+    if (user_snapshot = create_snapshot(user_id, uid, options['force']))
       CreateFriendsSnapshotWorker.perform_async(user_id, user_snapshot.id)
       CreateFollowersSnapshotWorker.perform_async(user_id, user_snapshot.id)
     end
@@ -14,14 +14,14 @@ class CreateUserSnapshotWorker
 
   private
 
-  def create_snapshot(user_id, uid)
-    if UserSnapshot.where('created_at > ?', 12.hours.ago).where(uid: uid).exists?
-      logger.info 'UserSnapshot is not created'
-      nil
-    else
+  def create_snapshot(user_id, uid, force)
+    if force || !UserSnapshot.where('created_at > ?', 12.hours.ago).where(uid: uid).exists?
       raw_user = User.find(user_id).api_client.user(uid)
       api_user = ApiUser.new(raw_user)
       UserSnapshot.create!(uid: uid, properties: { user: api_user.to_user_snapshot_attrs })
+    else
+      logger.info 'UserSnapshot is not created'
+      nil
     end
   end
 end

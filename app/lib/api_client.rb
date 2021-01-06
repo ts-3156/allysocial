@@ -3,6 +3,8 @@ class ApiClient
     @client = client
   end
 
+  # TODO Cache responses
+
   def user(id)
     RequestWithRetryHandler.new(__method__).perform do
       @client.user(id).attrs

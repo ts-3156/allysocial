@@ -27,7 +27,6 @@ class LocationSelector < BaseSelector
   def select_options
     extracted_options = options_from_words(@insight.location_words)
     quick_select = extracted_options.take(3)
-    options = fixed_options + [divider] + extracted_options
-    [options, quick_select]
+    [extracted_options, quick_select]
   end
 end

@@ -289,7 +289,7 @@
     function setOptions(options) {
       $('#search-label-options').empty();
       options.forEach(function (option) {
-        var tag = $('<option/>', {value: option.value, text: option.label});
+        var tag = $('<option/>', {value: option.label, text: option.label});
         $('#search-label-options').append(tag);
       });
 

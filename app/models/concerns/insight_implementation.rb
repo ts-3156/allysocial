@@ -100,15 +100,27 @@ module InsightImplementation
     words
   end
 
-  KANTO_REGEXP = /\A(japan|jp|nihon|nippon|日本|にほん|kanto|関東|かんとう|tokyo|東京都?|とうきょう)\z/
+  JAPAN_REGEXP = /japan|nihon|nippon|日本|にほん/
+  KANTO_REGEXP = /kanto|関東|かんとう/
+  TOKYO_REGEXP = /tokyo|東京都?|とうきょうと?/
+  OSAKA_REGEXP = /osaka|大阪府?|おおさかふ?/
+  KYOTO_REGEXP = /kyoto|京都府?|きょうとふ?/
 
   def extract_location_keywords(users)
-    text = users.take(5000).map(&:location).compact.map { |location| location.split(/[、。, .←→・\/]/) }.flatten.join(' ') # TODO Set suitable limit
+    text = users.take(5000).map(&:location).compact.map do |location|
+      location.downcase.split(/[、。, .←→・\/]/)
+    rescue => e
+      ''
+    end.flatten.join(' ') # TODO Set suitable limit
+    text.gsub!(JAPAN_REGEXP, ' Japan ')
+    text.gsub!(KANTO_REGEXP, ' Kanto ')
+    text.gsub!(TOKYO_REGEXP, ' Tokyo ')
+    text.gsub!(OSAKA_REGEXP, ' Osaka ')
+    text.gsub!(KYOTO_REGEXP, ' Kyoto ')
     words = NattoClient.new.count_words(text).take(500)
     words.reject! do |word, _|
-      word.downcase.match?(MEANINGLESS_REGEXP) ||
-        word.downcase.match?(KANTO_REGEXP) ||
-        word.downcase.match?(/\A(\(\(|-?\d+)\z/)
+      word.match?(MEANINGLESS_REGEXP) ||
+        word.match?(/\A(\(\(|-?\d+)\z/)
     end
     words
   end
