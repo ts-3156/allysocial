@@ -473,6 +473,16 @@ class Occupation
     model.where(%Q(description regexp "#{HIGH_SCHOOL_STUDENT_KEYWORDS}"))
   end
 
+  MIDDLE_SCHOOL_STUDENT_KEYWORDS = '中学生|中[1-3]|[FSL]JC|[fsl]jc|JC[1-3]|jc[1-3]'
+
+  def middle_school_student?
+    description.match?(Regexp.new(MIDDLE_SCHOOL_STUDENT_KEYWORDS))
+  end
+
+  def self.middle_school_student(model)
+    model.where(%Q(description regexp "#{MIDDLE_SCHOOL_STUDENT_KEYWORDS}"))
+  end
+
   JP_ART_UNIV = '(東京(藝|芸)術|多摩美術|武蔵野美術|金沢美術工芸|京都市立芸術|愛知県立芸術|東京造形|女子美術|学芸)大学?|(芸術|美術).*大学|芸術専門学群|(藝|芸)大|美大|多摩美|たまび|タマビ|むさび|ムサビ'
 
   def art_student?
