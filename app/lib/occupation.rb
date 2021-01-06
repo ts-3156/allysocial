@@ -463,7 +463,7 @@ class Occupation
     model.where(%Q(description regexp "#{PART_TIMER_KEYWORDS}"))
   end
 
-  HIGH_SCHOOL_STUDENT_KEYWORDS = '高校生|高[1-3]|(fsl)jk'
+  HIGH_SCHOOL_STUDENT_KEYWORDS = '高校生|高[1-3]|[FSL]JK|[fsl]jk|JK[1-3]|jk[1-3]'
 
   def high_school_student?
     description.match?(Regexp.new(HIGH_SCHOOL_STUDENT_KEYWORDS))
