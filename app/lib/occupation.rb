@@ -534,7 +534,7 @@ class Occupation
     model.where(%Q(friends_count < followers_count and description regexp "#{OFFICIAL_ACCOUNT_KEYWORDS}"))
   end
 
-  GAMER_KEYWORDS = '[Aa]pex|Splatoon|スプラトゥーン|パズドラ|モンスト|フォートナイト|フォトナ|荒野行動|ヒプマイ|ドラクエ|ポケモン|スマブラ|マイクラ'
+  GAMER_KEYWORDS = '[Aa]pex|Splatoon|スプラトゥーン|パズドラ|モンスト|フォートナイト|フォトナ|荒野行動|ヒプマイ|ドラクエ|ポケモン|スマブラ|マイクラ|あつ森|人狼'
 
   def gamer?
     description.match?(Regexp.new(GAMER_KEYWORDS))
@@ -542,6 +542,16 @@ class Occupation
 
   def self.gamer(model)
     model.where(%Q(description regexp "#{GAMER_KEYWORDS}"))
+  end
+
+  HOBBYIST_KEYWORDS = '無言フォロー|フォロバ|ブロ解|空リプ|リア友|ツイ消し|雑多垢|鍵垢|裏垢|推し|推せ|ニコニコ動画|wishlist|下ネタ'
+
+  def hobbyist?
+    description.match?(Regexp.new(HOBBYIST_KEYWORDS))
+  end
+
+  def self.hobbyist(model)
+    model.where(%Q(description regexp "#{HOBBYIST_KEYWORDS}"))
   end
 
   BOT_KEYWORDS = '[^o][Bb]ot|[^ロ]ボット'
