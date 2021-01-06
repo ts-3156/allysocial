@@ -427,7 +427,7 @@ class Occupation
     model.where(%Q(description regexp "#{HIGH_SCHOOL_STUDENT_KEYWORDS}"))
   end
 
-  JP_ART_UNIV = '(東京(藝|芸)術|多摩美術|武蔵野美術|金沢美術工芸|京都市立芸術|愛知県立芸術|東京造形|女子美術|学芸)大学?|(芸術|美術).*大学|芸術専門学群|(藝|芸)大|美大|多摩美|たまび|むさび'
+  JP_ART_UNIV = '(東京(藝|芸)術|多摩美術|武蔵野美術|金沢美術工芸|京都市立芸術|愛知県立芸術|東京造形|女子美術|学芸)大学?|(芸術|美術).*大学|芸術専門学群|(藝|芸)大|美大|多摩美|たまび|タマビ|むさび|ムサビ'
 
   def art_student?
     description.match?(Regexp.new(JP_ART_UNIV))
