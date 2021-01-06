@@ -9,18 +9,20 @@ module Api
     def index
       case params[:type]
       when 'job'
-        options = JobSelector.select_options(@user_snapshot, params[:category])
+        selector_class = JobSelector
       when 'location'
-        options = LocationSelector.select_options(@user_snapshot, @insight)
+        selector_class = LocationSelector
       when 'url'
-        options = UrlSelector.select_options(@user_snapshot, @insight)
+        selector_class = UrlSelector
       when 'keyword'
-        options = KeywordSelector.select_options(@user_snapshot, @insight)
+        selector_class = KeywordSelector
       else
-        options = []
+        raise "Invalid type value=#{params[:type]}"
       end
 
-      render json: { options: options }
+      options, quick_select = selector_class.new(@user_snapshot, @insight).select_options
+
+      render json: { options: options, quick_select: quick_select }
     end
   end
 end

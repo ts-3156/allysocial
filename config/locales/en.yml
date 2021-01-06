@@ -92,6 +92,7 @@ en:
         placeholder_location: 'e.g. Tokyo'
         placeholder_url: 'e.g. TikTok'
         placeholder_keyword: 'e.g. Accepting requests for work'
+        quick_select: 'Quick select: '
         submit: 'Search'
       show_details:
         title: 'Show profile details'

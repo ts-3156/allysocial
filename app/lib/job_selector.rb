@@ -70,22 +70,22 @@ class JobSelector
     }
   }
 
-  class << self
-    def select_options(user_snapshot, category)
-      options = LABELS[I18n.locale].map do |_, value|
-        { value: value, label: value }
-      end
+  def initialize(*) end
 
-      options
+  def select_options
+    options = LABELS[I18n.locale].map do |_, value|
+      { value: value, label: value }
     end
 
-    def label_to_value(raw_label)
-      LABELS.each do |_, values|
-        values.each do |key, label|
-          return key if raw_label == label
-        end
+    [options, options.take(3)]
+  end
+
+  def label_to_value(raw_label)
+    LABELS.each do |_, values|
+      values.each do |key, label|
+        return key if raw_label == label
       end
-      nil
     end
+    nil
   end
 end
