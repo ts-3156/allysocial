@@ -257,6 +257,16 @@ class Occupation
     model.where(%Q(description regexp "#{GENERAL_ARTIST_KEYWORDS}"))
   end
 
+  DO_IT_YOURSELFER_KEYWORDS = 'DIY|(モノ|もの)(づく|作)り'
+
+  def do_it_yourselfer?
+    description.match?(Regexp.new(DO_IT_YOURSELFER_KEYWORDS))
+  end
+
+  def self.do_it_yourselfer(model)
+    model.where(%Q(description regexp "#{DO_IT_YOURSELFER_KEYWORDS}"))
+  end
+
   CRITIC_KEYWORDS = '評論家|コメンテータ'
 
   def critic?
