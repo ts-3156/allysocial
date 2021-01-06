@@ -133,6 +133,16 @@ class Occupation
     model.where(%Q(description regexp "#{ENTREPRENEUR_KEYWORDS}"))
   end
 
+  EXECUTIVE_OFFICER_KEYWORDS = '代表取締役|社長|CEO|COO'
+
+  def executive_officer?
+    description.match?(Regexp.new(EXECUTIVE_OFFICER_KEYWORDS))
+  end
+
+  def self.executive_officer(model)
+    model.where(%Q(description regexp binary "#{EXECUTIVE_OFFICER_KEYWORDS}"))
+  end
+
   INVESTOR_KEYWORDS = '投資|Founder|ベンチャーキャピタル|VC|アーリーステージ|インキュベータ|インキュベーション'
 
   def investor?
