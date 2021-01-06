@@ -257,6 +257,16 @@ class Occupation
     model.where(%Q(description regexp "#{GENERAL_ARTIST_KEYWORDS}"))
   end
 
+  CRITIC_KEYWORDS = '評論家|コメンテータ'
+
+  def critic?
+    description.match?(Regexp.new(CRITIC_KEYWORDS))
+  end
+
+  def self.critic(model)
+    model.where(%Q(description regexp "#{CRITIC_KEYWORDS}"))
+  end
+
   WRITER_KEYWORDS = 'writer|連載中'
 
   def writer?
