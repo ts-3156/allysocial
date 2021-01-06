@@ -20,12 +20,22 @@ class BaseSelector
     end
   end
 
-  def matched_value(value)
-    fixed_labels[:en].find { |_, label| label == value }&.first ||
-      fixed_labels[:ja].find { |_, label| label == value }&.first
-  end
-
   def divider
     { value: '--------', label: '--------' }
+  end
+
+  def fixed_values
+    self.class.fixed_values
+  end
+
+  def fixed_labels
+    self.class.fixed_labels
+  end
+
+  class << self
+    def matched_value(value)
+      fixed_labels[:en].find { |_, label| label == value }&.first ||
+        fixed_labels[:ja].find { |_, label| label == value }&.first
+    end
   end
 end

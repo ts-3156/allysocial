@@ -140,6 +140,7 @@
 
     function switchLabelSelector() {
       resetSearchState('switch label');
+      labelSelector.val(labelSelector.val().replace(/ \(\d+\)$/, ''));
     }
 
     function setPlaceholder() {
@@ -279,7 +280,7 @@
       return false;
     });
 
-    $('#search-label').on('keypress', function (e) {
+    labelSelector.on('keypress', function (e) {
       if (e.keyCode === 13) { // Enter key
         search();
       }
@@ -304,6 +305,7 @@
       options.forEach(function (option, i) {
         var btn = $('#quick-select a:eq(' + i + ')');
         btn.text(option.label).on('click', function () {
+          resetSearchState('label selected');
           labelSelector.val(option.value);
           return false;
         });

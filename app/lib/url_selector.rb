@@ -1,25 +1,27 @@
 class UrlSelector < BaseSelector
-  def fixed_values
-    %w(
+  class << self
+    def fixed_values
+      %w(
         instagram
         tiktok
         youtube
       )
-  end
+    end
 
-  def fixed_labels
-    {
-      en: {
-        instagram: 'Instagram',
-        tiktok: 'TikTok',
-        youtube: 'YouTube',
-      },
-      ja: {
-        instagram: 'Instagram',
-        tiktok: 'TikTok',
-        youtube: 'YouTube',
+    def fixed_labels
+      {
+        en: {
+          instagram: 'Instagram',
+          tiktok: 'TikTok',
+          youtube: 'YouTube',
+        },
+        ja: {
+          instagram: 'Instagram',
+          tiktok: 'TikTok',
+          youtube: 'YouTube',
+        }
       }
-    }
+    end
   end
 
   def select_options

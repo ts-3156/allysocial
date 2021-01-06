@@ -1,25 +1,27 @@
 class LocationSelector < BaseSelector
-  def fixed_values
-    %w(
+  class << self
+    def fixed_values
+      %w(
         japan
         kanto
         tokyo
       )
-  end
+    end
 
-  def fixed_labels
-    {
-      en: {
-        japan: 'Japan',
-        kanto: 'Japan > Kanto',
-        tokyo: 'Japan > Kanto > Tokyo',
-      },
-      ja: {
-        japan: '日本',
-        kanto: '日本 > 関東',
-        tokyo: '日本 > 関東 > 東京',
+    def fixed_labels
+      {
+        en: {
+          japan: 'Japan',
+          kanto: 'Japan > Kanto',
+          tokyo: 'Japan > Kanto > Tokyo',
+        },
+        ja: {
+          japan: '日本',
+          kanto: '日本 > 関東',
+          tokyo: '日本 > 関東 > 東京',
+        }
       }
-    }
+    end
   end
 
   def select_options

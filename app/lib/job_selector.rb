@@ -80,12 +80,14 @@ class JobSelector
     [options, options.take(3)]
   end
 
-  def label_to_value(raw_label)
-    LABELS.each do |_, values|
-      values.each do |key, label|
-        return key if raw_label == label
+  class << self
+    def label_to_value(raw_label)
+      LABELS.each do |_, values|
+        values.each do |key, label|
+          return key if raw_label == label
+        end
       end
+      nil
     end
-    nil
   end
 end

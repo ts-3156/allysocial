@@ -1,20 +1,22 @@
 class KeywordSelector < BaseSelector
-  # TODO Add is_protected and is_verified
-  def fixed_values
-    %w(
+  class << self
+    # TODO Add is_protected and is_verified
+    def fixed_values
+      %w(
         accepting_requests_for_work
       )
-  end
+    end
 
-  def fixed_labels
-    {
-      en: {
-        accepting_requests_for_work: 'Accepting requests for work',
-      },
-      ja: {
-        accepting_requests_for_work: 'お仕事募集中',
+    def fixed_labels
+      {
+        en: {
+          accepting_requests_for_work: 'Accepting requests for work',
+        },
+        ja: {
+          accepting_requests_for_work: 'お仕事募集中',
+        }
       }
-    }
+    end
   end
 
   def select_options
