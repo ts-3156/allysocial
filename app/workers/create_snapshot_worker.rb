@@ -6,7 +6,11 @@ class CreateSnapshotWorker
     user_snapshot = UserSnapshot.find(user_snapshot_id)
     create_snapshot(user_id, user_snapshot)
   rescue => e
-    logger.warn "Unhandled exception: #{e.inspect}"
-    logger.info e.backtrace.join("\n")
+    if e.message.include?('Mysql2::Error: Duplicate entry')
+      # ActiveRecord::RecordNotUnique
+    else
+      logger.warn "Unhandled exception: #{e.inspect}"
+      logger.info e.backtrace.join("\n")
+    end
   end
 end
