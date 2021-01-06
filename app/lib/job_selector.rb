@@ -45,6 +45,7 @@ class JobSelector < BaseSelector
           college_student: 'College student',
           high_school_student: 'High school student',
           official_account: 'Official account',
+          bot: 'Bot',
           jobless: 'Jobless',
           not_applicable: 'Others',
         },
@@ -87,6 +88,7 @@ class JobSelector < BaseSelector
           college_student: '大学生',
           high_school_student: '高校生',
           official_account: '公式アカウント',
+          bot: 'ボット',
           jobless: '無職',
           not_applicable: 'その他',
         }

@@ -428,6 +428,16 @@ class Occupation
     model.where(%Q(friends_count < followers_count and description regexp "#{OFFICIAL_ACCOUNT_KEYWORDS}"))
   end
 
+  BOT_KEYWORDS = '[^o][Bb]ot|[^ロ]ボット'
+
+  def bot?
+    description.match?(Regexp.new(BOT_KEYWORDS))
+  end
+
+  def self.bot(model)
+    model.where(%Q(description regexp "#{BOT_KEYWORDS}"))
+  end
+
   JOBLESS_KEYWORDS = '[Jj]obless|[Uu]nemployed|[Nn]o\s+job|無職'
 
   def jobless?
