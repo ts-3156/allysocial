@@ -247,7 +247,7 @@ class Occupation
     model.where(%Q(description regexp "#{MANGA_ARTIST_KEYWORDS}"))
   end
 
-  GENERAL_ARTIST_KEYWORDS = '美術家|芸術家'
+  GENERAL_ARTIST_KEYWORDS = '美術家|芸術家|アーティスト'
 
   def general_artist?
     description.match?(Regexp.new(GENERAL_ARTIST_KEYWORDS))
