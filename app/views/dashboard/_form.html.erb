@@ -287,6 +287,7 @@
     });
 
     function setOptions(options) {
+      console.log('datalist', options)
       $('#search-label-options').empty();
       options.forEach(function (option) {
         var tag = $('<option/>', {value: option.label, text: option.label});

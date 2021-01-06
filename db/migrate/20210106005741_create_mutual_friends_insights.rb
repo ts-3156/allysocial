@@ -2,6 +2,7 @@ class CreateMutualFriendsInsights < ActiveRecord::Migration[6.1]
   def change
     create_table :mutual_friends_insights do |t|
       t.bigint :user_snapshot_id, null: false
+      t.json :job
       t.json :description
       t.json :location
       t.json :url

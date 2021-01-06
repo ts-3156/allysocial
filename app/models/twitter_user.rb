@@ -79,138 +79,131 @@ class TwitterUser < ApplicationRecord
     end
 
     def youtuber
-      where('url regexp "[Yy]ou[Tt]uber|ユーチューバ"')
+      Occupation.youtuber(self)
     end
 
     def engineer
-      where('description regexp "([Ee])ngineer|エンジニア|開発者|Python|Ruby|Golang|Java|Scala"')
+      Occupation.engineer(self)
     end
 
     def freelancer
-      requests_for_work = '([Ff])reelance|フリーランス|(仕事.*(依頼|募集|相談))|(依頼.+DM)|ご?連絡は'
-      where(%Q(description regexp "#{requests_for_work}" or location regexp "#{requests_for_work}"))
+      Occupation.freelancer(self)
     end
 
     def influencer
-      media = '[Yy]ou[Tt]ube|[Ii]nstagram|[Tt]ik[Tt]ok'
-      where(%Q(followers_count > 10000 and friends_count < followers_count and (description regexp "#{media}" or url regexp "#{media}")))
+      Occupation.influencer(self)
     end
 
     def lawyer
-      where('description regexp "弁護士|lawyer|attorney"')
+      Occupation.lawyer(self)
     end
 
     def public_accountant
-      where('description regexp "会計士|(public\s+accountant)"')
+      Occupation.public_accountant(self)
     end
 
     def tax_accountant
-      where('description regexp "税理士|(tax\s+accountant)"')
+      Occupation.tax_accountant(self)
     end
 
     def entrepreneur
-      where('description regexp "起業"')
+      Occupation.entrepreneur(self)
     end
 
     def investor
-      where('description regexp "投資|Founder|ベンチャーキャピタル|VC|アーリーステージ|インキュベータ|インキュベーション"')
+      Occupation.investor(self)
     end
 
     def politician
-      where('description regexp "議員|大臣" and friends_count < followers_count')
+      Occupation.politician(self)
     end
 
     def political_activist
-      where('description regexp "政治|憲法" and description not regexp "議員|大臣"')
+      Occupation.political_activist(self)
     end
 
     def designer
-      where('description regexp "([Dd])esigner|デザイナ"')
+       Occupation.designer(self)
     end
 
     def illustrator
-      where('description regexp "([Ii])llustrator|イラストレータ"')
+       Occupation.illustrator(self)
     end
 
     def painter
-      where('description regexp "painter|絵描き|画家|油(絵|画)|日本画|oil\s+paint"')
+       Occupation.painter(self)
     end
 
     def sculptor
-      where('description regexp "sculptor|sculptor|彫塑|彫刻"')
+       Occupation.sculptor(self)
     end
 
     def photographer
-      where('description regexp "写真家|[Pp]hotographer"')
+       Occupation.photographer(self)
     end
 
     def manga_artist
-      where('description regexp "漫画家|連載中"')
+       Occupation.manga_artist(self)
     end
 
     def writer
-      where('description regexp "連載中"')
+       Occupation.writer(self)
     end
 
     def culinary_researcher
-      where('description regexp "料理研究家|料理人|レシピ"')
+       Occupation.culinary_researcher(self)
     end
 
     def comedian
-      where('description regexp "NSC.+\d+期"')
+       Occupation.comedian(self)
     end
 
     def bikini_model
-      where('description regexp "グラビア|グラドル"')
+       Occupation.bikini_model(self)
     end
 
     def fashion_model
-      where('description regexp "モデル"')
+       Occupation.fashion_model(self)
     end
 
     def pop_idol
-      where('description regexp "アイドル"')
+       Occupation.pop_idol(self)
     end
 
     def concafe_waitress
-      where('description regexp "コンカフェ"')
+       Occupation.concafe_waitress(self)
     end
 
     def girls_bar_waitress
-      where('description regexp "ガールズバー"')
+       Occupation.girls_bar_waitress(self)
     end
 
     def migrant_worker
-      where('description regexp "出稼ぎ"')
+       Occupation.migrant_worker(self)
     end
 
     def nightlife_business
-      where('description regexp "夜職|ソープ[^カ]|そーぷらんど|メンエス嬢|風俗嬢|風俗店| #風俗 |泡姫|ホテヘル|箱ヘル|デリヘル|パパ活|ママ活|性感エステ|性感ヘルス|性感マッサージ"')
+       Occupation.nightlife_business(self)
     end
 
     def part_timer
-      where('description regexp "(アル)?バイト"')
+       Occupation.part_timer(self)
     end
 
     def general_student
-      where('description regexp "学生"')
+       Occupation.general_student(self)
     end
 
     def high_school_student
-      where('description regexp "高校生|高[1-3]|(fsl)jk"')
+       Occupation.high_school_student(self)
     end
-
-    JP_ART_UNIV = '(東京(藝|芸)術|多摩美術|武蔵野美術|金沢美術工芸|京都市立芸術|愛知県立芸術|東京造形|女子美術|学芸)大学?|(芸術|美術).*大学|芸術専門学群|(藝|芸)大|美大|多摩美|たまび|むさび'
 
     def art_student
-      where(%Q(description regexp "#{JP_ART_UNIV}"))
+      Occupation.art_student(self)
     end
 
-    US_UNIV = '[Hh]arvard|[Ss]tanford|UCB|ucb|UCLA|ucla|MIT|mit|CMU|cmu'
-    JP_UNIV = '大学生|(東京|一橋|お茶の水女子|東京外国語|東京都立|東京芸術|東京学芸|東京工業|東京医科歯科|東京農工|東京海洋|電気通信|早稲田|慶[応應]義塾|国際基督教|上智|立教|中央|明治|青山学院|法政|学習院|成蹊|日本女子|武蔵|[国國][学學]院|東京理科|明治学院|津田塾|東洋|駒[沢澤]|東京女子|昭和女子|大妻女子|東京家政|清泉女子)大学?'
-
     def college_student
-      where(%Q(description regexp "#{US_UNIV}|#{JP_UNIV}"))
+      Occupation.college_student(self)
     end
 
     def order_by_field(uids)

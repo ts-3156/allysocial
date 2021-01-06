@@ -15,9 +15,27 @@ class BaseSelector
     return [] if words.blank?
 
     words.map do |word, count|
-      label = "#{word.truncate(15, omission: '')} (#{count})"
-      { value: word, label: label }
+      { value: word_to_value(word), label: word_to_label(word, count) }
     end
+  end
+
+  def word_to_value(word)
+    if self.class == JobSelector
+      translate_word(word)
+    else
+      word
+    end
+  end
+
+  def word_to_label(word, count)
+    if self.class == JobSelector
+      word = translate_word(word)
+    end
+    "#{word.truncate(15, omission: '')} (#{count})"
+  end
+
+  def translate_word(word)
+    fixed_labels[I18n.locale][word.to_sym] || word
   end
 
   def divider

@@ -21,6 +21,7 @@ module InsightImplementation
   end
 
   def update_from_users(users)
+    update_job_from_users(users)
     update_description_from_users(users)
     update_location_from_users(users)
     update_url_from_users(users)
@@ -56,6 +57,11 @@ module InsightImplementation
     return_users
   end
 
+  def update_job_from_users(users)
+    words_count = extract_job_keywords(users)
+    update!(job: { words_count: words_count })
+  end
+
   def update_description_from_users(users)
     words_count = extract_description_keywords(users)
     update!(description: { words_count: words_count })
@@ -69,6 +75,10 @@ module InsightImplementation
   def update_url_from_users(users)
     words_count = extract_url_keywords(users)
     update!(url: { words_count: words_count })
+  end
+
+  def job_words
+    job['words_count'].take(500)
   end
 
   def description_words
@@ -88,6 +98,17 @@ module InsightImplementation
   end
 
   private
+
+  def extract_job_keywords(users)
+    users = users.take(5000) # TODO Set suitable limit
+    words = []
+    users.map { |u| Occupation.new(description: u.description) }.each do |occupation|
+      words << occupation.job_title
+    end
+    words.each_with_object(Hash.new(0)) do |word, memo|
+      memo[word] += 1
+    end.sort_by { |_, c| -c }.take(500)
+  end
 
   MEANINGLESS_REGEXP = /\A(com|the|in|of|and|to|jp|is|on|at|my|this|with|\d{2}%?|\d{4}年?)\z/
 

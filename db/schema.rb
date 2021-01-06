@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_005741) do
 
   create_table "followers_insights", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
+    t.json "job"
     t.json "description"
     t.json "location"
     t.json "url"
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_005741) do
 
   create_table "friends_insights", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
+    t.json "job"
     t.json "description"
     t.json "location"
     t.json "url"
@@ -98,6 +100,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_005741) do
 
   create_table "mutual_friends_insights", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
+    t.json "job"
     t.json "description"
     t.json "location"
     t.json "url"
@@ -128,6 +131,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_005741) do
 
   create_table "one_sided_followers_insights", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
+    t.json "job"
     t.json "description"
     t.json "location"
     t.json "url"
@@ -158,6 +162,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_005741) do
 
   create_table "one_sided_friends_insights", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_snapshot_id", null: false
+    t.json "job"
     t.json "description"
     t.json "location"
     t.json "url"
