@@ -277,7 +277,7 @@ class Occupation
     model.where(%Q(description regexp "#{CRITIC_KEYWORDS}"))
   end
 
-  WRITER_KEYWORDS = 'writer|連載中'
+  WRITER_KEYWORDS = '[Ww]riter|ライター|連載中|著者|著書|書籍|刊行'
 
   def writer?
     description.match?(Regexp.new(WRITER_KEYWORDS))
