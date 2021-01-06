@@ -207,7 +207,7 @@ class Occupation
     model.where(%Q(description regexp "#{SCULPTOR_KEYWORDS}"))
   end
 
-  CRAFTSPERSON_KEYWORDS = '工芸.+職人'
+  CRAFTSPERSON_KEYWORDS = '工芸(.+職人)?'
 
   def craftsperson?
     description.match?(Regexp.new(CRAFTSPERSON_KEYWORDS))
@@ -215,6 +215,16 @@ class Occupation
 
   def self.craftsperson(model)
     model.where(%Q(description regexp "#{CRAFTSPERSON_KEYWORDS}"))
+  end
+
+  WOODWORKER_KEYWORDS = '木工(.+職人)?'
+
+  def woodworker?
+    description.match?(Regexp.new(WOODWORKER_KEYWORDS))
+  end
+
+  def self.woodworker(model)
+    model.where(%Q(description regexp "#{WOODWORKER_KEYWORDS}"))
   end
 
   PHOTOGRAPHER_KEYWORDS = '写真家|[Pp]hotographer'
