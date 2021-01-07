@@ -39,7 +39,7 @@ module Api
         @user_snapshot = snapshot
       else
         create_user_snapshot(uid)
-        render json: { message: 'Not found' }, status: :not_found
+        render json: { message: 'Data not completed' }, status: :not_found
       end
     end
 

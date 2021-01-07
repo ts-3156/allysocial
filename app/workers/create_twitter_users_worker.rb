@@ -35,10 +35,18 @@ class CreateTwitterUsersWorker
   private
 
   def upsert_records(api_users)
+    retries ||= 3
     insert_time = Time.zone.now
     insert_users = api_users.map(&:to_twitter_user_attrs).each do |user|
       user[:created_at] = user[:updated_at] = insert_time
     end
     TwitterUser.upsert_all(insert_users)
+  rescue => e
+    if (retries -= 1) >= 0 && e.message.include?('Deadlock found when trying to get lock; try restarting transaction')
+      sleep(rand(3) + 1)
+      retry
+    else
+      raise
+    end
   end
 end

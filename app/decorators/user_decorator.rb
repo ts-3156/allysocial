@@ -50,9 +50,7 @@ class UserDecorator
   end
 
   def one_sided_friends_count
-    if @options[:user_snapshot]
-      @options[:user_snapshot].one_sided_friends_insight.users_count
-    end
+    @options[:user_snapshot]&.one_sided_friends_insight&.users_count
   end
 
   def one_sided_friends_count_s
@@ -62,9 +60,7 @@ class UserDecorator
   end
 
   def one_sided_followers_count
-    if @options[:user_snapshot]
-      @options[:user_snapshot].one_sided_followers_insight.users_count
-    end
+    @options[:user_snapshot]&.one_sided_followers_insight&.users_count
   end
 
   def one_sided_followers_count_s
@@ -74,9 +70,7 @@ class UserDecorator
   end
 
   def mutual_friends_count
-    if @options[:user_snapshot]
-      @options[:user_snapshot].mutual_friends_insight.users_count
-    end
+    @options[:user_snapshot]&.mutual_friends_insight&.users_count
   end
 
   def mutual_friends_count_s

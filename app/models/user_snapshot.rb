@@ -21,6 +21,8 @@ class UserSnapshot < ApplicationRecord
   has_one :one_sided_followers_insight
   has_one :mutual_friends_insight
 
+  # TODO properties -> user
+
   def self.latest_by(condition)
     order(created_at: :desc).find_by(condition)
   end
