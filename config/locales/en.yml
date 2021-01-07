@@ -106,7 +106,7 @@ en:
         html: |
           Search for users whose
           <span class="badge badge-primary type"></span> is <span class="badge badge-primary label"></span>
-          among @%{user}'s
+          among @<span class="user"></span>'s
           <span class="badge badge-primary category"></span>
       js:
         specify_correct_label: 'Please specify search label.'

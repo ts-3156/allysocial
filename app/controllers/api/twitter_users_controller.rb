@@ -1,19 +1,30 @@
 module Api
   class TwitterUsersController < BaseController
     before_action :authenticate_user!
+    before_action :require_screen_name
 
     def show
-      if params[:screen_name]&.match?(/\A[\w_]{1,20}\z/)
-        user = TwitterUser.find_by(screen_name: params[:screen_name])
-        user = fetch_raw_user(params[:screen_name]) unless user
+      screen_name = params[:screen_name]
 
-        if user
-          render json: { user: { uid: user.uid.to_s } }
-        else
+      if (user = TwitterUser.find_by(screen_name: screen_name))
+        render json: { user: { uid: user.uid.to_s, cache: false } }
+      elsif (cache_user = ApiUserCache.new.get_by_screen_name(screen_name))
+        if cache_user.error?
           render json: { message: 'Not found' }, status: :not_found
+        else
+          render json: { user: { uid: cache_user.uid.to_s, cache: true } }
         end
       else
+        CreateTwitterUserByScreenNameWorker.perform_async(current_user.id, screen_name)
         render json: { message: 'Not found' }, status: :not_found
+      end
+    end
+
+    private
+
+    def require_screen_name
+      if !params[:screen_name] || !params[:screen_name].match?(/\A[\w_]{1,20}\z/)
+        render json: { message: ':screen_name not specified' }, status: :bad_request
       end
     end
   end

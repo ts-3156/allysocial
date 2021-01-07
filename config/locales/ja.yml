@@ -104,7 +104,7 @@ ja:
         tooltip: 'チェックすると、検索結果にプロフィールの詳細を追加します。'
       search_response:
         html: |
-          @%{user} の
+          @<span class="user"></span> の
           <span class="badge badge-primary category"></span>
           の中から
           <span class="badge badge-primary type"></span> が <span class="badge badge-primary label"></span>

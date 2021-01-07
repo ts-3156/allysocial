@@ -2,9 +2,23 @@ import {Logger} from './logger';
 
 var logger = new Logger(process.env.RAILS_ENV);
 
-function screenNameToUid(screenName, done, fail) {
-  var url = '/api/twitter_users'; // api_twitter_users_path
-  $.get(url, {screen_name: screenName}).done(done).fail(fail);
+function screenNameToUid(screenName, done) {
+  var fetch = function (retryCount) {
+    if (retryCount >= 3) {
+      return;
+    }
+
+    var url = '/api/twitter_users'; // api_twitter_users_path
+    $.get(url, {screen_name: screenName}).done(done).fail(function (xhr) {
+      if (xhr.status === 404) {
+        setTimeout(function () {
+          fetch(++retryCount);
+        }, 3000);
+      }
+    });
+  };
+
+  fetch();
 }
 
 class SearchLabel {
@@ -286,6 +300,7 @@ class SearchForm {
       var user = res.user;
 
       $('.search-response-title').show()
+        .find('.user').text(screenName).end()
         .find('.category').text(self.categoryLabel()).end()
         .find('.type').text(self.typeLabel()).end()
         .find('.label').text(label);

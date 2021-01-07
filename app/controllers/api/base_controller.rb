@@ -53,9 +53,9 @@ module Api
       end
     end
 
-    def fetch_raw_user(value)
+    def fetch_raw_user(uid)
       # TODO Error handling
-      user = current_user.api_client.user(value)
+      user = current_user.api_client.user(uid)
       ApiUser.new(user)
     rescue => e
       logger.warn e.inspect

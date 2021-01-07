@@ -6,9 +6,10 @@
     <span class="h5"><%= t('.search_user.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_user.tooltip') %>"></i>
   </div>
-  <input type="text" id="search-user" class="form-control mb-2" list="search-user-options"
+  <input type="text" id="search-user" class="form-control mb-2 <%= 'disabled' unless current_user.has_subscription? %>" list="search-user-options"
          value="<%= current_user.screen_name %>"
          placeholder="<%= t('.search_user.placeholder') %>"
+         <%= 'disabled="disabled"' unless current_user.has_subscription? %>
          style="min-width: 200px; max-width: 300px;">
   <datalist id="search-user-options">
   </datalist>
@@ -139,7 +140,7 @@
 
 <div class="pb-5" style="min-height: 300px;">
   <p class="search-response-title lead mb-5" style="display: none;">
-    <%= t('.search_response.html', user: current_user.screen_name) %>
+    <%= t('.search_response.html') %>
   </p>
 
   <div id="search-response"></div>
