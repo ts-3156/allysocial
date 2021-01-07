@@ -3,7 +3,9 @@
 </div>
 
 <div id="profile-section-user-template" style="display: none;">
-  <div style="width: 100%; height: 200px; background-image: url({{profile_banner_url}}); background-size:  cover; ">
+  <div>
+    <div data-url="{{profile_banner_url}}" style="width: 100%; height: 200px; background-image: none; background-size:  cover; ">
+    </div>
   </div>
   <div style="margin-top: -50px;">
     <img class="rounded-circle border shadow-sm" data-src="{{profile_image_url}}" style="min-width: 100px; width: 30%; max-width: 150px;">
@@ -95,17 +97,29 @@
 </div>
 
 <script>
-  function renderTemplate(user) {
+  function replaceDataSrc() {
+    var elem = $(this);
+    elem.attr('src', elem.attr('data-src'));
+  }
+
+  function replaceDataUrl() {
+    var elem = $(this);
+    elem.css('background-image', 'url(' + elem.attr('data-url') + ')');
+  }
+
+  function linkifyDescription(user) {
     if (user.description) {
       user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
       user.description = linkifyHtml(user.description, {defaultProtocol: 'https'});
     }
+  }
+
+  function renderTemplate(user) {
+    linkifyDescription(user);
     var template = $('#profile-section-user-template').html();
     var rendered = $(Mustache.render(template, user));
-    rendered.find('img[data-src]').each(function () {
-      var img = $(this);
-      img.attr('src', img.attr('data-src'));
-    });
+    rendered.find('img[data-src]').each(replaceDataSrc);
+    rendered.find('div[data-url]').each(replaceDataUrl);
     return rendered;
   }
 
