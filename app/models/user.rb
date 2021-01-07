@@ -38,7 +38,7 @@ class User < ApplicationRecord
   end
 
   def to_user_decorator(view_context)
-    user_snapshot.to_user_decorator(view_context)
+    user_snapshot.to_user_decorator({}, view_context)
   end
 
   class << self

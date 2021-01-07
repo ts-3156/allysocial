@@ -5,7 +5,7 @@ module Api
     before_action :set_user_snapshot
 
     def show
-      if (user = @user_snapshot.to_user_decorator(view_context))
+      if (user = @user_snapshot.to_user_decorator({}, view_context))
         render json: { user: user }
       else
         render json: { message: 'Not found' }, status: :not_found

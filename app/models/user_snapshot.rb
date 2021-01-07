@@ -36,6 +36,27 @@ class UserSnapshot < ApplicationRecord
     end
   end
 
+  def fetch_snapshot(category)
+    # TODO
+  end
+
+  def fetch_insight(category)
+    case category
+    when 'friends'
+      friends_insight
+    when 'followers'
+      followers_insight
+    when 'one_sided_friends'
+      one_sided_friends_insight
+    when 'one_sided_followers'
+      one_sided_followers_insight
+    when 'mutual_friends'
+      mutual_friends_insight
+    else
+      raise "Invalid category value=#{category}"
+    end
+  end
+
   def data_completed?
     [
       friends_snapshot,
@@ -116,12 +137,12 @@ class UserSnapshot < ApplicationRecord
     users
   end
 
-  def to_user_decorator(view_context)
+  def to_user_decorator(options, view_context)
     if (hash = properties&.fetch('user', nil)) # TODO Rename to user
       if hash['status_created_at']
         hash['status_created_at'] = (Time.zone.parse(hash['status_created_at']) rescue nil)
       end
-      UserDecorator.new(hash, { user_snapshot: self }, view_context)
+      UserDecorator.new(hash, { user_snapshot: self }.merge(options), view_context)
     end
   end
 end

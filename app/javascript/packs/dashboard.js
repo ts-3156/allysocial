@@ -58,6 +58,13 @@ class SearchLabel {
     });
   }
 
+  setExtraCount(extra) {
+    $('label[for="type-job"] .count').text(extra.jobs_count);
+    $('label[for="type-location"] .count').text(extra.locations_count);
+    $('label[for="type-url"] .count').text(extra.urls_count);
+    $('label[for="type-keyword"] .count').text(extra.keywords_count);
+  }
+
   fetchOptions() {
     var category = this.form.category();
     var type = this.form.type();
@@ -66,6 +73,7 @@ class SearchLabel {
     $.get(this.url, {category: category, type: type}).done(function (res) {
       self.setOptions(res.options);
       self.setQuickSelect(res.quick_select);
+      self.setExtraCount(res.extra);
     }.bind(this));
   }
 

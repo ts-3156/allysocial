@@ -85,6 +85,54 @@ class UserDecorator
     end
   end
 
+  def jobs_count
+    if @options[:user_snapshot] && @options[:category]
+      @options[:user_snapshot].fetch_insight(@options[:category]).job['words_count'].size
+    end
+  end
+
+  def jobs_count_s
+    if @options[:user_snapshot] && @options[:category]
+      jobs_count.to_s(:delimited) rescue nil
+    end
+  end
+
+  def locations_count
+    if @options[:user_snapshot] && @options[:category]
+      @options[:user_snapshot].fetch_insight(@options[:category]).location['words_count'].size
+    end
+  end
+
+  def locations_count_s
+    if @options[:user_snapshot] && @options[:category]
+      locations_count.to_s(:delimited) rescue nil
+    end
+  end
+
+  def urls_count
+    if @options[:user_snapshot] && @options[:category]
+      @options[:user_snapshot].fetch_insight(@options[:category]).url['words_count'].size
+    end
+  end
+
+  def urls_count_s
+    if @options[:user_snapshot] && @options[:category]
+      urls_count.to_s(:delimited) rescue nil
+    end
+  end
+
+  def keywords_count
+    if @options[:user_snapshot] && @options[:category]
+      @options[:user_snapshot].fetch_insight(@options[:category]).description['words_count'].size
+    end
+  end
+
+  def keywords_count_s
+    if @options[:user_snapshot] && @options[:category]
+      keywords_count.to_s(:delimited) rescue nil
+    end
+  end
+
   def protected_label
     if @attrs[:is_protected]
       %Q(<i class="fas fa-lock"></i>)
