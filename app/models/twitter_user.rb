@@ -40,6 +40,12 @@ class TwitterUser < ApplicationRecord
     )
   end
 
+  Occupation.job_detector_methods.each do |method_name|
+    define_method("#{method_name}?") do |*args, &blk|
+      occupation.send("#{method_name}?")
+    end
+  end
+
   class << self
     def search_location(str)
       where('location like ?', "%#{sanitize_sql_like(str)}%")
