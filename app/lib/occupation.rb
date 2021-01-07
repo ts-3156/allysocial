@@ -275,7 +275,7 @@ class Occupation
     model.where(%Q(description regexp "#{WOODWORKER_KEYWORDS}"))
   end
 
-  PHOTOGRAPHER_KEYWORDS = '写真家|[Pp]hotographer'
+  PHOTOGRAPHER_KEYWORDS = '[Pp]hotographer|写真家|フォトグラファ'
 
   def photographer?
     description.match?(Regexp.new(PHOTOGRAPHER_KEYWORDS))
