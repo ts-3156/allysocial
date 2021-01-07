@@ -33,7 +33,16 @@ module SnapshotImplementation
   end
 
   def search_by_location(value, options)
-    method_name = LocationSelector.matched_value(value)
+    location = Location.new(value)
+    if location.tokyo?
+      method_name = :tokyo
+    elsif location.kanto?
+      method_name = :kanto
+    elsif location.japan?
+      method_name = :japan
+    else
+      method_name = nil
+    end
 
     select_with_like_query(options) do
       if method_name
