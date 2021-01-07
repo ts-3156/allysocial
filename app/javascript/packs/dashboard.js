@@ -88,7 +88,7 @@ class SearchLabel {
     var self = this;
     setTimeout(function () {
       self.setNeutral();
-    }, 1000)
+    }, 1000);
   }
 
   value() {
@@ -189,7 +189,7 @@ class SearchForm {
         // Do nothing
       } else {
         this.resetState('no results found');
-        $('#search-response').empty().html(i18n['no_results_found']).hide().fadeIn(500);
+        $('#search-response').empty().html(this.i18n['no_results_found']).hide().fadeIn(500);
       }
     } else {
       var container = $('<div/>', {style: 'display: none;'});
@@ -209,11 +209,11 @@ class SearchForm {
           img.attr('src', img.attr('data-src'));
         });
         container.append(rendered);
-      })
+      });
       if (!$('#show-details-check').prop('checked')) {
         container.find('.search-response-user-details').hide();
       }
-      $('#search-response').append(container)
+      $('#search-response').append(container);
       container.fadeIn(500);
       $('#search-response').append($('<div/>', {text: 'Loading'}).lazyload().one('appear', function () {
         var elem = $(this);
@@ -237,22 +237,22 @@ class SearchForm {
       logger.warn('Invalid category', category);
       this.resetState('Invalid category');
       $('#search-response').empty().text('Please specify correct [category]').hide().fadeIn(500);
-      return
+      return;
     }
 
     if (type !== 'job' && type !== 'location' && type !== 'url' && type !== 'keyword') {
       logger.warn('Invalid type', type);
       this.resetState('Invalid type');
       $('#search-response').empty().text('Please specify correct [type]').hide().fadeIn(500);
-      return
+      return;
     }
 
     if (!label || label.length === 0) {
       logger.warn('Invalid label', label);
       this.resetState('Invalid label');
-      $('#search-response').empty().text(i18n['specify_correct_label']).hide().fadeIn(500);
+      $('#search-response').empty().text(this.i18n['specify_correct_label']).hide().fadeIn(500);
       self.searchLabel.setInvalid();
-      return
+      return;
     }
 
     $('.search-response-title').show()
@@ -260,7 +260,7 @@ class SearchForm {
       .find('.type').text(this.typeLabel()).end()
       .find('.label').text(label);
 
-    var params = {category: category, type: type, label: label, limit: limit, last_uid: this.lastUid}
+    var params = {category: category, type: type, label: label, limit: limit, last_uid: this.lastUid};
     logger.log('request', params);
 
     $.get(this.url, params).done(function (res) {
