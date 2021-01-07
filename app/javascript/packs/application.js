@@ -7,5 +7,10 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+import {SearchLabel, SearchForm} from './dashboard';
+
+window.SearchLabel = SearchLabel;
+window.SearchForm = SearchForm;
+
 Rails.start()
 ActiveStorage.start()
