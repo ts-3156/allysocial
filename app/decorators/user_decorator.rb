@@ -33,6 +33,22 @@ class UserDecorator
     end
   end
 
+  def friends_count
+    @attrs[:friends_count]
+  end
+
+  def friends_count_s
+    friends_count.to_s(:delimited) rescue nil
+  end
+
+  def followers_count
+    @attrs[:followers_count]
+  end
+
+  def followers_count_s
+    followers_count.to_s(:delimited) rescue nil
+  end
+
   def one_sided_friends_count
     if @options[:user_snapshot]
       @options[:user_snapshot].one_sided_friends_insight.users_count

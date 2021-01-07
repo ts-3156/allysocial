@@ -37,6 +37,10 @@ class User < ApplicationRecord
     UserSnapshot.order(created_at: :desc).find_by(uid: uid)
   end
 
+  def to_user_decorator(view_context)
+    user_snapshot.to_user_decorator(view_context)
+  end
+
   class << self
     def from_omniauth(auth)
       user = find_or_initialize_by(uid: auth.uid)
