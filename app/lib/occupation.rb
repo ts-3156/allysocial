@@ -524,6 +524,17 @@ class Occupation
     model.where(%Q(description regexp "#{US_UNIV}|#{JP_UNIV}"))
   end
 
+  DOCTOR_OF_PHILOSOPHY_KEYWORDS = 'Ph\.?D|D\.Phil'
+  DOCTOR_OF_PHILOSOPHY_KEYWORDS_DB = 'Ph\\.?D|D\\.Phil'
+
+  def doctor_of_philosophy?
+    description.match?(Regexp.new(DOCTOR_OF_PHILOSOPHY_KEYWORDS))
+  end
+
+  def self.doctor_of_philosophy(model)
+    model.where(%Q(description regexp "#{DOCTOR_OF_PHILOSOPHY_KEYWORDS_DB}"))
+  end
+
   OFFICIAL_ACCOUNT_KEYWORDS = '公式([Tt]witter|ツイッター)?アカウント'
 
   def official_account?
