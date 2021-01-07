@@ -3,7 +3,8 @@ module Api
     before_action :authenticate_user!
     before_action :require_category
     before_action :require_type
-    before_action :set_user_snapshot
+    before_action :require_uid
+    before_action { set_user_snapshot(params[:uid]) }
     before_action :set_insight
 
     def index

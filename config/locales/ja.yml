@@ -67,6 +67,11 @@ ja:
         もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   dashboard:
     form:
+      search_user:
+        title: '検索するユーザー'
+        tooltip: '検索するユーザーを指定することができます。'
+        placeholder: '@username'
+        quick_select: 'クイックセレクト：'
       search_category:
         title: '検索カテゴリ'
         tooltip: 'フォローとフォロワーのどちらを検索するか指定することができます。'

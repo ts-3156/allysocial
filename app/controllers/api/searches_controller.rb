@@ -4,7 +4,8 @@ module Api
     before_action :require_category
     before_action :require_type
     before_action :require_label
-    before_action :set_user_snapshot
+    before_action :require_uid
+    before_action { set_user_snapshot(params[:uid]) }
 
     def show
       options = { limit: params[:limit], last_uid: params[:last_uid] }

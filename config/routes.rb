@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :profiles, only: %i(show), param: :uid
     get 'searches', to: 'searches#show'
     resources :label_options, only: %i(index)
+    get 'twitter_users', to: 'twitter_users#show'
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }

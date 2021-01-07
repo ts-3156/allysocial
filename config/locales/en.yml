@@ -55,7 +55,7 @@ en:
         title: 'Followers are waiting to hear from you.'
         text: Let's Get Started!
       contact:
-        title_html:  'We <i class="fas fa-heart"></i> new customers!'
+        title_html: 'We <i class="fas fa-heart"></i> new customers!'
         text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
   waiting:
     index:
@@ -67,6 +67,11 @@ en:
         If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
   dashboard:
     form:
+      search_user:
+        title: 'Target user'
+        tooltip: 'You can specify which user to search for.'
+        placeholder: '@username'
+        quick_select: 'Quick select: '
       search_category:
         title: 'Search category'
         tooltip: 'You can specify whether you want to search for friends or followers.'

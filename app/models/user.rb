@@ -34,11 +34,15 @@ class User < ApplicationRecord
   end
 
   def user_snapshot
-    UserSnapshot.order(created_at: :desc).find_by(uid: uid)
+    UserSnapshot.latest_by(uid: uid)
   end
 
   def to_user_decorator(view_context)
     user_snapshot.to_user_decorator({}, view_context)
+  end
+
+  def has_subscription?
+    true
   end
 
   class << self

@@ -2,6 +2,11 @@ import {Logger} from './logger';
 
 var logger = new Logger(process.env.RAILS_ENV);
 
+function screenNameToUid(screenName, done, fail) {
+  var url = '/api/twitter_users'; // api_twitter_users_path
+  $.get(url, {screen_name: screenName}).done(done).fail(fail);
+}
+
 class SearchLabel {
   constructor(url, form) {
     this.url = url;
@@ -71,13 +76,17 @@ class SearchLabel {
   fetchOptions() {
     var category = this.form.category();
     var type = this.form.type();
+    var screenName = this.form.screenName();
     var self = this;
 
-    $.get(this.url, {category: category, type: type}).done(function (res) {
-      self.setOptions(res.options);
-      self.setQuickSelect(res.quick_select);
-      self.setExtraCounts(res.extra);
-    }.bind(this));
+    screenNameToUid(screenName, function (res) {
+      var user = res.user;
+      $.get(self.url, {category: category, type: type, uid: user.uid}).done(function (data) {
+        self.setOptions(data.options);
+        self.setQuickSelect(data.quick_select);
+        self.setExtraCounts(data.extra);
+      }.bind(self));
+    });
   }
 
   setNeutral() {
@@ -194,6 +203,10 @@ class SearchForm {
     return this.searchLabel.value();
   }
 
+  screenName() {
+    return $('#search-user').val().replace(/^@/, '');
+  }
+
   appendSearchResponse(users) {
     if (!users || users.length === 0) {
       if (this.lastUid) {
@@ -243,6 +256,7 @@ class SearchForm {
     var category = this.category();
     var type = this.type();
     var label = this.label();
+    var screenName = this.screenName();
     var limit = 10;
     var self = this;
 
@@ -268,20 +282,31 @@ class SearchForm {
       return;
     }
 
-    $('.search-response-title').show()
-      .find('.category').text(this.categoryLabel()).end()
-      .find('.type').text(this.typeLabel()).end()
-      .find('.label').text(label);
+    screenNameToUid(screenName, function (res) {
+      var user = res.user;
 
-    var params = {category: category, type: type, label: label, limit: limit, last_uid: this.lastUid};
-    logger.log('request', params);
+      $('.search-response-title').show()
+        .find('.category').text(self.categoryLabel()).end()
+        .find('.type').text(self.typeLabel()).end()
+        .find('.label').text(label);
 
-    $.get(this.url, params).done(function (res) {
-      logger.log('response', res);
-      self.appendSearchResponse(res.users);
-      if (callback) {
-        callback();
-      }
+      var params = {
+        category: category,
+        type: type,
+        label: label,
+        uid: user.uid,
+        limit: limit,
+        last_uid: self.lastUid
+      };
+      logger.log('request', params);
+
+      $.get(self.url, params).done(function (res) {
+        logger.log('response', res);
+        self.appendSearchResponse(res.users);
+        if (callback) {
+          callback();
+        }
+      });
     });
   }
 

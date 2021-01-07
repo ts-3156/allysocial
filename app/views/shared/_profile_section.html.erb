@@ -144,25 +144,28 @@
     return rendered;
   }
 
-  function updateProfile(retryCount) {
+  function updateProfile(uid, retryCount) {
     if (retryCount >= 3) {
       return;
     }
 
-    var url = '<%= api_profile_path(uid: user.uid) %>';
+    var url = '<%= raw api_profile_path(uid: 'UID') %>';
+    url = url.replace('UID', uid);
+
     $.get(url).done(function (res) {
       var user = res.user;
       $('.profile-section').html(renderTemplate(user)).addClass('border').hide().fadeIn(500);
     }).fail(function (xhr) {
       if (xhr.status === 404) {
         setTimeout(function () {
-          updateProfile(++retryCount);
+          updateProfile(uid, ++retryCount);
         }, 3000);
       }
     });
   }
 
   $(function () {
-    updateProfile(0);
+    var uid = '<%= user.uid %>';
+    updateProfile(uid, 0);
   })
 </script>

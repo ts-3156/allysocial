@@ -21,6 +21,10 @@ class UserSnapshot < ApplicationRecord
   has_one :one_sided_followers_insight
   has_one :mutual_friends_insight
 
+  def self.latest_by(condition)
+    order(created_at: :desc).find_by(condition)
+  end
+
   def search_by(category, type, label, options)
     snapshot = fetch_snapshot(category)
     snapshot.search_by(type, label, options)
