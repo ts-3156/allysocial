@@ -10,7 +10,7 @@ function screenNameToUid(screenName, done) {
   }
 
   var fetch = function (retryCount) {
-    if (retryCount >= 3) {
+    if (retryCount >= 5) {
       return;
     }
 
@@ -19,7 +19,7 @@ function screenNameToUid(screenName, done) {
       if (xhr.status === 404) {
         setTimeout(function () {
           fetch(++retryCount);
-        }, 3000);
+        }, Math.pow(2, retryCount) * 1000);
       }
     });
   };
