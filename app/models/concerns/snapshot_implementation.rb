@@ -6,6 +6,21 @@ module SnapshotImplementation
   class_methods do
   end
 
+  def search_by(type, label, options)
+    case type
+    when 'job'
+      search_by_job(label, options)
+    when 'location'
+      search_by_location(label, options)
+    when 'url'
+      search_by_url(label, options)
+    when 'keyword'
+      search_by_keyword(label, options)
+    else
+      raise "Invalid type value=#{type}"
+    end
+  end
+
   def search_by_job(raw_value, options)
     if (value = JobSelector.label_to_value(raw_value))
       select_with_like_query(options) do

@@ -5,11 +5,10 @@ module Api
     before_action :require_type
     before_action :require_label
     before_action :set_user_snapshot
-    before_action :set_users_snapshot
 
     def show
       options = { limit: params[:limit], last_uid: params[:last_uid] }
-      twitter_users = @user_snapshot.search_by_users_snapshot(@users_snapshot, params[:type], params[:label], options)
+      twitter_users = @user_snapshot.search_by(params[:category], params[:type], params[:label], options)
       response_users = twitter_users.map { |user| user.to_user_decorator({ category: params[:category] }, view_context) }
 
       CreateTwitterUsersWorker.perform_async(current_user.id, twitter_users.map(&:uid))

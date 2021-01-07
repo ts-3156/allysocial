@@ -58,7 +58,7 @@ class SearchLabel {
     });
   }
 
-  setExtraCount(extra) {
+  setExtraCounts(extra) {
     $('label[for="type-job"] .count').text(extra.jobs_count);
     $('label[for="type-location"] .count').text(extra.locations_count);
     $('label[for="type-url"] .count').text(extra.urls_count);
@@ -73,7 +73,7 @@ class SearchLabel {
     $.get(this.url, {category: category, type: type}).done(function (res) {
       self.setOptions(res.options);
       self.setQuickSelect(res.quick_select);
-      self.setExtraCount(res.extra);
+      self.setExtraCounts(res.extra);
     }.bind(this));
   }
 

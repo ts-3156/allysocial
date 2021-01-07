@@ -21,23 +21,26 @@ class UserSnapshot < ApplicationRecord
   has_one :one_sided_followers_insight
   has_one :mutual_friends_insight
 
-  def search_by_users_snapshot(users_snapshot, type, label, options)
-    case type
-    when 'job'
-      users_snapshot.search_by_job(label, options)
-    when 'location'
-      users_snapshot.search_by_location(label, options)
-    when 'url'
-      users_snapshot.search_by_url(label, options)
-    when 'keyword'
-      users_snapshot.search_by_keyword(label, options)
-    else
-      raise "Invalid type value=#{type}"
-    end
+  def search_by(category, type, label, options)
+    snapshot = fetch_snapshot(category)
+    snapshot.search_by(type, label, options)
   end
 
   def fetch_snapshot(category)
-    # TODO
+    case category
+    when 'friends'
+      friends_snapshot
+    when 'followers'
+      followers_snapshot
+    when 'one_sided_friends'
+      one_sided_friends_snapshot
+    when 'one_sided_followers'
+      one_sided_followers_snapshot
+    when 'mutual_friends'
+      mutual_friends_snapshot
+    else
+      raise "Invalid category value=#{category}"
+    end
   end
 
   def fetch_insight(category)
