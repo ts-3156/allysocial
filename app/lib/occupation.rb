@@ -102,13 +102,14 @@ class Occupation
   end
 
   PUBLIC_ACCOUNTANT_KEYWORDS = '会計士|(public\s+accountant)'
+  PUBLIC_ACCOUNTANT_KEYWORDS_DB = '会計士|(public[[:space:]]+accountant)'
 
   def public_accountant?
     description.match?(Regexp.new(PUBLIC_ACCOUNTANT_KEYWORDS))
   end
 
   def self.public_accountant(model)
-    model.where(%Q(description regexp "#{PUBLIC_ACCOUNTANT_KEYWORDS}"))
+    model.where(%Q(description regexp "#{PUBLIC_ACCOUNTANT_KEYWORDS_DB}"))
   end
 
   TAX_ACCOUNTANT_KEYWORDS = '税理士|[Tt]ax\s+accountant'
@@ -233,14 +234,15 @@ class Occupation
     model.where(%Q(description regexp "#{ILLUSTRATOR_KEYWORDS}"))
   end
 
-  PAINTER_KEYWORDS = 'painter|絵描き|画家|油(絵|画)|日本画|oil\s+paint'
+  PAINTER_KEYWORDS = '[Pp]ainter|絵描き|画家|油(絵|画)|日本画|[Oo]il\s+paint'
+  PAINTER_KEYWORDS_DB = '[Pp]ainter|絵描き|画家|油(絵|画)|日本画|[Oo]il[[:space:]]+paint'
 
   def painter?
     description.match?(Regexp.new(PAINTER_KEYWORDS))
   end
 
   def self.painter(model)
-    model.where(%Q(description regexp "#{PAINTER_KEYWORDS}"))
+    model.where(%Q(description regexp "#{PAINTER_KEYWORDS_DB}"))
   end
 
   SCULPTOR_KEYWORDS = 'sculptor|sculptor|彫塑|彫刻'
@@ -373,14 +375,15 @@ class Occupation
     model.where(%Q(description regexp "#{CULINARY_RESEARCHER_KEYWORDS}"))
   end
 
-  COMEDIAN_KEYWORDS = 'NSC.+\d+期'
+  COMEDIAN_KEYWORDS = 'NSC.*\d+期'
+  COMEDIAN_KEYWORDS_DB = 'NSC.*[[:digit:]]+期'
 
   def comedian?
     description.match?(Regexp.new(COMEDIAN_KEYWORDS))
   end
 
   def self.comedian(model)
-    model.where(%Q(description regexp "#{COMEDIAN_KEYWORDS}"))
+    model.where(%Q(description regexp "#{COMEDIAN_KEYWORDS_DB}"))
   end
 
   BIKINI_MODEL_KEYWORDS = 'グラビア|グラドル'
@@ -576,12 +579,13 @@ class Occupation
   end
 
   JOBLESS_KEYWORDS = '[Jj]obless|[Uu]nemployed|[Nn]o\s+job|無職'
+  JOBLESS_KEYWORDS_DB = '[Jj]obless|[Uu]nemployed|[Nn]o[[:space:]]+job|無職'
 
   def jobless?
     description.match?(Regexp.new(JOBLESS_KEYWORDS))
   end
 
   def self.jobless(model)
-    model.where(%Q(description regexp "#{JOBLESS_KEYWORDS}"))
+    model.where(%Q(description regexp "#{JOBLESS_KEYWORDS_DB}"))
   end
 end
