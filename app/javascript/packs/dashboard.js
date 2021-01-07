@@ -50,9 +50,12 @@ class SearchLabel {
     $('#quick-select a').text('');
     options.forEach(function (option, i) {
       var btn = $('#quick-select a:eq(' + i + ')');
-      btn.text(option.label).on('click', function () {
-        self.form.resetState('label selected');
-        self.elem.val(option.value);
+      btn.text(option.label).off('click').on('click', function () {
+        if (self.value() !== option.value) {
+          self.form.resetState('label selected');
+          self.elem.val(option.value);
+          self.form.search();
+        }
         return false;
       });
     });
@@ -225,9 +228,11 @@ class SearchForm {
       container.fadeIn(500);
       $('#search-response').append($('<div/>', {text: 'Loading'}).lazyload().one('appear', function () {
         var elem = $(this);
-        self.search(function () {
-          elem.remove();
-        });
+        setTimeout(function () {
+          self.search(function () {
+            elem.remove();
+          });
+        }, 1000);
       }));
 
       this.lastUid = users[users.length - 1].uid;
