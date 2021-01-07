@@ -29,21 +29,16 @@
 #  updated_at            :datetime         not null
 #
 class TwitterUser < ApplicationRecord
-  def occupation
-    Occupation.new(
-      name: name,
-      description: description,
-      url: url,
-      location: location,
-      friends_count: friends_count,
-      followers_count: followers_count,
-    )
-  end
+  include HasOccupation
 
   Occupation.job_detector_methods.each do |method_name|
     define_method("#{method_name}?") do |*args, &blk|
       occupation.send("#{method_name}?")
     end
+  end
+
+  def to_user_decorator(options, view_context)
+    UserDecorator.new(attributes, options, view_context)
   end
 
   class << self

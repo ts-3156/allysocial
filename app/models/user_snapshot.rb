@@ -115,4 +115,13 @@ class UserSnapshot < ApplicationRecord
     users = users.take(limit) if users.size >= limit
     users
   end
+
+  def to_user_decorator(view_context)
+    if (hash = properties&.fetch('user', nil)) # TODO Rename to user
+      if hash['status_created_at']
+        hash['status_created_at'] = (Time.zone.parse(hash['status_created_at']) rescue nil)
+      end
+      UserDecorator.new(hash, { user_snapshot: self }, view_context)
+    end
+  end
 end

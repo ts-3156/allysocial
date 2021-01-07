@@ -1,4 +1,6 @@
 class ApiUser
+  include HasOccupation
+
   def initialize(attrs)
     @attrs = attrs
   end

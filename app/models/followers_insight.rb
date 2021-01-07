@@ -4,6 +4,7 @@
 #
 #  id               :bigint           not null, primary key
 #  user_snapshot_id :bigint           not null
+#  users_count      :integer
 #  job              :json
 #  description      :json
 #  location         :json

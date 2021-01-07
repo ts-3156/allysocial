@@ -2,6 +2,7 @@ class CreateOneSidedFriendsInsights < ActiveRecord::Migration[6.1]
   def change
     create_table :one_sided_friends_insights do |t|
       t.bigint :user_snapshot_id, null: false
+      t.integer :users_count
       t.json :job
       t.json :description
       t.json :location

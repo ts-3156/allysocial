@@ -69,6 +69,27 @@
         </div>
       </div>
 
+      <div>
+        <div class="d-inline-block mr-3 mb-2">
+          <a href="https://twitter.com/{{screen_name}}" target="_blank">
+            <strong class="text-body">{{one_sided_friends_count_s}}</strong>
+            <span class="small text-muted"><%= t('.one_sided_following') %></span>
+          </a>
+        </div>
+        <div class="d-inline-block mr-3 mb-2">
+          <a href="https://twitter.com/{{screen_name}}" target="_blank">
+            <strong class="text-body">{{one_sided_followers_count_s}}</strong>
+            <span class="small text-muted"><%= t('.one_sided_followers') %></span>
+          </a>
+        </div>
+        <div class="d-inline-block mb-2">
+          <a href="https://twitter.com/{{screen_name}}/likes" target="_blank">
+            <strong class="text-body">{{mutual_friends_count_s}}</strong>
+            <span class="small text-muted"><%= t('.mutual_following') %></span>
+          </a>
+        </div>
+      </div>
+
       {{#status_display}}
       <hr>
       <div class="mb-3">

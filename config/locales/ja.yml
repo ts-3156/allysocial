@@ -123,6 +123,9 @@ ja:
       followers: 'フォロワー'
       lists: 'リスト'
       likes: 'いいね'
+      one_sided_following: '片思いフォロー'
+      one_sided_followers: '片思いフォロワー'
+      mutual_following: '相互フォロー'
     faq_modal:
       title: 'FAQ'
       body_html: |

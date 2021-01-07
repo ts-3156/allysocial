@@ -122,6 +122,9 @@ en:
       followers: 'Followers'
       lists: 'Lists'
       likes: 'Likes'
+      one_sided_following: 'One-sided following'
+      one_sided_followers: 'One-sided followers'
+      mutual_following: 'Mutual following'
     faq_modal:
       title: 'FAQ'
       body_html: |

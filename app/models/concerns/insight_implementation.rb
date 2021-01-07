@@ -26,7 +26,7 @@ module InsightImplementation
     update_location_from_users(users)
     update_url_from_users(users)
 
-    update(completed_at: Time.zone.now)
+    update(users_count: users.size, completed_at: Time.zone.now)
   end
 
   def fetch_persisted_users(uids)

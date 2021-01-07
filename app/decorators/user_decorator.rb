@@ -33,6 +33,42 @@ class UserDecorator
     end
   end
 
+  def one_sided_friends_count
+    if @options[:user_snapshot]
+      @options[:user_snapshot].one_sided_friends_insight.users_count
+    end
+  end
+
+  def one_sided_friends_count_s
+    if @options[:user_snapshot]
+      one_sided_friends_count.to_s(:delimited) rescue nil
+    end
+  end
+
+  def one_sided_followers_count
+    if @options[:user_snapshot]
+      @options[:user_snapshot].one_sided_followers_insight.users_count
+    end
+  end
+
+  def one_sided_followers_count_s
+    if @options[:user_snapshot]
+      one_sided_followers_count.to_s(:delimited) rescue nil
+    end
+  end
+
+  def mutual_friends_count
+    if @options[:user_snapshot]
+      @options[:user_snapshot].mutual_friends_insight.users_count
+    end
+  end
+
+  def mutual_friends_count_s
+    if @options[:user_snapshot]
+      mutual_friends_count.to_s(:delimited) rescue nil
+    end
+  end
+
   def protected_label
     if @attrs[:is_protected]
       %Q(<i class="fas fa-lock"></i>)
@@ -166,6 +202,12 @@ class UserDecorator
       listed_count_s: (@attrs[:listed_count].to_s(:delimited) rescue nil),
       favourites_count: @attrs[:favourites_count],
       favourites_count_s: (@attrs[:favourites_count].to_s(:delimited) rescue nil),
+      one_sided_friends_count: one_sided_friends_count,
+      one_sided_friends_count_s: one_sided_friends_count_s,
+      one_sided_followers_count: one_sided_followers_count,
+      one_sided_followers_count_s: one_sided_followers_count_s,
+      mutual_friends_count: mutual_friends_count,
+      mutual_friends_count_s: mutual_friends_count_s,
       is_protected: @attrs[:is_protected],
       is_verified: @attrs[:is_verified],
       description: @view_context.strip_tags(@attrs[:description]),
