@@ -28,14 +28,14 @@ module Api
       end
     end
 
-    def set_user_snapshot(uid)
+    def set_user_snapshot(uid, wait_for_completion = true)
       if current_user.has_subscription?
         snapshot = UserSnapshot.latest_by(uid: uid)
       else
         snapshot = current_user.user_snapshot
       end
 
-      if snapshot&.data_completed?
+      if (wait_for_completion && snapshot&.data_completed?) || (!wait_for_completion && snapshot)
         @user_snapshot = snapshot
       else
         create_user_snapshot(uid)

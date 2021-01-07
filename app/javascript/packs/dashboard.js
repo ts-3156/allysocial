@@ -2,7 +2,13 @@ import {Logger} from './logger';
 
 var logger = new Logger(process.env.RAILS_ENV);
 
+var nameRegexp = /^[\w_]{1,20}$/;
+
 function screenNameToUid(screenName, done) {
+  if (!screenName.match(nameRegexp)) {
+    return;
+  }
+
   var fetch = function (retryCount) {
     if (retryCount >= 3) {
       return;
@@ -27,9 +33,6 @@ class SearchLabel {
     this.form = form;
     this.elem = $('#search-label');
     this.datalist = $('#search-label-options');
-
-    $("input[name='category']").on('click', this.fetchOptions.bind(this));
-    $("input[name='type']").on('click', this.fetchOptions.bind(this));
 
     this.elem.on('keypress', function (e) {
       if (e.keyCode === 13) { // Enter key
@@ -81,6 +84,11 @@ class SearchLabel {
   }
 
   setExtraCounts(extra) {
+    $('label[for="category-friends"] .count').text(extra.friends);
+    $('label[for="category-followers"] .count').text(extra.followers);
+    $('label[for="category-one_sided_friends"] .count').text(extra.one_sided_friends);
+    $('label[for="category-one_sided_followers"] .count').text(extra.one_sided_followers);
+    $('label[for="category-mutual_friends"] .count').text(extra.mutual_friends);
     $('label[for="type-job"] .count').text(extra.jobs_count);
     $('label[for="type-location"] .count').text(extra.locations_count);
     $('label[for="type-url"] .count').text(extra.urls_count);
@@ -149,7 +157,9 @@ class SearchForm {
     this.lastUid = null;
     this.currentIndexNumber = 1;
     this.i18n = i18n;
+    var self = this;
 
+    $('#search-user').on('change', this.switchUser.bind(this));
     $("input[name='category']").on('change', this.switchCategory.bind(this));
     $("input[name='type']").on('change', this.switchType.bind(this));
 
@@ -161,7 +171,6 @@ class SearchForm {
       }
     });
 
-    var self = this;
     $('#search-submit').on('click', function () {
       self.search();
       return false;
@@ -174,7 +183,7 @@ class SearchForm {
   }
 
   resetState(reason) {
-    logger.log('Reset search state:', reason);
+    logger.log('Reset state:', reason);
     $('.search-response-title').hide();
     $('#search-response').empty();
     this.searchLabel.setNeutral();
@@ -182,19 +191,34 @@ class SearchForm {
     this.currentIndexNumber = 1;
   }
 
+  switchUser() {
+    var self = this;
+    screenNameToUid(this.screenName(), function (res) {
+      var user = res.user;
+      window.updateProfileSection(user.uid, 0, function () {
+        self.resetState('switch user');
+        self.searchLabel.clearValue();
+        self.searchLabel.fetchOptions();
+      });
+    });
+  }
+
   switchCategory() {
     this.resetState('switch category');
     this.searchLabel.clearValue();
+    this.searchLabel.fetchOptions();
   }
 
   switchType() {
     this.resetState('switch type');
     this.searchLabel.clearValue();
+    this.searchLabel.fetchOptions();
   }
 
   switchLabel() {
     this.resetState('switch label');
     this.searchLabel.removeCount();
+    this.searchLabel.fetchOptions();
   }
 
   category() {
@@ -273,6 +297,13 @@ class SearchForm {
     var screenName = this.screenName();
     var limit = 10;
     var self = this;
+
+    if (!screenName.match(nameRegexp)) {
+      logger.warn('Invalid screenName', screenName);
+      this.resetState('Invalid screenName');
+      $('#search-response').empty().text('Please specify correct [screenName]').hide().fadeIn(500);
+      return;
+    }
 
     if (category !== 'friends' && category !== 'followers' && category !== 'one_sided_friends' && category !== 'one_sided_followers' && category !== 'mutual_friends') {
       logger.warn('Invalid category', category);

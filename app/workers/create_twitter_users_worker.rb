@@ -24,8 +24,12 @@ class CreateTwitterUsersWorker
     api_users = client.users(uids).map { |user| ApiUser.new(user) }
     upsert_records(api_users)
   rescue => e
-    logger.warn "Unhandled exception: #{e.inspect}"
-    logger.info e.backtrace.join("\n")
+    if TwitterApiStatus.no_user_matches?(e)
+      # Do nothing
+    else
+      logger.warn "Unhandled exception: #{e.inspect}"
+      logger.info e.backtrace.join("\n")
+    end
   end
 
   private

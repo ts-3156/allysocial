@@ -144,7 +144,14 @@
     return rendered;
   }
 
-  function updateProfile(uid, retryCount) {
+  function updateProfileSection(uid, retryCount, callback) {
+    var container = $('.profile-section');
+
+    if (container.data('uid') === uid) {
+      console.log("Don't update profile");
+      return;
+    }
+
     if (retryCount >= 3) {
       return;
     }
@@ -154,11 +161,14 @@
 
     $.get(url).done(function (res) {
       var user = res.user;
-      $('.profile-section').html(renderTemplate(user)).addClass('border').hide().fadeIn(500);
+      container.data('uid', user.uid).html(renderTemplate(user)).addClass('border').hide().fadeIn(500);
+      if (callback) {
+        callback();
+      }
     }).fail(function (xhr) {
       if (xhr.status === 404) {
         setTimeout(function () {
-          updateProfile(uid, ++retryCount);
+          updateProfileSection(uid, ++retryCount);
         }, 3000);
       }
     });
@@ -166,6 +176,6 @@
 
   $(function () {
     var uid = '<%= user.uid %>';
-    updateProfile(uid, 0);
+    updateProfileSection(uid, 0);
   })
 </script>

@@ -29,12 +29,17 @@ module Api
     private
 
     def extra
-      user_decorator = @user_snapshot.to_user_decorator({ category: params[:category] }, view_context)
+      user = @user_snapshot.to_user_decorator({ category: params[:category] }, view_context)
       {
-        jobs_count: user_decorator.jobs_count,
-        locations_count: user_decorator.locations_count,
-        urls_count: user_decorator.urls_count,
-        keywords_count: user_decorator.keywords_count,
+        friends: user.friends_count,
+        followers: user.followers_count,
+        one_sided_friends: user.one_sided_friends_count,
+        one_sided_followers: user.one_sided_followers_count,
+        mutual_friends: user.mutual_friends_count,
+        jobs_count: user.jobs_count,
+        locations_count: user.locations_count,
+        urls_count: user.urls_count,
+        keywords_count: user.keywords_count,
       }
     end
   end
