@@ -166,6 +166,7 @@ class SearchForm {
     this.lastUid = null;
     this.currentIndexNumber = 1;
     this.i18n = i18n;
+    this.responseContainer = $('#search-response');
     var self = this;
 
     $('#search-user').on('change', this.switchUser.bind(this));
@@ -174,9 +175,9 @@ class SearchForm {
 
     $('#reduced-display-check').on('change', function () {
       if ($(this).prop('checked')) {
-        self.hideUserDetails();
+        self.responseContainer.find('.search-response-user-container').trigger('compress.user');
       } else {
-        self.showUserDetails();
+        self.responseContainer.find('.search-response-user-container').trigger('expand.user');
       }
     });
 
@@ -184,16 +185,6 @@ class SearchForm {
       self.search();
       return false;
     });
-  }
-
-  showUserDetails() {
-    $('#search-response').find('.search-response-user-details').show().end()
-      .find('.open-user-details').hide();
-  }
-
-  hideUserDetails() {
-    $('#search-response').find('.search-response-user-details').hide().end()
-      .find('.open-user-details').show();
   }
 
   setSearchLabel(obj) {
@@ -204,7 +195,7 @@ class SearchForm {
   resetState(reason) {
     logger.log('Reset state:', reason);
     $('.search-response-title').hide();
-    $('#search-response').empty();
+    this.responseContainer.empty();
     this.searchLabel.setNeutral();
     this.lastUid = null;
     this.currentIndexNumber = 1;
@@ -286,7 +277,7 @@ class SearchForm {
         // Do nothing
       } else {
         this.resetState('no results found');
-        $('#search-response').empty().html(this.i18n['no_results_found']).hide().fadeIn(500);
+        this.showErrorMessage(this.i18n['no_results_found']);
       }
     } else {
       var container = $('<div/>', {style: 'display: none;'});
@@ -295,10 +286,10 @@ class SearchForm {
       users.forEach(function (user) {
         container.append(this.renderUser(user));
       }, this);
-      $('#search-response').append(container);
+      this.responseContainer.append(container);
       $('#reduced-display-check').trigger('change');
       container.fadeIn(500);
-      $('#search-response').append(loader);
+      this.responseContainer.append(loader);
 
       this.lastUid = users[users.length - 1].uid;
     }
@@ -324,29 +315,29 @@ class SearchForm {
     if (!screenName.match(nameRegexp)) {
       logger.warn('Invalid screenName', screenName);
       this.resetState('Invalid screenName');
-      $('#search-response').empty().text('Please specify correct [screenName]').hide().fadeIn(500);
+      this.showErrorMessage('Please specify correct [screenName]');
       return;
     }
 
     if (category !== 'friends' && category !== 'followers' && category !== 'one_sided_friends' && category !== 'one_sided_followers' && category !== 'mutual_friends') {
       logger.warn('Invalid category', category);
       this.resetState('Invalid category');
-      $('#search-response').empty().text('Please specify correct [category]').hide().fadeIn(500);
+      this.showErrorMessage('Please specify correct [category]');
       return;
     }
 
     if (type !== 'job' && type !== 'location' && type !== 'url' && type !== 'keyword') {
       logger.warn('Invalid type', type);
       this.resetState('Invalid type');
-      $('#search-response').empty().text('Please specify correct [type]').hide().fadeIn(500);
+      this.showErrorMessage('Please specify correct [type]');
       return;
     }
 
     if (!label || label.length === 0) {
       logger.warn('Invalid label', label);
       this.resetState('Invalid label');
-      $('#search-response').empty().text(this.i18n['specify_correct_label']).hide().fadeIn(500);
-      self.searchLabel.setInvalid();
+      this.showErrorMessage(this.i18n['specify_correct_label']);
+      this.searchLabel.setInvalid();
       return;
     }
 
@@ -379,6 +370,9 @@ class SearchForm {
     });
   }
 
+  showErrorMessage(message) {
+    this.responseContainer.empty().text(message).hide().fadeIn(500);
+  }
 }
 
 export {SearchLabel, SearchForm};

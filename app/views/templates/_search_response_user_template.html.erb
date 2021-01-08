@@ -1,5 +1,5 @@
 <div id="search-response-user-template" style="display: none;">
-  <div class="border rounded mb-3 pt-3 px-3" style="position: relative;">
+  <div class="search-response-user-container border rounded mb-3 pt-3 px-3" style="position: relative;">
     <div class="d-flex mb-3">
       <div class="mr-3">
         <a href="https://twitter.com/{{screen_name}}" target="_blank">
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="search-response-user-details" data-uid="{{uid}}">
+    <div class="search-response-user-details">
       <div class="small mb-3" style="word-break: break-all;">{{{description}}}</div>
 
       <div class="mb-3">
@@ -100,7 +100,8 @@
         <i class="text-muted fas fa-ellipsis-h" style="cursor: pointer;"></i>
       </div>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item open-user-details mb-2" href="#" data-uid="{{uid}}"><i class="fas fa-expand-arrows-alt text-muted"></i>&nbsp;<%= t('.details') %></a>
+        <a class="dropdown-item expand-user-details mb-2" href="#"><i class="fas fa-expand-arrows-alt text-muted"></i>&nbsp;<%= t('.expand') %></a>
+        <a class="dropdown-item compress-user-details mb-2" style="display: none;" href="#"><i class="fas fa-compress-arrows-alt text-muted"></i>&nbsp;<%= t('.compress') %></a>
         <div class="dropdown-divider mb-2"></div>
         <a class="dropdown-item mb-2" href="<%= egotter_url('{{screen_name}}') %>" target="_blank"><img src="<%= image_path '/egotter192.png' %>" width="16" height="16">&nbsp;<%= t('.egotter') %></a>
         <a class="dropdown-item mb-2" href="<%= twitter_url('{{screen_name}}') %>" target="_blank"><i class="fab fa-twitter text-muted"></i>&nbsp;<%= t('.twitter') %></a>
@@ -117,11 +118,25 @@
 
 <script>
   $(function () {
-    $(document).on('click', '.open-user-details', function () {
-      var uid = $(this).data('uid');
-      if (uid) {
-        $('.search-response-user-details[data-uid="' + uid + '"]').show();
-      }
+    $(document).on('expand.user', '.search-response-user-container', function () {
+      $(this).find('.search-response-user-details').show().end()
+        .find('.expand-user-details').hide().end()
+        .find('.compress-user-details').show();
+    });
+
+    $(document).on('compress.user', '.search-response-user-container', function () {
+      $(this).find('.search-response-user-details').hide().end()
+        .find('.expand-user-details').show().end()
+        .find('.compress-user-details').hide();
+    });
+
+    $(document).on('click', '.expand-user-details', function () {
+      $(this).parents('.search-response-user-container').trigger('expand.user');
+      return false;
+    });
+
+    $(document).on('click', '.compress-user-details', function () {
+      $(this).parents('.search-response-user-container').trigger('compress.user');
       return false;
     });
 
