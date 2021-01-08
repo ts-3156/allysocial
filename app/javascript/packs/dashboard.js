@@ -172,11 +172,11 @@ class SearchForm {
     $("input[name='category']").on('change', this.switchCategory.bind(this));
     $("input[name='type']").on('change', this.switchType.bind(this));
 
-    $('#show-details-check').on('change', function () {
+    $('#reduced-display-check').on('change', function () {
       if ($(this).prop('checked')) {
-        self.showUserDetails();
-      } else {
         self.hideUserDetails();
+      } else {
+        self.showUserDetails();
       }
     });
 
@@ -296,7 +296,7 @@ class SearchForm {
         container.append(this.renderUser(user));
       }, this);
       $('#search-response').append(container);
-      $('#show-details-check').trigger('change');
+      $('#reduced-display-check').trigger('change');
       container.fadeIn(500);
       $('#search-response').append(loader);
 

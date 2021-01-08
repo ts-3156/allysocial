@@ -103,9 +103,9 @@ ja:
         placeholder_keyword: '例：お仕事募集中'
         quick_select: 'クイックセレクト：'
         submit: '検索する'
-      show_details:
-        title: 'プロフィール詳細を表示する'
-        tooltip: 'チェックすると、検索結果にプロフィールの詳細を追加します。'
+      reduced_display:
+        title: 'コンパクト表示'
+        tooltip: 'チェックすると、検索結果を小さく表示します。'
       search_response:
         html: |
           @<span class="user"></span> の
