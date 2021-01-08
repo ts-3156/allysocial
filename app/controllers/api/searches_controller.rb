@@ -9,10 +9,10 @@ module Api
 
     def show
       options = { limit: params[:limit], last_uid: params[:last_uid] }
-      twitter_users = @user_snapshot.search_by(params[:category], params[:type], params[:label], options)
-      response_users = twitter_users.map { |user| user.to_user_decorator({ category: params[:category] }, view_context) }
+      users = @user_snapshot.search_by(params[:category], params[:type], params[:label], options)
+      response_users = users.map { |user| user.to_user_decorator({ category: params[:category] }, view_context) }
 
-      CreateTwitterUsersWorker.perform_async(current_user.id, twitter_users.map(&:uid))
+      CreateTwitterUsersWorker.perform_async(current_user.id, users.map(&:uid))
 
       render json: { users: response_users }
     end

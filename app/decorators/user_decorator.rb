@@ -242,10 +242,17 @@ class UserDecorator
     %Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{text}</span>)
   end
 
+  def job_labels
+    Occupation.new(@attrs).job_names(3).map do |name|
+      %Q(<span class="badge badge-success">#{JobSelector.value_to_label(name)}</span>)
+    end
+  end
+
   def labels
     [
       mutual_friends_label || one_sided_followers_label || one_sided_friends_label || followers_label,
       active_1hour_label || active_12hours_label || active_3days_label || active_1week_label || inactive_3months_label || inactive_1month_label || inactive_1week_label,
+      *job_labels,
     ].compact.join('&nbsp;')
   end
 

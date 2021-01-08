@@ -109,9 +109,9 @@ en:
       search_response:
         html: |
           Search for users whose
-          <span class="badge badge-primary type"></span> is <span class="badge badge-primary label"></span>
+          <a class="badge badge-primary type" href="#search-type-anchor"></a> is <a class="badge badge-primary label" href="#search-label-anchor"></a>
           among @<span class="user"></span>'s
-          <span class="badge badge-primary category"></span>
+          <a class="badge badge-primary category" href="#search-category-anchor"></a>
       js:
         specify_correct_label: 'Please specify search label.'
         no_results_found_html:

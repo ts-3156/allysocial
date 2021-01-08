@@ -109,8 +109,7 @@ class UserSnapshot < ApplicationRecord
       uids.concat(chunk.properties['uids'])
       break if uids.size >= limit
     end
-    uids = uids.take(limit) if uids.size >= limit
-    uids
+    uids.take(limit)
   end
 
   USERS_LIMIT = 5000
@@ -142,8 +141,7 @@ class UserSnapshot < ApplicationRecord
       users.concat(TwitterUser.where(uid: uids).order_by_field(uids))
       break if users.size >= limit
     end
-    users = users.take(limit) if users.size >= limit
-    users
+    users.take(limit)
   end
 
   def to_user_decorator(options, view_context)

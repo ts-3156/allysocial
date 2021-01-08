@@ -27,13 +27,17 @@ class Occupation
     @attrs[:followers_count] || 0
   end
 
-  def detect_title
+  def job_name
+    job_names[1][0] || 'not_applicable'
+  end
+
+  def job_names(count = 3)
+    found = []
     self.class.job_detector_methods.map do |method_name|
-      if send("#{method_name}?")
-        return method_name
-      end
+      found << method_name if send("#{method_name}?")
+      break if found.size >= count
     end
-    'not_applicable'
+    found.take(count)
   end
 
   def self.method_added(method_name)

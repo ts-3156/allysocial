@@ -137,5 +137,12 @@ class JobSelector < BaseSelector
       end
       nil
     end
+
+    def value_to_label(raw_key)
+      fixed_labels[I18n.locale].each do |key, label|
+        return label if raw_key.to_sym == key
+      end
+      nil
+    end
   end
 end

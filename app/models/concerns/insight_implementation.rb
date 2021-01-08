@@ -103,7 +103,7 @@ module InsightImplementation
     users = users.take(5000) # TODO Set suitable limit
     words = []
     users.map(&:occupation).each do |occupation|
-      words << occupation.detect_title
+      words << occupation.job_name
     end
     words.each_with_object(Hash.new(0)) do |word, memo|
       memo[word] += 1
