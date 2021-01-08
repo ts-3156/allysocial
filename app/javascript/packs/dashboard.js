@@ -83,6 +83,9 @@ class SearchLabel {
       this.form.resetState('label selected');
       this.elem.val(option.value);
       this.form.search();
+      $([document.documentElement, document.body]).animate({
+        scrollTop: $('#search-response-anchor').offset().top
+      });
     }
   }
 

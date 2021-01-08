@@ -3,7 +3,7 @@
     <div class="d-flex mb-3">
       <div class="mr-3">
         <a href="https://twitter.com/{{screen_name}}" target="_blank">
-          <img class="rounded-circle border shadow-sm" data-src="{{profile_image_url}}" width="40" height="40">
+          <img class="rounded-circle border shadow-sm" data-src="{{profile_image_url}}" loading="lazy" width="40" height="40">
         </a>
       </div>
       <div>
@@ -80,7 +80,7 @@
         <div style="max-width: 100%;">
           {{#status_photo_urls}}
           <a href="{{.}}" target="_blank">
-            <img class="img-fluid mr-2 mb-1" data-src="{{.}}" style="max-width: 20%;">
+            <img class="img-fluid mr-2 mb-1" data-src="{{.}}" loading="lazy" style="max-width: 20%;">
           </a>
           {{/status_photo_urls}}
         </div>
