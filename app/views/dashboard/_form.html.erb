@@ -116,16 +116,19 @@
 </div>
 
 <div class="mb-5">
-  <div class="form-group form-check">
+</div>
+
+<%# Submit %>
+<div class="d-flex align-items-center mb-5">
+  <div>
+    <button id="search-submit" type="submit" class="btn btn-primary"><%= t('.search_label.submit') %></button>
+  </div>
+
+  <div class="form-group form-check ml-5 mb-0">
     <input type="checkbox" class="form-check-input" id="reduced-display-check" checked>
     <label class="form-check-label" for="reduced-display-check"><%= t('.reduced_display.title') %></label>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.reduced_display.tooltip') %>"></i>
   </div>
-</div>
-
-<%# Submit %>
-<div class="mb-5">
-  <button id="search-submit" type="submit" class="btn btn-primary"><%= t('.search_label.submit') %></button>
 </div>
 
 <div class="mb-5">
