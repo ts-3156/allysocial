@@ -264,7 +264,9 @@ class UserDecorator
     {
       uid: @attrs[:uid].to_s,
       screen_name: @attrs[:screen_name],
+      screen_name_s: @attrs[:screen_name]&.truncate(13, omission: '...'),
       name: @attrs[:name],
+      name_s: @attrs[:name]&.truncate_2bytes(13, omission: '...'),
       statuses_count: @attrs[:statuses_count],
       statuses_count_s: (@attrs[:statuses_count].to_s(:delimited) rescue nil),
       friends_count: @attrs[:friends_count],

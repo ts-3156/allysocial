@@ -8,8 +8,10 @@
       </div>
       <div>
         <div>
-          <strong>{{name}}</strong>
-          <a class="text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">@{{screen_name}}</a>
+          <strong class="d-md-none">{{name_s}}</strong>
+          <strong class="d-none d-md-inline-block">{{name}}</strong>
+          <a class="d-md-none text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">@{{screen_name_s}}</a>
+          <a class="d-none d-md-inline-block text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">@{{screen_name}}</a>
           {{{protected_label}}}
           {{{verified_label}}}
         </div>
