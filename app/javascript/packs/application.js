@@ -8,6 +8,7 @@ import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 
 import {SearchLabel, SearchForm} from './dashboard';
+import './underline';
 
 window.SearchLabel = SearchLabel;
 window.SearchForm = SearchForm;

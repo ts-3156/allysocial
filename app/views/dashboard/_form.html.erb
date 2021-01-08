@@ -3,8 +3,9 @@
 <%# Search user %>
 <div class="mb-5">
   <div class="mb-3">
-    <span class="h5"><%= t('.search_user.title') %></span>
+    <span class="h5" data-toggle="underline" data-target="#search-user-underline"><%= t('.search_user.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_user.tooltip') %>"></i>
+    <div id="search-user-underline" class="underline"></div>
   </div>
   <div class="limit-reached-help small mb-3" style="display: none;"><%= t('.search_user.limit_reached_help_html', count: user_decorator.users_limit) %></div>
   <% if current_user.has_subscription? %>
@@ -39,8 +40,9 @@
 <a id="search-category-anchor" style="display: block; position: relative; top: -60px; visibility: hidden;"></a>
 <div class="mr-5 mb-5">
   <div class="mb-3">
-    <span class="h5"><%= t('.search_category.title') %></span>
+    <span class="h5" data-toggle="underline" data-target="#search-category-underline"><%= t('.search_category.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_category.tooltip') %>"></i>
+    <div id="search-category-underline" class="underline"></div>
   </div>
 
   <div class="container">
@@ -73,8 +75,9 @@
 <a id="search-type-anchor" style="display: block; position: relative; top: -60px; visibility: hidden;"></a>
 <div class="mb-5">
   <div class="mb-3">
-    <span class="h5"><%= t('.search_type.title') %></span>
+    <span class="h5" data-toggle="underline" data-target="#search-type-underline"><%= t('.search_type.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_type.tooltip') %>"></i>
+    <div id="search-type-underline" class="underline"></div>
   </div>
 
   <div class="container">
@@ -103,8 +106,9 @@
 <a id="search-label-anchor" style="display: block; position: relative; top: -60px; visibility: hidden;"></a>
 <div class="mb-5">
   <div class="mb-3">
-    <span class="h5"><%= t('.search_label.title') %></span>
+    <span class="h5" data-toggle="underline" data-target="#search-label-underline"><%= t('.search_label.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
+    <div id="search-label-underline" class="underline"></div>
   </div>
   <input type="text" id="search-label" class="form-control mb-2" list="search-label-options"
          data-placeholder="<%= t('.search_label.placeholder') %>"

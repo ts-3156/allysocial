@@ -188,6 +188,17 @@ class SearchForm {
       self.search();
       return false;
     });
+
+    $('.search-response-title')
+      .find('.category').on('click', function () {
+      $('[data-target="#search-category-underline"]').trigger('start.underline');
+    }).end()
+      .find('.type').on('click', function () {
+      $('[data-target="#search-type-underline"]').trigger('start.underline');
+    }).end()
+      .find('.label').on('click', function () {
+      $('[data-target="#search-label-underline"]').trigger('start.underline');
+    }).end();
   }
 
   setSearchLabel(obj) {
