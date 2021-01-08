@@ -40,6 +40,7 @@ module Api
         locations_count: user.locations_count,
         urls_count: user.urls_count,
         keywords_count: user.keywords_count,
+        limit_reached: user.limit_reached?,
       }
     end
   end

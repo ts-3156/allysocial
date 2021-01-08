@@ -24,7 +24,7 @@ class ApiClient
   end
 
   def friend_ids(uid, &block)
-    collect_with_cursor do |options|
+    collect_with_cursor(10) do |options|
       RequestWithRetryHandler.new(__method__).perform do
         response = @client.friend_ids(uid, options)
         block.call(response) if block
@@ -34,7 +34,7 @@ class ApiClient
   end
 
   def follower_ids(uid, &block)
-    collect_with_cursor do |options|
+    collect_with_cursor(10) do |options|
       RequestWithRetryHandler.new(__method__).perform do
         response = @client.follower_ids(uid, options)
         block.call(response) if block
@@ -43,12 +43,11 @@ class ApiClient
     end
   end
 
-  def collect_with_cursor
+  def collect_with_cursor(loop_limit)
     options = { count: 5000 }
     collection = []
 
-    # TODO Limit loop count
-    while true do
+    loop_limit.times do
       response = yield(options)
       break if response.nil?
 

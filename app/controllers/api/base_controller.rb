@@ -24,10 +24,11 @@ module Api
       if current_user.has_subscription?
         raise ':uid not specified' if !params[:uid] || !params[:uid].match?(/\A[1-9][0-9]{1,30}\z/)
       else
-        raise ':uid not specified' if current_user.uid != params[:uid]
+        raise ':uid not specified' if current_user.uid != params[:uid].to_i
       end
     end
 
+    # TODO Check permission
     def set_user_snapshot(uid, wait_for_completion = true)
       if current_user.has_subscription?
         snapshot = UserSnapshot.latest_by(uid: uid)

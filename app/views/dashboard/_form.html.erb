@@ -6,19 +6,25 @@
     <span class="h5"><%= t('.search_user.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_user.tooltip') %>"></i>
   </div>
-  <input type="text" id="search-user" class="form-control mb-2 <%= 'disabled' unless current_user.has_subscription? %>" list="search-user-options"
-         value="<%= current_user.screen_name %>"
-         placeholder="<%= t('.search_user.placeholder') %>"
-         <%= 'disabled="disabled"' unless current_user.has_subscription? %>
-         style="min-width: 200px; max-width: 300px;">
-  <datalist id="search-user-options">
-  </datalist>
-  <div id="quick-select-user">
-    <span><%= t('.search_user.quick_select') %></span>
-    <a class="badge badge-primary mr-1" href="#"></a>
-    <a class="badge badge-primary mr-1" href="#"></a>
-    <a class="badge badge-primary" href="#"></a>
-  </div>
+  <div class="limit-reached-help small mb-3" style="display: none;"><%= t('.search_user.limit_reached_help_html', count: user_decorator.users_limit) %></div>
+  <% if current_user.has_subscription? %>
+    <input type="text" id="search-user" class="form-control mb-2" list="search-user-options"
+           value="<%= current_user.screen_name %>"
+           placeholder="<%= t('.search_user.placeholder') %>"
+           style="min-width: 200px; max-width: 300px;">
+    <datalist id="search-user-options">
+    </datalist>
+    <div id="quick-select-user">
+      <span><%= t('.search_user.quick_select') %></span>
+      <a class="badge badge-primary mr-1" href="#"></a>
+      <a class="badge badge-primary mr-1" href="#"></a>
+      <a class="badge badge-primary" href="#"></a>
+    </div>
+  <% else %>
+    <input type="text" class="form-control mb-2 disabled" value="<%= current_user.screen_name %>" disabled style="min-width: 200px; max-width: 300px;">
+    <div class="text-info small mt-1"><%= t('.search_user.free_help') %></div>
+    <input type="hidden" id="search-user" value="<%= current_user.screen_name %>">
+  <% end %>
 </div>
 
 <%# Search category %>

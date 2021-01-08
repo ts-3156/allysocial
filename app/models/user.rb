@@ -42,7 +42,7 @@ class User < ApplicationRecord
   end
 
   def has_subscription?
-    true
+    false
   end
 
   class << self

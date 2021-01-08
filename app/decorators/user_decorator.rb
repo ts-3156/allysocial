@@ -127,6 +127,14 @@ class UserDecorator
     end
   end
 
+  def users_limit
+    10000
+  end
+
+  def limit_reached?
+    friends_count > users_limit / 2 || followers_count > users_limit / 2
+  end
+
   def protected_label
     if @attrs[:is_protected]
       %Q(<i class="fas fa-lock"></i>)

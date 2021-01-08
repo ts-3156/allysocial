@@ -69,7 +69,11 @@ ja:
     form:
       search_user:
         title: '検索するユーザー'
-        tooltip: '検索するユーザーを指定することができます。'
+        tooltip: '上位プランを購入済みの場合のみ、検索するユーザーを指定することができます。'
+        free_help: '上位プランを購入済みの場合のみ、検索するユーザーを指定することができます。'
+        limit_reached_help_html: |
+          @<span class="user"></span> のフォローとフォロワーの合計が上限(%{count}人)を超えています。
+          さらに多くのユーザーを検索したい場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
         placeholder: '@username'
         quick_select: 'クイックセレクト：'
       search_category:
