@@ -1,4 +1,4 @@
-<div class="new-age-container">
+<div id="new-age-navbar" class="new-age-container">
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: white;">
     <div class="container border-bottom">
       <a class="navbar-brand" style="color: #222;" href="#" data-toggle="modal" data-target="#support-modal"><%= t('app_name') %></a>
@@ -13,3 +13,13 @@
     </div>
   </nav>
 </div>
+
+<script>
+  (function () {
+    try {
+      var height = window.getComputedStyle(document.getElementById('mainNav')).height;
+      document.getElementById('new-age-navbar').style.height = height;
+    } catch (e) {
+    }
+  })();
+</script>

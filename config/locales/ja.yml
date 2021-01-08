@@ -67,6 +67,8 @@ ja:
         もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   dashboard:
     form:
+      disabled_search_user:
+        alert: '検索するユーザーの変更は、プランの購入後に出来ます。'
       search_user:
         title: '検索するユーザー'
         tooltip: '上位プランを購入済みの場合は、自分以外も検索することができます。'

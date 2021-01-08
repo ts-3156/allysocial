@@ -21,9 +21,17 @@
       <a class="badge badge-primary" href="#"></a>
     </div>
   <% else %>
-    <input type="text" class="form-control mb-2 disabled" value="<%= current_user.screen_name %>" disabled style="min-width: 200px; max-width: 300px;">
+    <div style="position: relative;">
+      <input type="text" class="form-control mb-2 disabled" value="<%= current_user.screen_name %>" disabled style="min-width: 200px; max-width: 300px;">
+      <div id="disabled-search-user" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;"></div>
+    </div>
     <div class="text-info small mt-1"><%= t('.search_user.free_help') %></div>
     <input type="hidden" id="search-user" value="<%= current_user.screen_name %>">
+    <script>
+      $('#disabled-search-user').on('click', function () {
+        alert('<%= t('.disabled_search_user.alert') %>')
+      });
+    </script>
   <% end %>
 </div>
 

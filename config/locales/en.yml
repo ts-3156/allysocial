@@ -67,6 +67,8 @@ en:
         If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
   dashboard:
     form:
+      disabled_search_user:
+        alert: 'You can change the user to be searched after purchasing the plan.'
       search_user:
         title: 'Target user'
         tooltip: 'You can search another user if you have already purchased a higher level plan.'
