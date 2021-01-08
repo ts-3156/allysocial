@@ -69,8 +69,8 @@ ja:
     form:
       search_user:
         title: '検索するユーザー'
-        tooltip: '上位プランを購入済みの場合のみ、検索するユーザーを指定することができます。'
-        free_help: '上位プランを購入済みの場合のみ、検索するユーザーを指定することができます。'
+        tooltip: '上位プランを購入済みの場合は、自分以外も検索することができます。'
+        free_help: '上位プランを購入済みの場合は、自分以外も検索することができます。'
         limit_reached_help_html: |
           @<span class="user"></span> のフォローとフォロワーの合計が上限(%{count}人)を超えています。
           さらに多くのユーザーを検索したい場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
@@ -201,6 +201,7 @@ ja:
       details: '詳細を開く'
       egotter: 'えごったーで見る'
       twitter: 'ツイッターで見る'
+      reply: 'リプライする'
       direct_message: 'DMを送る'
       fix: '間違いを直す'
       bug: 'バグを報告する'

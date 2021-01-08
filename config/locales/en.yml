@@ -69,8 +69,8 @@ en:
     form:
       search_user:
         title: 'Target user'
-        tooltip: 'You can specify which user to search for only if you have already purchased a higher level plan.'
-        free_help: 'You can specify which user to search for only if you have already purchased a higher level plan.'
+        tooltip: 'You can search another user if you have already purchased a higher level plan.'
+        free_help: 'You can search another user if you have already purchased a higher level plan.'
         limit_reached_help_html: |
           The number of @<span class="user"></span>'s following and followers exceeds the limit(%{count}).
           If you would like to search for more users, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
@@ -201,6 +201,7 @@ en:
       details: 'Open details'
       egotter: 'See on egotter'
       twitter: 'See on Twitter'
-      direct_message: 'Send DM'
+      reply: 'Post a reply'
+      direct_message: 'Send a DM'
       fix: 'Fix data'
       bug: 'Report bug'

@@ -101,6 +101,7 @@
         <a class="dropdown-item open-user-details" href="#" data-uid="{{uid}}"><i class="fas fa-book-open text-muted"></i>&nbsp;<%= t('.details') %></a>
         <a class="dropdown-item" href="<%= egotter_url('{{screen_name}}') %>" target="_blank"><img src="<%= image_path '/egotter192.png' %>" width="16" height="16">&nbsp;<%= t('.egotter') %></a>
         <a class="dropdown-item" href="<%= twitter_url('{{screen_name}}') %>" target="_blank"><i class="fab fa-twitter text-muted"></i>&nbsp;<%= t('.twitter') %></a>
+        <a class="dropdown-item" href="<%= reply_url('{{screen_name}}') %>" target="_blank"><i class="far fa-comment text-muted"></i>&nbsp;<%= t('.reply') %></a>
         <a class="dropdown-item" href="<%= direct_message_url(current_user.uid, '{{uid}}') %>" target="_blank"><i class="far fa-envelope text-muted"></i>&nbsp;<%= t('.direct_message') %></a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#report-modal"><i class="fas fa-wrench text-muted"></i>&nbsp;<%= t('.fix') %></a>

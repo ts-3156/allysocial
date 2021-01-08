@@ -7,6 +7,10 @@ module PathsHelper
     "https://twitter.com/#{user}"
   end
 
+  def reply_url(screen_name)
+    "https://twitter.com/intent/tweet?screen_name=#{screen_name}"
+  end
+
   def direct_message_url(sender_uid, recipient_uid)
     "https://twitter.com/messages/#{sender_uid}-#{recipient_uid}"
   end
