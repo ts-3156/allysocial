@@ -290,7 +290,7 @@ class SearchForm {
       }
     } else {
       var container = $('<div/>', {style: 'display: none;'});
-      var loader = $('<div/>', {text: 'Loading'}).lazyload().one('appear', this.loadNextUsers.bind(this));
+      var loader = $('<div/>', {text: this.i18n['loading']}).lazyload().one('appear', this.loadNextUsers.bind(this));
 
       users.forEach(function (user) {
         container.append(this.renderUser(user));

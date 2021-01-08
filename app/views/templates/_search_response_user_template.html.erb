@@ -93,12 +93,13 @@
       {{/status_display}}
     </div>
 
-    <div class="dropdown" style="position: absolute; right: 10px; top: 8px;">
+    <div class="profile-dropdown-menu dropdown" style="position: absolute; right: 10px; top: 8px;">
       <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="text-muted fas fa-ellipsis-h" style="cursor: pointer;"></i>
       </div>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item open-user-details mb-2" href="#" data-uid="{{uid}}"><i class="fas fa-book-open text-muted"></i>&nbsp;<%= t('.details') %></a>
+        <a class="dropdown-item open-user-details mb-2" href="#" data-uid="{{uid}}"><i class="fas fa-expand-arrows-alt text-muted"></i>&nbsp;<%= t('.details') %></a>
+        <div class="dropdown-divider mb-2"></div>
         <a class="dropdown-item mb-2" href="<%= egotter_url('{{screen_name}}') %>" target="_blank"><img src="<%= image_path '/egotter192.png' %>" width="16" height="16">&nbsp;<%= t('.egotter') %></a>
         <a class="dropdown-item mb-2" href="<%= twitter_url('{{screen_name}}') %>" target="_blank"><i class="fab fa-twitter text-muted"></i>&nbsp;<%= t('.twitter') %></a>
         <a class="dropdown-item mb-2" href="<%= reply_url('{{screen_name}}') %>" target="_blank"><i class="far fa-comment text-muted"></i>&nbsp;<%= t('.reply') %></a>
@@ -120,6 +121,10 @@
         $('.search-response-user-details[data-uid="' + uid + '"]').show();
       }
       return false;
+    });
+
+    $(document).on('click', '.profile-dropdown-menu .dropdown-menu a', function () {
+      $(this).parents('.profile-dropdown-menu').find('div[data-toggle="dropdown"]').dropdown('toggle');
     });
   });
 </script>

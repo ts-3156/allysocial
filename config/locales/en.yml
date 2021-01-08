@@ -113,6 +113,7 @@ en:
           among @<span class="user"></span>'s
           <a class="badge badge-primary category" href="#search-category-anchor"></a>
       js:
+        loading: 'Loading'
         specify_correct_label: 'Please specify search label.'
         no_results_found_html:
           No search results are found.<br>
