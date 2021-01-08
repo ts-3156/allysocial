@@ -98,13 +98,13 @@
         <i class="text-muted fas fa-ellipsis-h" style="cursor: pointer;"></i>
       </div>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item open-user-details" href="#" data-uid="{{uid}}"><i class="fas fa-book-open text-muted"></i>&nbsp;<%= t('.details') %></a>
-        <a class="dropdown-item" href="<%= egotter_url('{{screen_name}}') %>" target="_blank"><img src="<%= image_path '/egotter192.png' %>" width="16" height="16">&nbsp;<%= t('.egotter') %></a>
-        <a class="dropdown-item" href="<%= twitter_url('{{screen_name}}') %>" target="_blank"><i class="fab fa-twitter text-muted"></i>&nbsp;<%= t('.twitter') %></a>
-        <a class="dropdown-item" href="<%= reply_url('{{screen_name}}') %>" target="_blank"><i class="far fa-comment text-muted"></i>&nbsp;<%= t('.reply') %></a>
-        <a class="dropdown-item" href="<%= direct_message_url(current_user.uid, '{{uid}}') %>" target="_blank"><i class="far fa-envelope text-muted"></i>&nbsp;<%= t('.direct_message') %></a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#report-modal"><i class="fas fa-wrench text-muted"></i>&nbsp;<%= t('.fix') %></a>
+        <a class="dropdown-item open-user-details mb-2" href="#" data-uid="{{uid}}"><i class="fas fa-book-open text-muted"></i>&nbsp;<%= t('.details') %></a>
+        <a class="dropdown-item mb-2" href="<%= egotter_url('{{screen_name}}') %>" target="_blank"><img src="<%= image_path '/egotter192.png' %>" width="16" height="16">&nbsp;<%= t('.egotter') %></a>
+        <a class="dropdown-item mb-2" href="<%= twitter_url('{{screen_name}}') %>" target="_blank"><i class="fab fa-twitter text-muted"></i>&nbsp;<%= t('.twitter') %></a>
+        <a class="dropdown-item mb-2" href="<%= reply_url('{{screen_name}}') %>" target="_blank"><i class="far fa-comment text-muted"></i>&nbsp;<%= t('.reply') %></a>
+        <a class="dropdown-item mb-2" href="<%= direct_message_url(current_user.uid, '{{uid}}') %>" target="_blank"><i class="far fa-envelope text-muted"></i>&nbsp;<%= t('.direct_message') %></a>
+        <div class="dropdown-divider mb-2"></div>
+        <a class="dropdown-item mb-2" href="#" data-toggle="modal" data-target="#report-modal"><i class="fas fa-wrench text-muted"></i>&nbsp;<%= t('.fix') %></a>
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#report-modal"><i class="far fa-flag text-muted"></i>&nbsp;<%= t('.bug') %></a>
       </div>
     </div>

@@ -56,31 +56,34 @@ class SearchLabel {
   setOptions(options) {
     logger.log('datalist', options);
     this.datalist.empty();
-    var self = this;
 
     options.forEach(function (option) {
       var tag = $('<option/>', {value: option.label, text: option.label});
-      self.datalist.append(tag);
-    });
+      this.datalist.append(tag);
+    }, this);
 
     this.updatePlaceholder();
     this.blink();
   }
 
-  setQuickSelect(options) {
-    var self = this;
+  setQuickSelectBadges(options) {
     $('#quick-select a').text('');
     options.forEach(function (option, i) {
       var btn = $('#quick-select a:eq(' + i + ')');
+      var self = this;
       btn.text(option.label).off('click').on('click', function () {
-        if (self.value() !== option.value) {
-          self.form.resetState('label selected');
-          self.elem.val(option.value);
-          self.form.search();
-        }
+        self.selectBadge($(this), option);
         return false;
       });
-    });
+    }, this);
+  }
+
+  selectBadge(btn, option) {
+    if (this.value() !== option.value) {
+      this.form.resetState('label selected');
+      this.elem.val(option.value);
+      this.form.search();
+    }
   }
 
   setExtraCounts(extra) {
@@ -111,7 +114,7 @@ class SearchLabel {
       var user = res.user;
       $.get(self.url, {category: category, type: type, uid: user.uid}).done(function (data) {
         self.setOptions(data.options);
-        self.setQuickSelect(data.quick_select);
+        self.setQuickSelectBadges(data.quick_select);
         self.setExtraCounts(data.extra);
       }.bind(self));
     });
@@ -171,9 +174,9 @@ class SearchForm {
 
     $('#show-details-check').on('change', function () {
       if ($(this).prop('checked')) {
-        $('#search-response').find('.search-response-user-details').show();
+        self.showUserDetails();
       } else {
-        $('#search-response').find('.search-response-user-details').hide();
+        self.hideUserDetails();
       }
     });
 
@@ -181,6 +184,16 @@ class SearchForm {
       self.search();
       return false;
     });
+  }
+
+  showUserDetails() {
+    $('#search-response').find('.search-response-user-details').show().end()
+      .find('.open-user-details').hide();
+  }
+
+  hideUserDetails() {
+    $('#search-response').find('.search-response-user-details').hide().end()
+      .find('.open-user-details').show();
   }
 
   setSearchLabel(obj) {
@@ -251,6 +264,22 @@ class SearchForm {
     return $('#search-user').val().replace(/^@/, '');
   }
 
+  renderUser(user) {
+    if (user.description) {
+      user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
+      user.description = window.linkifyHtml(user.description, {defaultProtocol: 'https'});
+    }
+    user.index_number = this.currentIndexNumber++;
+
+    var template = $('#search-response-user-template').html(); // TODO instance variable
+    var rendered = $(Mustache.render(template, user));
+    rendered.find('img[data-src]').each(function () {
+      var img = $(this);
+      img.attr('src', img.attr('data-src'));
+    });
+    return rendered;
+  }
+
   appendSearchResponse(users) {
     if (!users || users.length === 0) {
       if (this.lastUid) {
@@ -261,39 +290,27 @@ class SearchForm {
       }
     } else {
       var container = $('<div/>', {style: 'display: none;'});
-      var template = $('#search-response-user-template').html(); // TODO instance variable
-      var self = this;
+      var loader = $('<div/>', {text: 'Loading'}).lazyload().one('appear', this.loadNextUsers.bind(this));
 
       users.forEach(function (user) {
-        // TODO Implement as a method
-        if (user.description) {
-          user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
-          user.description = window.linkifyHtml(user.description, {defaultProtocol: 'https'});
-        }
-        user.index_number = self.currentIndexNumber++;
-        var rendered = $(Mustache.render(template, user));
-        rendered.find('img[data-src]').each(function () {
-          var img = $(this);
-          img.attr('src', img.attr('data-src'));
-        });
-        container.append(rendered);
-      });
-      if (!$('#show-details-check').prop('checked')) {
-        container.find('.search-response-user-details').hide();
-      }
+        container.append(this.renderUser(user));
+      }, this);
       $('#search-response').append(container);
+      $('#show-details-check').trigger('change');
       container.fadeIn(500);
-      $('#search-response').append($('<div/>', {text: 'Loading'}).lazyload().one('appear', function () {
-        var elem = $(this);
-        setTimeout(function () {
-          self.search(function () {
-            elem.remove();
-          });
-        }, 1000);
-      }));
+      $('#search-response').append(loader);
 
       this.lastUid = users[users.length - 1].uid;
     }
+  }
+
+  loadNextUsers(e) {
+    var self = this;
+    setTimeout(function () {
+      self.search(function () {
+        $(e.target).remove();
+      });
+    }, 1000);
   }
 
   search(callback) {
