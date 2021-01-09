@@ -190,6 +190,8 @@ class SearchForm {
       return false;
     });
 
+    $('#search-sort').on('change', this.switchSort.bind(this));
+
     $('.search-response-title')
       .find('.category').on('click', function () {
       $('[data-target="#search-category-underline"]').trigger('start.underline');
@@ -246,6 +248,17 @@ class SearchForm {
     this.searchLabel.fetchOptions();
   }
 
+  switchSort() {
+    this.resetState('switch sort');
+    if (this.label().length > 0) {
+      this.search();
+    }
+  }
+
+  screenName() {
+    return $('#search-user').val().replace(/^@/, '');
+  }
+
   category() {
     return $("input[name='category']:checked").val();
   }
@@ -266,8 +279,8 @@ class SearchForm {
     return this.searchLabel.value();
   }
 
-  screenName() {
-    return $('#search-user').val().replace(/^@/, '');
+  sort() {
+    return $('#search-sort').val();
   }
 
   renderUser(user) {
@@ -325,6 +338,7 @@ class SearchForm {
     var label = this.label();
     var screenName = this.screenName();
     var limit = 10;
+    var sort = this.sort();
     var self = this;
 
     if (!screenName.match(nameRegexp)) {
@@ -371,6 +385,7 @@ class SearchForm {
         label: label,
         uid: user.uid,
         limit: limit,
+        sort: sort,
         last_uid: self.lastUid
       };
       logger.log('request', params);
@@ -386,7 +401,7 @@ class SearchForm {
   }
 
   showErrorMessage(message) {
-    this.responseContainer.empty().text(message).hide().fadeIn(500);
+    this.responseContainer.empty().html(message).hide().fadeIn(500);
   }
 }
 

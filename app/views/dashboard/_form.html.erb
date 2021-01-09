@@ -130,6 +130,22 @@
 <div class="mb-5">
 </div>
 
+<div class="d-flex mb-5">
+<%# Filter %>
+  <div>
+    <button id="" class="btn btn-outline-secondary">
+      <i class="fas fa-filter text-muted"></i>
+      <%= t('.filter.button') %>
+    </button>
+  </div>
+<%# Sort %>
+  <select id="search-sort" class="custom-select ml-5" style="width: auto;">
+    <option value="asc" selected><%= Sort.value_to_label(:asc) %></option>
+    <option value="desc"><%= Sort.value_to_label(:desc) %></option>
+  </select>
+
+</div>
+
 <%# Submit %>
 <div class="d-flex align-items-center mb-5">
   <div>

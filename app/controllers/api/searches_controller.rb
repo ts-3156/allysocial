@@ -8,7 +8,7 @@ module Api
     before_action { set_user_snapshot(params[:uid]) }
 
     def show
-      options = { limit: params[:limit], last_uid: params[:last_uid] }
+      options = { limit: params[:limit], sort: params[:sort], last_uid: params[:last_uid] }
       users = @user_snapshot.search_by(params[:category], params[:type], params[:label], options)
       response_users = users.map { |user| user.to_user_decorator({ category: params[:category] }, view_context) }
 

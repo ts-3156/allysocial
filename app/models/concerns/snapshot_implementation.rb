@@ -85,16 +85,17 @@ module SnapshotImplementation
 
   def select_with_like_query(options, &block)
     return_users = []
+    limit = extract_limit(options)
+    chunks = reverse_order?(options) ? users_chunks.reverse_order : users_chunks
 
-    users_chunks.each do |response|
-      uids = response.properties['uids']
+    chunks.each do |chunk|
+      uids = chunk.properties['uids']
+      uids = uids.reverse if reverse_order?(options)
 
       if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{1,30}\z/)
         next if !(index = uids.index(options[:last_uid].to_i)) || index == uids.size - 1
         uids = uids.slice((index + 1)..-1)
       end
-
-      limit = extract_limit(options)
 
       uids.each_slice(100).each do |uids_array|
         remaining_limit = limit - return_users.size
@@ -105,18 +106,13 @@ module SnapshotImplementation
         users = yield.where(uid: uids_array).order_by_field(uids_array).limit(remaining_limit)
         return_users.concat(users.to_a)
 
-        if return_users.size >= limit
-          break
-        end
+        break if return_users.size >= limit
       end
 
-      if return_users.size >= limit
-        return_users = return_users.take(limit)
-        break
-      end
+      break if return_users.size >= limit
     end
 
-    return_users
+    return_users.take(limit)
   end
 
   def extract_limit(options)
@@ -125,5 +121,9 @@ module SnapshotImplementation
     else
       100
     end
+  end
+
+  def reverse_order?(options)
+    options[:sort] == 'desc'
   end
 end
