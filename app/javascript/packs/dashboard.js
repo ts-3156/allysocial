@@ -82,9 +82,10 @@ class SearchLabel {
     if (this.value() !== option.value) {
       this.form.resetState('label selected');
       this.elem.val(option.value);
-      this.form.search();
-      $([document.documentElement, document.body]).animate({
-        scrollTop: $('#search-response-anchor').offset().top
+      this.form.search(function () {
+        $([document.documentElement, document.body]).animate({
+          scrollTop: $('#search-response-anchor').offset().top
+        });
       });
     }
   }
