@@ -105,10 +105,9 @@ en:
         placeholder_keyword: 'e.g. Accepting requests for work'
         quick_select: 'Quick select: '
         submit: 'Search'
-      filter:
-        button: 'Filter'
-      sort:
-        button: 'Sort'
+      filter: 'Filter'
+      sort: 'Sort'
+      not_specified: 'Not specified'
       reduced_display:
         title: 'Reduced display'
         tooltip: 'If checked, hide profile details of the search results.'

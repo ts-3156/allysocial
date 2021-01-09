@@ -191,6 +191,7 @@ class SearchForm {
     });
 
     $('#search-sort').on('change', this.switchSort.bind(this));
+    $('#search-filter').on('change', this.switchFilter.bind(this));
 
     $('.search-response-title')
       .find('.category').on('click', function () {
@@ -255,6 +256,13 @@ class SearchForm {
     }
   }
 
+  switchFilter() {
+    this.resetState('switch filter');
+    if (this.label().length > 0) {
+      this.search();
+    }
+  }
+
   screenName() {
     return $('#search-user').val().replace(/^@/, '');
   }
@@ -281,6 +289,10 @@ class SearchForm {
 
   sort() {
     return $('#search-sort').val();
+  }
+
+  filter() {
+    return $('#search-filter').val();
   }
 
   renderUser(user) {
@@ -339,6 +351,7 @@ class SearchForm {
     var screenName = this.screenName();
     var limit = 10;
     var sort = this.sort();
+    var filter = this.filter();
     var self = this;
 
     if (!screenName.match(nameRegexp)) {
@@ -386,6 +399,7 @@ class SearchForm {
         uid: user.uid,
         limit: limit,
         sort: sort,
+        filter: filter,
         last_uid: self.lastUid
       };
       logger.log('request', params);

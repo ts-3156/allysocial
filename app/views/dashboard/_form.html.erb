@@ -131,19 +131,23 @@
 </div>
 
 <div class="d-flex mb-5">
-<%# Filter %>
+  <%# Filter %>
   <div>
-    <button id="" class="btn btn-outline-secondary">
-      <i class="fas fa-filter text-muted"></i>
-      <%= t('.filter.button') %>
-    </button>
+    <label class="d-block" for="search-filter"><%= t('.filter') %></label>
+    <select id="search-filter" class="custom-select" style="width: auto;">
+      <option disabled selected value><%= t('.not_specified') %></option>
+      <option value="<%= Filter::VALUES[0] %>"><%= Filter.value_to_label(Filter::VALUES[0]) %></option>
+      <option value="<%= Filter::VALUES[1] %>"><%= Filter.value_to_label(Filter::VALUES[1]) %></option>
+    </select>
   </div>
-<%# Sort %>
-  <select id="search-sort" class="custom-select ml-5" style="width: auto;">
-    <option value="asc" selected><%= Sort.value_to_label(:asc) %></option>
-    <option value="desc"><%= Sort.value_to_label(:desc) %></option>
-  </select>
-
+  <%# Sort %>
+  <div class="ml-5">
+    <label class="d-block" for="search-sort"><%= t('.sort') %></label>
+    <select id="search-sort" class="custom-select" style="width: auto;">
+      <option value="<%= Sort::VALUES[0] %>" selected><%= Sort.value_to_label(Sort::VALUES[0]) %></option>
+      <option value="<%= Sort::VALUES[1] %>"><%= Sort.value_to_label(Sort::VALUES[1]) %></option>
+    </select>
+  </div>
 </div>
 
 <%# Submit %>

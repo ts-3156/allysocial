@@ -99,12 +99,11 @@ module SnapshotImplementation
 
       uids.each_slice(100).each do |uids_array|
         remaining_limit = limit - return_users.size
-        if remaining_limit <= 0
-          break
-        end
+        break if remaining_limit <= 0
 
-        users = yield.where(uid: uids_array).order_by_field(uids_array).limit(remaining_limit)
-        return_users.concat(users.to_a)
+        query = yield.where(uid: uids_array).order_by_field(uids_array).limit(remaining_limit)
+        query = Filter.apply(query, options[:filter])
+        return_users.concat(query.to_a)
 
         break if return_users.size >= limit
       end
@@ -116,10 +115,10 @@ module SnapshotImplementation
   end
 
   def extract_limit(options)
-    if options[:limit] && options[:limit].to_i <= 100
+    if options[:limit] && options[:limit].to_i <= 10
       options[:limit].to_i
     else
-      100
+      10
     end
   end
 
