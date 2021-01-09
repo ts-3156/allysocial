@@ -135,9 +135,13 @@
   <div>
     <label class="d-block" for="search-filter"><%= t('.filter') %></label>
     <select id="search-filter" class="custom-select" style="width: auto;">
-      <option disabled selected value><%= t('.not_specified') %></option>
-      <option value="<%= Filter::VALUES[0] %>"><%= Filter.value_to_label(Filter::VALUES[0]) %></option>
-      <option value="<%= Filter::VALUES[1] %>"><%= Filter.value_to_label(Filter::VALUES[1]) %></option>
+      <option selected><%= t('.not_specified') %></option>
+      <% Filter::VALUES.each.with_index do |value, i| %>
+        <% if i == 0 || i == 4 || i == 7 || i == 9 %>
+          <option disabled>----</option>
+        <% end %>
+        <option value="<%= value %>"><%= Filter.value_to_label(value) %></option>
+      <% end %>
     </select>
   </div>
   <%# Sort %>
