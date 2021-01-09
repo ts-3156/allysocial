@@ -243,11 +243,11 @@ class UserDecorator
   end
 
   def job_label_s
-    JobSelector.value_to_label(Occupation.new(@attrs).job_name)
+    JobSelector.value_to_label(Occupation.new(@attrs).job_key)
   end
 
   def job_badges
-    Occupation.new(@attrs).job_names(3).map do |name|
+    Occupation.new(@attrs).job_keys(3).map do |name|
       %Q(<span class="badge badge-success">#{JobSelector.value_to_label(name)}</span>)
     end
   end

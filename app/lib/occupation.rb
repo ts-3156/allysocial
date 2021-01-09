@@ -27,12 +27,11 @@ class Occupation
     @attrs[:followers_count] || 0
   end
 
-  # TODO Rename to job_key
-  def job_name
-    job_names(1)[0] || 'not_applicable'
+  def job_key
+    job_keys(1)[0] || 'not_applicable'
   end
 
-  def job_names(count = 3)
+  def job_keys(count = 3)
     found = []
     self.class.job_detector_methods.map do |method_name|
       found << method_name if send("#{method_name}?")
