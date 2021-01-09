@@ -135,13 +135,13 @@ class UserDecorator
     friends_count > users_limit / 2 || followers_count > users_limit / 2
   end
 
-  def protected_label
+  def protected_icon
     if @attrs[:is_protected]
       %Q(<i class="fas fa-lock"></i>)
     end
   end
 
-  def verified_label
+  def verified_icon
     if @attrs[:is_verified]
       <<-'HTML'
       <span class="fa-stack" style="font-size: 0.5em;">
@@ -152,31 +152,31 @@ class UserDecorator
     end
   end
 
-  def followers_label()
+  def followers_badge()
     if @options[:category] == 'followers'
-      category_label(I18n.t('templates.search_response_user_template.categories.follower'))
+      category_badge(I18n.t('templates.search_response_user_template.categories.follower'))
     end
   end
 
-  def one_sided_friends_label
+  def one_sided_friends_badge
     if @options[:category] == 'one_sided_friends'
-      category_label(I18n.t('templates.search_response_user_template.categories.one_sided_friend'))
+      category_badge(I18n.t('templates.search_response_user_template.categories.one_sided_friend'))
     end
   end
 
-  def one_sided_followers_label
+  def one_sided_followers_badge
     if @options[:category] == 'one_sided_followers'
-      category_label(I18n.t('templates.search_response_user_template.categories.one_sided_follower'))
+      category_badge(I18n.t('templates.search_response_user_template.categories.one_sided_follower'))
     end
   end
 
-  def mutual_friends_label
+  def mutual_friends_badge
     if @options[:category] == 'mutual_friends'
-      category_label(I18n.t('templates.search_response_user_template.categories.mutual_friend'))
+      category_badge(I18n.t('templates.search_response_user_template.categories.mutual_friend'))
     end
   end
 
-  def category_label(text)
+  def category_badge(text)
     %Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{text}</span>)
   end
 
@@ -192,72 +192,71 @@ class UserDecorator
     false
   end
 
-  def active_1hour_label
+  def active_1hour_badge
     if active_period?(1.hour)
-      active_label(I18n.t('templates.search_response_user_template.active_1hour'))
+      active_badge(I18n.t('templates.search_response_user_template.active_1hour'))
     end
   end
 
-  def active_12hours_label
+  def active_12hours_badge
     if active_period?(12.hours)
-      active_label(I18n.t('templates.search_response_user_template.active_12hours'))
+      active_badge(I18n.t('templates.search_response_user_template.active_12hours'))
     end
   end
 
-  def active_3days_label
+  def active_3days_badge
     if active_period?(3.days)
-      active_label(I18n.t('templates.search_response_user_template.active_3days'))
+      active_badge(I18n.t('templates.search_response_user_template.active_3days'))
     end
   end
 
-  def active_1week_label
+  def active_1week_badge
     if active_period?(1.week)
-      active_label(I18n.t('templates.search_response_user_template.active_1week'))
+      active_badge(I18n.t('templates.search_response_user_template.active_1week'))
     end
   end
 
-  def active_label(text)
+  def active_badge(text)
     %Q(<span class="badge badge-primary">#{text}</span>)
   end
 
-  def inactive_3months_label
+  def inactive_3months_badge
     if inactive_period?(3.months)
-      inactive_label(I18n.t('templates.search_response_user_template.inactive_3months'))
+      inactive_badge(I18n.t('templates.search_response_user_template.inactive_3months'))
     end
   end
 
-  def inactive_1month_label
+  def inactive_1month_badge
     if inactive_period?(1.month)
-      inactive_label(I18n.t('templates.search_response_user_template.inactive_1month'))
+      inactive_badge(I18n.t('templates.search_response_user_template.inactive_1month'))
     end
   end
 
-  def inactive_1week_label
+  def inactive_1week_badge
     if inactive_period?(1.week)
-      inactive_label(I18n.t('templates.search_response_user_template.inactive_1week'))
+      inactive_badge(I18n.t('templates.search_response_user_template.inactive_1week'))
     end
   end
 
-  def inactive_label(text)
+  def inactive_badge(text)
     %Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{text}</span>)
   end
 
-  # TODO Rename to job_badge
   def job_label_s
     JobSelector.value_to_label(Occupation.new(@attrs).job_name)
   end
 
-  def job_labels
+  def job_badges
     Occupation.new(@attrs).job_names(3).map do |name|
       %Q(<span class="badge badge-success">#{JobSelector.value_to_label(name)}</span>)
     end
   end
 
-  def labels
+  def badges
     [
-      mutual_friends_label || one_sided_followers_label || one_sided_friends_label || followers_label,
-      active_1hour_label || active_12hours_label || active_3days_label || active_1week_label || inactive_3months_label || inactive_1month_label || inactive_1week_label,
-      *job_labels,
+      mutual_friends_badge || one_sided_followers_badge || one_sided_friends_badge || followers_badge,
+      active_1hour_badge || active_12hours_badge || active_3days_badge || active_1week_badge || inactive_3months_badge || inactive_1month_badge || inactive_1week_badge,
+      *job_badges,
     ].compact.join('&nbsp;')
   end
 
@@ -307,9 +306,9 @@ class UserDecorator
       status_photos_display: @attrs[:status_photo_urls].present?,
       status_photo_urls: @attrs[:status_photo_urls],
       status_created_at: status_created_at,
-      protected_label: protected_label,
-      verified_label: verified_label,
-      labels: labels,
+      protected_icon: protected_icon,
+      verified_icon: verified_icon,
+      badges: badges,
     }
   end
 end
