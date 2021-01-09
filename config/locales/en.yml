@@ -106,7 +106,9 @@ en:
         quick_select: 'Quick select: '
         submit: 'Search'
       filter: 'Filter'
+      filter_help: 'You can filter the results.'
       sort: 'Sort'
+      sort_help: 'You can sort the results.'
       not_specified: 'Not specified'
       reduced_display:
         title: 'Reduced display'

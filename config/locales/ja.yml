@@ -106,7 +106,9 @@ ja:
         quick_select: 'クイックセレクト：'
         submit: '検索する'
       filter: '絞り込み'
+      filter_help: '結果にフィルターを適用することができます。'
       sort: '並び替え'
+      sort_help: '結果の並び順を指定することができます。'
       not_specified: '指定なし'
       reduced_display:
         title: 'コンパクト表示'

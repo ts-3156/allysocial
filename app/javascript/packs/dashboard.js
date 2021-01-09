@@ -108,20 +108,22 @@ class SearchLabel {
     }
   }
 
-  fetchOptions() {
-    var category = this.form.category();
-    var type = this.form.type();
-    var screenName = this.form.screenName();
-    var self = this;
-
-    screenNameToUid(screenName, function (res) {
-      var user = res.user;
-      $.get(self.url, {category: category, type: type, uid: user.uid}).done(function (data) {
-        self.setOptions(data.options);
-        self.setQuickSelectBadges(data.quick_select);
-        self.setExtraCounts(data.extra);
-      }.bind(self));
-    });
+  fetchOptions(callback) {
+    screenNameToUid(this.form.screenName(), function (res) {
+      var params = {
+        category: this.form.category(),
+        type: this.form.type(),
+        uid: res.user.uid
+      };
+      $.get(this.url, params).done(function (data) {
+        this.setOptions(data.options);
+        this.setQuickSelectBadges(data.quick_select);
+        this.setExtraCounts(data.extra);
+        if (callback) {
+          callback();
+        }
+      }.bind(this));
+    }.bind(this));
   }
 
   setNeutral() {

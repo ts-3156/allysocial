@@ -242,6 +242,11 @@ class UserDecorator
     %Q(<span class="badge badge-secondary" style="background-color: darkgray;">#{text}</span>)
   end
 
+  # TODO Rename to job_badge
+  def job_label_s
+    JobSelector.value_to_label(Occupation.new(@attrs).job_name)
+  end
+
   def job_labels
     Occupation.new(@attrs).job_names(3).map do |name|
       %Q(<span class="badge badge-success">#{JobSelector.value_to_label(name)}</span>)

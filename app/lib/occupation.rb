@@ -27,8 +27,9 @@ class Occupation
     @attrs[:followers_count] || 0
   end
 
+  # TODO Rename to job_key
   def job_name
-    job_names[1][0] || 'not_applicable'
+    job_names(1)[0] || 'not_applicable'
   end
 
   def job_names(count = 3)
