@@ -3,7 +3,7 @@
 <%# Search user %>
 <div class="mb-5">
   <div class="mb-3">
-    <span class="h5" data-toggle="underline" data-target="#search-user-underline"><%= t('.search_user.title') %></span>
+    <span class="h6" data-toggle="underline" data-target="#search-user-underline"><%= t('.search_user.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_user.tooltip') %>"></i>
     <div id="search-user-underline" class="underline"></div>
   </div>
@@ -11,8 +11,7 @@
   <% if current_user.has_subscription? %>
     <input type="text" id="search-user" class="form-control mb-2" list="search-user-options"
            value="<%= current_user.screen_name %>"
-           placeholder="<%= t('.search_user.placeholder') %>"
-           style="min-width: 200px; max-width: 300px;">
+           placeholder="<%= t('.search_user.placeholder') %>">
     <datalist id="search-user-options">
     </datalist>
     <div id="quick-select-user">
@@ -23,7 +22,7 @@
     </div>
   <% else %>
     <div style="position: relative;">
-      <input type="text" class="form-control mb-2 disabled" value="<%= current_user.screen_name %>" disabled style="min-width: 200px; max-width: 300px;">
+      <input type="text" class="form-control mb-2 disabled" value="<%= current_user.screen_name %>" disabled>
       <div id="disabled-search-user" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;"></div>
     </div>
     <div class="text-info small mt-1"><%= t('.search_user.free_help') %></div>
@@ -40,33 +39,31 @@
 <a id="search-category-anchor" style="display: block; position: relative; top: -60px; visibility: hidden;"></a>
 <div class="mr-5 mb-5">
   <div class="mb-3">
-    <span class="h5" data-toggle="underline" data-target="#search-category-underline"><%= t('.search_category.title') %></span>
+    <span class="h6" data-toggle="underline" data-target="#search-category-underline"><%= t('.search_category.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_category.tooltip') %>"></i>
     <div id="search-category-underline" class="underline"></div>
   </div>
 
-  <div class="container">
-    <div class="row mb-1">
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="category" id="category-friends" value="friends" data-label="<%= t('.search_category.friends') %>" checked>
-        <label class="form-check-label" for="category-friends" style="white-space: nowrap;"><%= t('.search_category.friends') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="category" id="category-followers" value="followers" data-label="<%= t('.search_category.followers') %>">
-        <label class="form-check-label" for="category-followers" style="white-space: nowrap;"><%= t('.search_category.followers') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="category" id="category-one_sided_friends" value="one_sided_friends" data-label="<%= t('.search_category.one_sided_friends') %>">
-        <label class="form-check-label" for="category-one_sided_friends" style="white-space: nowrap;"><%= t('.search_category.one_sided_friends') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="category" id="category-one_sided_followers" value="one_sided_followers" data-label="<%= t('.search_category.one_sided_followers') %>">
-        <label class="form-check-label" for="category-one_sided_followers" style="white-space: nowrap;"><%= t('.search_category.one_sided_followers') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
-      <div class="col-sm-12 col-md-3 form-check">
-        <input class="form-check-input" type="radio" name="category" id="category-mutual_friends" value="mutual_friends" data-label="<%= t('.search_category.mutual_friends') %>">
-        <label class="form-check-label" for="category-mutual_friends" style="white-space: nowrap;"><%= t('.search_category.mutual_friends') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
+  <div class="small ml-3 mb-1">
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-friends" value="friends" data-label="<%= t('.search_category.friends') %>" checked>
+      <label class="form-check-label" for="category-friends" style="white-space: nowrap;"><%= t('.search_category.friends') %>&nbsp;<span class="count small text-muted"></span></label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-followers" value="followers" data-label="<%= t('.search_category.followers') %>">
+      <label class="form-check-label" for="category-followers" style="white-space: nowrap;"><%= t('.search_category.followers') %>&nbsp;<span class="count small text-muted"></span></label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-one_sided_friends" value="one_sided_friends" data-label="<%= t('.search_category.one_sided_friends') %>">
+      <label class="form-check-label" for="category-one_sided_friends" style="white-space: nowrap;"><%= t('.search_category.one_sided_friends') %>&nbsp;<span class="count small text-muted"></span></label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="category" id="category-one_sided_followers" value="one_sided_followers" data-label="<%= t('.search_category.one_sided_followers') %>">
+      <label class="form-check-label" for="category-one_sided_followers" style="white-space: nowrap;"><%= t('.search_category.one_sided_followers') %>&nbsp;<span class="count small text-muted"></span></label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="category" id="category-mutual_friends" value="mutual_friends" data-label="<%= t('.search_category.mutual_friends') %>">
+      <label class="form-check-label" for="category-mutual_friends" style="white-space: nowrap;"><%= t('.search_category.mutual_friends') %>&nbsp;<span class="count small text-muted"></span></label>
     </div>
   </div>
 </div>
@@ -75,29 +72,27 @@
 <a id="search-type-anchor" style="display: block; position: relative; top: -60px; visibility: hidden;"></a>
 <div class="mb-5">
   <div class="mb-3">
-    <span class="h5" data-toggle="underline" data-target="#search-type-underline"><%= t('.search_type.title') %></span>
+    <span class="h6" data-toggle="underline" data-target="#search-type-underline"><%= t('.search_type.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_type.tooltip') %>"></i>
     <div id="search-type-underline" class="underline"></div>
   </div>
 
-  <div class="container">
-    <div class="row mb-1">
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="type" id="type-job" value="job" data-label="<%= t('.search_type.job') %>" checked>
-        <label class="form-check-label" for="type-job"><%= t('.search_type.job') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="type" id="type-location" value="location" data-label="<%= t('.search_type.location') %>">
-        <label class="form-check-label" for="type-location"><%= t('.search_type.location') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="type" id="type-url" value="url" data-label="<%= t('.search_type.url') %>">
-        <label class="form-check-label" for="type-url"><%= t('.search_type.url') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
-      <div class="col-sm-12 col-md-3 form-check mb-2">
-        <input class="form-check-input" type="radio" name="type" id="type-keyword" value="keyword" data-label="<%= t('.search_type.keyword') %>">
-        <label class="form-check-label" for="type-keyword"><%= t('.search_type.keyword') %>&nbsp;<span class="count small text-muted"></span></label>
-      </div>
+  <div class="small ml-3 mb-1">
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-job" value="job" data-label="<%= t('.search_type.job') %>" checked>
+      <label class="form-check-label" for="type-job"><%= t('.search_type.job') %>&nbsp;<span class="count small text-muted"></span></label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-location" value="location" data-label="<%= t('.search_type.location') %>">
+      <label class="form-check-label" for="type-location"><%= t('.search_type.location') %>&nbsp;<span class="count small text-muted"></span></label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-url" value="url" data-label="<%= t('.search_type.url') %>">
+      <label class="form-check-label" for="type-url"><%= t('.search_type.url') %>&nbsp;<span class="count small text-muted"></span></label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="type" id="type-keyword" value="keyword" data-label="<%= t('.search_type.keyword') %>">
+      <label class="form-check-label" for="type-keyword"><%= t('.search_type.keyword') %>&nbsp;<span class="count small text-muted"></span></label>
     </div>
   </div>
 </div>
@@ -106,7 +101,7 @@
 <a id="search-label-anchor" style="display: block; position: relative; top: -60px; visibility: hidden;"></a>
 <div class="mb-5">
   <div class="mb-3">
-    <span class="h5" data-toggle="underline" data-target="#search-label-underline"><%= t('.search_label.title') %></span>
+    <span class="h6" data-toggle="underline" data-target="#search-label-underline"><%= t('.search_label.title') %></span>
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
     <div id="search-label-underline" class="underline"></div>
   </div>
@@ -115,11 +110,10 @@
          data-placeholder-job="<%= t('.search_label.placeholder_job') %>"
          data-placeholder-location="<%= t('.search_label.placeholder_location') %>"
          data-placeholder-url="<%= t('.search_label.placeholder_url') %>"
-         data-placeholder-keyword="<%= t('.search_label.placeholder_keyword') %>"
-         style="min-width: 200px; max-width: 300px;">
+         data-placeholder-keyword="<%= t('.search_label.placeholder_keyword') %>">
   <datalist id="search-label-options">
   </datalist>
-  <div id="quick-select">
+  <div id="quick-select" class="small">
     <span><%= t('.search_label.quick_select') %></span>
     <a class="badge badge-primary mr-1" href="#"></a>
     <a class="badge badge-primary mr-1" href="#"></a>
@@ -127,59 +121,40 @@
   </div>
 </div>
 
+<%# Filter %>
 <div class="mb-5">
+  <label class="d-block" for="search-filter"><%= t('.filter') %></label>
+  <select id="search-filter" class="custom-select">
+    <option selected><%= t('.not_specified') %></option>
+    <% Filter::VALUES.each.with_index do |value, i| %>
+      <% if i == 0 || i == 4 || i == 7 || i == 9 %>
+        <option disabled>----</option>
+      <% end %>
+      <option value="<%= value %>"><%= Filter.value_to_label(value) %></option>
+    <% end %>
+  </select>
 </div>
 
-<div class="d-flex mb-5">
-  <%# Filter %>
-  <div>
-    <label class="d-block" for="search-filter"><%= t('.filter') %></label>
-    <select id="search-filter" class="custom-select" style="width: auto;">
-      <option selected><%= t('.not_specified') %></option>
-      <% Filter::VALUES.each.with_index do |value, i| %>
-        <% if i == 0 || i == 4 || i == 7 || i == 9 %>
-          <option disabled>----</option>
-        <% end %>
-        <option value="<%= value %>"><%= Filter.value_to_label(value) %></option>
-      <% end %>
-    </select>
-  </div>
-  <%# Sort %>
-  <div class="ml-5">
-    <label class="d-block" for="search-sort"><%= t('.sort') %></label>
-    <select id="search-sort" class="custom-select" style="width: auto;">
-      <option value="<%= Sort::VALUES[0] %>" selected><%= Sort.value_to_label(Sort::VALUES[0]) %></option>
-      <option value="<%= Sort::VALUES[1] %>"><%= Sort.value_to_label(Sort::VALUES[1]) %></option>
-    </select>
-  </div>
+<%# Sort %>
+<div class="mb-5">
+  <label class="d-block" for="search-sort"><%= t('.sort') %></label>
+  <select id="search-sort" class="custom-select">
+    <option value="<%= Sort::VALUES[0] %>" selected><%= Sort.value_to_label(Sort::VALUES[0]) %></option>
+    <option value="<%= Sort::VALUES[1] %>"><%= Sort.value_to_label(Sort::VALUES[1]) %></option>
+  </select>
+</div>
+
+<%# check %>
+<div class="form-group form-check mb-5">
+  <input type="checkbox" class="form-check-input" id="reduced-display-check" checked>
+  <label class="form-check-label" for="reduced-display-check"><%= t('.reduced_display.title') %></label>
+  <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.reduced_display.tooltip') %>"></i>
 </div>
 
 <%# Submit %>
-<div class="d-flex align-items-center mb-5">
-  <div>
-    <button id="search-submit" type="submit" class="btn btn-primary"><%= t('.search_label.submit') %></button>
-  </div>
-
-  <div class="form-group form-check ml-5 mb-0">
-    <input type="checkbox" class="form-check-input" id="reduced-display-check" checked>
-    <label class="form-check-label" for="reduced-display-check"><%= t('.reduced_display.title') %></label>
-    <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.reduced_display.tooltip') %>"></i>
-  </div>
+<div>
+  <button id="search-submit" type="submit" class="btn btn-primary"><%= t('.search_label.submit') %></button>
 </div>
-
-<div class="mb-5">
-  <hr>
-</div>
-
-<a id="search-response-anchor" style="display: block; position: relative; top: -60px; visibility: hidden;"></a>
-<div class="pb-5" style="min-height: 300px;">
-  <p class="search-response-title lead mb-5" style="display: none;">
-    <%= t('.search_response.html') %>
-  </p>
-
-  <div id="search-response"></div>
-</div>
-
 
 <script>
   $(function () {
