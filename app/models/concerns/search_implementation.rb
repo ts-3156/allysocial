@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module SnapshotImplementation
+module SearchImplementation
   extend ActiveSupport::Concern
 
   class_methods do
@@ -84,8 +84,10 @@ module SnapshotImplementation
   private
 
   def select_with_like_query(options, &block)
+    limit = options[:limit]
+    return [] if limit <= 0
+
     return_users = []
-    limit = extract_limit(options)
     chunks = reverse_order?(options) ? users_chunks.reverse_order : users_chunks
 
     chunks.each do |chunk|
@@ -112,14 +114,6 @@ module SnapshotImplementation
     end
 
     return_users.take(limit)
-  end
-
-  def extract_limit(options)
-    if options[:limit] && options[:limit].to_i <= 10
-      options[:limit].to_i
-    else
-      10
-    end
   end
 
   def reverse_order?(options)

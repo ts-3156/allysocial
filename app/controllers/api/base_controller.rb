@@ -1,5 +1,8 @@
 module Api
   class BaseController < ApplicationController
+
+    before_action :require_referer
+
     rescue_from StandardError do |e|
       logger.warn "Unhandled exception: #{e.inspect}"
       logger.info e.backtrace.join("\n")
@@ -7,6 +10,12 @@ module Api
     end
 
     private
+
+    def require_referer
+      if request.referer.blank?
+        render json: { message: ':referer not specified' }, status: :bad_request
+      end
+    end
 
     def require_category
       unless params[:category] && params[:category].match?(/\A(friends|followers|one_sided_friends|one_sided_followers|mutual_friends)\z/)

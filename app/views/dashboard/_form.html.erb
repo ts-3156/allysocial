@@ -168,7 +168,8 @@
     var i18n = {
       loading: '<%= t('.js.loading') %>',
       specify_correct_label: '<%= t('.js.specify_correct_label') %>',
-      no_results_found: '<%= t('.js.no_results_found_html', app: t('app_name')) %>'
+      no_results_found: '<%= t('.js.no_results_found_html', app: t('app_name')) %>',
+      payment_required: '<%= t('.js.payment_required') %>'
     };
     var form = new SearchForm('<%= raw api_searches_path %>', i18n);
     var label = new SearchLabel('<%= raw api_label_options_path %>', form);

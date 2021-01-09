@@ -9,7 +9,7 @@
 #  updated_at       :datetime         not null
 #
 class OneSidedFollowersSnapshot < ApplicationRecord
-  include SnapshotImplementation
+  include SearchImplementation
 
   belongs_to :user_snapshot
   has_many :one_sided_followers_chunks

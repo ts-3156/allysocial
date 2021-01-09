@@ -127,6 +127,7 @@ en:
           <br>
           %{app} has only just been released. I will be actively fixing bugs.
           If you have any bug reports or feature requests, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
+        payment_required: 'もっとたくさん検索するためには、上位のプランの購入が必要です。'
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'

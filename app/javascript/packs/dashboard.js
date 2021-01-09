@@ -171,7 +171,7 @@ class SearchForm {
   constructor(url, i18n) {
     this.url = url;
     this.lastUid = null;
-    this.currentIndexNumber = 1;
+    this.currentSize = 0;
     this.i18n = i18n;
     this.responseContainer = $('#search-response');
     var self = this;
@@ -219,7 +219,7 @@ class SearchForm {
     this.responseContainer.empty();
     this.searchLabel.setNeutral();
     this.lastUid = null;
-    this.currentIndexNumber = 1;
+    this.currentSize = 0;
   }
 
   switchUser() {
@@ -303,7 +303,7 @@ class SearchForm {
       user.description = user.description.replace('\n', '<br>').replace(/https?:\/\//g, '');
       user.description = window.linkifyHtml(user.description, {defaultProtocol: 'https'});
     }
-    user.index_number = this.currentIndexNumber++;
+    user.index_number = ++this.currentSize;
 
     var template = $('#search-response-user-template').html(); // TODO instance variable
     var rendered = $(Mustache.render(template, user));
@@ -317,7 +317,9 @@ class SearchForm {
   appendSearchResponse(users) {
     if (!users || users.length === 0) {
       if (this.lastUid) {
-        // Do nothing
+        if (this.i18n['payment_required']) {
+          this.responseContainer.append(this.i18n['payment_required']);
+        }
       } else {
         this.resetState('no results found');
         this.showErrorMessage(this.i18n['no_results_found']);
@@ -358,7 +360,6 @@ class SearchForm {
     var type = this.type();
     var label = this.label();
     var screenName = this.screenName();
-    var limit = 10;
     var sort = this.sort();
     var filter = this.filter();
     var self = this;
@@ -406,10 +407,10 @@ class SearchForm {
         type: type,
         label: label,
         uid: user.uid,
-        limit: limit,
         sort: sort,
         filter: filter,
-        last_uid: self.lastUid
+        last_uid: self.lastUid,
+        current_size: self.currentSize
       };
       logger.log('request', params);
 

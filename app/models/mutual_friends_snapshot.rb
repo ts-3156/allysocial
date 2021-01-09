@@ -9,7 +9,7 @@
 #  updated_at       :datetime         not null
 #
 class MutualFriendsSnapshot < ApplicationRecord
-  include SnapshotImplementation
+  include SearchImplementation
 
   belongs_to :user_snapshot
   has_many :mutual_friends_chunks

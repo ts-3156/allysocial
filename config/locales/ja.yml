@@ -128,6 +128,7 @@ ja:
           <br>
           %{app} はリリースされたばかりで、積極的にバグ修正を行っています。
           バグの報告や機能追加の要望は、お気軽に <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
+        payment_required: 'もっとたくさん検索するためには、上位のプランの購入が必要です。'
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'
