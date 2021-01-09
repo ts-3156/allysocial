@@ -138,6 +138,7 @@ class SearchLabel {
   setInvalid() {
     this.setNeutral();
     this.elem.addClass('is-invalid');
+    $('[data-target="#search-label-underline"]').trigger('start.underline');
   }
 
   blink() {
@@ -323,7 +324,7 @@ class SearchForm {
       }
     } else {
       var container = $('<div/>', {style: 'display: none;'});
-      var loader = $('<div/>', {text: this.i18n['loading']}).lazyload().one('appear', this.loadNextUsers.bind(this));
+      var loader = this.createLoader(this.loadNextUsers.bind(this));
 
       users.forEach(function (user) {
         container.append(this.renderUser(user));
@@ -344,6 +345,12 @@ class SearchForm {
         $(e.target).remove();
       });
     }, 1000);
+  }
+
+  createLoader(callback) {
+    var elem = $('<div/>', {text: this.i18n['loading']}).lazyload().one('appear', callback);
+    var img = $('<img/>', {src: 'ajax-loader.gif', loading: 'lazy', class: 'ml-1'});
+    return elem.append(img);
   }
 
   search(callback) {
