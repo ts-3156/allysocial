@@ -121,13 +121,15 @@
 <script>
   $(function () {
     $(document).on('expand.user', '.search-response-user-container', function () {
-      $(this).find('.search-response-user-details').show().end()
+      $(this).addClass('expanded')
+        .find('.search-response-user-details').show().end()
         .find('.expand-user-details').hide().end()
         .find('.compress-user-details').show();
     });
 
     $(document).on('compress.user', '.search-response-user-container', function () {
-      $(this).find('.search-response-user-details').hide().end()
+      $(this).removeClass('expanded')
+        .find('.search-response-user-details').hide().end()
         .find('.expand-user-details').show().end()
         .find('.compress-user-details').hide();
     });
@@ -140,6 +142,10 @@
     $(document).on('click', '.compress-user-details', function () {
       $(this).parents('.search-response-user-container').trigger('compress.user');
       return false;
+    });
+
+    $('body').on('click', function (e) {
+      $(e.target).parents('.search-response-user-container:not(.expanded)').trigger('expand.user');
     });
 
     $(document).on('click', '.profile-dropdown-menu .dropdown-menu a', function () {
