@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     get 'searches', to: 'searches#show'
     resources :label_options, only: %i(index)
     get 'twitter_users', to: 'twitter_users#show'
+
+    resources :webhooks, only: %i(create)
+    resources :checkout_sessions, only: %i(create)
+    # resources :subscriptions, only: %i(destroy)
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }

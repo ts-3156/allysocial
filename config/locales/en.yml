@@ -72,7 +72,7 @@ en:
       search_user:
         title: 'Target user'
         tooltip: 'You can search another user if you have already purchased a higher level plan.'
-        free_help: 'You can search another user if you have already purchased a higher level plan.'
+        free_help_html: 'You can search another user if you have already purchased a higher level plan. <a class="text-primary btn-checkout" href="#">more details</a>'
         limit_reached_help_html: |
           The number of @<span class="user"></span>'s following and followers exceeds the limit(%{count}).
           If you would like to search for more users, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
@@ -127,11 +127,14 @@ en:
           <br>
           %{app} has only just been released. I will be actively fixing bugs.
           If you have any bug reports or feature requests, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
-        payment_required: 'もっとたくさん検索するためには、上位のプランの購入が必要です。'
+        payment_required_html: 'To search more, you need to purchase a higher level plan. <a class="btn btn-primary btn-sm btn-checkout" href="#">more details</a>'
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
       failure: 'Could not authenticate you from Twitter because %{reason}.'
+  api:
+    subscriptions:
+      destroy: 'You have successfully cancelled a subscription.'
   shared:
     profile_section:
       details: 'Show profile details'
@@ -143,6 +146,8 @@ en:
       one_sided_following: 'One-sided following'
       one_sided_followers: 'One-sided followers'
       mutual_following: 'Mutual following'
+    stripe:
+      already_purchased: 'Already purchased'
     faq_modal:
       title: 'FAQ'
       body_html: |

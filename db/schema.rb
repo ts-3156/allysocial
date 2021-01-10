@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_06_005741) do
+ActiveRecord::Schema.define(version: 2021_01_09_203322) do
 
   create_table "credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -185,6 +185,27 @@ ActiveRecord::Schema.define(version: 2021_01_06_005741) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_one_sided_friends_snapshots_on_created_at"
     t.index ["user_snapshot_id"], name: "index_one_sided_friends_snapshots_on_user_snapshot_id", unique: true
+  end
+
+  create_table "subscriptions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "email"
+    t.string "name"
+    t.integer "price"
+    t.decimal "tax_rate", precision: 4, scale: 2
+    t.string "stripe_checkout_session_id"
+    t.string "stripe_customer_id"
+    t.string "stripe_subscription_id"
+    t.datetime "trial_end_at"
+    t.datetime "canceled_at"
+    t.datetime "charge_failed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_subscriptions_on_created_at"
+    t.index ["stripe_checkout_session_id"], name: "index_subscriptions_on_stripe_checkout_session_id", unique: true
+    t.index ["stripe_customer_id"], name: "index_subscriptions_on_stripe_customer_id", unique: true
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "twitter_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

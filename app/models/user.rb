@@ -17,6 +17,7 @@ class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i(twitter)
 
   has_one :credential
+  has_many :subscriptions
 
   validates :uid, presence: true, uniqueness: true
   validates :email, presence: true
@@ -42,7 +43,11 @@ class User < ApplicationRecord
   end
 
   def has_subscription?
-    false
+    subscriptions.not_canceled.charge_not_failed.any?
+  end
+
+  def current_subscription
+    subscriptions.not_canceled.charge_not_failed.order(created_at: :desc).first
   end
 
   class << self

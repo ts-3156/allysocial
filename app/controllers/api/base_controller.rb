@@ -89,6 +89,12 @@ module Api
       end
     end
 
+    def has_no_subscription
+      if current_user&.has_subscription?
+        render json: { message: 'You already have a subscription' }, status: :bad_request
+      end
+    end
+
     def strip_tags(value)
       @view_context ||= view_context
       @view_context.strip_tags(value)

@@ -9,9 +9,11 @@ import "channels";
 
 import {SearchLabel, SearchForm} from './dashboard';
 import './underline';
+import {Stripe} from './stripe';
 
 window.SearchLabel = SearchLabel;
 window.SearchForm = SearchForm;
+window.MyStripe = Stripe;
 
 Rails.start();
 ActiveStorage.start();

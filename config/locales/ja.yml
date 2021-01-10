@@ -72,7 +72,7 @@ ja:
       search_user:
         title: '検索するユーザー'
         tooltip: '上位プランを購入済みの場合は、自分以外も検索することができます。'
-        free_help: '上位プランを購入済みの場合は、自分以外も検索することができます。'
+        free_help_html: '上位プランを購入済みの場合は、自分以外も検索することができます。<a class="text-primary btn-checkout" href="#">もっと詳しく</a>'
         limit_reached_help_html: |
           @<span class="user"></span> のフォローとフォロワーの合計が上限(%{count}人)を超えています。
           さらに多くのユーザーを検索したい場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
@@ -128,11 +128,14 @@ ja:
           <br>
           %{app} はリリースされたばかりで、積極的にバグ修正を行っています。
           バグの報告や機能追加の要望は、お気軽に <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
-        payment_required: 'もっとたくさん検索するためには、上位のプランの購入が必要です。'
+        payment_required_html: 'もっとたくさん検索するためには、上位のプランの購入が必要です。<a class="btn btn-primary btn-checkout" href="#">もっと詳しく</a>'
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'
       failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'
+  api:
+    subscriptions:
+      destroy: '定期購読のキャンセルに成功しました。'
   shared:
     profile_section:
       details: 'プロフィール詳細を開く'
@@ -144,6 +147,8 @@ ja:
       one_sided_following: '片思いフォロー'
       one_sided_followers: '片思いフォロワー'
       mutual_following: '相互フォロー'
+    stripe:
+      already_purchased: '購入済み'
     faq_modal:
       title: 'FAQ'
       body_html: |
