@@ -87,6 +87,10 @@ class ApiClient
     end
   end
 
+  def rate_limit
+    RateLimit.new(@client)
+  end
+
   class RequestWithRetryHandler
     def initialize(method)
       @method = method
