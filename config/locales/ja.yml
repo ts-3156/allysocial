@@ -214,6 +214,7 @@ ja:
       inactive_3months: '3ヶ月間ツイートなし'
       expand: '詳細を開く'
       compress: '詳細を閉じる'
+      search: 'このユーザーを検索する'
       egotter: 'えごったーで見る'
       twitter: 'ツイッターで見る'
       reply: 'リプライする'

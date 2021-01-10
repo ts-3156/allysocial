@@ -214,6 +214,7 @@ en:
       inactive_3months: 'No tweets for 3 months'
       expand: 'Expand details'
       compress: 'Compress details'
+      search: 'Search this user'
       egotter: 'See on egotter'
       twitter: 'See on Twitter'
       reply: 'Post a reply'

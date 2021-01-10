@@ -223,15 +223,9 @@ class SearchForm {
   }
 
   switchUser() {
-    var self = this;
-    screenNameToUid(this.screenName(), function (res) {
-      var user = res.user;
-      window.updateProfileSection(user.uid, 0, function () {
-        self.resetState('switch user');
-        self.searchLabel.clearValue();
-        self.searchLabel.fetchOptions();
-      });
-    });
+    this.resetState('switch user');
+    this.searchLabel.clearValue();
+    this.searchLabel.fetchOptions();
   }
 
   switchCategory() {

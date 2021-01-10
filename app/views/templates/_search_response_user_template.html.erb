@@ -105,6 +105,7 @@
         <a class="dropdown-item expand-user-details mb-2" href="#"><i class="fas fa-expand-arrows-alt text-muted"></i>&nbsp;<%= t('.expand') %></a>
         <a class="dropdown-item compress-user-details mb-2" style="display: none;" href="#"><i class="fas fa-compress-arrows-alt text-muted"></i>&nbsp;<%= t('.compress') %></a>
         <div class="dropdown-divider mb-2"></div>
+        <a class="dropdown-item search-this-user mb-2" data-screen-name="{{screen_name}}" href="#"><i class="fas fa-search"></i>&nbsp;<%= t('.search') %></a>
         <a class="dropdown-item mb-2" href="<%= egotter_url('{{screen_name}}') %>" target="_blank"><img src="<%= image_path '/egotter192.png' %>" width="16" height="16">&nbsp;<%= t('.egotter') %></a>
         <a class="dropdown-item mb-2" href="<%= twitter_url('{{screen_name}}') %>" target="_blank"><i class="fab fa-twitter text-muted"></i>&nbsp;<%= t('.twitter') %></a>
         <a class="dropdown-item mb-2" href="<%= reply_url('{{screen_name}}') %>" target="_blank"><i class="far fa-comment text-muted"></i>&nbsp;<%= t('.reply') %></a>
@@ -146,6 +147,11 @@
 
     $('body').on('click', function (e) {
       $(e.target).parents('.search-response-user-container:not(.expanded)').trigger('expand.user');
+    });
+
+    $(document).on('click', '.search-this-user', function () {
+      $('#search-user').val($(this).data('screen-name')).trigger('change');
+      return false;
     });
 
     $(document).on('click', '.profile-dropdown-menu .dropdown-menu a', function () {
