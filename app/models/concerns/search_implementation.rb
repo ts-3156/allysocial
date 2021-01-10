@@ -91,7 +91,7 @@ module SearchImplementation
     chunks = reverse_order?(options) ? users_chunks.reverse_order : users_chunks
 
     chunks.each do |chunk|
-      uids = chunk.properties['uids']
+      uids = chunk.uids
       uids = uids.reverse if reverse_order?(options)
 
       if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{1,30}\z/)

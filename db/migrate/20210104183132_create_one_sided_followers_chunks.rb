@@ -2,7 +2,7 @@ class CreateOneSidedFollowersChunks < ActiveRecord::Migration[6.1]
   def change
     create_table :one_sided_followers_chunks do |t|
       t.bigint :one_sided_followers_snapshot_id, null: false
-      t.json :properties
+      t.json :uids
 
       t.timestamps null: false
 

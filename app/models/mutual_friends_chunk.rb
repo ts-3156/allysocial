@@ -4,7 +4,7 @@
 #
 #  id                         :bigint           not null, primary key
 #  mutual_friends_snapshot_id :bigint           not null
-#  properties                 :json
+#  uids                       :json
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #

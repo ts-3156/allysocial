@@ -6,7 +6,7 @@
 #  friends_snapshot_id :bigint           not null
 #  previous_cursor     :bigint
 #  next_cursor         :bigint
-#  properties          :json
+#  uids                :json
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #

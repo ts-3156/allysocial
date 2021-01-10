@@ -104,7 +104,7 @@ class UserSnapshot < ApplicationRecord
   def fetch_uids(relation, limit)
     uids = []
     relation.users_chunks.each do |chunk|
-      uids.concat(chunk.properties['uids'])
+      uids.concat(chunk.uids)
       break if uids.size >= limit
     end
     uids.take(limit)
@@ -135,7 +135,7 @@ class UserSnapshot < ApplicationRecord
   def fetch_users(relation, limit)
     users = []
     relation.users_chunks.each do |chunk|
-      uids = chunk.properties['uids']
+      uids = chunk.uids
       users.concat(TwitterUser.where(uid: uids).order_by_field(uids))
       break if users.size >= limit
     end

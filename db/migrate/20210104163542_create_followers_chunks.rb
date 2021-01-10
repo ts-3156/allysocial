@@ -4,7 +4,7 @@ class CreateFollowersChunks < ActiveRecord::Migration[6.1]
       t.bigint :followers_snapshot_id, null: false
       t.bigint :previous_cursor
       t.bigint :next_cursor
-      t.json :properties
+      t.json :uids
 
       t.timestamps null: false
 

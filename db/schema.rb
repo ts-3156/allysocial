@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_203322) do
     t.bigint "followers_snapshot_id", null: false
     t.bigint "previous_cursor"
     t.bigint "next_cursor"
-    t.json "properties"
+    t.json "uids"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_followers_chunks_on_created_at"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_203322) do
     t.bigint "friends_snapshot_id", null: false
     t.bigint "previous_cursor"
     t.bigint "next_cursor"
-    t.json "properties"
+    t.json "uids"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_friends_chunks_on_created_at"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_203322) do
 
   create_table "mutual_friends_chunks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "mutual_friends_snapshot_id", null: false
-    t.json "properties"
+    t.json "uids"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_mutual_friends_chunks_on_created_at"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_203322) do
 
   create_table "one_sided_followers_chunks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "one_sided_followers_snapshot_id", null: false
-    t.json "properties"
+    t.json "uids"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_one_sided_followers_chunks_on_created_at"
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_203322) do
 
   create_table "one_sided_friends_chunks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "one_sided_friends_snapshot_id", null: false
-    t.json "properties"
+    t.json "uids"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_one_sided_friends_chunks_on_created_at"

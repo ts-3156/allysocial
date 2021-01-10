@@ -17,7 +17,7 @@ module SnapshotImplementation
     end
 
     uids.each_slice(5000) do |uids_array|
-      users_chunks.create!(properties: { uids: uids_array })
+      users_chunks.create!(uids: uids_array)
     end
 
     uids.each_slice(100) do |uids_array|

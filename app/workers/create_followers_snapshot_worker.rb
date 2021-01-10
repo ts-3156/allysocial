@@ -18,7 +18,7 @@ class CreateFollowersSnapshotWorker
     else
       snapshot = user_snapshot.create_followers_snapshot!
       snapshot.update_from_user_id(user_id)
-      CreateFollowersInsightWorker.perform_async(user_id, user_snapshot.id, snapshot.users_chunks.first.properties['uids'])
+      CreateFollowersInsightWorker.perform_async(user_id, user_snapshot.id, snapshot.users_chunks.first.uids)
     end
 
     if user_snapshot.friends_snapshot && user_snapshot.followers_snapshot
