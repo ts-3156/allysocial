@@ -50,6 +50,10 @@ class User < ApplicationRecord
     subscriptions.not_canceled.charge_not_failed.order(created_at: :desc).first
   end
 
+  def profile_image_url
+    user_snapshot&.properties&.dig('profile_image_url')
+  end
+
   class << self
     def from_omniauth(auth)
       user = find_or_initialize_by(uid: auth.uid)

@@ -21,8 +21,6 @@ class UserSnapshot < ApplicationRecord
   has_one :one_sided_followers_insight
   has_one :mutual_friends_insight
 
-  # TODO properties -> user
-
   def self.latest_by(condition)
     order(created_at: :desc).find_by(condition)
   end
@@ -145,7 +143,7 @@ class UserSnapshot < ApplicationRecord
   end
 
   def to_user_decorator(options, view_context)
-    if (hash = properties&.fetch('user', nil)) # TODO Rename to user
+    if (hash = properties.dup)
       if hash['status_created_at']
         hash['status_created_at'] = (Time.zone.parse(hash['status_created_at']) rescue nil)
       end

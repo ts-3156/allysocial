@@ -5,7 +5,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" style="color: #222; text-transform: none;" href="#" data-toggle="modal" data-target="#support-modal">
-            <img class="rounded-circle" src="<%= current_user.user_snapshot&.properties&.dig('user', 'profile_image_url') %>" width="24" height="24">
+            <img class="rounded-circle" src="<%= current_user.profile_image_url %>" width="24" height="24">
             @<%= current_user.screen_name %>
           </a>
         </li>

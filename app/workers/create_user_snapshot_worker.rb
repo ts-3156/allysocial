@@ -29,6 +29,6 @@ class CreateUserSnapshotWorker
   def create_snapshot!(user_id, uid)
     raw_user = User.find(user_id).api_client.user(uid)
     api_user = ApiUser.new(raw_user)
-    UserSnapshot.create!(uid: uid, properties: { user: api_user.to_user_snapshot_attrs })
+    UserSnapshot.create!(uid: uid, properties: api_user.to_user_snapshot_properties)
   end
 end

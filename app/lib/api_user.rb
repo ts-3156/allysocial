@@ -145,7 +145,7 @@ class ApiUser
     to_twitter_user_attrs
   end
 
-  def to_user_snapshot_attrs
+  def to_user_snapshot_properties
     to_twitter_user_attrs
   end
 
