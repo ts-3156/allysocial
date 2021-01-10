@@ -110,6 +110,18 @@ class UserSnapshot < ApplicationRecord
     uids.take(limit)
   end
 
+  def calc_one_sided_friend_uids
+    friend_uids(limit: 100000) - follower_uids(limit: 100000)
+  end
+
+  def calc_one_sided_follower_uids
+    follower_uids(limit: 100000) - friend_uids(limit: 100000)
+  end
+
+  def calc_mutual_friend_uids
+    friend_uids(limit: 100000) & follower_uids(limit: 100000)
+  end
+
   USERS_LIMIT = 5000
 
   def friends(limit: USERS_LIMIT)

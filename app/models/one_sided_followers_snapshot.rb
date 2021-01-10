@@ -19,11 +19,8 @@ class OneSidedFollowersSnapshot < ApplicationRecord
   end
 
   def update_from_user_snapshot(user_id, user_snapshot)
-    friend_uids = user_snapshot.friends_snapshot.users_chunks.map { |chunk| chunk.uids }.flatten
-    follower_uids = user_snapshot.followers_snapshot.users_chunks.map { |chunk| chunk.uids }.flatten
-
-    (follower_uids - friend_uids).each_slice(5000).each do |uids_array|
-      users_chunks.create!(uids: uids_array)
+    user_snapshot.calc_one_sided_follower_uids.each_slice(5000).each do |uids|
+      users_chunks.create!(uids: uids)
     end
 
     update(completed_at: Time.zone.now)
