@@ -24,38 +24,46 @@ class ApiClient
   end
 
   def friend_ids(uid, &block)
-    collect_with_cursor(10) do |options|
-      RequestWithRetryHandler.new(__method__).perform do
-        response = @client.friend_ids(uid, options)
-        block.call(response) if block
-        response
-      end
+    collect_with_cursor_and_cache(__method__, uid, block) do |options|
+      @client.send(__method__, uid, options)&.attrs
     end
   end
 
   def follower_ids(uid, &block)
+    collect_with_cursor_and_cache(__method__, uid, block) do |options|
+      @client.send(__method__, uid, options)&.attrs
+    end
+  end
+
+  def collect_with_cursor_and_cache(method_name, uid, callback, &block)
     collect_with_cursor(10) do |options|
-      RequestWithRetryHandler.new(__method__).perform do
-        response = @client.follower_ids(uid, options)
-        block.call(response) if block
-        response
+      cache = ApiCollectWithCursorCache.new({ method: method_name }.merge(options))
+
+      response = cache.fetch(uid) do
+        RequestWithRetryHandler.new(method_name).perform do
+          yield(options)
+        end
       end
+
+      callback.call(response) if callback
+
+      response
     end
   end
 
   def collect_with_cursor(loop_limit)
-    options = { count: 5000 }
+    options = { count: 5000, cursor: -1 }
     collection = []
 
     loop_limit.times do
       response = yield(options)
       break if response.nil?
 
-      collection << response.attrs[:ids]
+      collection << response[:ids]
 
-      break if response.attrs[:next_cursor] == 0
+      break if response[:next_cursor] == 0
 
-      options[:cursor] = response.attrs[:next_cursor]
+      options[:cursor] = response[:next_cursor]
     end
 
     collection.flatten
@@ -86,13 +94,13 @@ class ApiClient
     end
 
     def perform(&block)
-      ApplicationRecord.benchmark("Benchmark RequestWithRetryHandler#perform method=#{@method}", level: :info) do
+      ApplicationRecord.benchmark("Benchmark method=#{@method}", level: :info) do
         yield
       end
     rescue => e
       @retries += 1
       handle_retryable_error(e)
-      Rails.logger.info "RequestWithRetryHandler#perform: retry #{@method}"
+      Rails.logger.info "Retry method=#{@method} exception=#{e.class}"
       retry
     end
 

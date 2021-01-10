@@ -22,8 +22,7 @@ class FriendsSnapshot < ApplicationRecord
     insight_enqueued = false
     client = User.find(user_id).api_client
 
-    client.friend_ids(user_snapshot.uid) do |response|
-      attrs = response.attrs
+    client.friend_ids(user_snapshot.uid) do |attrs|
       users_chunks.create!(previous_cursor: attrs[:previous_cursor], next_cursor: attrs[:next_cursor], properties: { uids: attrs[:ids] })
 
       attrs[:ids].each_slice(100) do |uids_array|
