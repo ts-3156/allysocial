@@ -166,7 +166,7 @@
         callback();
       }
     }).fail(function (xhr) {
-      if (xhr.status === 404) {
+      if (xhr.status === 404) { // Not found
         setTimeout(function () {
           updateProfileSection(uid, ++retryCount);
         }, Math.pow(2, retryCount) * 1000);

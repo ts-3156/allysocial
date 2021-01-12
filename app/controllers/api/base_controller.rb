@@ -49,7 +49,8 @@ module Api
         @user_snapshot = snapshot
       else
         create_user_snapshot(uid)
-        render json: { message: t('api.base.data_not_completed', app: t('app_name')) }, status: :not_found
+        screen_name = (user = TwitterUser.find_by(uid: uid)) ? user.screen_name : 'user'
+        render json: { message: t('api.base.data_not_completed_html', app: t('app_name'), user: screen_name, url: view_context.image_path('/ajax-loader.gif')) }, status: :accepted
       end
     end
 

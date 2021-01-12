@@ -4,35 +4,6 @@ var logger = new Logger(process.env.RAILS_ENV);
 
 var nameRegexp = /^[\w_]{1,20}$/;
 
-function screenNameToUid(screenName, done) {
-  if (!screenName.match(nameRegexp)) {
-    return;
-  }
-
-  var fetch = function (retryCount) {
-    if (retryCount >= 5) {
-      return;
-    }
-
-    var url = '/api/twitter_users'; // api_twitter_users_path
-    $.get(url, {screen_name: screenName}).done(done).fail(function (xhr) {
-      if (xhr.status === 404) {
-        setTimeout(function () {
-          fetch(++retryCount);
-        }, Math.pow(2, retryCount) * 1000);
-      }
-    });
-  };
-
-  fetch();
-}
-
-function scrollToTop() {
-  $([document.documentElement, document.body]).animate({
-    scrollTop: $('#search-response-anchor').offset().top
-  });
-}
-
 function extractErrorMessage(xhr, textStatus, errorThrown) {
   var message;
   try {
@@ -44,6 +15,49 @@ function extractErrorMessage(xhr, textStatus, errorThrown) {
     message = xhr.status + ' (' + errorThrown + ')';
   }
   return message;
+}
+
+function showErrorMessage(message) {
+  $('.search-response-error').empty().html(message).hide().fadeIn(500);
+}
+
+function hideErrorMessage() {
+  $('.search-response-error').empty();
+}
+
+function screenNameToUid(screenName, done) {
+  if (!screenName.match(nameRegexp)) {
+    return;
+  }
+
+  var fetch = function (retryCount) {
+    if (retryCount >= 10) {
+      return;
+    }
+
+    var url = '/api/twitter_users'; // api_twitter_users_path
+    $.get(url, {screen_name: screenName}).done(function (res, _, xhr) {
+      if (xhr.status === 202) { // Accepted
+        setTimeout(function () {
+          fetch(++retryCount);
+        }, Math.pow(2, retryCount) * 1000);
+      } else {
+        done(res);
+      }
+    }).fail(function (xhr, textStatus, errorThrown) {
+      var message = extractErrorMessage(xhr, textStatus, errorThrown);
+      showErrorMessage(message);
+      scrollToTop();
+    });
+  };
+
+  fetch(0);
+}
+
+function scrollToTop() {
+  $([document.documentElement, document.body]).animate({
+    scrollTop: $('#search-response-anchor').offset().top
+  });
 }
 
 class SearchLabel {
@@ -137,21 +151,23 @@ class SearchLabel {
         uid: uid
       };
 
-      $.get(self.url, params).done(function (data) {
-        self.setOptions(data.options);
-        self.setQuickSelectBadges(data.quick_select);
-        self.setExtraCounts(data.extra);
-        if (callback) {
-          callback();
+      $.get(self.url, params).done(function (data, _, xhr) {
+        if (xhr.status === 202) { // Accepted
+          setTimeout(function () {
+            fetch(uid, ++retryCount);
+          }, Math.pow(2, retryCount) * 1000);
+        } else {
+          self.setOptions(data.options);
+          self.setQuickSelectBadges(data.quick_select);
+          self.setExtraCounts(data.extra);
+          if (callback) {
+            callback();
+          }
         }
       }).fail(function (xhr, textStatus, errorThrown) {
         var message = extractErrorMessage(xhr, textStatus, errorThrown);
-        self.form.responseContainer.text(message);
+        showErrorMessage(message);
         scrollToTop();
-
-        setTimeout(function () {
-          fetch(uid, ++retryCount);
-        }, Math.pow(2, retryCount) * 1000);
       });
     };
 
@@ -189,10 +205,6 @@ class SearchLabel {
 
   setValue(val) {
     this.elem.val(val);
-  }
-
-  clearValue() {
-    this.elem.val('');
   }
 
   setQuickSelectValue() {
@@ -268,8 +280,7 @@ class SearchForm {
 
   switchUser() {
     this.resetState('switch user');
-    this.searchLabel.clearValue();
-    this.searchLabel.fetchOptions();
+    this.searchLabel.fetchOptions(this.search.bind(this));
   }
 
   switchCategory() {
@@ -357,7 +368,7 @@ class SearchForm {
         }
       } else {
         this.resetState('no results found');
-        this.showErrorMessage(this.i18n['no_results_found']);
+        showErrorMessage(this.i18n['no_results_found']);
       }
     } else {
       var container = $('<div/>', {style: 'display: none;'});
@@ -386,7 +397,7 @@ class SearchForm {
 
   createLoader(callback) {
     var elem = $('<div/>', {text: this.i18n['loading']}).lazyload().one('appear', callback);
-    var img = $('<img/>', {src: 'ajax-loader.gif', loading: 'lazy', class: 'ml-1'});
+    var img = $('<img/>', {src: '/ajax-loader.gif', loading: 'lazy', class: 'ml-1'});
     return elem.append(img);
   }
 
@@ -402,28 +413,28 @@ class SearchForm {
     if (!screenName.match(nameRegexp)) {
       logger.warn('Invalid screenName', screenName);
       this.resetState('Invalid screenName');
-      this.showErrorMessage('Please specify correct [screenName]');
+      showErrorMessage('Please specify correct [screenName]');
       return;
     }
 
     if (category !== 'friends' && category !== 'followers' && category !== 'one_sided_friends' && category !== 'one_sided_followers' && category !== 'mutual_friends') {
       logger.warn('Invalid category', category);
       this.resetState('Invalid category');
-      this.showErrorMessage('Please specify correct [category]');
+      showErrorMessage('Please specify correct [category]');
       return;
     }
 
     if (type !== 'job' && type !== 'location' && type !== 'url' && type !== 'keyword') {
       logger.warn('Invalid type', type);
       this.resetState('Invalid type');
-      this.showErrorMessage('Please specify correct [type]');
+      showErrorMessage('Please specify correct [type]');
       return;
     }
 
     if (!label || label.length === 0) {
       logger.warn('Invalid label', label);
       this.resetState('Invalid label');
-      this.showErrorMessage(this.i18n['specify_correct_label']);
+      showErrorMessage(this.i18n['specify_correct_label']);
       this.searchLabel.setInvalid();
       return;
     }
@@ -451,16 +462,13 @@ class SearchForm {
 
       $.get(self.url, params).done(function (res) {
         logger.log('response', res);
+        hideErrorMessage();
         self.appendSearchResponse(res.users);
         if (callback) {
           callback();
         }
       });
     });
-  }
-
-  showErrorMessage(message) {
-    this.responseContainer.empty().html(message).hide().fadeIn(500);
   }
 }
 

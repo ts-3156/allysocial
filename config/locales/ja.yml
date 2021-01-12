@@ -135,9 +135,16 @@ ja:
       failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'
   api:
     base:
-      data_not_completed: 'データを準備中です。数分後に再度アクセスしてください。フォロワー数が10,000人未満の場合、通常は1分以内に分析が完了します。'
+      data_not_completed_html: |
+        @%{user} のデータを準備中です。<img src="%{url}"><br>
+        <br>
+        フォロワー数が10,000人未満の場合、通常は1分以内に分析が完了します。
     subscriptions:
       destroy: '定期購読のキャンセルに成功しました。'
+    twitter_users:
+      show:
+        accepted: '@%{user} を検索中です。'
+        not_found: '@%{user} が見付かりませんでした。'
   shared:
     profile_section:
       details: 'プロフィール詳細を開く'

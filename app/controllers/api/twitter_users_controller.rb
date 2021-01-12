@@ -10,13 +10,13 @@ module Api
         render json: { user: { uid: user.uid.to_s, cache: false } }
       elsif (cache_user = ApiUserCache.new.get_by_screen_name(screen_name))
         if cache_user.error?
-          render json: { message: 'Error cache found' }, status: :not_found
+          render json: { message: t('.not_found', user: screen_name) }, status: :not_found
         else
           render json: { user: { uid: cache_user.uid.to_s, cache: true } }
         end
       else
         CreateTwitterUserByScreenNameWorker.perform_async(current_user.id, screen_name)
-        render json: { message: 'User not found' }, status: :not_found
+        render json: { message: t('.accepted', user: screen_name) }, status: :accepted
       end
     end
 

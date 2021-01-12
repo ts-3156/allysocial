@@ -134,9 +134,16 @@ en:
       failure: 'Could not authenticate you from Twitter because %{reason}.'
   api:
     base:
-      data_not_completed: '%{app} is currently in the process of analyzing the data. If you have less than 10,000 followers, %{app} will usually complete the analysis of your data within a minute.'
+      data_not_completed_html: |
+        %{app} is currently in the process of analyzing @%{user}. <img src="%{url}" class="ml-1"><br>
+        <br>
+        If you have less than 10,000 followers, %{app} will usually complete the analysis of your data within a minute.
     subscriptions:
       destroy: 'You have successfully cancelled a subscription.'
+    twitter_users:
+      show:
+        accepted: 'Searching @%{user} ...'
+        not_found: '@%{user} is not found.'
   shared:
     profile_section:
       details: 'Show profile details'
