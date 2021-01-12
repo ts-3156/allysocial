@@ -28,7 +28,7 @@ class Occupation
   end
 
   def job_key
-    job_keys(1)[0] || 'not_applicable'
+    job_keys(1)[0]
   end
 
   def job_keys(count = 3)
@@ -37,7 +37,7 @@ class Occupation
       found << method_name if send("#{method_name}?")
       break if found.size >= count
     end
-    found.take(count)
+    found.size >= 1 ? found.take(count) : ['not_applicable']
   end
 
   def self.method_added(method_name)
