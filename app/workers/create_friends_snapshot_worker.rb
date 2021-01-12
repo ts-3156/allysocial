@@ -18,7 +18,8 @@ class CreateFriendsSnapshotWorker
     else
       snapshot = user_snapshot.create_friends_snapshot!
       snapshot.update_from_user_id(user_id)
-      CreateFriendsInsightWorker.perform_async(user_id, user_snapshot.id, snapshot.users_chunks.first.uids)
+      uids = snapshot.users_chunks.first.uids || []
+      CreateFriendsInsightWorker.perform_async(user_id, user_snapshot.id, uids)
     end
 
     if user_snapshot.friends_snapshot && user_snapshot.followers_snapshot
