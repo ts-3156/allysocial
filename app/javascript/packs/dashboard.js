@@ -55,7 +55,7 @@ class SearchLabel {
 
     this.elem.on('keypress', function (e) {
       if (e.keyCode === 13) { // Enter key
-        form.search();
+        form.search(scrollToTop);
       }
     });
   }
@@ -98,9 +98,9 @@ class SearchLabel {
   }
 
   selectBadge(btn, option) {
-    if (this.value() !== option.value) {
+    if (this.getValue() !== option.value) {
       this.form.resetState('label selected');
-      this.elem.val(option.value);
+      this.setValue(option.value);
       this.form.search(scrollToTop);
     }
   }
@@ -183,17 +183,27 @@ class SearchLabel {
     }, 1000);
   }
 
-  value() {
+  getValue() {
     return this.elem.val();
+  }
+
+  setValue(val) {
+    this.elem.val(val);
   }
 
   clearValue() {
     this.elem.val('');
   }
 
-  removeCount() {
-    var val = this.elem.val().replace(/ \(\d+\)$/, '');
-    this.elem.val(val);
+  setQuickSelectValue() {
+    var val = $('#quick-select a:eq(0)').text();
+    this.setValue(val);
+    this.removeCountSuffix();
+  }
+
+  removeCountSuffix() {
+    var val = this.getValue().replace(/ \(\d+\)$/, '');
+    this.setValue(val);
   }
 
   onChange(fn) {
@@ -223,7 +233,7 @@ class SearchForm {
     });
 
     $('#search-submit').on('click', function () {
-      self.search();
+      self.search(scrollToTop);
       return false;
     });
 
@@ -264,34 +274,31 @@ class SearchForm {
 
   switchCategory() {
     this.resetState('switch category');
-    this.searchLabel.clearValue();
-    this.searchLabel.fetchOptions();
+    this.searchLabel.fetchOptions(this.search.bind(this));
   }
 
   switchType() {
     this.resetState('switch type');
-    this.searchLabel.clearValue();
-    this.searchLabel.fetchOptions();
+    this.searchLabel.fetchOptions(function () {
+      this.searchLabel.setQuickSelectValue();
+      this.search(scrollToTop);
+    }.bind(this));
   }
 
   switchLabel() {
     this.resetState('switch label');
-    this.searchLabel.removeCount();
-    this.searchLabel.fetchOptions();
+    this.searchLabel.removeCountSuffix();
+    this.searchLabel.fetchOptions(this.search.bind(this));
   }
 
   switchSort() {
     this.resetState('switch sort');
-    if (this.label().length > 0) {
-      this.search();
-    }
+    this.search(scrollToTop);
   }
 
   switchFilter() {
     this.resetState('switch filter');
-    if (this.label().length > 0) {
-      this.search();
-    }
+    this.search(scrollToTop);
   }
 
   screenName() {
@@ -315,7 +322,7 @@ class SearchForm {
   }
 
   label() {
-    return this.searchLabel.value();
+    return this.searchLabel.getValue();
   }
 
   sort() {
