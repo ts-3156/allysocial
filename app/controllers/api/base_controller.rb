@@ -49,7 +49,7 @@ module Api
         @user_snapshot = snapshot
       else
         create_user_snapshot(uid)
-        render json: { message: 'Data not completed' }, status: :not_found
+        render json: { message: t('api.base.data_not_completed', app: t('app_name')) }, status: :not_found
       end
     end
 

@@ -27,6 +27,25 @@ function screenNameToUid(screenName, done) {
   fetch();
 }
 
+function scrollToTop() {
+  $([document.documentElement, document.body]).animate({
+    scrollTop: $('#search-response-anchor').offset().top
+  });
+}
+
+function extractErrorMessage(xhr, textStatus, errorThrown) {
+  var message;
+  try {
+    message = JSON.parse(xhr.responseText)['message'];
+  } catch (e) {
+    logger.error(e);
+  }
+  if (!message) {
+    message = xhr.status + ' (' + errorThrown + ')';
+  }
+  return message;
+}
+
 class SearchLabel {
   constructor(url, form) {
     this.url = url;
@@ -82,11 +101,7 @@ class SearchLabel {
     if (this.value() !== option.value) {
       this.form.resetState('label selected');
       this.elem.val(option.value);
-      this.form.search(function () {
-        $([document.documentElement, document.body]).animate({
-          scrollTop: $('#search-response-anchor').offset().top
-        });
-      });
+      this.form.search(scrollToTop);
     }
   }
 
@@ -109,21 +124,40 @@ class SearchLabel {
   }
 
   fetchOptions(callback) {
-    screenNameToUid(this.form.screenName(), function (res) {
+    var self = this;
+
+    var fetch = function (uid, retryCount) {
+      if (retryCount >= 5) {
+        return;
+      }
+
       var params = {
-        category: this.form.category(),
-        type: this.form.type(),
-        uid: res.user.uid
+        category: self.form.category(),
+        type: self.form.type(),
+        uid: uid
       };
-      $.get(this.url, params).done(function (data) {
-        this.setOptions(data.options);
-        this.setQuickSelectBadges(data.quick_select);
-        this.setExtraCounts(data.extra);
+
+      $.get(self.url, params).done(function (data) {
+        self.setOptions(data.options);
+        self.setQuickSelectBadges(data.quick_select);
+        self.setExtraCounts(data.extra);
         if (callback) {
           callback();
         }
-      }.bind(this));
-    }.bind(this));
+      }).fail(function (xhr, textStatus, errorThrown) {
+        var message = extractErrorMessage(xhr, textStatus, errorThrown);
+        self.form.responseContainer.text(message);
+        scrollToTop();
+
+        setTimeout(function () {
+          fetch(uid, ++retryCount);
+        }, Math.pow(2, retryCount) * 1000);
+      });
+    };
+
+    screenNameToUid(this.form.screenName(), function (res) {
+      fetch(res.user.uid, 0);
+    });
   }
 
   setNeutral() {

@@ -10,8 +10,28 @@ class CreateTwitterUsersWorker
       return
     end
 
-    uids.uniq!
+    if ApiUsersErrorCache.new.error_found?(user_id)
+      retry_new_job(user_id, uids, options)
+      return
+    end
 
+    uids.uniq!
+    do_perform(user_id, uids)
+  rescue => e
+    if TwitterApiStatus.no_user_matches?(e)
+      # Do nothing
+    elsif TwitterApiStatus.too_many_requests?(e)
+      ApiUsersErrorCache.new.set_error(user_id)
+      retry_new_job(user_id, uids, options)
+    else
+      logger.warn "Unhandled exception: #{e.inspect}"
+      logger.info e.backtrace.join("\n")
+    end
+  end
+
+  private
+
+  def do_perform(user_id, uids)
     reject_candidate_uids = TwitterUser.where(uid: uids).where('updated_at > ?', 1.hour.ago).pluck(:uid)
     uids -= reject_candidate_uids if reject_candidate_uids.any?
 
@@ -23,16 +43,7 @@ class CreateTwitterUsersWorker
     client = User.find(user_id).api_client
     api_users = client.users(uids).map { |user| ApiUser.new(user) }
     upsert_records(api_users)
-  rescue => e
-    if TwitterApiStatus.no_user_matches?(e)
-      # Do nothing
-    else
-      logger.warn "Unhandled exception: #{e.inspect}"
-      logger.info e.backtrace.join("\n")
-    end
   end
-
-  private
 
   def upsert_records(api_users)
     retries ||= 3
@@ -48,5 +59,9 @@ class CreateTwitterUsersWorker
     else
       raise
     end
+  end
+
+  def retry_new_job(*args)
+    CreateTwitterUsersWorker.perform_in(15.minutes + rand(180), *args)
   end
 end

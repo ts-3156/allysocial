@@ -1,6 +1,4 @@
 class ApiUserCache
-  include HasOccupation
-
   def initialize
     @store = ActiveSupport::Cache::RedisCacheStore.new(
       namespace: "#{Rails.env}:AllySocial:ApiUserCache",

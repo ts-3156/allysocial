@@ -134,6 +134,8 @@ ja:
       success: 'Twitterアカウントでのログインに成功しました。'
       failure: '%{reason} が原因でTwitterアカウントでのログインに失敗しました。'
   api:
+    base:
+      data_not_completed: 'データを準備中です。数分後に再度アクセスしてください。フォロワー数が10,000人未満の場合、通常は1分以内に分析が完了します。'
     subscriptions:
       destroy: '定期購読のキャンセルに成功しました。'
   shared:
