@@ -6,14 +6,16 @@ module SnapshotImplementation
   class_methods do
   end
 
-  def update_from_user_id(user_id, users_count, api_name)
-    # TODO Check subscription
-
-    if users_count <= 5000
+  def update_from_user_id(user_id, api_name)
+    begin
       client = User.find(user_id).api_client
-      uids = client.send(api_name, user_snapshot.uid)
-    else
-      uids = EgotterClient.new.send(api_name, user_snapshot.uid) # TODO Set loop_limit
+      uids = client.send(api_name, user_snapshot.uid, loop_limit: 1)
+    rescue => e
+      if TwitterApiStatus.too_many_requests?(e)
+        uids = EgotterClient.new.send(api_name, user_snapshot.uid, loop_limit: 1)
+      else
+        raise
+      end
     end
 
     uids.each_slice(5000) do |uids_array|

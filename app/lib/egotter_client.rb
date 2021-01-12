@@ -1,21 +1,21 @@
 require 'net/http'
 
 class EgotterClient
-  def friend_ids(uid)
-    res = Request.new('/api/v1/friend_ids', uid).perform
+  def friend_ids(uid, options = {})
+    res = Request.new('/api/v1/friend_ids', uid, options[:loop_limit]).perform
     res ? JSON.parse(res)['uids'] : nil
   end
 
-  def follower_ids(uid)
-    res = Request.new('/api/v1/follower_ids', uid).perform
+  def follower_ids(uid, options = {})
+    res = Request.new('/api/v1/follower_ids', uid, options[:loop_limit]).perform
     res ? JSON.parse(res)['uids'] : nil
   end
 
   class Request
-    def initialize(path, uid)
+    def initialize(path, uid, loop_limit)
       @path = path
       @uid = uid
-      @loop_limit = 20
+      @loop_limit = loop_limit || 1
     end
 
     def perform

@@ -20,6 +20,6 @@ class FollowersSnapshot < ApplicationRecord
   end
 
   def update_from_user_id(user_id)
-    super(user_id, user_snapshot.properties['followers_count'], :follower_ids)
+    super(user_id, :follower_ids)
   end
 end

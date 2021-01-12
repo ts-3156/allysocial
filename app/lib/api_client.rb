@@ -23,20 +23,20 @@ class ApiClient
     end
   end
 
-  def friend_ids(uid, &block)
-    collect_with_cursor_and_cache(__method__, uid, block) do |options|
-      @client.send(__method__, uid, options)&.attrs
+  def friend_ids(uid, options = {})
+    collect_with_cursor_and_cache(__method__, uid, options[:loop_limit]) do |opt|
+      @client.send(__method__, uid, opt)&.attrs
     end
   end
 
-  def follower_ids(uid, &block)
-    collect_with_cursor_and_cache(__method__, uid, block) do |options|
-      @client.send(__method__, uid, options)&.attrs
+  def follower_ids(uid, options = {})
+    collect_with_cursor_and_cache(__method__, uid, options[:loop_limit]) do |opt|
+      @client.send(__method__, uid, opt)&.attrs
     end
   end
 
-  def collect_with_cursor_and_cache(method_name, uid, callback, &block)
-    collect_with_cursor(10) do |options|
+  def collect_with_cursor_and_cache(method_name, uid, loop_limit, &block)
+    collect_with_cursor(loop_limit) do |options|
       cache = ApiCollectWithCursorCache.new({ method: method_name }.merge(options))
 
       response = cache.fetch(uid) do
@@ -44,8 +44,6 @@ class ApiClient
           yield(options)
         end
       end
-
-      callback.call(response) if callback
 
       response
     end
