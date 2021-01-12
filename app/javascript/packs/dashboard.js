@@ -18,7 +18,10 @@ function extractErrorMessage(xhr, textStatus, errorThrown) {
 }
 
 function showErrorMessage(message) {
-  $('.search-response-error').empty().html(message).hide().fadeIn(500);
+  var container = $('.search-response-error');
+  if (container.data('length') !== message.length) {
+    container.empty().html(message).hide().fadeIn(500).data('length', message.length);
+  }
 }
 
 function hideErrorMessage() {
@@ -38,6 +41,7 @@ function screenNameToUid(screenName, done) {
     var url = '/api/twitter_users'; // api_twitter_users_path
     $.get(url, {screen_name: screenName}).done(function (res, _, xhr) {
       if (xhr.status === 202) { // Accepted
+        showErrorMessage(res.message);
         setTimeout(function () {
           fetch(++retryCount);
         }, Math.pow(2, retryCount) * 1000);
@@ -153,6 +157,7 @@ class SearchLabel {
 
       $.get(self.url, params).done(function (data, _, xhr) {
         if (xhr.status === 202) { // Accepted
+          showErrorMessage(data.message);
           setTimeout(function () {
             fetch(uid, ++retryCount);
           }, Math.pow(2, retryCount) * 1000);

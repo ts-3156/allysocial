@@ -47,25 +47,50 @@
   <div class="small ml-3 mb-1">
     <div class="form-check mb-2">
       <input class="form-check-input" type="radio" name="category" id="category-friends" value="friends" data-label="<%= t('.search_category.friends') %>" checked>
-      <label class="form-check-label" for="category-friends" style="white-space: nowrap;"><%= t('.search_category.friends') %>&nbsp;<span class="count small text-muted"></span></label>
+      <label class="form-check-label" for="category-friends"><%= t('.search_category.friends') %>&nbsp;<span class="count small text-muted"></span></label>
     </div>
     <div class="form-check mb-2">
       <input class="form-check-input" type="radio" name="category" id="category-followers" value="followers" data-label="<%= t('.search_category.followers') %>">
-      <label class="form-check-label" for="category-followers" style="white-space: nowrap;"><%= t('.search_category.followers') %>&nbsp;<span class="count small text-muted"></span></label>
+      <label class="form-check-label" for="category-followers"><%= t('.search_category.followers') %>&nbsp;<span class="count small text-muted"></span></label>
     </div>
     <div class="form-check mb-2">
-      <input class="form-check-input" type="radio" name="category" id="category-one_sided_friends" value="one_sided_friends" data-label="<%= t('.search_category.one_sided_friends') %>">
-      <label class="form-check-label" for="category-one_sided_friends" style="white-space: nowrap;"><%= t('.search_category.one_sided_friends') %>&nbsp;<span class="count small text-muted"></span></label>
+      <% if current_user.has_subscription? %>
+        <input class="form-check-input" type="radio" name="category" id="category-one_sided_friends" value="one_sided_friends" data-label="<%= t('.search_category.one_sided_friends') %>">
+        <label class="form-check-label" for="category-one_sided_friends"><%= t('.search_category.one_sided_friends') %>&nbsp;<span class="count small text-muted"></span></label>
+      <% else %>
+        <div id="category-one_sided_friends" class="disabled">
+          <input class="form-check-input" type="radio" disabled>
+          <label class="form-check-label" for="category-one_sided_friends"><%= t('.search_category.one_sided_friends') %>&nbsp;<span class="count small text-muted"></span></label>
+        </div>
+      <% end %>
     </div>
     <div class="form-check mb-2">
-      <input class="form-check-input" type="radio" name="category" id="category-one_sided_followers" value="one_sided_followers" data-label="<%= t('.search_category.one_sided_followers') %>">
-      <label class="form-check-label" for="category-one_sided_followers" style="white-space: nowrap;"><%= t('.search_category.one_sided_followers') %>&nbsp;<span class="count small text-muted"></span></label>
+      <% if current_user.has_subscription? %>
+        <input class="form-check-input" type="radio" name="category" id="category-one_sided_followers" value="one_sided_followers" data-label="<%= t('.search_category.one_sided_followers') %>">
+        <label class="form-check-label" for="category-one_sided_followers"><%= t('.search_category.one_sided_followers') %>&nbsp;<span class="count small text-muted"></span></label>
+      <% else %>
+        <div id="category-one_sided_followers" class="disabled">
+          <input class="form-check-input" type="radio" disabled>
+          <label class="form-check-label" for="category-one_sided_followers"><%= t('.search_category.one_sided_followers') %>&nbsp;<span class="count small text-muted"></span></label>
+        </div>
+      <% end %>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="radio" name="category" id="category-mutual_friends" value="mutual_friends" data-label="<%= t('.search_category.mutual_friends') %>">
-      <label class="form-check-label" for="category-mutual_friends" style="white-space: nowrap;"><%= t('.search_category.mutual_friends') %>&nbsp;<span class="count small text-muted"></span></label>
+      <% if current_user.has_subscription? %>
+        <input class="form-check-input" type="radio" name="category" id="category-mutual_friends" value="mutual_friends" data-label="<%= t('.search_category.mutual_friends') %>">
+        <label class="form-check-label" for="category-mutual_friends"><%= t('.search_category.mutual_friends') %>&nbsp;<span class="count small text-muted"></span></label>
+      <% else %>
+        <div id="category-mutual_friends" class="disabled">
+          <input class="form-check-input" type="radio" disabled>
+          <label class="form-check-label" for="category-mutual_friends"><%= t('.search_category.mutual_friends') %>&nbsp;<span class="count small text-muted"></span></label>
+        </div>
+      <% end %>
     </div>
   </div>
+
+  <% unless current_user.has_subscription? %>
+    <div class="text-muted small mt-3"><%= t('.search_category.free_help_html') %></div>
+  <% end %>
 </div>
 
 <%# Search type %>
@@ -179,5 +204,15 @@
     });
 
     $('[data-toggle="tooltip"]').tooltip();
+
+    $('#category-one_sided_friends.disabled').on('click', function () {
+      alert('<%= t('.search_category.disabled.one_sided_friends') %>');
+    });
+    $('#category-one_sided_followers.disabled').on('click', function () {
+      alert('<%= t('.search_category.disabled.one_sided_followers') %>');
+    });
+    $('#category-mutual_friends.disabled').on('click', function () {
+      alert('<%= t('.search_category.disabled.mutual_friends') %>');
+    });
   });
 </script>

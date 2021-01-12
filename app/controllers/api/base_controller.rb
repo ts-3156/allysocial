@@ -17,8 +17,16 @@ module Api
       end
     end
 
+    def category_regexp
+      if current_user.has_subscription?
+        /\A(friends|followers|one_sided_friends|one_sided_followers|mutual_friends)\z/
+      else
+        /\A(friends|followers)\z/
+      end
+    end
+
     def require_category
-      unless params[:category] && params[:category].match?(/\A(friends|followers|one_sided_friends|one_sided_followers|mutual_friends)\z/)
+      unless params[:category] && params[:category].match?(category_regexp)
         render json: { message: ':category not specified' }, status: :bad_request
       end
     end

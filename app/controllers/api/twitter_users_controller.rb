@@ -16,7 +16,7 @@ module Api
         end
       else
         CreateTwitterUserByScreenNameWorker.perform_async(current_user.id, screen_name)
-        render json: { message: t('.accepted', user: screen_name) }, status: :accepted
+        render json: { message: t('.accepted_html', user: screen_name, url: view_context.image_path('/ajax-loader.gif')) }, status: :accepted
       end
     end
 

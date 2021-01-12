@@ -72,7 +72,7 @@ ja:
       search_user:
         title: '検索するユーザー'
         tooltip: '上位プランを購入済みの場合は、自分以外も検索することができます。'
-        free_help_html: '上位プランを購入済みの場合は、自分以外も検索することができます。<a class="text-primary btn-checkout" href="#">もっと詳しく</a>'
+        free_help_html: '上位プランを購入済みの場合は、自分以外も検索できます。<a class="text-primary btn-checkout" href="#">もっと詳しく</a>'
         limit_reached_help_html: |
           @<span class="user"></span> のフォローとフォロワーの合計が上限(%{count}人)を超えています。
           さらに多くのユーザーを検索したい場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
@@ -86,6 +86,11 @@ ja:
         one_sided_friends: '片思いフォロー'
         one_sided_followers: '片思いフォロワー'
         mutual_friends: '相互フォロー'
+        disabled:
+          one_sided_friends: '片思いフォローの検索は上位のプランを持つユーザー限定です。'
+          one_sided_followers: '片思いフォロワーの検索は上位のプランを持つユーザー限定です。'
+          mutual_friends: '相互フォローの検索は上位のプランを持つユーザー限定です。'
+        free_help_html: '上位プランを購入済みの場合は、高度なカテゴリー検索を利用できます。<a class="text-primary btn-checkout" href="#">もっと詳しく</a>'
       search_type:
         title: '検索タイプ'
         tooltip: 'ユーザーのプロフィールの要素のうち、職種、場所、URL、キーワードのどれを使って検索するのかを指定します。'
@@ -143,8 +148,8 @@ ja:
       destroy: '定期購読のキャンセルに成功しました。'
     twitter_users:
       show:
-        accepted: '@%{user} を検索中です。'
-        not_found: '@%{user} が見付かりませんでした。'
+        <img src="%{url}">: '@%{user} を検索中です。<img src="%{url}">'
+        not_found: '@%{user} が見付かりませんでした。入力したユーザーIDが間違っていないかご確認ください。'
   shared:
     profile_section:
       details: 'プロフィール詳細を開く'

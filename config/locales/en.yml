@@ -86,6 +86,11 @@ en:
         one_sided_friends: 'One-sided following'
         one_sided_followers: 'One-sided followers'
         mutual_friends: 'Mutual following'
+        disabled:
+          one_sided_friends: 'Searching one-sided following is only available for paid users have a higher level plan.'
+          one_sided_followers: 'Searching one-sided followers is only available for paid users have a higher level plan.'
+          mutual_friends: 'Searching mutual following is only available for paid users have a higher level plan.'
+        free_help_html: 'You can specify advanced category if you have already purchased a higher level plan. <a class="text-primary btn-checkout" href="#">more details</a>'
       search_type:
         title: 'Search type'
         tooltip: 'You can specify whether you want to search for job, location, url or keyword.'
@@ -142,8 +147,8 @@ en:
       destroy: 'You have successfully cancelled a subscription.'
     twitter_users:
       show:
-        accepted: 'Searching @%{user} ...'
-        not_found: '@%{user} is not found.'
+        accepted_html: 'Searching @%{user} ... <img src="%{url}">'
+        not_found: '@%{user} is not found. Please make sure that the user ID you entered is correct.'
   shared:
     profile_section:
       details: 'Show profile details'
