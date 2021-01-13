@@ -140,7 +140,7 @@ ja:
         track_by_keywords: 'キーワードで検索'
       search_label:
         title: '検索するラベル'
-        tooltip: '検索する具体的なラベルを指定することができます。'
+        tooltip: '検索するラベルを指定することができます。ラベルは候補から選択することも自由に入力することもできます。'
         placeholder: 'ラベルを選択してください'
         placeholder_job: '例：YouTuber'
         placeholder_location: '例：東京'
@@ -186,7 +186,7 @@ ja:
       destroy: '定期購読のキャンセルに成功しました。'
     twitter_users:
       show:
-        <img src="%{url}">: '@%{user} を検索中です。<img src="%{url}">'
+        accepted_html: '@%{user} を検索中です。<img src="%{url}">'
         not_found: '@%{user} が見付かりませんでした。入力したユーザーIDが間違っていないかご確認ください。'
   shared:
     profile_section:

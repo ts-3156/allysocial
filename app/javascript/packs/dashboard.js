@@ -28,6 +28,10 @@ function hideErrorMessage() {
   $('.search-response-error').empty();
 }
 
+function exponentialBackoff(num) {
+  return Math.max(20, Math.pow(2, num) * 1000);
+}
+
 function screenNameToUid(screenName, done) {
   if (!screenName.match(nameRegexp)) {
     return;
@@ -44,7 +48,7 @@ function screenNameToUid(screenName, done) {
         showErrorMessage(res.message);
         setTimeout(function () {
           fetch(++retryCount);
-        }, Math.pow(2, retryCount) * 1000);
+        }, exponentialBackoff(retryCount));
       } else {
         done(res);
       }
@@ -160,7 +164,7 @@ class SearchLabel {
           showErrorMessage(data.message);
           setTimeout(function () {
             fetch(uid, ++retryCount);
-          }, Math.pow(2, retryCount) * 1000);
+          }, exponentialBackoff(retryCount));
         } else {
           self.setOptions(data.options);
           self.setQuickSelectBadges(data.quick_select);

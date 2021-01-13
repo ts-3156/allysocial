@@ -142,7 +142,7 @@ en:
         track_by_keywords: 'Track by Keywords'
       search_label:
         title: 'Search label'
-        tooltip: 'You can specify concrete label for searching.'
+        tooltip: 'You can specify concrete label for searching. You can select a label from a list of candidates or enter any text.'
         placeholder: 'Choose label'
         placeholder_job: 'e.g. YouTuber'
         placeholder_location: 'e.g. Tokyo'
