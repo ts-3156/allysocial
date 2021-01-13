@@ -10,11 +10,6 @@ class CreateTwitterUsersWorker
       return
     end
 
-    if ApiUsersErrorCache.new.error_found?(user_id)
-      retry_new_job(user_id, uids, options)
-      return
-    end
-
     uids.uniq!
     do_perform(user_id, uids)
   rescue => e
@@ -22,7 +17,7 @@ class CreateTwitterUsersWorker
       # Do nothing
     elsif TwitterApiStatus.too_many_requests?(e)
       ApiUsersErrorCache.new.set_error(user_id)
-      retry_new_job(user_id, uids, options)
+      CreateTwitterUsersWorker.perform_in(15.minutes + rand(180), user_id, uids, options)
     else
       logger.warn "Unhandled exception: #{e.inspect}"
       logger.info e.backtrace.join("\n")
@@ -40,14 +35,18 @@ class CreateTwitterUsersWorker
       return
     end
 
-    begin
-      client = User.find(user_id).api_client
-      raw_users = client.users(uids)
-    rescue => e
-      if TwitterApiStatus.too_many_requests?(e)
-        raw_users = Agent.api_client.users(uids)
-      else
-        raise
+    if ApiUsersErrorCache.new.error_found?(user_id)
+      raw_users = Agent.api_client.users(uids)
+    else
+      begin
+        client = User.find(user_id).api_client
+        raw_users = client.users(uids)
+      rescue => e
+        if TwitterApiStatus.too_many_requests?(e)
+          raw_users = Agent.api_client.users(uids)
+        else
+          raise
+        end
       end
     end
 
@@ -69,9 +68,5 @@ class CreateTwitterUsersWorker
     else
       raise
     end
-  end
-
-  def retry_new_job(*args)
-    CreateTwitterUsersWorker.perform_in(15.minutes + rand(180), *args)
   end
 end

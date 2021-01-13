@@ -43,6 +43,7 @@ class User < ApplicationRecord
   end
 
   def has_subscription?(type = :plus)
+    # TODO Use type
     subscriptions.not_canceled.charge_not_failed.any?
   end
 

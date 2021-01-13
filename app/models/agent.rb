@@ -10,9 +10,13 @@
 class Agent < ApplicationRecord
   belongs_to :user
 
+  def api_client
+    user.api_client
+  end
+
   class << self
     def api_client
-      find(pluck(:id).sample).user.api_client
+      find(pluck(:id).sample).api_client
     end
   end
 end
