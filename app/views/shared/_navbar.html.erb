@@ -28,7 +28,7 @@
       var url = '<%= raw root_path(via: 'brand') %>';
       window.location.href = url;
     } else {
-      $('body').animate({scrollTop: 0});
+      $([document.documentElement, document.body]).animate({scrollTop: 0});
     }
   });
 </script>

@@ -7,8 +7,7 @@
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_user.tooltip') %>"></i>
     <div id="search-user-underline" class="underline"></div>
   </div>
-  <div class="limit-reached-help small mb-3" style="display: none;"><%= t('.search_user.limit_reached_help_html', count: user_decorator.users_limit) %></div>
-  <% if current_user.has_subscription? %>
+  <% if current_user.has_subscription?(:pro) %>
     <input type="text" id="search-user" class="form-control mb-2" list="search-user-options"
            value="<%= current_user.screen_name %>"
            placeholder="<%= t('.search_user.placeholder') %>">

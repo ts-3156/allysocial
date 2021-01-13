@@ -68,8 +68,8 @@ ja:
         search_by_location: '場所で検索'
         search_by_url: 'URLで検索'
         search_by_keyword: 'キーワードで検索'
-        search_following: 'フォローを 1千人 検索'
-        search_followers: 'フォロワーを 1千人 検索'
+        search_following: 'フォローを 5千人 検索'
+        search_followers: 'フォロワーを 5千人 検索'
         filter_one_sided_following: '片思いフォローでフィルタ'
         filter_one_sided_followers: '片思いフォロワーでフィルタ'
         filter_mutual_following: '相互フォローでフィルタ'
@@ -104,6 +104,8 @@ ja:
       support_html: |
         もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   dashboard:
+    index:
+      note_html: 'フリープランを利用中です。このプランでは、フォロー・フォロワーの最初の 5,000人 が検索対象になっています。有料のプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
     form:
       disabled_search_user:
         alert: '検索するユーザーの変更は、プランの購入後に出来ます。'
@@ -111,9 +113,6 @@ ja:
         title: '検索するユーザー'
         tooltip: '上位プランを購入済みの場合は、自分以外も検索することができます。'
         free_help_html: '上位プランを購入済みの場合は、自分以外も検索できます。<a class="text-primary btn-checkout" href="#">もっと詳しく</a>'
-        limit_reached_help_html: |
-          @<span class="user"></span> のフォローとフォロワーの合計が上限(%{count}人)を超えています。
-          さらに多くのユーザーを検索したい場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
         placeholder: '@username'
         quick_select: 'クイックセレクト：'
       search_category:

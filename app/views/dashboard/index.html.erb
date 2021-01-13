@@ -17,6 +17,9 @@
           <%= t('dashboard.form.search_response.html') %>
         </p>
         <p class="search-response-error lead mb-5" style="display: none;"></p>
+        <% unless current_user.has_subscription? %>
+          <p class="text-muted small mb-5"><%= t('.note_html') %></p>
+        <% end %>
         <div id="search-response"></div>
       </div>
     </div>

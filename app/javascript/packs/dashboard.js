@@ -137,12 +137,6 @@ class SearchLabel {
     $('label[for="type-location"] .count').text(extra.locations_count);
     $('label[for="type-url"] .count').text(extra.urls_count);
     $('label[for="type-keyword"] .count').text(extra.keywords_count);
-
-    if (extra.limit_reached) {
-      $('.limit-reached-help').find('.user').text(this.form.screenName()).end().show();
-    } else {
-      $('.limit-reached-help').hide();
-    }
   }
 
   fetchOptions(callback) {

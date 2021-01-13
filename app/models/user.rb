@@ -42,7 +42,9 @@ class User < ApplicationRecord
     user_snapshot.to_user_decorator({}, view_context)
   end
 
-  def has_subscription?(type = :plus)
+  SUBSCRIPTION_TYPES = %i(plus pro)
+
+  def has_subscription?(type = SUBSCRIPTION_TYPES[0])
     # TODO Use type
     subscriptions.not_canceled.charge_not_failed.any?
   end

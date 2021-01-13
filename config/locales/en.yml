@@ -68,8 +68,8 @@ en:
         search_by_location: 'Search by location'
         search_by_url: 'Search by url'
         search_by_keyword: 'Search by keyword'
-        search_following: 'Up to 1K following'
-        search_followers: 'Up to 1K followers'
+        search_following: 'Up to 5K following'
+        search_followers: 'Up to 5K followers'
         filter_one_sided_following: 'Filter one-sided following'
         filter_one_sided_followers: 'Filter one-sided followers'
         filter_mutual_following: 'Filter mutual following'
@@ -106,16 +106,15 @@ en:
       support_html: |
         If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
   dashboard:
+    index:
+      note_html: 'You are using the Free Plan. This plan allows you to search the first 5,000 people of your following or followers. You can remove this limit by purchasing a paid plan. <a href="#" class="btn-checkout">See details</a>'
     form:
       disabled_search_user:
         alert: 'You can change the user to be searched after purchasing the plan.'
       search_user:
         title: 'Target user'
         tooltip: 'You can search another user if you have already purchased a higher level plan.'
-        free_help_html: 'You can search another user if you have already purchased a higher level plan. <a class="text-primary btn-checkout" href="#">more details</a>'
-        limit_reached_help_html: |
-          The number of @<span class="user"></span>'s following and followers exceeds the limit(%{count}).
-          If you would like to search for more users, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
+        free_help_html: 'You can search another user if you have already purchased a higher level plan. <a class="text-primary btn-checkout" href="#">See details</a>'
         placeholder: '@username'
         quick_select: 'Quick select: '
       search_category:
@@ -130,7 +129,7 @@ en:
           one_sided_friends: 'Searching one-sided following is only available for paid users have a higher level plan.'
           one_sided_followers: 'Searching one-sided followers is only available for paid users have a higher level plan.'
           mutual_friends: 'Searching mutual following is only available for paid users have a higher level plan.'
-        free_help_html: 'You can specify advanced category if you have already purchased a higher level plan. <a class="text-primary btn-checkout" href="#">more details</a>'
+        free_help_html: 'You can specify advanced category if you have already purchased a higher level plan. <a class="text-primary btn-checkout" href="#">See details</a>'
       search_type:
         title: 'Search type'
         tooltip: 'You can specify whether you want to search for job, location, url or keyword.'
@@ -172,7 +171,7 @@ en:
           <br>
           %{app} has only just been released. I will be actively fixing bugs.
           If you have any bug reports or feature requests, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
-        payment_required_html: 'To search more, you need to purchase a higher level plan. <a class="btn btn-primary btn-sm btn-checkout" href="#">more details</a>'
+        payment_required_html: 'To search more, you need to purchase a higher level plan. <a class="btn btn-primary btn-sm btn-checkout" href="#">See details</a>'
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'
