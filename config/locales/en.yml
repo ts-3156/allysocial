@@ -57,6 +57,46 @@ en:
       contact:
         title_html: 'We <i class="fas fa-heart"></i> new customers!'
         text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
+    pricing:
+      description: 'Apply a discount when you upgrade by %{date}. 🎉'
+      free: &pricing_free
+        name: 'Free'
+        price: '$0'
+        period: '/month'
+        search_yourself: 'Search yourself'
+        search_by_job: 'Search by job'
+        search_by_location: 'Search by location'
+        search_by_url: 'Search by url'
+        search_by_keyword: 'Search by keyword'
+        search_following: 'Up to 1K following'
+        search_followers: 'Up to 1K followers'
+        filter_one_sided_following: 'Filter one-sided following'
+        filter_one_sided_followers: 'Filter one-sided followers'
+        filter_mutual_following: 'Filter mutual following'
+        tweeting_frequency: 'Filter tweeting frequency'
+        search_anyone: 'Search anyone'
+        button: 'Sign up for FREE'
+        already_signed_in: 'Already signed in'
+      plus:
+        <<: *pricing_free
+        name: 'Plus'
+        price: '$29'
+        old_price: '$29'
+        new_price: '$24'
+        search_following: 'Up to 100K following'
+        search_followers: 'Up to 100K followers'
+        button: 'Upgrade now'
+        already_purchased: 'Already purchased'
+      pro:
+        <<: *pricing_free
+        name: 'Pro'
+        price: '$99'
+        old_price: '$99'
+        new_price: '¥89'
+        search_following: 'Up to 1M following'
+        search_followers: 'Up to 1M followers'
+        button: 'Contact sales'
+      footnote: 'The discount will be applied to the plan from the initial purchase and ongoing use. If you cancel the plan after purchase and purchase it again, the price will be without discount.'
   waiting:
     index:
       text: 'Analyzing data for @%{user}. I’ll be with you in a moment.'
@@ -235,3 +275,6 @@ en:
       direct_message: 'Send a DM'
       fix: 'Fix data'
       bug: 'Report bug'
+  time:
+    formats:
+      pricing: '%d %b'

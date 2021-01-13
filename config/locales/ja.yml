@@ -57,6 +57,44 @@ ja:
       contact:
         title_html: '使ってくれて <i class="fas fa-heart"></i> ありがとう！'
         text_html: 'このアプリはリリースされたばかりです。バグは積極的に直していきます。<br>もし分からないことがあれば、お気軽にご連絡ください。'
+    pricing:
+      description: '%{date} までにアップグレードすると割引が適用されます。🎉'
+      free: &pricing_free
+        name: 'フリー'
+        price: '¥0'
+        period: '/1ヶ月'
+        search_yourself: '自分を検索'
+        search_by_job: '職種で検索'
+        search_by_location: '場所で検索'
+        search_by_url: 'URLで検索'
+        search_by_keyword: 'キーワードで検索'
+        search_following: 'フォローを 1千人 検索'
+        search_followers: 'フォロワーを 1千人 検索'
+        filter_one_sided_following: '片思いフォローでフィルタ'
+        filter_one_sided_followers: '片思いフォロワーでフィルタ'
+        filter_mutual_following: '相互フォローでフィルタ'
+        tweeting_frequency: 'ツイート頻度でフィルタ'
+        search_anyone: '自分以外の誰でも検索'
+        button: '無料で登録する'
+        already_signed_in: 'ログイン済み'
+      plus:
+        <<: *pricing_free
+        name: 'プラス'
+        old_price: '¥2,980'
+        new_price: '¥2,480'
+        search_following: 'フォローを 10万人 検索'
+        search_followers: 'フォロワーを 10万人 検索'
+        button: 'アップグレードする'
+        already_purchased: '購入済み'
+      pro:
+        <<: *pricing_free
+        name: 'プロ'
+        old_price: '¥9,980'
+        new_price: '¥8,980'
+        search_following: 'フォローを 100万人 検索'
+        search_followers: 'フォロワーを 100万人 検索'
+        button: 'セールスに問い合わせする'
+      footnote: '割引が適用されるのは初回購入から継続利用中のプランです。購入した後にキャンセルし再度購入した場合は、割引無しの価格となります。'
   waiting:
     index:
       text: '@%{user} のデータを分析中です。もう少々お待ちください。'
@@ -235,3 +273,6 @@ ja:
       direct_message: 'DMを送る'
       fix: '間違いを直す'
       bug: 'バグを報告する'
+  time:
+    formats:
+      pricing: '%-m月%d日'

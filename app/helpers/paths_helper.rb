@@ -3,6 +3,10 @@ module PathsHelper
     "https://egotter.com/timelines/#{user}"
   end
 
+  def support_url
+    'https://twitter.com/egotter_cs'
+  end
+
   def twitter_url(user)
     "https://twitter.com/#{user}"
   end

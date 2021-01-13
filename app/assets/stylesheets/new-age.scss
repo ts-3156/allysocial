@@ -224,8 +224,8 @@ body {
 
   section.download .row a.btn {
     border: none;
-    background: url("/template/img/bg-pattern.png"), #7b4397;
-    background: url("/template/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+    background: #7b4397;
+    background: linear-gradient(to left, #7b4397, #dc2430);
   }
 
   @media (min-width: 768px) {
@@ -316,8 +316,8 @@ body {
   }
 
   section.features .section-heading a.btn {
-    background: url("/template/img/bg-pattern.png"), #7b4397;
-    background: url("/template/img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+    background: #7b4397;
+    background: linear-gradient(to left, #7b4397, #dc2430);
   }
 
   section.cta {
