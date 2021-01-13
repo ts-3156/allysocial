@@ -104,9 +104,15 @@ module InsightImplementation
     users.map(&:occupation).each do |occupation|
       words.concat(occupation.job_keys)
     end
-    words.each_with_object(Hash.new(0)) do |word, memo|
+    words = words.each_with_object(Hash.new(0)) do |word, memo|
       memo[word] += 1
     end.sort_by { |_, c| -c }.take(500)
+
+    if (index = words.index { |w, _| w == 'not_applicable' })
+      words.push(words.delete_at(index))
+    end
+
+    words
   end
 
   MEANINGLESS_REGEXP = /\A(com|the|in|of|and|to|jp|is|on|at|my|this|with|\d{2}%?|\d{4}年?)\z/
