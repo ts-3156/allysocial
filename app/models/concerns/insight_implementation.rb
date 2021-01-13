@@ -8,16 +8,17 @@ module InsightImplementation
 
   def update_from_uids(user_id, uids)
     limit = 5000 # TODO Set suitable limit
-    uids = uids.take(limit)
+    limited_uids = uids.take(limit)
 
-    twitter_users, not_persisted_uids = fetch_persisted_users(uids)
+    twitter_users, not_persisted_uids = fetch_persisted_users(limited_uids)
 
     if not_persisted_uids.any?
       twitter_users.concat(fetch_missing_users(user_id, not_persisted_uids))
     end
 
-    users = twitter_users.sort_by { |user| uids.index(user.uid) || limit }
+    users = twitter_users.sort_by { |user| limited_uids.index(user.uid) || limit }
     update_from_users(users)
+    update(completed_at: Time.zone.now)
   end
 
   def update_from_users(users)
@@ -25,8 +26,6 @@ module InsightImplementation
     update_description_from_users(users)
     update_location_from_users(users)
     update_url_from_users(users)
-
-    update(users_count: users.size, completed_at: Time.zone.now)
   end
 
   def fetch_persisted_users(uids)

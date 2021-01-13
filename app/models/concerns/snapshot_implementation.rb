@@ -6,15 +6,21 @@ module SnapshotImplementation
   class_methods do
   end
 
-  def update_from_user_id(user_id, api_name)
-    begin
-      client = User.find(user_id).api_client
-      uids = client.send(api_name, user_snapshot.uid, loop_limit: 1)
-    rescue => e
-      if TwitterApiStatus.too_many_requests?(e)
-        uids = EgotterClient.new.send(api_name, user_snapshot.uid, loop_limit: 1)
+  def update_from_user_id(user_id, users_count, api_name)
+    user = User.find(user_id)
+    client = user.api_client
+
+    loop_real = users_count / 5000 + 1
+    loop_limit = user.has_subscription? ? [loop_real, 20].min : 1
+    remaining = client.rate_limit.send(api_name)[:remaining]
+
+    if remaining >= loop_limit
+      uids = local_fetch(client, api_name, user_snapshot.uid, loop_limit)
+    else
+      if user.has_subscription?
+        uids = remote_fetch(api_name, user_snapshot.uid, loop_limit)
       else
-        raise
+        raise "Too many loop_limit user_id=#{user_id} users_count=#{users_count} api_name=#{api_name} loop_limit=#{loop_limit} loop_real=#{loop_real} remaining=#{remaining}"
       end
     end
 
@@ -29,4 +35,17 @@ module SnapshotImplementation
     update(completed_at: Time.zone.now)
   end
 
+  def local_fetch(client, api_name, uid, loop_limit)
+    client.send(api_name, uid, loop_limit: loop_limit)
+  rescue => e
+    if TwitterApiStatus.too_many_requests?(e)
+      remote_fetch(api_name, uid, loop_limit)
+    else
+      raise
+    end
+  end
+
+  def remote_fetch(api_name, uid, loop_limit)
+    EgotterClient.new.send(api_name, uid, loop_limit: loop_limit)
+  end
 end

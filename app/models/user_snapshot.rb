@@ -79,6 +79,14 @@ class UserSnapshot < ApplicationRecord
     ].all? { |relation| relation&.data_completed? }
   end
 
+  def friends_count
+    properties['friends_count']
+  end
+
+  def followers_count
+    properties['followers_count']
+  end
+
   UIDS_LIMIT = 5000
 
   def friend_uids(limit: UIDS_LIMIT)
@@ -110,16 +118,16 @@ class UserSnapshot < ApplicationRecord
     uids.take(limit)
   end
 
-  def calc_one_sided_friend_uids
-    friend_uids(limit: 100000) - follower_uids(limit: 100000)
+  def calc_one_sided_friend_uids(limit: 100000)
+    friend_uids(limit: limit) - follower_uids(limit: limit)
   end
 
-  def calc_one_sided_follower_uids
-    follower_uids(limit: 100000) - friend_uids(limit: 100000)
+  def calc_one_sided_follower_uids(limit: 100000)
+    follower_uids(limit: limit) - friend_uids(limit: limit)
   end
 
-  def calc_mutual_friend_uids
-    friend_uids(limit: 100000) & follower_uids(limit: 100000)
+  def calc_mutual_friend_uids(limit: 100000)
+    friend_uids(limit: limit) & follower_uids(limit: limit)
   end
 
   USERS_LIMIT = 5000

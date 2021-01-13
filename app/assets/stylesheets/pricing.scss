@@ -50,6 +50,10 @@ section.pricing {
     transition: all 0.2s;
     background: #7b4397;
     background: linear-gradient(to left, #7b4397, #dc2430);
+
+    &.disabled {
+      opacity: 0.8;
+    }
   }
 
   /* Hover Effects on Card */

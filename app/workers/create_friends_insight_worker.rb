@@ -17,6 +17,7 @@ class CreateFriendsInsightWorker
       logger.info 'FriendsInsight is already created'
     else
       insight = user_snapshot.create_friends_insight!
+      insight.update!(users_count: user_snapshot.friends_count)
       insight.update_from_uids(user_id, uids)
     end
   end

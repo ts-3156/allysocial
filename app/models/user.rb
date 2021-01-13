@@ -42,7 +42,7 @@ class User < ApplicationRecord
     user_snapshot.to_user_decorator({}, view_context)
   end
 
-  def has_subscription?
+  def has_subscription?(type = :plus)
     subscriptions.not_canceled.charge_not_failed.any?
   end
 

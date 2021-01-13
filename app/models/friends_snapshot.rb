@@ -20,6 +20,6 @@ class FriendsSnapshot < ApplicationRecord
   end
 
   def update_from_user_id(user_id)
-    super(user_id, :friend_ids)
+    super(user_id, user_snapshot.friends_count, :friend_ids)
   end
 end

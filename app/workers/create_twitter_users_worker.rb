@@ -40,8 +40,18 @@ class CreateTwitterUsersWorker
       return
     end
 
-    client = User.find(user_id).api_client
-    api_users = client.users(uids).map { |user| ApiUser.new(user) }
+    begin
+      client = User.find(user_id).api_client
+      raw_users = client.users(uids)
+    rescue => e
+      if TwitterApiStatus.too_many_requests?(e)
+        raw_users = Agent.api_client.users(uids)
+      else
+        raise
+      end
+    end
+
+    api_users = raw_users.map { |user| ApiUser.new(user) }
     upsert_records(api_users)
   end
 

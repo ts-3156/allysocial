@@ -124,11 +124,11 @@ class SearchLabel {
   }
 
   setExtraCounts(extra) {
-    $('label[for="category-friends"] .count').text(extra.friends);
-    $('label[for="category-followers"] .count').text(extra.followers);
-    $('label[for="category-one_sided_friends"] .count').text(extra.one_sided_friends);
-    $('label[for="category-one_sided_followers"] .count').text(extra.one_sided_followers);
-    $('label[for="category-mutual_friends"] .count').text(extra.mutual_friends);
+    $('label[for="category-friends"] .count').text(extra.friends_s);
+    $('label[for="category-followers"] .count').text(extra.followers_s);
+    $('label[for="category-one_sided_friends"] .count').text(extra.one_sided_friends_s);
+    $('label[for="category-one_sided_followers"] .count').text(extra.one_sided_followers_s);
+    $('label[for="category-mutual_friends"] .count').text(extra.mutual_friends_s);
     $('label[for="type-job"] .count').text(extra.jobs_count);
     $('label[for="type-location"] .count').text(extra.locations_count);
     $('label[for="type-url"] .count').text(extra.urls_count);

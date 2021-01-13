@@ -17,6 +17,7 @@ class CreateFollowersInsightWorker
       logger.info 'FollowersInsight is already created'
     else
       insight = user_snapshot.create_followers_insight!
+      insight.update!(users_count: user_snapshot.followers_count)
       insight.update_from_uids(user_id, uids)
     end
   end
