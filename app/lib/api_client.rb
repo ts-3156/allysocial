@@ -52,6 +52,7 @@ class ApiClient
   def collect_with_cursor(loop_limit)
     options = { count: 5000, cursor: -1 }
     collection = []
+    loop_limit ||= 5
 
     loop_limit.times do
       response = yield(options)
