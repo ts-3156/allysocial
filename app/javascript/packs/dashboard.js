@@ -18,14 +18,19 @@ function extractErrorMessage(xhr, textStatus, errorThrown) {
 }
 
 function showErrorMessage(message) {
-  var container = $('.search-response-error');
-  if (container.data('length') !== message.length) {
-    container.empty().html(message).hide().fadeIn(500).data('length', message.length);
+  if (message === 'specify_correct_label_message') {
+    $('#specify-correct-label-message').show();
+  } else {
+    var container = $('#search-response-error');
+    if (container.data('length') !== message.length) {
+      container.empty().html(message).hide().fadeIn(500).data('length', message.length);
+    }
   }
 }
 
 function hideErrorMessage() {
-  $('.search-response-error').empty();
+  $('#search-response-error').empty();
+  $('#specify-correct-label-message').hide();
 }
 
 function exponentialBackoff(num) {
@@ -255,16 +260,15 @@ class SearchForm {
     $('#search-sort').on('change', this.switchSort.bind(this));
     $('#search-filter').on('change', this.switchFilter.bind(this));
 
-    $('.search-response-title')
-      .find('.category').on('click', function () {
+    $('[href="#search-category-anchor"]').on('click', function () {
       $('[data-target="#search-category-underline"]').trigger('start.underline');
-    }).end()
-      .find('.type').on('click', function () {
+    });
+    $('[href="#search-type-anchor"]').on('click', function () {
       $('[data-target="#search-type-underline"]').trigger('start.underline');
-    }).end()
-      .find('.label').on('click', function () {
+    });
+    $('[href="#search-label-anchor"]').on('click', function () {
       $('[data-target="#search-label-underline"]').trigger('start.underline');
-    }).end();
+    });
   }
 
   setSearchLabel(obj) {
@@ -437,7 +441,7 @@ class SearchForm {
     if (!label || label.length === 0) {
       logger.warn('Invalid label', label);
       this.resetState('Invalid label');
-      showErrorMessage(this.i18n['specify_correct_label']);
+      showErrorMessage('specify_correct_label_message');
       this.searchLabel.setInvalid();
       return;
     }

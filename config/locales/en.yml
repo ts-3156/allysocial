@@ -107,7 +107,8 @@ en:
         If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
   dashboard:
     index:
-      note_html: 'You are using the Free Plan. This plan allows you to search the first 5,000 people of your following or followers. You can remove this limit by purchasing a paid plan. <a href="#" class="btn-checkout">See details</a>'
+      free_plan_note_html: 'You are using the Free Plan. This plan allows you to search the first 5,000 people of your following or followers. You can remove this limit by purchasing Plus Plan. <a href="#" class="btn-checkout">See details</a>'
+      plus_plan_note_html: 'You are using the Plus Plan. This plan allows you to search the first 100,000 people of your following or followers. You can remove this limit by purchasing Pro Plan. <a href="#" class="btn-checkout">See details</a>'
     form:
       disabled_search_user:
         alert: 'You can change the user to be searched after purchasing the plan.'
@@ -165,13 +166,13 @@ en:
           <a class="badge badge-primary category" href="#search-category-anchor"></a>
       js:
         loading: 'Loading'
-        specify_correct_label: 'Please specify search label.'
+        specify_correct_label_html: 'Please specify search <a class="badge badge-primary label" href="#search-label-anchor" data-target="#search-label-underline">label</a>.'
         no_results_found_html:
           No search results are found.<br>
           <br>
           %{app} has only just been released. I will be actively fixing bugs.
           If you have any bug reports or feature requests, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
-        payment_required_html: 'To search more, you need to purchase a higher level plan. <a class="btn btn-primary btn-sm btn-checkout" href="#">See details</a>'
+        payment_required_html: 'To search more, you need to purchase a higher level plan. <a class="btn-checkout" href="#">See details</a>'
   users:
     omniauth_callbacks:
       success: 'Successfully authenticated from Twitter account.'

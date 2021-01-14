@@ -105,7 +105,8 @@ ja:
         もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   dashboard:
     index:
-      note_html: 'フリープランを利用中です。このプランでは、フォロー・フォロワーの最初の 5,000人 が検索対象になっています。有料のプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
+      free_plan_note_html: 'Freeプランを利用中です。このプランでは、フォロー・フォロワーの最初の 5,000人 が検索対象になっています。Plusプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
+      plus_plan_note_html: 'Plusプランを利用中です。このプランでは、フォロー・フォロワーの最初の 100,000人 が検索対象になっています。Proプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
     form:
       disabled_search_user:
         alert: '検索するユーザーの変更は、プランの購入後に出来ます。'
@@ -164,13 +165,13 @@ ja:
           のユーザーを検索する
       js:
         loading: '読み込み中'
-        specify_correct_label: '検索するラベルを選択してください。'
+        specify_correct_label_html: '検索する<a class="badge badge-primary label" href="#search-label-anchor" data-target="#search-label-underline">ラベル</a>を選択してください。'
         no_results_found_html:
           検索結果が見つかりませんでした。<br>
           <br>
           %{app} はリリースされたばかりで、積極的にバグ修正を行っています。
           バグの報告や機能追加の要望は、お気軽に <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
-        payment_required_html: 'もっとたくさん検索するためには、上位のプランの購入が必要です。<a class="btn btn-primary btn-checkout" href="#">もっと詳しく</a>'
+        payment_required_html: 'もっとたくさん検索するためには、上位のプランの購入が必要です。<a class="btn-checkout" href="#">もっと詳しく</a>'
   users:
     omniauth_callbacks:
       success: 'Twitterアカウントでのログインに成功しました。'
