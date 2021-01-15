@@ -38,7 +38,7 @@ module Api
       user = User.find(user_id)
       subscription_id = checkout_session.subscription
 
-      if user.has_subscription?
+      if user.has_subscription?(:plus)
         Stripe::Subscription.delete(subscription_id)
         logger.warn "#{Rails.env}:checkout_session_completed already purchased user_id=#{user.id}"
       else

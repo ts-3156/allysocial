@@ -41,7 +41,13 @@ module Api
     end
 
     def current_total_limit
-      current_user.has_subscription? ? 100000 : 30
+      if current_user.has_subscription?(:pro)
+        1_000_000
+      elsif current_user.has_subscription?(:plus)
+        100_000
+      else
+        1_000
+      end
     end
 
     def current_limit

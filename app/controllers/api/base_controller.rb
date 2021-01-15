@@ -18,7 +18,7 @@ module Api
     end
 
     def category_regexp
-      if current_user.has_subscription?
+      if current_user.has_subscription?(:plus)
         /\A(friends|followers|one_sided_friends|one_sided_followers|mutual_friends)\z/
       else
         /\A(friends|followers)\z/
@@ -38,7 +38,7 @@ module Api
     end
 
     def require_uid
-      if current_user.has_subscription?
+      if current_user.has_subscription?(:pro)
         raise ':uid not specified' if !params[:uid] || !params[:uid].match?(/\A[1-9][0-9]{1,30}\z/)
       else
         raise ':uid not specified' if current_user.uid != params[:uid].to_i
@@ -47,7 +47,7 @@ module Api
 
     # TODO Check permission
     def set_user_snapshot(uid, wait_for_completion = true)
-      if current_user.has_subscription?
+      if current_user.has_subscription?(:pro)
         snapshot = UserSnapshot.latest_by(uid: uid)
       else
         snapshot = current_user.user_snapshot
@@ -63,7 +63,7 @@ module Api
     end
 
     def create_user_snapshot(uid)
-      if current_user.has_subscription?
+      if current_user.has_subscription?(:pro)
         user = TwitterUser.find_by(uid: uid)
         user = fetch_raw_user(uid) unless user
         CreateUserSnapshotWorker.perform_async(current_user.id, user.uid) if user
@@ -99,7 +99,7 @@ module Api
     end
 
     def has_no_subscription
-      if current_user&.has_subscription?
+      if current_user&.has_subscription?(:plus)
         render json: { message: 'You already have a subscription' }, status: :bad_request
       end
     end

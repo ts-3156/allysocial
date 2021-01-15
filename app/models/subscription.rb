@@ -31,13 +31,22 @@ class Subscription < ApplicationRecord
 
   scope :not_canceled, -> { where(canceled_at: nil) }
   scope :charge_not_failed, -> { where(charge_failed_at: nil) }
+  scope :filter_tier, -> (name) do
+    if name == :plus
+      where('name regexp ?', ' Plus$')
+    elsif name == :pro
+      where('name regexp ?', ' Pro$')
+    else
+      none
+    end
+  end
 
   PRODUCT_ID = ENV['STRIPE_PRODUCT_ID']
   PRICE_ID = ENV['STRIPE_PRICE_ID']
   TAX_ID = ENV['STRIPE_TAX_ID']
   COUPON_ID = ENV['STRIPE_COUPON_ID']
-  PRODUCT_NAME = "#{I18n.t('app_name')} Pro"
-  TAX_RATE = 0.1
+  PRODUCT_NAME = "#{I18n.t('app_name')} Plus"
+  TAX_RATE = 0.1 #
   PRICE = 2980
 
   def canceled?

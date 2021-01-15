@@ -3,7 +3,7 @@
 <script>
   $(function () {
     var signedIn = <%= user_signed_in? %>;
-    var hasSubscription = <%= user_signed_in? && current_user.has_subscription? %>;
+    var hasSubscription = <%= user_signed_in? && current_user.has_subscription?(:plus) %>;
     var i18n = {already_purchased: '<%= t('.already_purchased') %>'};
     new MyStripe(signedIn, hasSubscription, i18n).init();
   })

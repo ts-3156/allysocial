@@ -42,11 +42,17 @@ class User < ApplicationRecord
     user_snapshot.to_user_decorator({}, view_context)
   end
 
-  SUBSCRIPTION_TYPES = %i(plus pro)
+  def has_subscription?(tier)
+    if tier == :plus
+      tiers = %i(plus pro)
+    elsif tier == :pro
+      tiers = %i(pro)
+    else
+      tiers = []
+    end
 
-  def has_subscription?(type = SUBSCRIPTION_TYPES[0])
-    # TODO Use type
-    subscriptions.not_canceled.charge_not_failed.any?
+    query = subscriptions.not_canceled.charge_not_failed
+    tiers.any? { |name| query.filter_tier(name).any? }
   end
 
   def current_subscription

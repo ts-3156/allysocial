@@ -53,7 +53,7 @@
       <label class="form-check-label" for="category-followers"><%= t('.search_category.followers') %>&nbsp;<span class="count small text-muted"></span></label>
     </div>
     <div class="form-check mb-2">
-      <% if current_user.has_subscription? %>
+      <% if current_user.has_subscription?(:plus) %>
         <input class="form-check-input" type="radio" name="category" id="category-one_sided_friends" value="one_sided_friends" data-label="<%= t('.search_category.one_sided_friends') %>">
         <label class="form-check-label" for="category-one_sided_friends"><%= t('.search_category.one_sided_friends') %>&nbsp;<span class="count small text-muted"></span></label>
       <% else %>
@@ -64,7 +64,7 @@
       <% end %>
     </div>
     <div class="form-check mb-2">
-      <% if current_user.has_subscription? %>
+      <% if current_user.has_subscription?(:plus) %>
         <input class="form-check-input" type="radio" name="category" id="category-one_sided_followers" value="one_sided_followers" data-label="<%= t('.search_category.one_sided_followers') %>">
         <label class="form-check-label" for="category-one_sided_followers"><%= t('.search_category.one_sided_followers') %>&nbsp;<span class="count small text-muted"></span></label>
       <% else %>
@@ -75,7 +75,7 @@
       <% end %>
     </div>
     <div class="form-check">
-      <% if current_user.has_subscription? %>
+      <% if current_user.has_subscription?(:plus) %>
         <input class="form-check-input" type="radio" name="category" id="category-mutual_friends" value="mutual_friends" data-label="<%= t('.search_category.mutual_friends') %>">
         <label class="form-check-label" for="category-mutual_friends"><%= t('.search_category.mutual_friends') %>&nbsp;<span class="count small text-muted"></span></label>
       <% else %>
@@ -87,7 +87,7 @@
     </div>
   </div>
 
-  <% unless current_user.has_subscription? %>
+  <% unless current_user.has_subscription?(:plus) %>
     <div class="text-muted small mt-3"><%= t('.search_category.free_help_html') %></div>
   <% end %>
 </div>
@@ -192,7 +192,7 @@
     var i18n = {
       loading: '<%= t('.js.loading') %>',
       no_results_found: '<%= t('.js.no_results_found_html', app: t('app_name')) %>',
-      payment_required: '<%= t('.js.payment_required_html') unless current_user.has_subscription? %>'
+      payment_required: '<%= t('.js.payment_required_html') unless current_user.has_subscription?(:plus) %>'
     };
     var form = new SearchForm('<%= raw api_searches_path %>', i18n);
     var label = new SearchLabel('<%= raw api_label_options_path %>', form);

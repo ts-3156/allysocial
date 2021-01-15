@@ -63,7 +63,7 @@
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span><%= t('.plus.search_anyone') %></li>
             </ul>
             <% if user_signed_in? %>
-              <% if current_user.has_subscription? %>
+              <% if current_user.has_subscription?(:plus) %>
                 <a href="#" class="btn btn-block disabled"><%= t('.plus.already_purchased') %></a>
               <% else %>
                 <a href="#" class="btn btn-block btn-checkout"><%= t('.plus.button') %></a>

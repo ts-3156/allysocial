@@ -105,7 +105,7 @@
         <a class="dropdown-item expand-user-details mb-2" href="#"><i class="fas fa-expand-arrows-alt text-muted"></i>&nbsp;<%= t('.expand') %></a>
         <a class="dropdown-item compress-user-details mb-2" style="display: none;" href="#"><i class="fas fa-compress-arrows-alt text-muted"></i>&nbsp;<%= t('.compress') %></a>
         <div class="dropdown-divider mb-2"></div>
-        <% if current_user.has_subscription? %>
+        <% if current_user.has_subscription?(:pro) %>
           <a class="dropdown-item search-this-user mb-2" data-screen-name="{{screen_name}}" href="#"><i class="fas fa-search"></i>&nbsp;<%= t('.search') %></a>
         <% else %>
           <a class="dropdown-item btn-checkout mb-2" href="#"><i class="fas fa-search"></i>&nbsp;<%= t('.search') %></a>

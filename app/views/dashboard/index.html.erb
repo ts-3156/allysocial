@@ -20,7 +20,9 @@
         <p id="search-response-error" class="lead mb-5" style="display: none;"></p>
         <p id="specify-correct-label-message" class="lead mb-5" style="display: none;"><%= t('dashboard.form.js.specify_correct_label_html') %></p>
 
-        <% if current_user.has_subscription? %>
+        <% if current_user.has_subscription?(:pro) %>
+          <%# Render nothing %>
+        <% elsif current_user.has_subscription?(:plus) %>
           <p class="text-muted small mb-5"><%= t('.plus_plan_note_html') %></p>
         <% else %>
           <p class="text-muted small mb-5"><%= t('.free_plan_note_html') %></p>
