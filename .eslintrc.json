@@ -15,7 +15,8 @@
   },
   "globals": {
     "$": true,
-    "Mustache": true
+    "Mustache": true,
+    "ahoy": true
   },
   "rules": {
     "semi": ["error", "always"],

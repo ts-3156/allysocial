@@ -466,6 +466,7 @@ class SearchForm {
         current_size: self.currentSize
       };
       logger.log('request', params);
+      ahoy.track('search', params);
 
       $.get(self.url, params).done(function (res) {
         logger.log('response', res);

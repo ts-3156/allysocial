@@ -15,7 +15,7 @@
 #  is_verified           :boolean
 #  description           :text(65535)
 #  location              :string(255)
-#  url                   :string(255)
+#  url                   :text(65535)
 #  profile_image_url     :string(255)
 #  profile_banner_url    :string(255)
 #  account_created_at    :datetime
