@@ -191,7 +191,6 @@
   $(function () {
     var i18n = {
       loading: '<%= t('.js.loading') %>',
-      no_results_found: '<%= t('.js.no_results_found_html', app: t('app_name')) %>',
       payment_required: '<%= t('.js.payment_required_html') unless current_user.has_subscription?(:plus) %>'
     };
     var form = new SearchForm('<%= raw api_searches_path %>', i18n);

@@ -168,7 +168,7 @@ en:
         loading: 'Loading'
         specify_correct_label_html: 'Please specify search <a class="badge badge-primary label" href="#search-label-anchor" data-target="#search-label-underline">label</a>.'
         no_results_found_html:
-          No search results are found.<br>
+          <p class="lead">No search results are found.</p>
           <br>
           %{app} has only just been released. I will be actively fixing bugs.
           If you have any bug reports or feature requests, please feel free to contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.

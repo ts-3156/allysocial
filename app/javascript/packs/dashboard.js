@@ -20,6 +20,8 @@ function extractErrorMessage(xhr, textStatus, errorThrown) {
 function showErrorMessage(message) {
   if (message === 'specify_correct_label_message') {
     $('#specify-correct-label-message').show();
+  } else if (message === 'no_results_found_message') {
+    $('#no-results-found-message').show();
   } else {
     var container = $('#search-response-error');
     if (container.data('length') !== message.length) {
@@ -31,6 +33,7 @@ function showErrorMessage(message) {
 function hideErrorMessage() {
   $('#search-response-error').empty();
   $('#specify-correct-label-message').hide();
+  $('#no-results-found-message').hide();
 }
 
 function exponentialBackoff(num) {
@@ -375,7 +378,7 @@ class SearchForm {
         }
       } else {
         this.resetState('no results found');
-        showErrorMessage(this.i18n['no_results_found']);
+        showErrorMessage('no_results_found_message');
       }
     } else {
       var container = $('<div/>', {style: 'display: none;'});
