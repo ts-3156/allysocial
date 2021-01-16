@@ -32,5 +32,5 @@
 Rails.application.config.content_security_policy do |policy|
   policy.connect_src :self, 'https:'
   policy.frame_src :self, 'https:'
-  policy.img_src :self, 'https:'
+  policy.img_src :self, 'data:', 'https:'
 end
