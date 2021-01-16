@@ -1,0 +1,12 @@
+[Unit]
+Description=puma
+After=network.target
+
+[Service]
+WorkingDirectory=/var/allysocial
+ExecStart=/usr/local/bin/bundle exec /var/allysocial/.bundle/ruby/2.7.0/bin/puma -C config/puma.production.rb
+Environment=MALLOC_ARENA_MAX=2
+SyslogIdentifier=puma
+
+[Install]
+WantedBy=multi-user.target
