@@ -156,6 +156,9 @@ ja:
       reduced_display:
         title: 'コンパクト表示'
         tooltip: 'チェックすると、検索結果を小さく表示します。'
+      desktop_site:
+        title: 'PC版サイト'
+        tooltip: 'チェックすると、PC版のレイアウトで表示します。'
       search_response:
         html: |
           @<span class="user"></span> の

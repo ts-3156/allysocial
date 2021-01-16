@@ -158,6 +158,9 @@ en:
       reduced_display:
         title: 'Reduced display'
         tooltip: 'If checked, hide profile details of the search results.'
+      desktop_site:
+        title: 'Desktop site'
+        tooltip: 'If checked, display the desktop version'
       search_response:
         html: |
           Search for users whose

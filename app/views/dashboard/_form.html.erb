@@ -180,11 +180,18 @@
   </select>
 </div>
 
-<%# check %>
+<%# Reduced display %>
 <div class="form-group form-check mb-5">
   <input type="checkbox" class="form-check-input" id="reduced-display-check" <%= 'checked' if request.from_smartphone? %>>
   <label class="form-check-label" for="reduced-display-check"><%= t('.reduced_display.title') %></label>
   <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.reduced_display.tooltip') %>"></i>
+</div>
+
+<%# Desktop site %>
+<div class="form-group form-check mb-5">
+  <input type="checkbox" class="form-check-input" id="desktop-site-check" <%= 'checked' if params[:desktop_site] == 'true' %>>
+  <label class="form-check-label" for="desktop-site-check"><%= t('.desktop_site.title') %></label>
+  <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.desktop_site.tooltip') %>"></i>
 </div>
 
 <%# Submit %>
@@ -203,6 +210,14 @@
     form.setSearchLabel(label);
     label.fetchOptions(function () {
       form.search();
+    });
+
+    $('#desktop-site-check').on('change', function () {
+      if ($(this).prop('checked')) {
+        window.location.href = '<%= raw dashboard_path(desktop_site: true) %>';
+      } else {
+        window.location.href = '<%= raw dashboard_path(desktop_site: false) %>';
+      }
     });
 
     $('[data-toggle="tooltip"]').tooltip();
