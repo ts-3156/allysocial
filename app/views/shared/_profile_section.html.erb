@@ -11,109 +11,102 @@
     <img class="rounded-circle border shadow-sm" data-src="{{profile_image_url}}" style="min-width: 100px; width: 30%; max-width: 150px;">
   </div>
   <div class="pt-3 px-3">
-    <div class="d-flex justify-content-between mb-3">
-      <div>
-        <div><strong>{{name}}</strong></div>
-        <div><a class="text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">@{{screen_name}}</a></div>
+    <div class="mb-3">
+      <div><strong>{{name}}</strong></div>
+      <div><a class="text-muted" href="https://twitter.com/{{screen_name}}" target="_blank">@{{screen_name}}</a></div>
+    </div>
+
+    <div class="small mb-3" style="word-break: break-all;">{{{description}}}</div>
+    <div class="mb-3">
+      <div class="d-inline-block mr-3">
+        <i class="fas fa-map-marker-alt text-muted"></i>
+        <span class="text-muted">{{location}}</span>
       </div>
-      <div>
-        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse" aria-expanded="false" href=".profile-section-details"><%= t('.details') %></button>
+      <div class="d-inline-block">
+        <i class="fas fa-link text-muted"></i>
+        <a class="text-muted" href="{{url}}" target="_blank">
+          {{url_s}}
+        </a>
       </div>
     </div>
 
-    <div class="profile-section-details collapse">
-      <div class="small mb-3" style="word-break: break-all;">{{{description}}}</div>
-      <div class="mb-3">
-        <div class="d-inline-block mr-3">
-          <i class="fas fa-map-marker-alt text-muted"></i>
-          <span class="text-muted">{{location}}</span>
-        </div>
-        <div class="d-inline-block">
-          <i class="fas fa-link text-muted"></i>
-          <a class="text-muted" href="{{url}}" target="_blank">
-            {{url_s}}
-          </a>
-        </div>
+    <div>
+      <div class="d-inline-block mr-3 mb-2">
+        <a href="https://twitter.com/{{screen_name}}" target="_blank">
+          <strong class="text-body">{{statuses_count_s}}</strong>
+          <span class="small text-muted"><%= t('.statuses') %></span>
+        </a>
       </div>
-
-      <div>
-        <div class="d-inline-block mr-3 mb-2">
-          <a href="https://twitter.com/{{screen_name}}" target="_blank">
-            <strong class="text-body">{{statuses_count_s}}</strong>
-            <span class="small text-muted"><%= t('.statuses') %></span>
-          </a>
-        </div>
-        <div class="d-inline-block mr-3 mb-2">
-          <a href="https://twitter.com/{{screen_name}}/following" target="_blank">
-            <strong class="text-body">{{friends_count_s}}</strong>
-            <span class="small text-muted"><%= t('.following') %></span>
-          </a>
-        </div>
-        <div class="d-inline-block mr-3 mb-2">
-          <a href="https://twitter.com/{{screen_name}}/followers" target="_blank">
-            <strong class="text-body">{{followers_count_s}}</strong>
-            <span class="small text-muted"><%= t('.followers') %></span>
-          </a>
-        </div>
-        <div class="d-inline-block mr-3 mb-2">
-          <a href="https://twitter.com/{{screen_name}}/lists/memberships" target="_blank">
-            <strong class="text-body">{{listed_count_s}}</strong>
-            <span class="small text-muted"><%= t('.lists') %></span>
-          </a>
-        </div>
-        <div class="d-inline-block mb-2">
-          <a href="https://twitter.com/{{screen_name}}/likes" target="_blank">
-            <strong class="text-body">{{favourites_count_s}}</strong>
-            <span class="small text-muted"><%= t('.likes') %></span>
-          </a>
-        </div>
+      <div class="d-inline-block mr-3 mb-2">
+        <a href="https://twitter.com/{{screen_name}}/following" target="_blank">
+          <strong class="text-body">{{friends_count_s}}</strong>
+          <span class="small text-muted"><%= t('.following') %></span>
+        </a>
       </div>
-
-      <div>
-        <div class="d-inline-block mr-3 mb-2">
-          <a href="https://twitter.com/{{screen_name}}" target="_blank">
-            <strong class="text-body">{{one_sided_friends_count_s}}</strong>
-            <span class="small text-muted"><%= t('.one_sided_following') %></span>
-          </a>
-        </div>
-        <div class="d-inline-block mr-3 mb-2">
-          <a href="https://twitter.com/{{screen_name}}" target="_blank">
-            <strong class="text-body">{{one_sided_followers_count_s}}</strong>
-            <span class="small text-muted"><%= t('.one_sided_followers') %></span>
-          </a>
-        </div>
-        <div class="d-inline-block mb-2">
-          <a href="https://twitter.com/{{screen_name}}/likes" target="_blank">
-            <strong class="text-body">{{mutual_friends_count_s}}</strong>
-            <span class="small text-muted"><%= t('.mutual_following') %></span>
-          </a>
-        </div>
+      <div class="d-inline-block mr-3 mb-2">
+        <a href="https://twitter.com/{{screen_name}}/followers" target="_blank">
+          <strong class="text-body">{{followers_count_s}}</strong>
+          <span class="small text-muted"><%= t('.followers') %></span>
+        </a>
       </div>
-
-      {{#status_display}}
-      <hr>
-      <div class="mb-3">
-        <p class="small mb-1" style="word-break: break-all;">
-          {{status_text}}
-        </p>
-        {{#status_photos_display}}
-        <div style="max-width: 100%;">
-          {{#status_photo_urls}}
-          <a href="{{.}}" target="_blank">
-            <img class="img-fluid mr-2 mb-1" data-src="{{.}}" style="max-width: 20%;">
-          </a>
-          {{/status_photo_urls}}
-        </div>
-        {{/status_photos_display}}
-        <div class="small">
-          <span class="text-muted">&#8212;</span>
-          <a class="text-muted" href="https://twitter.com/{{screen_name}}/status/{{status_id}}" target="_blank">{{status_created_at}}</a>
-          <span class="text-muted ml-3"><i class="fas fa-retweet"></i> {{status_retweet_count_s}}</span>
-          <span class="text-muted ml-3"><i class="far fa-heart"></i> {{status_favorite_count_s}}</span>
-        </div>
+      <div class="d-inline-block mr-3 mb-2">
+        <a href="https://twitter.com/{{screen_name}}/lists/memberships" target="_blank">
+          <strong class="text-body">{{listed_count_s}}</strong>
+          <span class="small text-muted"><%= t('.lists') %></span>
+        </a>
       </div>
-      {{/status_display}}
+      <div class="d-inline-block mb-2">
+        <a href="https://twitter.com/{{screen_name}}/likes" target="_blank">
+          <strong class="text-body">{{favourites_count_s}}</strong>
+          <span class="small text-muted"><%= t('.likes') %></span>
+        </a>
+      </div>
     </div>
+
+    <div>
+      <div class="d-inline-block mr-3 mb-2">
+        <a href="https://twitter.com/{{screen_name}}" target="_blank">
+          <strong class="text-body">{{one_sided_friends_count_s}}</strong>
+          <span class="small text-muted"><%= t('.one_sided_following') %></span>
+        </a>
+      </div>
+      <div class="d-inline-block mr-3 mb-2">
+        <a href="https://twitter.com/{{screen_name}}" target="_blank">
+          <strong class="text-body">{{one_sided_followers_count_s}}</strong>
+          <span class="small text-muted"><%= t('.one_sided_followers') %></span>
+        </a>
+      </div>
+      <div class="d-inline-block mb-2">
+        <a href="https://twitter.com/{{screen_name}}/likes" target="_blank">
+          <strong class="text-body">{{mutual_friends_count_s}}</strong>
+          <span class="small text-muted"><%= t('.mutual_following') %></span>
+        </a>
+      </div>
+    </div>
+
+    {{#status_display}}
+    <hr>
+    <div class="mb-3">
+      <p class="small mb-1" style="word-break: break-all;">
+        {{status_text}}
+      </p>
+      {{#status_photos_display}}
+      <div style="max-width: 100%;">
+        {{#status_photo_urls}}
+        <a href="{{.}}" target="_blank">
+          <img class="img-fluid mr-2 mb-1" data-src="{{.}}" style="max-width: 20%;">
+        </a>
+        {{/status_photo_urls}}
+      </div>
+      {{/status_photos_display}}
+      <div class="small">
+        <span class="text-muted">&#8212;</span>
+        <a class="text-muted" href="https://twitter.com/{{screen_name}}/status/{{status_id}}" target="_blank">{{status_created_at}}</a>
+        <span class="text-muted ml-3"><i class="fas fa-retweet"></i> {{status_retweet_count_s}}</span>
+        <span class="text-muted ml-3"><i class="far fa-heart"></i> {{status_favorite_count_s}}</span>
+      </div>
+    </div>
+    {{/status_display}}
   </div>
 </div>
 
@@ -144,7 +137,7 @@
     return rendered;
   }
 
-  function updateProfileSection(uid, retryCount, callback) {
+  function updateProfileSection(uid, retryCount) {
     var container = $('.profile-section');
 
     if (container.data('uid') === uid) {
@@ -159,17 +152,22 @@
     var url = '<%= raw api_profile_path(uid: 'UID') %>';
     url = url.replace('UID', uid);
 
-    $.get(url).done(function (res) {
-      var user = res.user;
-      container.data('uid', user.uid).html(renderTemplate(user)).addClass('border').hide().fadeIn(500);
-      if (callback) {
-        callback();
+    var retry = function () {
+      setTimeout(function () {
+        updateProfileSection(uid, ++retryCount);
+      }, Math.pow(2, retryCount) * 1000);
+    };
+
+    $.get(url).done(function (res, _, xhr) {
+      if (xhr.status === 202) { // Accepted
+        retry();
+      } else {
+        var user = res.user;
+        container.data('uid', user.uid).html(renderTemplate(user)).addClass('border').hide().fadeIn(500);
       }
     }).fail(function (xhr) {
       if (xhr.status === 404) { // Not found
-        setTimeout(function () {
-          updateProfileSection(uid, ++retryCount);
-        }, Math.pow(2, retryCount) * 1000);
+        retry();
       }
     });
   }
