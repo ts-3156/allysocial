@@ -129,15 +129,20 @@
     <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.search_label.tooltip') %>"></i>
     <div id="search-label-underline" class="underline"></div>
   </div>
-  <input type="text" id="search-label" class="form-control mb-2" list="search-label-options"
-         value="<%= current_user.to_user_decorator(self).job_label_s %>"
-         data-placeholder="<%= t('.search_label.placeholder') %>"
-         data-placeholder-job="<%= t('.search_label.placeholder_job') %>"
-         data-placeholder-location="<%= t('.search_label.placeholder_location') %>"
-         data-placeholder-url="<%= t('.search_label.placeholder_url') %>"
-         data-placeholder-keyword="<%= t('.search_label.placeholder_keyword') %>">
-  <datalist id="search-label-options">
-  </datalist>
+  <div class="input-group mb-2">
+    <input type="text" id="search-label" class="form-control"
+           value="<%= current_user.to_user_decorator(self).job_label_s %>"
+           data-placeholder="<%= t('.search_label.placeholder') %>"
+           data-placeholder-job="<%= t('.search_label.placeholder_job') %>"
+           data-placeholder-location="<%= t('.search_label.placeholder_location') %>"
+           data-placeholder-url="<%= t('.search_label.placeholder_url') %>"
+           data-placeholder-keyword="<%= t('.search_label.placeholder_keyword') %>">
+    <div class="input-group-append">
+      <button id="clear-search-label" class="btn btn-outline-secondary" type="button">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
   <div id="quick-select" class="small">
     <span><%= t('.search_label.quick_select') %></span>
     <a class="badge badge-primary mr-1" href="#"></a>

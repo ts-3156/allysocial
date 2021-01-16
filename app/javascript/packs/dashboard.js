@@ -81,12 +81,21 @@ class SearchLabel {
     this.url = url;
     this.form = form;
     this.elem = $('#search-label');
-    this.datalist = $('#search-label-options');
+    var self = this;
 
     this.elem.on('keypress', function (e) {
       if (e.keyCode === 13) { // Enter key
         form.search(scrollToTop);
       }
+    }).on('focus', function () {
+      $(this).autocomplete('search');
+    }).on('autocompleteselect', function () {
+      $(this).trigger('change');
+    });
+
+    $('#clear-search-label').on('click', function () {
+      self.setValue('');
+      self.elem.focus();
     });
   }
 
@@ -103,14 +112,7 @@ class SearchLabel {
   }
 
   setOptions(options) {
-    logger.log('datalist', options);
-    this.datalist.empty();
-
-    options.forEach(function (option) {
-      var tag = $('<option/>', {value: option.label, text: option.label});
-      this.datalist.append(tag);
-    }, this);
-
+    this.elem.autocomplete({source: options, minLength: 0});
     this.updatePlaceholder();
     this.blink();
   }
