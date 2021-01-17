@@ -251,6 +251,7 @@ body {
   }
 
   section.features .section-heading h2 {
+    font-size: $title-medium;
     margin-top: 0;
   }
 
@@ -268,6 +269,9 @@ body {
   }
 
   @media (min-width: 992px) {
+    section.features .section-heading h2 {
+      font-size: $title-large;
+    }
     section.features .device-container {
       margin-bottom: 0;
     }
@@ -339,6 +343,7 @@ body {
   }
 
   section.contact h2 {
+    font-size: $title-medium;
     margin-top: 0;
     margin-bottom: 25px;
   }
@@ -359,6 +364,12 @@ body {
     height: 80px;
     color: white;
     border-radius: 100%;
+  }
+
+  @media (min-width: 992px) {
+    section.contact h2 {
+      font-size: $title-large;
+    }
   }
 
   section.contact ul.list-social li.social-twitter a {
