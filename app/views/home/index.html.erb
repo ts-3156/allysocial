@@ -42,7 +42,7 @@
           <div class="mb-5">
             <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
-          <p class="mb-3">You can easily search your followers by job, location, URL or keyword.</p>
+          <p class="mb-3"><%= t('.download.text2') %></p>
           <%= render partial: 'device_mockup', locals: {image: image_path('/template/img/search_by_job.png')} %>
         </div>
       </div>
@@ -58,7 +58,7 @@
           <div class="mb-5">
             <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download2') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
-          <p class="mb-3">You can search not only followers, but also following, one-sided following or one-sided followers.</p>
+          <p class="mb-3"><%= t('.download2.text2') %></p>
           <%= render partial: 'device_mockup', locals: {image: image_path('/template/img/search_followers.png')} %>
         </div>
       </div>

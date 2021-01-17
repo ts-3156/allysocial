@@ -17,6 +17,7 @@ en:
           <br>
           Both are already among your followers!
           Search through your followers and start building new relationships with new friends.
+        text2: 'You can easily search your followers by job, location, URL or keyword.'
         features:
           what_app_can_do: 'What %{app} can do:'
           job: 'feature 1: Search followers by "job"'
@@ -27,6 +28,7 @@ en:
         title: 'You can get along with your followers quickly.'
         text_html: |
           Followers are following you because they want to know more about you. If you are interested in your followers, you can quickly become friends with them.
+        text2: 'You can search not only followers, but also following, one-sided following or one-sided followers.'
         features:
           what_app_can_do: 'What %{app} can do:'
           job: 'feature 1: Search followers by "job"'
