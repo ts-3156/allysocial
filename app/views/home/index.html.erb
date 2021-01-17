@@ -27,19 +27,7 @@
           </div>
         </div>
         <div class="col-lg-5 my-auto">
-          <div class="device-container">
-            <div class="device-mockup iphone6_plus portrait black">
-              <div class="device">
-                <div class="screen">
-                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="<%= asset_path '/template/img/demo-screen.png' %>" class="img-fluid" alt="">
-                </div>
-                <div class="button">
-                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render partial: 'device_mockup', locals: {image: image_path('/template/img/demo-screen.png')} %>
         </div>
       </div>
     </div>
@@ -54,17 +42,8 @@
           <div class="mb-5">
             <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
-          <div>
-            <h3 class="mb-4"><%= t('.download.features.what_app_can_do', app: t('app_name')) %></h3>
-            <div class="mb-2"><%= t('.download.features.job') %></div>
-            <div class="mb-2"><%= t('.download.features.location') %></div>
-            <div class="mb-2"><%= t('.download.features.url') %></div>
-            <div class="mb-2"><%= t('.download.features.keyword') %></div>
-          </div>
-          <div class="badges" style="display: none;">
-            <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/google-play-badge.svg' %>" alt=""></a>
-            <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/app-store-badge.svg' %>" alt=""></a>
-          </div>
+          <p class="mb-3">You can easily search your followers by job, location, URL or keyword.</p>
+          <%= render partial: 'device_mockup', locals: {image: image_path('/template/img/search_by_job.png')} %>
         </div>
       </div>
     </div>
@@ -79,17 +58,8 @@
           <div class="mb-5">
             <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download2') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
-          <div>
-            <h3 class="mb-4"><%= t('.download2.features.what_app_can_do', app: t('app_name')) %></h3>
-            <div class="mb-2"><%= t('.download2.features.job') %></div>
-            <div class="mb-2"><%= t('.download2.features.location') %></div>
-            <div class="mb-2"><%= t('.download2.features.url') %></div>
-            <div class="mb-2"><%= t('.download2.features.keyword') %></div>
-          </div>
-          <div class="badges" style="display: none;">
-            <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/google-play-badge.svg' %>" alt=""></a>
-            <a class="badge-link" href="#"><img src="<%= asset_path '/template/img/app-store-badge.svg' %>" alt=""></a>
-          </div>
+          <p class="mb-3">You can search not only followers, but also following, one-sided following or one-sided followers.</p>
+          <%= render partial: 'device_mockup', locals: {image: image_path('/template/img/search_followers.png')} %>
         </div>
       </div>
     </div>
@@ -106,19 +76,7 @@
       </div>
       <div class="row">
         <div class="col-lg-4 my-auto">
-          <div class="device-container">
-            <div class="device-mockup iphone6_plus portrait black">
-              <div class="device">
-                <div class="screen">
-                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="<%= asset_path '/template/img/demo-screen.png' %>" class="img-fluid" alt="">
-                </div>
-                <div class="button">
-                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render partial: 'device_mockup', locals: {image: image_path('/template/img/demo-screen.png')} %>
         </div>
         <div class="col-lg-8 my-auto">
           <div class="container-fluid">

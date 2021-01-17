@@ -8,12 +8,14 @@ en:
       sign_in: 'Sign in'
       sign_out: 'Sign out'
       masthead:
-        text: 'Find new partners among your followers.'
-        button: 'Start Now for Free'
+        text: 'Find new connections among your followers.'
+        button: 'Get started now'
       download:
-        title: 'Your new partner is among your followers.'
+        title: 'Your new connections is among your followers.'
         text_html: |
-          Are you looking for a new business partner? Or are you looking for a hobby friend? Both are already among your followers!
+          Are you looking for a new business partner? Or are you looking for a hobby friend?<br>
+          <br>
+          Both are already among your followers!
           Search through your followers and start building new relationships with new friends.
         features:
           what_app_can_do: 'What %{app} can do:'
@@ -37,7 +39,7 @@ en:
           There is no other tool that can "search followers" like %{app}.
           The reason is that searching thousands to millions of followers in real time requires a high skill level and huge computing resources. <br>
           <br>
-          %{app} was created by the same development team that created egotter &copy; the world's most advanced Twitter analysis tool for over a decade,
+          %{app} was created by the same development team that created egotter&copy; which the world's most advanced Twitter analysis tool for over a decade,
           so %{app} provides world-class search speed and safety.
         first:
           title: 'Search followers by job title'

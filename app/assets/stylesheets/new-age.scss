@@ -7,6 +7,9 @@
 $start-color: #87b1ff;
 $end-color: #026dff;
 
+$title-large: 38px;
+$title-medium: 22px;
+
 html,
 body {
   width: 100%;
@@ -147,6 +150,16 @@ body {
     color: #fdcc52;
   }
 
+  .device-container {
+    max-width: 325px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .device-container .screen img {
+    border-radius: 3px;
+  }
+
   header.masthead {
     position: relative;
     width: 100%;
@@ -164,17 +177,7 @@ body {
   }
 
   header.masthead .header-content h1 {
-    font-size: 30px;
-  }
-
-  header.masthead .device-container {
-    max-width: 325px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  header.masthead .device-container .screen img {
-    border-radius: 3px;
+    font-size: $title-medium;
   }
 
   @media (min-width: 992px) {
@@ -189,10 +192,7 @@ body {
       text-align: left;
     }
     header.masthead .header-content h1 {
-      font-size: 50px;
-    }
-    header.masthead .device-container {
-      max-width: 325px;
+      font-size: $title-large;
     }
   }
 
@@ -202,21 +202,9 @@ body {
   }
 
   section.download h2 {
-    font-size: 50px;
+    font-size: $title-medium;
+    font-weight: bold;
     margin-top: 0;
-  }
-
-  section.download .badges .badge-link {
-    display: block;
-    margin-bottom: 25px;
-  }
-
-  section.download .badges .badge-link:last-child {
-    margin-bottom: 0;
-  }
-
-  section.download .badges .badge-link img {
-    height: 60px;
   }
 
   section.download .row a.btn {
@@ -225,16 +213,9 @@ body {
     background: url("/template/img/bg-pattern.png"), linear-gradient(to left, $start-color, $end-color);
   }
 
-  @media (min-width: 768px) {
-    section.download .badges .badge-link {
-      display: inline-block;
-      margin-bottom: 0;
-    }
-  }
-
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     section.download h2 {
-      font-size: 70px;
+      font-size: $title-large;
     }
   }
 
@@ -244,7 +225,8 @@ body {
   }
 
   section.download2 h2 {
-    font-size: 50px;
+    font-size: $title-medium;
+    font-weight: bold;
     margin-top: 0;
   }
 
@@ -258,9 +240,9 @@ body {
     background: url("/template/img/bg-pattern.png"), linear-gradient(to left, $start-color, $end-color);
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     section.download2 h2 {
-      font-size: 70px;
+      font-size: $title-large;
     }
   }
 
@@ -276,7 +258,6 @@ body {
     margin-bottom: 0;
   }
 
-  section.features .device-container,
   section.features .feature-item {
     max-width: 325px;
     margin: 0 auto;
@@ -459,7 +440,7 @@ body {
     border-radius: 300px;
     font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif';
     letter-spacing: 2px;
-    text-transform: uppercase;
+    //text-transform: uppercase;
   }
 
   .btn-xl {
