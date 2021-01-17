@@ -49,8 +49,12 @@ module InsightImplementation
       users = client.users(uids_array).map { |user| ApiUser.new(user) }
       return_users.concat(users)
     rescue => e
-      logger.warn "Failed to fetch missing users exception=#{e.inspect}"
-      logger.warn e.backtrace.join("\n")
+      if TwitterApiStatus.no_user_matches?(e)
+        # Do nothing
+      else
+        logger.warn "Failed to fetch missing users exception=#{e.inspect}"
+        logger.warn e.backtrace.join("\n")
+      end
     end
 
     return_users
