@@ -14,21 +14,4 @@
   </nav>
 </div>
 
-<script>
-  (function () {
-    try {
-      var height = window.getComputedStyle(document.getElementById('mainNav')).height;
-      document.getElementById('new-age-navbar').style.height = height;
-    } catch (e) {
-    }
-  })();
-
-  $('.navbar-brand').on('click', function () {
-    if ($(window).scrollTop() === 0) {
-      var url = '<%= raw root_path(via: 'brand') %>';
-      window.location.href = url;
-    } else {
-      $([document.documentElement, document.body]).animate({scrollTop: 0});
-    }
-  });
-</script>
+<%= javascript_pack_tag 'navbar' %>

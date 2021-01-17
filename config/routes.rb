@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     resources :webhooks, only: %i(create)
     resources :checkout_sessions, only: %i(create)
-    # resources :subscriptions, only: %i(destroy)
+    resources :subscriptions, only: %i(destroy)
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }

@@ -17,7 +17,7 @@ class CreateSubscriptions < ActiveRecord::Migration[6.1]
 
       t.index :user_id
       t.index :stripe_checkout_session_id, unique: true
-      t.index :stripe_customer_id, unique: true
+      t.index :stripe_customer_id
       t.index :stripe_subscription_id, unique: true
       t.index :created_at
     end

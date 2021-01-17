@@ -98,8 +98,14 @@ module Api
       end
     end
 
+    def has_subscription
+      unless current_user.has_subscription?(:plus)
+        render json: { message: "You don't have any subscription" }, status: :bad_request
+      end
+    end
+
     def has_no_subscription
-      if current_user&.has_subscription?(:plus)
+      if current_user.has_subscription?(:plus)
         render json: { message: 'You already have a subscription' }, status: :bad_request
       end
     end

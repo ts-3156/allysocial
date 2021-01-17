@@ -24,7 +24,7 @@ class Subscription < ApplicationRecord
   validates :email, presence: true
   validates :name, presence: true
   validates :stripe_checkout_session_id, presence: true, uniqueness: true
-  validates :stripe_customer_id, presence: true, uniqueness: true
+  validates :stripe_customer_id, presence: true
   validates :stripe_subscription_id, presence: true, uniqueness: true
 
   scope :not_canceled, -> { where(canceled_at: nil) }
@@ -55,7 +55,7 @@ class Subscription < ApplicationRecord
   end
 
   def cancel!
-    Stripe::Subscription.delete(subscription_id)
+    Stripe::Subscription.delete(stripe_subscription_id)
     update!(canceled_at: Time.zone.now)
   end
 

@@ -8,12 +8,45 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= t('.body_html', app: t('app_name')) %>
+        <div><%= t('.body_html', app: t('app_name')) %></div>
+        <% if current_user.has_subscription?(:plus) %>
+          <button type="button" id="cancel-subscription" class="btn btn-danger my-3"><%= t('.cancel_subscription') %></button>
+        <% end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><%= t('.negative') %></button>
-        <button type="button" class="btn btn-primary" onclick="window.location.href = '<%= root_path(via: 'support_modal') %>'"><%= t('.positive') %></button>
+        <button type="button" id="go-to-toppage" class="btn btn-primary"><%= t('.positive') %></button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  $(function () {
+    function goToToppage() {
+      window.location.href = '<%= root_path(via: 'support_modal') %>';
+    }
+
+    function cancelSubscription() {
+      var id = '<%= current_user.current_subscription&.id %>';
+      const url = '/api/subscriptions/' + id // api_subscription_path
+      $.ajax({
+        url: url,
+        type: 'DELETE'
+      }).done(function () {
+        window.location.reload();
+      }).fail(function (xhr) {
+        console.error(xhr.responseText)
+      });
+    }
+
+    $('#go-to-toppage').on('click', goToToppage);
+
+    $('#cancel-subscription').on('click', function () {
+      var confirmation = '<%= t('.cancel_subscription_confirmation') %>';
+      if (confirm(confirmation)) {
+        cancelSubscription();
+      }
+    });
+  });
+</script>

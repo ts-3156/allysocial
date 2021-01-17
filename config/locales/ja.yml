@@ -97,8 +97,8 @@ ja:
         もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   dashboard:
     index:
-      free_plan_note_html: 'Freeプランを利用中です。このプランでは、フォロー・フォロワーの最初の 5,000人 が検索対象になっています。Plusプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
-      plus_plan_note_html: 'Plusプランを利用中です。このプランでは、フォロー・フォロワーの最初の 100,000人 が検索対象になっています。Proプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
+      free_plan_note_html: '<b>Freeプラン</b>を利用中です。このプランでは、フォロー・フォロワーの最初の 5,000人 が検索対象になっています。Plusプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
+      plus_plan_note_html: '<b>Plusプラン</b>を利用中です。このプランでは、フォロー・フォロワーの最初の 100,000人 が検索対象になっています。Proプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
     form:
       disabled_search_user:
         alert: '検索するユーザーの変更は、プランの購入後に出来ます。'
@@ -206,6 +206,8 @@ ja:
         %{app} はフォロワーの中から新しいつながりを見付けるためにデザインされています。<br>
         <br>
         もし分からないことがあれば、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> にいつでも質問してください。
+      cancel_subscription: 'サブスクリプションを解約する'
+      cancel_subscription_confirmation: '本当にサブスクリプションを解約しますか？'
       positive: 'トップページを開く'
       negative: '閉じる'
     sign_out_modal:
