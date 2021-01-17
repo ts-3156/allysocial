@@ -1,8 +1,9 @@
 export class Stripe {
-  constructor(signedIn, hasSubscription, i18n) {
+  constructor(signedIn, hasSubscription, i18n, locale) {
     this.signedIn = signedIn;
     this.hasSubscription = hasSubscription;
     this.i18n = i18n;
+    this.locale = locale;
   }
 
   init() {
@@ -27,7 +28,7 @@ export class Stripe {
   }
 
   redirectToCheckout() {
-    var url = '/api/checkout_sessions'; // api_checkout_sessions_path
+    var url = '/api/checkout_sessions?locale=' + this.locale; // api_checkout_sessions_path
     $.post(url).done(function (res) {
       var stripe = window.Stripe(process.env.STRIPE_PUBLISHABLE_KEY);
       stripe.redirectToCheckout({sessionId: res.session_id}).then(function (result) {

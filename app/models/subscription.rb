@@ -23,8 +23,6 @@ class Subscription < ApplicationRecord
   validates :user_id, presence: true
   validates :email, presence: true
   validates :name, presence: true
-  validates :price, presence: true
-  validates :tax_rate, presence: true
   validates :stripe_checkout_session_id, presence: true, uniqueness: true
   validates :stripe_customer_id, presence: true, uniqueness: true
   validates :stripe_subscription_id, presence: true, uniqueness: true
@@ -33,21 +31,24 @@ class Subscription < ApplicationRecord
   scope :charge_not_failed, -> { where(charge_failed_at: nil) }
   scope :filter_tier, -> (name) do
     if name == :plus
-      where('name regexp ?', ' Plus$')
+      where('name regexp ?', 'Plus$')
     elsif name == :pro
-      where('name regexp ?', ' Pro$')
+      where('name regexp ?', 'Pro$')
     else
       none
     end
   end
 
   PRODUCT_ID = ENV['STRIPE_PRODUCT_ID']
-  PRICE_ID = ENV['STRIPE_PRICE_ID']
+  PRICE_IDS = {
+    en: ENV['STRIPE_PRICE_EN_ID'],
+    ja: ENV['STRIPE_PRICE_JA_ID'],
+  }
   TAX_ID = ENV['STRIPE_TAX_ID']
-  COUPON_ID = ENV['STRIPE_COUPON_ID']
-  PRODUCT_NAME = "#{I18n.t('app_name')} Plus"
-  TAX_RATE = 0.1 #
-  PRICE = 2980
+  COUPON_IDS = {
+    en: ENV['STRIPE_COUPON_EN_ID'],
+    ja: ENV['STRIPE_COUPON_JA_ID'],
+  }
 
   def canceled?
     canceled_at.present?
@@ -63,9 +64,7 @@ class Subscription < ApplicationRecord
       create!(
         user_id: checkout_session.client_reference_id,
         email: customer.email,
-        name: PRODUCT_NAME,
-        price: PRICE,
-        tax_rate: TAX_RATE,
+        name: 'Plus',
         stripe_checkout_session_id: checkout_session.id,
         stripe_customer_id: checkout_session.customer,
         stripe_subscription_id: checkout_session.subscription,
