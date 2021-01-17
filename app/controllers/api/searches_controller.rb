@@ -35,12 +35,12 @@ module Api
     end
 
     def require_current_size
-      unless params[:current_size]&.match?(/\A\d{1,6}\z/) && params[:current_size].to_i <= current_total_limit
+      unless params[:current_size]&.match?(/\A\d{1,6}\z/)
         render json: { message: ':current_size not specified' }, status: :bad_request
       end
     end
 
-    def current_total_limit
+    def total_results
       if current_user.has_subscription?(:pro)
         1_000_000
       elsif current_user.has_subscription?(:plus)
@@ -51,7 +51,8 @@ module Api
     end
 
     def current_limit
-      [10, current_total_limit - (params[:current_size]&.to_i || 0)].min
+      current_size = params[:current_size]&.to_i || 0
+      [10, (total_results - current_size).abs].min
     end
   end
 end

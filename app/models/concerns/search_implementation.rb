@@ -77,6 +77,7 @@ module SearchImplementation
     end
   end
 
+  # TODO Move to another module
   def data_completed?
     completed_at.present?
   end
@@ -94,7 +95,7 @@ module SearchImplementation
       uids = chunk.uids
       uids = uids.reverse if reverse_order?(options)
 
-      if options[:last_uid] && options[:last_uid].match?(/\A[1-9][0-9]{1,30}\z/)
+      if last_uid_specified?(options)
         next if !(index = uids.index(options[:last_uid].to_i)) || index == uids.size - 1
         uids = uids.slice((index + 1)..-1)
       end
@@ -118,5 +119,9 @@ module SearchImplementation
 
   def reverse_order?(options)
     options[:sort] == 'desc'
+  end
+
+  def last_uid_specified?(options)
+    options[:last_uid]&.match?(/\A[1-9][0-9]{1,30}\z/)
   end
 end
