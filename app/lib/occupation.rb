@@ -145,7 +145,7 @@ class Occupation
   end
 
   def self.executive_officer(model)
-    model.where(%Q(description regexp binary "#{EXECUTIVE_OFFICER_KEYWORDS}"))
+    model.where(%Q(cast(description as binary) regexp binary "#{EXECUTIVE_OFFICER_KEYWORDS}"))
   end
 
   EMPLOYEE_KEYWORDS = '[Ee]mployee|会社員'
