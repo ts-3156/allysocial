@@ -80,20 +80,47 @@ module InsightImplementation
     update!(url: { words_count: words_count })
   end
 
-  def job_words
-    job['words_count'].take(500)
+  def job_words(limit: 500)
+    job['words_count'].take(limit)
   end
 
-  def description_words
-    description['words_count'].take(500)
+  def description_words(limit: 500)
+    description['words_count'].take(limit)
   end
 
-  def location_words
-    location['words_count'].take(500)
+  def location_words(limit: 500)
+    location['words_count'].take(limit)
   end
 
-  def url_words
-    url['words_count'].take(500)
+  def url_words(limit: 500)
+    url['words_count'].take(limit)
+  end
+
+  def chart_data(type)
+    case type
+    when 'job'
+      generate_chart_data(job_words(limit: 10))
+    when 'location'
+      generate_chart_data(location_words(limit: 10))
+    when 'url'
+      generate_chart_data(url_words(limit: 10))
+    when 'keyword'
+      generate_chart_data(description_words(limit: 10))
+    else
+      raise "Invalid type value=#{type}"
+    end
+  end
+
+  def generate_chart_data(words)
+    categories = []
+    series = []
+
+    words.each do |word, count|
+      categories << word
+      series << count
+    end
+
+    { categories: categories, series: series }
   end
 
   def data_completed?

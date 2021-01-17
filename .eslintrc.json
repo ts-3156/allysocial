@@ -16,7 +16,8 @@
   "globals": {
     "$": true,
     "Mustache": true,
-    "ahoy": true
+    "ahoy": true,
+    "Highcharts": true
   },
   "rules": {
     "semi": ["error", "always"],

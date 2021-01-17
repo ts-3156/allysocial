@@ -23,7 +23,7 @@ module Api
 
       options, quick_select = selector_class.new(@user_snapshot, @insight).select_options
 
-      render json: { options: options, quick_select: quick_select, extra: extra }
+      render json: { options: options, chart: @insight.chart_data(params[:type]), quick_select: quick_select, extra: extra }
     end
 
     private

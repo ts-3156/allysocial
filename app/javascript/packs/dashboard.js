@@ -1,4 +1,5 @@
 import {Logger} from './logger';
+import {Chart} from './chart';
 
 var logger = new Logger(process.env.RAILS_ENV);
 
@@ -149,6 +150,14 @@ class SearchLabel {
     $('label[for="type-keyword"] .count').text(extra.keywords_count);
   }
 
+  drawChart(data) {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    this.chart = new Chart('chart-container', data.categories, data.series);
+    this.chart.draw();
+  }
+
   fetchOptions(callback) {
     var self = this;
 
@@ -173,6 +182,7 @@ class SearchLabel {
           self.setOptions(data.options);
           self.setQuickSelectBadges(data.quick_select);
           self.setExtraCounts(data.extra);
+          self.drawChart(data.chart);
           if (callback) {
             callback();
           }
