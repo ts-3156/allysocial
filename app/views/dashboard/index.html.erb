@@ -5,7 +5,17 @@
     <%# Form %>
     <div class="col-md-4 order-md-2 border-left">
       <div class="mb-5">
-        <%= render partial: 'form' %>
+        <% if !show_desktop_site? && request.from_smartphone? %>
+          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" aria-expanded="false" href="#form-container">
+            <%= t('.search_settings') %>
+            <i class="fas fa-search text-muted"></i>
+          </button>
+          <div id="form-container" class="border collapse mt-3 p-3">
+            <%= render partial: 'form' %>
+          </div>
+        <% else %>
+          <%= render partial: 'form' %>
+        <% end %>
       </div>
       <hr class="mb-5 d-md-none">
     </div>

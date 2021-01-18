@@ -189,7 +189,7 @@
 
 <%# Desktop site %>
 <div class="form-group form-check mb-5">
-  <input type="checkbox" class="form-check-input" id="desktop-site-check" <%= 'checked' if params[:desktop_site] == 'true' %>>
+  <input type="checkbox" class="form-check-input" id="desktop-site-check" <%= 'checked' if show_desktop_site? %>>
   <label class="form-check-label" for="desktop-site-check"><%= t('.desktop_site.title') %></label>
   <i class="far fa-question-circle text-muted" data-toggle="tooltip" data-placement="top" title="<%= t('.desktop_site.tooltip') %>"></i>
 </div>

@@ -99,6 +99,7 @@ en:
         If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
   dashboard:
     index:
+      search_settings: 'Search settings'
       free_plan_note_html: 'You are using the <b>Free Plan</b>. This plan allows you to search the first 5,000 people of your following or followers. You can remove this limit by purchasing Plus Plan. <a href="#" class="btn-checkout">See details</a>'
       plus_plan_note_html: 'You are using the <b>Plus Plan</b>. This plan allows you to search the first 100,000 people of your following or followers. You can remove this limit by purchasing Pro Plan. <a href="#" class="btn-checkout">See details</a>'
     form:

@@ -97,6 +97,7 @@ ja:
         もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
   dashboard:
     index:
+      search_settings: '検索設定'
       free_plan_note_html: '<b>Freeプラン</b>を利用中です。このプランでは、フォロー・フォロワーの最初の 5,000人 が検索対象になっています。Plusプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
       plus_plan_note_html: '<b>Plusプラン</b>を利用中です。このプランでは、フォロー・フォロワーの最初の 100,000人 が検索対象になっています。Proプランを購入するとこの上限を解除できます。<a href="#" class="btn-checkout">もっと詳しく</a>'
     form:
