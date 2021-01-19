@@ -4,8 +4,6 @@
 #
 #  id                  :bigint           not null, primary key
 #  friends_snapshot_id :bigint           not null
-#  previous_cursor     :bigint
-#  next_cursor         :bigint
 #  uids                :json
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
