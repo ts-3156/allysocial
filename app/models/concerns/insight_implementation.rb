@@ -99,7 +99,7 @@ module InsightImplementation
   def chart_data(type)
     case type
     when 'job'
-      generate_chart_data(job_words(limit: 10))
+      generate_chart_data(job_words(limit: 10), type)
     when 'location'
       generate_chart_data(location_words(limit: 10))
     when 'url'
@@ -111,12 +111,12 @@ module InsightImplementation
     end
   end
 
-  def generate_chart_data(words)
+  def generate_chart_data(words, type = nil)
     categories = []
     series = []
 
     words.each do |word, count|
-      categories << word
+      categories << (type == 'job' ? JobSelector.value_to_label(word) : word)
       series << count
     end
 
