@@ -1,6 +1,5 @@
 class KeywordSelector < BaseSelector
   class << self
-    # TODO Add is_protected and is_verified
     def fixed_values
       %w(
         accepting_requests_for_work

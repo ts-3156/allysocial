@@ -9,6 +9,7 @@
 #  updated_at       :datetime         not null
 #
 class OneSidedFriendsSnapshot < ApplicationRecord
+  include Completable
   include SearchImplementation
 
   belongs_to :user_snapshot

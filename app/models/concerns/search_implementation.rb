@@ -77,11 +77,6 @@ module SearchImplementation
     end
   end
 
-  # TODO Move to another module
-  def data_completed?
-    completed_at.present?
-  end
-
   private
 
   def select_with_like_query(options, &block)

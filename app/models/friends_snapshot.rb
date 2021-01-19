@@ -9,6 +9,7 @@
 #  updated_at       :datetime         not null
 #
 class FriendsSnapshot < ApplicationRecord
+  include Completable
   include SnapshotImplementation
   include SearchImplementation
 
