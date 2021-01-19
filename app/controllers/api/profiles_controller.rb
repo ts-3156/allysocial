@@ -1,6 +1,6 @@
 module Api
   class ProfilesController < BaseController
-    before_action :authenticate_user!
+    before_action :authenticate_user
     before_action :require_uid
     before_action { set_user_snapshot(params[:uid], false) }
 

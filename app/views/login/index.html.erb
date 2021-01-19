@@ -1,0 +1,22 @@
+<div id="login-container" class="w-100 h-100 d-flex justify-content-center align-items-center">
+  <div class="text-center border rounded shadow bg-white p-5" style="min-width: 400px;">
+    <div class="mb-5">
+      <img src="<%= image_path('/favicon.png') %>" width="25" height="25">
+      <span class="app-name"><%= t('app_name') %></span>
+    </div>
+
+    <% if flash.any? %>
+      <div class="mb-5">
+        <%= render partial: 'shared/flash_message' %>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'login') %>" class="btn btn-primary" style="min-width: 200px;"><%= t('.button') %></a>
+    </div>
+
+    <div>
+      <a href="<%= raw root_path(via: 'login') %>" style="min-width: 200px;"><%= t('.top') %></a>
+    </div>
+  </div>
+</div>

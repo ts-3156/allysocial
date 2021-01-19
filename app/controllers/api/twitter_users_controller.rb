@@ -1,6 +1,6 @@
 module Api
   class TwitterUsersController < BaseController
-    before_action :authenticate_user!
+    before_action :authenticate_user
     before_action :require_screen_name
 
     def show

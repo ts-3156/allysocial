@@ -1,6 +1,6 @@
 module Api
   class SearchesController < BaseController
-    before_action :authenticate_user!
+    before_action :authenticate_user
     before_action :require_category
     before_action :require_type
     before_action :require_label

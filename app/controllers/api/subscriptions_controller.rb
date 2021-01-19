@@ -1,6 +1,6 @@
 module Api
   class SubscriptionsController < BaseController
-    before_action :authenticate_user!
+    before_action :authenticate_user
     before_action :has_subscription
 
     def destroy

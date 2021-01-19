@@ -89,6 +89,10 @@ ja:
         search_followers: 'フォロワーを 100万人 検索'
         button: 'セールスに問い合わせする'
       footnote: '割引が適用されるのは初回購入から継続利用中のプランです。購入した後にキャンセルし再度購入した場合は、割引無しの価格となります。'
+  login:
+    index:
+      button: 'Twitter でログイン'
+      top: 'トップ'
   waiting:
     index:
       text: '@%{user} のデータを分析中です。もう少々お待ちください。'

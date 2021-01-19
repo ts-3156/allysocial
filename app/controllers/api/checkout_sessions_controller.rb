@@ -1,7 +1,7 @@
 module Api
   class CheckoutSessionsController < BaseController
 
-    before_action :authenticate_user!
+    before_action :authenticate_user
     before_action :has_no_subscription
 
     def create

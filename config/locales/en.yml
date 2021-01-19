@@ -91,6 +91,10 @@ en:
         search_followers: 'Up to 1M followers'
         button: 'Contact sales'
       footnote: 'The discount will be applied to the plan from the initial purchase and ongoing use. If you cancel the plan after purchase and purchase it again, the price will be without discount.'
+  login:
+    index:
+      button: 'Sign in with Twitter'
+      top: 'Top'
   waiting:
     index:
       text: 'Analyzing data for @%{user}. I’ll be with you in a moment.'
