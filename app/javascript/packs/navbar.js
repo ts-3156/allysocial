@@ -9,7 +9,7 @@
 
 $('.navbar-brand').on('click', function () {
   if ($(window).scrollTop() === 0) {
-    var url = '/via=brand'; // root_path(via: 'brand')
+    var url = '/?via=brand'; // root_path(via: 'brand')
     window.location.href = url;
   } else {
     $([document.documentElement, document.body]).animate({scrollTop: 0});

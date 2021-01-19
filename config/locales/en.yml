@@ -1,5 +1,7 @@
 en:
   app_name: 'SearchFollowers'
+  application:
+    checkout_success_message: 'Thank you for purchasing %{name} plan.'
   home:
     index:
       dashboard: 'Dashboard'

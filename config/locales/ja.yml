@@ -1,5 +1,7 @@
 ja:
   app_name: 'SearchFollowers'
+  application:
+    checkout_success_message: '%{name} プランの購入ありがとうございます。'
   home:
     index:
       dashboard: 'ダッシュボード'
