@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'login', to: 'login#index'
   get 'dashboard', to: 'dashboard#index'
   get 'waiting', to: 'waiting#index'
+  get 'thanks', to: 'thanks#index'
 
   namespace :api, { format: 'json' } do
     resources :profiles, only: %i(show), param: :uid

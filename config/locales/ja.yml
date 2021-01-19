@@ -1,7 +1,5 @@
 ja:
   app_name: 'SearchFollowers'
-  application:
-    checkout_success_message: '%{name} プランの購入ありがとうございます。'
   home:
     index:
       dashboard: 'ダッシュボード'
@@ -92,6 +90,13 @@ ja:
   login:
     index:
       button: 'Twitter でログイン'
+      top: 'トップ'
+  thanks:
+    index:
+      success: '%{name} プランの購入ありがとうございます。'
+      failure: 'まだどのプランも購入していません。'
+      signed_in: 'ログイン済みです。'
+      button: '続ける'
       top: 'トップ'
   waiting:
     index:

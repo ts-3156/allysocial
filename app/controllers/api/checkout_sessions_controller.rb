@@ -13,7 +13,7 @@ module Api
         line_items: [{ quantity: 1, price: Subscription::PRICE_IDS[locale] }],
         subscription_data: { default_tax_rates: [Subscription::TAX_ID] },
         metadata: { user_id: current_user.id },
-        success_url: dashboard_url(via: 'checkout_success'),
+        success_url: thanks_url(via: 'checkout_success'),
         cancel_url: root_url(via: 'checkout_cancel')
       }
 
