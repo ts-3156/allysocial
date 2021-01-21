@@ -104,8 +104,8 @@ ja:
       success: '%{name} プランの購入ありがとうございます。'
       failure: 'まだどのプランも購入していません。'
       signed_in: 'ログイン済みです。'
-      button: '続ける'
-      top: 'トップ'
+      button: 'ダッシュボードへ行く'
+      top: 'トップページ'
   waiting:
     index:
       text: '@%{user} のデータを分析中です。もう少々お待ちください。'

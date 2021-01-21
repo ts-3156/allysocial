@@ -383,6 +383,8 @@ class SearchForm {
   }
 
   appendSearchResponse(users) {
+    var chart = $('#chart-container');
+
     if (!users || users.length === 0) {
       if (this.lastUid) {
         if (this.i18n['payment_required']) {
@@ -390,9 +392,11 @@ class SearchForm {
         }
       } else {
         this.resetState('no results found');
+        chart.hide();
         showErrorMessage('no_results_found_message');
       }
     } else {
+      chart.show();
       var container = $('<div/>', {style: 'display: none;'});
       var loader = this.createLoader(this.loadNextUsers.bind(this));
 

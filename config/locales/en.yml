@@ -106,8 +106,8 @@ en:
       success: 'Thank you for purchasing %{name} plan.'
       failure: 'You have not purchased any plans yet.'
       signed_in: 'You have already signed in.'
-      button: 'Next'
-      top: 'Top'
+      button: 'Go to dashboard'
+      top: 'Top page'
   waiting:
     index:
       text: 'Analyzing data for @%{user}. I’ll be with you in a moment.'
