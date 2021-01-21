@@ -321,7 +321,7 @@ class SearchForm {
   switchLabel() {
     this.resetState('switch label');
     this.searchLabel.removeCountSuffix();
-    this.searchLabel.fetchOptions(this.search.bind(this));
+    this.search();
   }
 
   switchSort() {

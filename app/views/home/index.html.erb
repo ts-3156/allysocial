@@ -132,6 +132,21 @@
 <%= render partial: 'pricing' %>
 
 <div class="new-age-container">
+  <section class="faq">
+    <div class="container">
+      <h2 class="mb-5 text-center"><%= t('.faq.title') %></h2>
+
+      <h4 class="mb-3"><%= t('.faq.q1', app: t('app_name')) %></h4>
+      <div class="mb-5"><%= t('.faq.a1', app: t('app_name')) %></div>
+      <hr class="mb-5">
+      <h4 class="mb-3"><%= t('.faq.q2', app: t('app_name')) %></h4>
+      <div class="mb-5"><%= t('.faq.a2', app: t('app_name')) %></div>
+      <hr class="mb-5">
+      <h4 class="mb-3"><%= t('.faq.q3', app: t('app_name')) %></h4>
+      <div class="mb-5"><%= t('.faq.a3_html', app: t('app_name')) %></div>
+    </div>
+  </section>
+
   <section class="contact" id="contact">
     <div class="container">
       <h2><%= t('.contact.title_html') %></h2>

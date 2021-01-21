@@ -348,6 +348,27 @@ body {
     }
   }
 
+  section.faq {
+    h2 {
+      font-size: $title-medium;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    hr {
+      max-width: 100%;
+      width: 100%;
+      border-width: 2px;
+      border-color: #ccd6dd;
+    }
+
+    @media (min-width: 992px) {
+      h2 {
+        font-size: $title-large;
+      }
+    }
+  }
+
   section.contact {
     text-align: center;
 

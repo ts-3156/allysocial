@@ -46,6 +46,14 @@ en:
       cta:
         title: 'Followers are waiting to hear from you.'
         text: Let's Get Started!
+      faq:
+        title: 'FAQ'
+        q1: 'What is %{app}?'
+        a1: '%{app} is a tool to be designed to help you find new connections among your followers.'
+        q2: 'What can I do with %{app}?'
+        a2: 'You can find new connections that match your search conditions from your followers. You can search by job, location, URL, or keyword.'
+        q3: 'Does %{app} have an official account?'
+        a3_html: '<a style="color: #007bff;" href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> is the official account. If you have any questions, please feel free to ask.'
       contact:
         title_html: 'We <i class="fas fa-heart"></i> new customers!'
         text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
