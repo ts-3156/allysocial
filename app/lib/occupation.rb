@@ -105,6 +105,26 @@ class Occupation
     model.where(%Q(description regexp "#{LAWYER_KEYWORDS}"))
   end
 
+  JUDICIAL_SCRIVENER_KEYWORDS = '司法書士'
+
+  def judicial_scrivener?
+    description.match?(Regexp.new(JUDICIAL_SCRIVENER_KEYWORDS))
+  end
+
+  def self.judicial_scrivener(model)
+    model.where(%Q(description regexp "#{JUDICIAL_SCRIVENER_KEYWORDS}"))
+  end
+
+  ADMINISTRATIVE_SCRIVENER_KEYWORDS = '行政書士'
+
+  def administrative_scrivener?
+    description.match?(Regexp.new(ADMINISTRATIVE_SCRIVENER_KEYWORDS))
+  end
+
+  def self.administrative_scrivener(model)
+    model.where(%Q(description regexp "#{ADMINISTRATIVE_SCRIVENER_KEYWORDS}"))
+  end
+
   PUBLIC_ACCOUNTANT_KEYWORDS = '会計士|(public\s+accountant)'
   PUBLIC_ACCOUNTANT_KEYWORDS_DB = '会計士|(public[[:space:]]+accountant)'
 
