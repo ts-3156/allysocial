@@ -293,7 +293,7 @@ class SearchForm {
 
   resetState(reason) {
     logger.log('Reset state:', reason);
-    $('.search-response-title').hide();
+    // $('#search-response-title').hide();
     this.responseContainer.empty();
     this.searchLabel.setNeutral();
     this.lastUid = null;
@@ -468,7 +468,7 @@ class SearchForm {
     screenNameToUid(screenName, function (res) {
       var user = res.user;
 
-      $('.search-response-title').show()
+      $('#search-response-title').show()
         .find('.user').text(screenName).end()
         .find('.category').text(self.categoryLabel()).end()
         .find('.type').text(self.typeLabel()).end()
