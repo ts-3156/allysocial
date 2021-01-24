@@ -112,10 +112,9 @@ en:
     index:
       text: 'Analyzing data for @%{user}. I’ll be with you in a moment.'
       reload: 'Reload this page'
-      description_html: |
-        If you have less than 10,000 followers, %{app} will usually complete the analysis of your data within a minute.
-      support_html: |
-        If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.
+      description_html: 'If you have less than 10,000 followers, This app will usually complete the analysis of your data within a minute.'
+      rate_limit_exceeded_html: 'A Twitter API error occurred while retrieving data for @%{user}. This error is usually reset within 15 minutes. Please come again in 15 minutes.'
+      support_html: 'If you have waited too long and the analysis is not complete, please contact <a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a>.'
   dashboard:
     index:
       search_settings: 'Search settings'

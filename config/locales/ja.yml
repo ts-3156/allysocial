@@ -110,10 +110,9 @@ ja:
     index:
       text: '@%{user} のデータを分析中です。もう少々お待ちください。'
       reload: 'ページを更新する'
-      description_html: |
-        フォロワー数が10,000人未満の場合、通常は1分以内に分析が完了します。
-      support_html: |
-        もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。
+      description_html: 'フォロワー数が10,000人未満の場合、通常は1分以内に分析が完了します。'
+      rate_limit_exceeded_html: '@%{user} のデータを取得中にツイッターAPIのエラーが起きました。このエラーは通常15分以内に直ります。15分後に再度アクセスしてみてください。'
+      support_html: 'もしいつまで待っても分析が完了しない場合は、<a href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> までご連絡ください。'
   dashboard:
     index:
       search_settings: '検索設定'

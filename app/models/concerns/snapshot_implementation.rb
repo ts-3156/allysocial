@@ -15,7 +15,7 @@ module SnapshotImplementation
     else
       loop_limit = 1
     end
-    remaining = client.rate_limit.send(api_name)[:remaining]
+    remaining = client.rate_limit.send(api_name).remaining
 
     if remaining >= loop_limit
       uids = local_fetch(client, api_name, user_snapshot.uid, loop_limit)

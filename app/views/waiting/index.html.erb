@@ -2,21 +2,24 @@
 
 <div class="container">
   <div class="mb-5">
-    <%= render partial: 'shared/profile_section', locals: { user: @user } %>
+    <%= render partial: 'shared/profile_section', locals: { user: current_user } %>
   </div>
 </div>
 
 <div class="container">
   <div class="mb-5">
-    <p class="lead"><%= t('.text', user: @user.screen_name) %></p>
+    <p class="lead"><%= t('.text', user: current_user.screen_name) %></p>
   </div>
+  <% if @error_message %>
+    <div class="text-danger mb-5"><%= @error_message %></div>
+  <% end %>
   <div class="mb-5">
     <a class="btn btn-primary" href="<%= waiting_path(via: 'reload') %>"><%= t('.reload') %></a>
   </div>
   <div class="progress mb-5">
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
   </div>
-  <div class="mb-3"><%= t('.description_html', app: t('app_name')) %></div>
+  <div class="mb-3"><%= t('.description_html') %></div>
   <div class="mb-5"><%= t('.support_html', app: t('app_name')) %></div>
   <div style="min-height: 300px;"></div>
 </div>

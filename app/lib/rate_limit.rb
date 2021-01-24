@@ -12,23 +12,23 @@ class RateLimit
   end
 
   def verify_credentials
-    extract_remaining_and_reset_in(resources[:account][:'/account/verify_credentials'])
+    Resource.new(extract_remaining_and_reset_in(resources[:account][:'/account/verify_credentials']))
   end
 
   def friend_ids
-    extract_remaining_and_reset_in(resources[:friends][:'/friends/ids'])
+    Resource.new(extract_remaining_and_reset_in(resources[:friends][:'/friends/ids']))
   end
 
   def follower_ids
-    extract_remaining_and_reset_in(resources[:followers][:'/followers/ids'])
+    Resource.new(extract_remaining_and_reset_in(resources[:followers][:'/followers/ids']))
   end
 
   def users
-    extract_remaining_and_reset_in(resources[:users][:'/users/lookup'])
+    Resource.new(extract_remaining_and_reset_in(resources[:users][:'/users/lookup']))
   end
 
   def search
-    extract_remaining_and_reset_in(resources[:search][:'/search/tweets'])
+    Resource.new(extract_remaining_and_reset_in(resources[:search][:'/search/tweets']))
   end
 
   def to_h
@@ -53,5 +53,14 @@ class RateLimit
 
   def extract_remaining_and_reset_in(limit)
     { remaining: limit[:remaining], reset_in: (Time.at(limit[:reset]) - Time.now).round }
+  end
+
+  class Resource
+    attr_reader :limit, :remaining, :reset
+
+    def initialize(options)
+      @remaining = options[:remaining]
+      @reset_in = options[:reset_in]
+    end
   end
 end

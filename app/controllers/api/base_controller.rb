@@ -56,9 +56,13 @@ module Api
       if (wait_for_completion && snapshot&.data_completed?) || (!wait_for_completion && snapshot)
         @user_snapshot = snapshot
       else
-        create_user_snapshot(uid)
+        unless ApiTooManyRequestsErrorCache.new.error_found?(current_user.id)
+          create_user_snapshot(uid)
+        end
+
         screen_name = (user = TwitterUser.find_by(uid: uid)) ? user.screen_name : 'user'
-        render json: { message: t('api.base.data_not_completed_html', app: t('app_name'), user: screen_name, url: view_context.image_path('/ajax-loader.gif')) }, status: :accepted
+        message = t('api.base.data_not_completed_html', app: t('app_name'), user: screen_name, url: view_context.image_path('/ajax-loader.gif'))
+        render json: { message: message }, status: :accepted
       end
     end
 

@@ -5,7 +5,9 @@ class WaitingController < ApplicationController
     if current_user.user_snapshot&.data_completed?
       redirect_to dashboard_path
     else
-      @user = current_user
+      if ApiTooManyRequestsErrorCache.new.error_found?(current_user.id)
+        @error_message = t('.rate_limit_exceeded_html', user: current_user.screen_name)
+      end
     end
   end
 end

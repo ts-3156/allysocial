@@ -8,6 +8,8 @@ class CreateSnapshotWorker
   rescue => e
     if e.message.include?('Mysql2::Error: Duplicate entry')
       # ActiveRecord::RecordNotUnique
+    elsif TwitterApiStatus.too_many_requests?(e)
+      ApiTooManyRequestsErrorCache.new.set_error(user_id)
     else
       logger.warn "Unhandled exception: #{e.inspect}"
       logger.info e.backtrace.join("\n")
