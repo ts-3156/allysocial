@@ -5,12 +5,12 @@
   <title><%= t('root_title') %></title>
   <meta name="description" content="<%= t('root_description') %>">
   <%= display_meta_tags(og: {
-    title: :title,
+    title: t('root_title'),
     type: 'website',
     url: request.original_url,
     image: image_url("/template/img/og_image.#{I18n.locale}.png"),
     site_name: t('app_name'),
-    description: :description,
+    description: t('root_description'),
   }) %>
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="<%= image_path('/favicon.png') %>">
