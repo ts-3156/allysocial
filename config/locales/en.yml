@@ -1,7 +1,7 @@
 en:
   app_name: 'SearchFollowers'
-  root_title: 'SearchFollowers - Find new connections among your followers'
-  root_description: 'SearchFollowers is the only tool to search followers'
+  root_title: 'SearchFollowers - Find new connections among followers'
+  root_description: 'Are you looking for new business partners or hobby friends? Both are already among your followers!'
   home:
     index:
       dashboard: 'Dashboard'
@@ -15,7 +15,7 @@ en:
       download:
         title: 'Your new connections is among your followers.'
         text_html: |
-          Are you looking for a new business partner? Or are you looking for a hobby friend?<br>
+          Are you looking for new business partners or hobby friends?<br>
           <br>
           Both are already among your followers!
           Search through your followers and start building new relationships with new friends.
