@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="col-lg-5 my-auto">
-          <%= render partial: 'device_mockup', locals: { image: image_path('/template/img/demo-screen.png') } %>
+          <%= render partial: 'device_mockup', locals: { image: image_path("/template/img/screenshot.#{I18n.locale}.png") } %>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
             <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
           <p class="mb-3"><%= t('.download.text2') %></p>
-          <%= render partial: 'device_mockup', locals: { image: image_path('/template/img/search_by_job.png') } %>
+          <%= render partial: 'device_mockup', locals: { image: image_path("/template/img/screenshot_conditions.#{I18n.locale}.png") } %>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
             <a href="<%= raw user_twitter_omniauth_authorize_path(via: 'download2') %>" class="btn btn-outline btn-xl"><%= t('.masthead.button') %></a>
           </div>
           <p class="mb-3"><%= t('.download2.text2') %></p>
-          <%= render partial: 'device_mockup', locals: { image: image_path('/template/img/search_followers.png') } %>
+          <%= render partial: 'device_mockup', locals: { image: image_path("/template/img/screenshot_form.#{I18n.locale}.png") } %>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
       </div>
       <div class="row">
         <div class="col-lg-4 my-auto">
-          <%= render partial: 'device_mockup', locals: { image: image_path('/template/img/demo-screen.png') } %>
+          <%= render partial: 'device_mockup', locals: { image: image_path("/template/img/screenshot.#{I18n.locale}.png") } %>
         </div>
         <div class="col-lg-8 my-auto">
           <div class="container-fluid">
