@@ -11,10 +11,10 @@
             <i class="fas fa-search text-muted"></i>
           </button>
           <div id="form-container" class="border collapse mt-3 p-3">
-            <%= render partial: 'form' %>
+            <%= render partial: 'form', locals: { initial_label: @initial_label } %>
           </div>
         <% else %>
-          <%= render partial: 'form' %>
+          <%= render partial: 'form', locals: { initial_label: @initial_label } %>
         <% end %>
       </div>
       <hr class="mb-5 d-md-none">
