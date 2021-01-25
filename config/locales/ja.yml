@@ -1,5 +1,7 @@
 ja:
   app_name: 'SearchFollowers'
+  root_title: 'SearchFollowers - 新しいつながりをフォロワーから見付ける'
+  root_description: 'SearchFollowers はフォロワーを検索するためのたった1つのツールです'
   home:
     index:
       dashboard: 'ダッシュボード'

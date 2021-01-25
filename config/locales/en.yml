@@ -1,5 +1,7 @@
 en:
   app_name: 'SearchFollowers'
+  root_title: 'SearchFollowers - Find new connections among your followers'
+  root_description: 'SearchFollowers is the only tool to search followers'
   home:
     index:
       dashboard: 'Dashboard'
