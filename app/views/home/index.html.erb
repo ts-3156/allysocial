@@ -151,10 +151,17 @@
     <div class="container">
       <h2><%= t('.contact.title_html') %></h2>
       <div class="mb-5"><%= t('.contact.text_html') %></div>
-      <ul class="list-inline list-social">
-        <li class="list-inline-item social-twitter">
-          <a href="https://twitter.com/egotter_cs" target="_blank">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a class="btn btn-primary text-white" href="https://twitter.com/egotter_cs" target="_blank">
             <i class="fab fa-twitter"></i>
+            <%= t('.contact.account') %>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn btn-primary text-white" href="http://twitter.com/share" target="_blank">
+            <i class="fab fa-twitter"></i>
+            <%= t('.contact.tweet') %>
           </a>
         </li>
       </ul>

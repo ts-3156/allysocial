@@ -59,6 +59,8 @@ en:
       contact:
         title_html: 'We <i class="fas fa-heart"></i> new customers!'
         text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
+        account: 'Official account'
+        tweet: 'Tweet'
     pricing:
       description: 'Apply a discount when you upgrade by %{date}. 🎉'
       free: &pricing_free

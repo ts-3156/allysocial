@@ -59,6 +59,8 @@ ja:
       contact:
         title_html: '使ってくれて <i class="fas fa-heart"></i> ありがとう！'
         text_html: 'このアプリはリリースされたばかりです。バグは積極的に直していきます。<br>もし分からないことがあれば、お気軽にご連絡ください。'
+        account: '公式アカウント'
+        tweet: 'ツイートする'
     pricing:
       description: '%{date} までにアップグレードすると割引が適用されます。🎉'
       free: &pricing_free
