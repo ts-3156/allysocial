@@ -59,8 +59,6 @@ ja:
       contact:
         title_html: '使ってくれて <i class="fas fa-heart"></i> ありがとう！'
         text_html: 'このアプリはリリースされたばかりです。バグは積極的に直していきます。<br>もし分からないことがあれば、お気軽にご連絡ください。'
-        account: '公式アカウント'
-        tweet: 'ツイートする'
     pricing:
       description: '%{date} までにアップグレードすると割引が適用されます。🎉'
       free: &pricing_free
@@ -204,6 +202,9 @@ ja:
         accepted_html: '@%{user} を検索中です。<img src="%{url}">'
         not_found: '@%{user} が見付かりませんでした。入力したユーザーIDが間違っていないかご確認ください。'
   shared:
+    share_buttons:
+      account: '公式アカウント'
+      tweet: 'ツイートする'
     profile_section:
       details: 'プロフィール詳細を開く'
       statuses: 'ツイート'

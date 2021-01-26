@@ -59,8 +59,6 @@ en:
       contact:
         title_html: 'We <i class="fas fa-heart"></i> new customers!'
         text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
-        account: 'Official account'
-        tweet: 'Tweet'
     pricing:
       description: 'Apply a discount when you upgrade by %{date}. 🎉'
       free: &pricing_free
@@ -205,6 +203,9 @@ en:
         accepted_html: 'Searching @%{user} ... <img src="%{url}">'
         not_found: '@%{user} is not found. Please make sure that the user ID you entered is correct.'
   shared:
+    share_buttons:
+      account: '公式アカウント'
+      tweet: 'ツイートする'
     profile_section:
       details: 'Show profile details'
       statuses: 'Statuses'
