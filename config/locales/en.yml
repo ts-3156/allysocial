@@ -56,6 +56,11 @@ en:
         a2: 'You can find new connections that match your search conditions from your followers. You can search by job, location, URL, or keyword.'
         q3: 'Does %{app} have an official account?'
         a3_html: '<a style="color: #007bff;" href="https://twitter.com/egotter_cs" target="_blank">@egotter_cs</a> is the official account. If you have any questions, please feel free to ask.'
+        q4: 'Is there a limit to the number of followers I can search?'
+        a4_html: |
+          The free version allows you to search up to the first 5,000 users,<br>
+          the Plus plan allows you to search up to the first 100,000 users,<br>
+          and the Pro plan allows you to search up to the first 1,000,000 users.
       contact:
         title_html: 'We <i class="fas fa-heart"></i> new customers!'
         text_html: 'This app has only just been released. I will be actively fixing bugs.<br>If you have any requests, please feel free to contact me.'
@@ -204,8 +209,8 @@ en:
         not_found: '@%{user} is not found. Please make sure that the user ID you entered is correct.'
   shared:
     share_buttons:
-      account: '公式アカウント'
-      tweet: 'ツイートする'
+      account: 'Official account'
+      tweet: 'Tweet'
     profile_section:
       details: 'Show profile details'
       statuses: 'Statuses'
